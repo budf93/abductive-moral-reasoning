@@ -1,0 +1,47 @@
+Pada awalnya, kode ini mengubah problem natural language menjadi problem SAT. Ide ini diambil dari paper SatLM : Satisfiability-Aided Language Models Using Declarative Prompting (https://arxiv.org/pdf/2305.09656). Pada run_manual.py, data diambil dari direktori SAT-LM\data yang akan diubah menjadi formula SAT yang bentuknya mengikuti kode Python yang disimpan di SAT-LM\misc. Formula SAT tersebut nantinya akan disimpan di SAT-LM\tmp. Selanjutnya, output dari SAT-LM\misc akan diambil oleh SAT-LM\cluttr_to_sat.py untuk memperoleh formula logika yang bisa digunakan oleh Cadical dan Cadiback. Alur pengolahan data pada program ini dimulai dari tahap inferensi menggunakan LLM dan berakhir pada penarikan kesimpulan melalui SAT solver.
+
+Tahap 1: Generasi Logika oleh LLM (run_manual.py & SAT-LM\misc)
+Alur dimulai dengan menjalankan skrip SAT-LM\run_manual.py. Skrip ini mengambil dataset mentah dalam format JSON dari direktori SAT-LM\data. LLM kemudian memproses teks natural language tersebut dan menghasilkan representasi logika yang bentuknya mengikuti sintaks Python/Z3 (https://z3prover.github.io/api/html/namespacez3py.html). Hasil prediksi mentah dari LLM ini disimpan sebagai file JSON di direktori SAT-LM\misc. File di dalam misc ini berfungsi sebagai cache hasil inferensi yang berisi teks program logika yang belum dieksekusi.
+
+Contoh representasi logika:
+
+# solution in Python:
+def solution():
+    # [Elliott] is excited to cheer on his brother [James] in the homecoming game tonight.
+    relation(Elliott, James) = (brother, brother)
+    # [Alan] love his brother [Elliott]. They are always playing together.
+    relation(Alan, Elliott) = (brother, brother)
+    # [Alan] loves his daughter [Annie].
+    relation(Alan, Annie) = (father, daughter)
+    # How is [Annie] related to [James]?
+    return relation(Annie, James)
+
+Setelah hasil prediksi tersedia di misc, skrip perantara (seperti SAT-LM\prog_solver\clutrr_solver.py) akan mengekstrak blok kode Python dari file JSON tersebut. Kode yang diekstrak kemudian dibersihkan dan disimpan sebagai file skrip Python individual di direktori SAT-LM\tmp (misalnya, clutrr0.py). Setiap file di tmp ini merepresentasikan satu masalah logika yang siap untuk diterjemahkan lebih lanjut ke format yang dipahami oleh solver SAT.
+
+Tahap 2: Penerjemahan ke Format SAT (cluttr_to_sat.py & main\dimacs)
+Langkah berikutnya melibatkan skrip penerjemah seperti SAT-LM\cluttr_to_sat.py. Skrip ini membaca file-file Python di SAT-LM\tmp sebagai input teks. Melalui bantuan library SymPy, logika program tersebut diubah menjadi ekspresi CNF (Conjunctive Normal Form). Hasil akhir dari tahap ini adalah file berformat DIMACS (.cnf) yang disimpan di direktori main\dimacs. File DIMACS inilah yang menjadi input standar bagi mesin solver SAT.
+
+Tahap 3: Penyelesaian dan Verifikasi Akhir (main\argos\cot_met_clutrr.py)
+Tahap terakhir dilakukan oleh skrip utama seperti main\argos\cot_met_clutrr.py. Skrip ini mengorkestrasi pemanggilan solver CaDiCaL dan CadiBack terhadap file-file di direktori dimacs. Solver akan menghasilkan file log (.log) dan backbone (.bbone) yang berisi solusi teknis dari masalah logika tersebut. Skrip cot_met_clutrr.py kemudian membaca hasil tersebut, memetakannya kembali ke konteks masalah asli, dan memberikan jawaban akhir (True/False) berdasarkan perhitungan logika yang presisi.
+
+Alur Injeksi Formula SAT ke CaDiCaL dan CadiBack
+
+Proses injeksi formula SAT dilakukan melalui beberapa tahap penerjemahan:
+
+1. Output LLM (SAT-LM\misc): Hasil prediksi LLM disimpan dalam format JSON di direktori SAT-LM\misc. File ini berisi representasi masalah dalam bentuk kode Python/Z3 (misalnya, relation(Jason, Guillermina) = (grandfather, granddaughter)).
+
+2. Transformasi Kode (SAT-LM\tmp): Skrip seperti cluttr_to_sat.py membaca file dari SAT-LM\misc dan menyederhanakannya menjadi skrip Python yang menggunakan library Z3, yang kemudian disimpan di SAT-LM\tmp (misalnya, clutrr0.py).
+
+3. Parsing ke SymPy: Skrip [dataset]_to_sat.py membaca file .py di SAT-LM\tmp sebagai teks. Skrip ini menggunakan regular expressions untuk mengekstrak predikat dan aturan logika, lalu mengubahnya menjadi ekspresi logika SymPy secara dinamis (menggunakan exec()).
+
+4. Konversi CNF & DIMACS:
+   - Ekspresi SymPy tersebut dikonversi ke bentuk Conjunctive Normal Form (CNF) menggunakan fungsi to_cnf().
+   - Objek CNF kemudian dipetakan ke format DIMACS (.cnf) standar melalui class DimacsMapping, di mana setiap simbol logika diberikan ID integer unik.
+
+5. Eksekusi Solver:
+   - File .cnf yang dihasilkan disimpan di direktori main\dimacs.
+   - Pipeline eksekusi (seperti main\argos\cot_met_pronto.py) memanggil solver eksternal melalui perintah sistem (os.system):
+     - CaDiCaL: Digunakan untuk mencari solusi pemuasan (satisfying assignments). Hasilnya disimpan sebagai file .log.
+     - CadiBack: Digunakan untuk ekstraksi backbone variables (literal yang harus bernilai benar di semua model). Hasilnya disimpan sebagai file .bbone.
+
+6. Parsing Hasil: Output teks dari .log dan .bbone dibaca kembali oleh Python untuk menentukan jawaban akhir dari pertanyaan natural language yang diberikan.

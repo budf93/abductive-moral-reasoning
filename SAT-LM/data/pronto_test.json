@@ -1,0 +1,2602 @@
+[
+{
+"question": "3 is real.",
+"query": "True or false: 3 is real.",
+"chain_of_thought": [
+"3 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"3 is a prime number.",
+"Prime numbers are natural numbers.",
+"3 is a natural number.",
+"Every natural number is an integer.",
+"3 is an integer.",
+"Integers are real numbers.",
+"3 is a real number.",
+"Real numbers are real.",
+"3 is real."
+],
+"context": [
+"Prime numbers are natural numbers",
+"Every natural number is an integer",
+"Integers are real numbers",
+"Real numbers are real",
+"3 is a Mersenne prime"
+],
+"missing": "Each Mersenne prime is a prime number",
+"label": "true"
+},
+{
+"question": "Sally is warm-blooded.",
+"query": "True or false: Sally is warm-blooded.",
+"chain_of_thought": [
+"Sally is a tabby.",
+"Tabbies are cats.",
+"Sally is a cat.",
+"Cats are felines.",
+"Sally is a feline.",
+"Every feline is a carnivore.",
+"Sally is a carnivore.",
+"Carnivores are mammals.",
+"Sally is a mammal.",
+"Every mammal is warm-blooded.",
+"Sally is warm-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Cats are felines",
+"Every feline is a carnivore",
+"Carnivores are mammals",
+"Sally is a tabby"
+],
+"missing": "Every mammal is warm-blooded",
+"label": "true"
+},
+{
+"question": "3 is imaginary.",
+"query": "True or false: 3 is imaginary.",
+"chain_of_thought": [
+"3 is a Mersenne prime.",
+"Every Mersenne prime is a prime number.",
+"3 is a prime number.",
+"Prime numbers are natural numbers.",
+"3 is a natural number.",
+"Natural numbers are integers.",
+"3 is an integer.",
+"Every integer is a real number.",
+"3 is a real number.",
+"Every real number is not imaginary.",
+"3 is not imaginary."
+],
+"context": [
+"Every Mersenne prime is a prime number",
+"Prime numbers are natural numbers",
+"Every integer is a real number",
+"Every real number is not imaginary",
+"3 is a Mersenne prime"
+],
+"missing": "Natural numbers are integers",
+"label": "false"
+},
+{
+"question": "Max is not bony.",
+"query": "True or false: Max is not bony.",
+"chain_of_thought": [
+"Max is a painted lady.",
+"Each painted lady is a butterfly.",
+"Max is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Max is a lepidopteran.",
+"Lepidopterans are insects.",
+"Max is an insect.",
+"Every insect is an arthropod.",
+"Max is an arthropod.",
+"Each arthropod is not bony.",
+"Max is not bony."
+],
+"context": [
+"Each painted lady is a butterfly",
+"Each butterfly is a lepidopteran",
+"Lepidopterans are insects",
+"Every insect is an arthropod",
+"Max is a painted lady"
+],
+"missing": "Each arthropod is not bony",
+"label": "true"
+},
+{
+"question": "3 is not real.",
+"query": "True or false: 3 is not real.",
+"chain_of_thought": [
+"3 is a Mersenne prime.",
+"Every Mersenne prime is a prime number.",
+"3 is a prime number.",
+"Each prime number is a natural number.",
+"3 is a natural number.",
+"Natural numbers are integers.",
+"3 is an integer.",
+"Each integer is a real number.",
+"3 is a real number.",
+"Real numbers are real.",
+"3 is real."
+],
+"context": [
+"Every Mersenne prime is a prime number",
+"Natural numbers are integers",
+"Each integer is a real number",
+"Real numbers are real",
+"3 is a Mersenne prime"
+],
+"missing": "Each prime number is a natural number",
+"label": "false"
+},
+{
+"question": "127 is not imaginary.",
+"query": "True or false: 127 is not imaginary.",
+"chain_of_thought": [
+"127 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"127 is a prime number.",
+"Each prime number is a natural number.",
+"127 is a natural number.",
+"Natural numbers are integers.",
+"127 is an integer.",
+"Every integer is a real number.",
+"127 is a real number.",
+"Each real number is not imaginary.",
+"127 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Each prime number is a natural number",
+"Natural numbers are integers",
+"Every integer is a real number",
+"127 is a Mersenne prime"
+],
+"missing": "Each real number is not imaginary",
+"label": "true"
+},
+{
+"question": "Sam is segmented.",
+"query": "True or false: Sam is segmented.",
+"chain_of_thought": [
+"Sam is a painted lady.",
+"Each painted lady is a butterfly.",
+"Sam is a butterfly.",
+"Butterflies are lepidopterans.",
+"Sam is a lepidopteran.",
+"Each lepidopteran is an insect.",
+"Sam is an insect.",
+"Insects are arthropods.",
+"Sam is an arthropod.",
+"Arthropods are segmented.",
+"Sam is segmented."
+],
+"context": [
+"Each painted lady is a butterfly",
+"Butterflies are lepidopterans",
+"Each lepidopteran is an insect",
+"Insects are arthropods",
+"Arthropods are segmented"
+],
+"missing": "Sam is a painted lady",
+"label": "true"
+},
+{
+"question": "8191 is not imaginary.",
+"query": "True or false: 8191 is not imaginary.",
+"chain_of_thought": [
+"8191 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"8191 is a prime number.",
+"Prime numbers are natural numbers.",
+"8191 is a natural number.",
+"Natural numbers are integers.",
+"8191 is an integer.",
+"Integers are real numbers.",
+"8191 is a real number.",
+"Every real number is not imaginary.",
+"8191 is not imaginary."
+],
+"context": [
+"Prime numbers are natural numbers",
+"Natural numbers are integers",
+"Integers are real numbers",
+"Every real number is not imaginary",
+"8191 is a Mersenne prime"
+],
+"missing": "Each Mersenne prime is a prime number",
+"label": "true"
+},
+{
+"question": "31 is imaginary.",
+"query": "True or false: 31 is imaginary.",
+"chain_of_thought": [
+"31 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"31 is a prime number.",
+"Prime numbers are natural numbers.",
+"31 is a natural number.",
+"Every natural number is an integer.",
+"31 is an integer.",
+"Every integer is a real number.",
+"31 is a real number.",
+"Every real number is not imaginary.",
+"31 is not imaginary."
+],
+"context": [
+"Prime numbers are natural numbers",
+"Every natural number is an integer",
+"Every integer is a real number",
+"Every real number is not imaginary",
+"31 is a Mersenne prime"
+],
+"missing": "Mersenne primes are prime numbers",
+"label": "false"
+},
+{
+"question": "Stella is segmented.",
+"query": "True or false: Stella is segmented.",
+"chain_of_thought": [
+"Stella is a painted lady.",
+"Painted ladies are butterflies.",
+"Stella is a butterfly.",
+"Butterflies are lepidopterans.",
+"Stella is a lepidopteran.",
+"Lepidopterans are insects.",
+"Stella is an insect.",
+"Insects are arthropods.",
+"Stella is an arthropod.",
+"Every arthropod is segmented.",
+"Stella is segmented."
+],
+"context": [
+"Painted ladies are butterflies",
+"Butterflies are lepidopterans",
+"Lepidopterans are insects",
+"Insects are arthropods",
+"Every arthropod is segmented"
+],
+"missing": "Stella is a painted lady",
+"label": "true"
+},
+{
+"question": "Sally is not bony.",
+"query": "True or false: Sally is not bony.",
+"chain_of_thought": [
+"Sally is a painted lady.",
+"Painted ladies are butterflies.",
+"Sally is a butterfly.",
+"Every butterfly is a lepidopteran.",
+"Sally is a lepidopteran.",
+"Each lepidopteran is an insect.",
+"Sally is an insect.",
+"Every insect is an arthropod.",
+"Sally is an arthropod.",
+"Arthropods are not bony.",
+"Sally is not bony."
+],
+"context": [
+"Painted ladies are butterflies",
+"Every butterfly is a lepidopteran",
+"Each lepidopteran is an insect",
+"Arthropods are not bony",
+"Sally is a painted lady"
+],
+"missing": "Every insect is an arthropod",
+"label": "true"
+},
+{
+"question": "Alex is not small.",
+"query": "True or false: Alex is not small.",
+"chain_of_thought": [
+"Alex is a painted lady.",
+"Painted ladies are butterflies.",
+"Alex is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Alex is a lepidopteran.",
+"Each lepidopteran is an insect.",
+"Alex is an insect.",
+"Each insect is an arthropod.",
+"Alex is an arthropod.",
+"Arthropods are small.",
+"Alex is small."
+],
+"context": [
+"Painted ladies are butterflies",
+"Each butterfly is a lepidopteran",
+"Each lepidopteran is an insect",
+"Each insect is an arthropod",
+"Alex is a painted lady"
+],
+"missing": "Arthropods are small",
+"label": "false"
+},
+{
+"question": "Sam is bony.",
+"query": "True or false: Sam is bony.",
+"chain_of_thought": [
+"Sam is a painted lady.",
+"Painted ladies are butterflies.",
+"Sam is a butterfly.",
+"Butterflies are lepidopterans.",
+"Sam is a lepidopteran.",
+"Lepidopterans are insects.",
+"Sam is an insect.",
+"Each insect is an arthropod.",
+"Sam is an arthropod.",
+"Arthropods are not bony.",
+"Sam is not bony."
+],
+"context": [
+"Painted ladies are butterflies",
+"Butterflies are lepidopterans",
+"Lepidopterans are insects",
+"Each insect is an arthropod",
+"Arthropods are not bony"
+],
+"missing": "Sam is a painted lady",
+"label": "false"
+},
+{
+"question": "8191 is imaginary.",
+"query": "True or false: 8191 is imaginary.",
+"chain_of_thought": [
+"8191 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"8191 is a prime number.",
+"Prime numbers are natural numbers.",
+"8191 is a natural number.",
+"Every natural number is an integer.",
+"8191 is an integer.",
+"Integers are real numbers.",
+"8191 is a real number.",
+"Real numbers are not imaginary.",
+"8191 is not imaginary."
+],
+"context": [
+"Each Mersenne prime is a prime number",
+"Prime numbers are natural numbers",
+"Every natural number is an integer",
+"Real numbers are not imaginary",
+"8191 is a Mersenne prime"
+],
+"missing": "Integers are real numbers",
+"label": "false"
+},
+{
+"question": "3 is imaginary.",
+"query": "True or false: 3 is imaginary.",
+"chain_of_thought": [
+"3 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"3 is a prime number.",
+"Every prime number is a natural number.",
+"3 is a natural number.",
+"Each natural number is an integer.",
+"3 is an integer.",
+"Every integer is a real number.",
+"3 is a real number.",
+"Each real number is not imaginary.",
+"3 is not imaginary."
+],
+"context": [
+"Every prime number is a natural number",
+"Each natural number is an integer",
+"Every integer is a real number",
+"Each real number is not imaginary",
+"3 is a Mersenne prime"
+],
+"missing": "Each Mersenne prime is a prime number",
+"label": "false"
+},
+{
+"question": "Polly is cold-blooded.",
+"query": "True or false: Polly is cold-blooded.",
+"chain_of_thought": [
+"Polly is a tabby.",
+"Every tabby is a cat.",
+"Polly is a cat.",
+"Each cat is a feline.",
+"Polly is a feline.",
+"Every feline is a carnivore.",
+"Polly is a carnivore.",
+"Each carnivore is a mammal.",
+"Polly is a mammal.",
+"Each mammal is not cold-blooded.",
+"Polly is not cold-blooded."
+],
+"context": [
+"Every tabby is a cat",
+"Each cat is a feline",
+"Each carnivore is a mammal",
+"Each mammal is not cold-blooded",
+"Polly is a tabby"
+],
+"missing": "Every feline is a carnivore",
+"label": "false"
+},
+{
+"question": "Sally is segmented.",
+"query": "True or false: Sally is segmented.",
+"chain_of_thought": [
+"Sally is a painted lady.",
+"Every painted lady is a butterfly.",
+"Sally is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Sally is a lepidopteran.",
+"Lepidopterans are insects.",
+"Sally is an insect.",
+"Every insect is an arthropod.",
+"Sally is an arthropod.",
+"Each arthropod is segmented.",
+"Sally is segmented."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Each butterfly is a lepidopteran",
+"Every insect is an arthropod",
+"Each arthropod is segmented",
+"Sally is a painted lady"
+],
+"missing": "Lepidopterans are insects",
+"label": "true"
+},
+{
+"question": "Alex is warm-blooded.",
+"query": "True or false: Alex is warm-blooded.",
+"chain_of_thought": [
+"Alex is a tabby.",
+"Every tabby is a cat.",
+"Alex is a cat.",
+"Every cat is a feline.",
+"Alex is a feline.",
+"Each feline is a carnivore.",
+"Alex is a carnivore.",
+"Each carnivore is a mammal.",
+"Alex is a mammal.",
+"Mammals are warm-blooded.",
+"Alex is warm-blooded."
+],
+"context": [
+"Every tabby is a cat",
+"Every cat is a feline",
+"Each feline is a carnivore",
+"Mammals are warm-blooded",
+"Alex is a tabby"
+],
+"missing": "Each carnivore is a mammal",
+"label": "true"
+},
+{
+"question": "131071 is not real.",
+"query": "True or false: 131071 is not real.",
+"chain_of_thought": [
+"131071 is a Mersenne prime.",
+"Every Mersenne prime is a prime number.",
+"131071 is a prime number.",
+"Prime numbers are natural numbers.",
+"131071 is a natural number.",
+"Each natural number is an integer.",
+"131071 is an integer.",
+"Each integer is a real number.",
+"131071 is a real number.",
+"Each real number is real.",
+"131071 is real."
+],
+"context": [
+"Every Mersenne prime is a prime number",
+"Each natural number is an integer",
+"Each integer is a real number",
+"Each real number is real",
+"131071 is a Mersenne prime"
+],
+"missing": "Prime numbers are natural numbers",
+"label": "false"
+},
+{
+"question": "Sally is small.",
+"query": "True or false: Sally is small.",
+"chain_of_thought": [
+"Sally is a painted lady.",
+"Every painted lady is a butterfly.",
+"Sally is a butterfly.",
+"Every butterfly is a lepidopteran.",
+"Sally is a lepidopteran.",
+"Lepidopterans are insects.",
+"Sally is an insect.",
+"Each insect is an arthropod.",
+"Sally is an arthropod.",
+"Each arthropod is small.",
+"Sally is small."
+],
+"context": [
+"Every butterfly is a lepidopteran",
+"Lepidopterans are insects",
+"Each insect is an arthropod",
+"Each arthropod is small",
+"Sally is a painted lady"
+],
+"missing": "Every painted lady is a butterfly",
+"label": "true"
+},
+{
+"question": "Alex is small.",
+"query": "True or false: Alex is small.",
+"chain_of_thought": [
+"Alex is a painted lady.",
+"Every painted lady is a butterfly.",
+"Alex is a butterfly.",
+"Every butterfly is a lepidopteran.",
+"Alex is a lepidopteran.",
+"Every lepidopteran is an insect.",
+"Alex is an insect.",
+"Insects are arthropods.",
+"Alex is an arthropod.",
+"Arthropods are small.",
+"Alex is small."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Every butterfly is a lepidopteran",
+"Every lepidopteran is an insect",
+"Insects are arthropods",
+"Alex is a painted lady"
+],
+"missing": "Arthropods are small",
+"label": "true"
+},
+{
+"question": "Wren is not bony.",
+"query": "True or false: Wren is not bony.",
+"chain_of_thought": [
+"Wren is a painted lady.",
+"Painted ladies are butterflies.",
+"Wren is a butterfly.",
+"Butterflies are lepidopterans.",
+"Wren is a lepidopteran.",
+"Each lepidopteran is an insect.",
+"Wren is an insect.",
+"Each insect is an arthropod.",
+"Wren is an arthropod.",
+"Arthropods are not bony.",
+"Wren is not bony."
+],
+"context": [
+"Painted ladies are butterflies",
+"Butterflies are lepidopterans",
+"Each lepidopteran is an insect",
+"Each insect is an arthropod",
+"Arthropods are not bony"
+],
+"missing": "Wren is a painted lady",
+"label": "true"
+},
+{
+"question": "3 is not real.",
+"query": "True or false: 3 is not real.",
+"chain_of_thought": [
+"3 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"3 is a prime number.",
+"Prime numbers are natural numbers.",
+"3 is a natural number.",
+"Natural numbers are integers.",
+"3 is an integer.",
+"Integers are real numbers.",
+"3 is a real number.",
+"Each real number is real.",
+"3 is real."
+],
+"context": [
+"Prime numbers are natural numbers",
+"Natural numbers are integers",
+"Integers are real numbers",
+"Each real number is real",
+"3 is a Mersenne prime"
+],
+"missing": "Mersenne primes are prime numbers",
+"label": "false"
+},
+{
+"question": "3 is not imaginary.",
+"query": "True or false: 3 is not imaginary.",
+"chain_of_thought": [
+"3 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"3 is a prime number.",
+"Each prime number is a natural number.",
+"3 is a natural number.",
+"Every natural number is an integer.",
+"3 is an integer.",
+"Integers are real numbers.",
+"3 is a real number.",
+"Real numbers are not imaginary.",
+"3 is not imaginary."
+],
+"context": [
+"Each prime number is a natural number",
+"Every natural number is an integer",
+"Integers are real numbers",
+"Real numbers are not imaginary",
+"3 is a Mersenne prime"
+],
+"missing": "Mersenne primes are prime numbers",
+"label": "true"
+},
+{
+"question": "31 is not imaginary.",
+"query": "True or false: 31 is not imaginary.",
+"chain_of_thought": [
+"31 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"31 is a prime number.",
+"Every prime number is a natural number.",
+"31 is a natural number.",
+"Natural numbers are integers.",
+"31 is an integer.",
+"Each integer is a real number.",
+"31 is a real number.",
+"Every real number is not imaginary.",
+"31 is not imaginary."
+],
+"context": [
+"Every prime number is a natural number",
+"Natural numbers are integers",
+"Each integer is a real number",
+"Every real number is not imaginary",
+"31 is a Mersenne prime"
+],
+"missing": "Mersenne primes are prime numbers",
+"label": "true"
+},
+{
+"question": "8191 is real.",
+"query": "True or false: 8191 is real.",
+"chain_of_thought": [
+"8191 is a Mersenne prime.",
+"Every Mersenne prime is a prime number.",
+"8191 is a prime number.",
+"Each prime number is a natural number.",
+"8191 is a natural number.",
+"Every natural number is an integer.",
+"8191 is an integer.",
+"Integers are real numbers.",
+"8191 is a real number.",
+"Real numbers are real.",
+"8191 is real."
+],
+"context": [
+"Every Mersenne prime is a prime number",
+"Each prime number is a natural number",
+"Every natural number is an integer",
+"Integers are real numbers",
+"8191 is a Mersenne prime"
+],
+"missing": "Real numbers are real",
+"label": "true"
+},
+{
+"question": "Wren is not segmented.",
+"query": "True or false: Wren is not segmented.",
+"chain_of_thought": [
+"Wren is a painted lady.",
+"Every painted lady is a butterfly.",
+"Wren is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Wren is a lepidopteran.",
+"Each lepidopteran is an insect.",
+"Wren is an insect.",
+"Insects are arthropods.",
+"Wren is an arthropod.",
+"Every arthropod is segmented.",
+"Wren is segmented."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Each butterfly is a lepidopteran",
+"Insects are arthropods",
+"Every arthropod is segmented",
+"Wren is a painted lady"
+],
+"missing": "Each lepidopteran is an insect",
+"label": "false"
+},
+{
+"question": "Max is small.",
+"query": "True or false: Max is small.",
+"chain_of_thought": [
+"Max is a painted lady.",
+"Every painted lady is a butterfly.",
+"Max is a butterfly.",
+"Butterflies are lepidopterans.",
+"Max is a lepidopteran.",
+"Lepidopterans are insects.",
+"Max is an insect.",
+"Insects are arthropods.",
+"Max is an arthropod.",
+"Arthropods are small.",
+"Max is small."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Lepidopterans are insects",
+"Insects are arthropods",
+"Arthropods are small",
+"Max is a painted lady"
+],
+"missing": "Butterflies are lepidopterans",
+"label": "true"
+},
+{
+"question": "Wren is not furry.",
+"query": "True or false: Wren is not furry.",
+"chain_of_thought": [
+"Wren is a tabby.",
+"Each tabby is a cat.",
+"Wren is a cat.",
+"Every cat is a feline.",
+"Wren is a feline.",
+"Every feline is a carnivore.",
+"Wren is a carnivore.",
+"Carnivores are mammals.",
+"Wren is a mammal.",
+"Each mammal is furry.",
+"Wren is furry."
+],
+"context": [
+"Each tabby is a cat",
+"Every cat is a feline",
+"Carnivores are mammals",
+"Each mammal is furry",
+"Wren is a tabby"
+],
+"missing": "Every feline is a carnivore",
+"label": "false"
+},
+{
+"question": "131071 is imaginary.",
+"query": "True or false: 131071 is imaginary.",
+"chain_of_thought": [
+"131071 is a Mersenne prime.",
+"Every Mersenne prime is a prime number.",
+"131071 is a prime number.",
+"Every prime number is a natural number.",
+"131071 is a natural number.",
+"Every natural number is an integer.",
+"131071 is an integer.",
+"Integers are real numbers.",
+"131071 is a real number.",
+"Real numbers are not imaginary.",
+"131071 is not imaginary."
+],
+"context": [
+"Every prime number is a natural number",
+"Every natural number is an integer",
+"Integers are real numbers",
+"Real numbers are not imaginary",
+"131071 is a Mersenne prime"
+],
+"missing": "Every Mersenne prime is a prime number",
+"label": "false"
+},
+{
+"question": "8191 is imaginary.",
+"query": "True or false: 8191 is imaginary.",
+"chain_of_thought": [
+"8191 is a Mersenne prime.",
+"Every Mersenne prime is a prime number.",
+"8191 is a prime number.",
+"Prime numbers are natural numbers.",
+"8191 is a natural number.",
+"Natural numbers are integers.",
+"8191 is an integer.",
+"Each integer is a real number.",
+"8191 is a real number.",
+"Real numbers are not imaginary.",
+"8191 is not imaginary."
+],
+"context": [
+"Every Mersenne prime is a prime number",
+"Prime numbers are natural numbers",
+"Natural numbers are integers",
+"Each integer is a real number",
+"Real numbers are not imaginary"
+],
+"missing": "8191 is a Mersenne prime",
+"label": "false"
+},
+{
+"question": "Polly is not segmented.",
+"query": "True or false: Polly is not segmented.",
+"chain_of_thought": [
+"Polly is a painted lady.",
+"Painted ladies are butterflies.",
+"Polly is a butterfly.",
+"Butterflies are lepidopterans.",
+"Polly is a lepidopteran.",
+"Every lepidopteran is an insect.",
+"Polly is an insect.",
+"Every insect is an arthropod.",
+"Polly is an arthropod.",
+"Each arthropod is segmented.",
+"Polly is segmented."
+],
+"context": [
+"Painted ladies are butterflies",
+"Butterflies are lepidopterans",
+"Every insect is an arthropod",
+"Each arthropod is segmented",
+"Polly is a painted lady"
+],
+"missing": "Every lepidopteran is an insect",
+"label": "false"
+},
+{
+"question": "Max is segmented.",
+"query": "True or false: Max is segmented.",
+"chain_of_thought": [
+"Max is a painted lady.",
+"Each painted lady is a butterfly.",
+"Max is a butterfly.",
+"Butterflies are lepidopterans.",
+"Max is a lepidopteran.",
+"Lepidopterans are insects.",
+"Max is an insect.",
+"Insects are arthropods.",
+"Max is an arthropod.",
+"Each arthropod is segmented.",
+"Max is segmented."
+],
+"context": [
+"Each painted lady is a butterfly",
+"Butterflies are lepidopterans",
+"Lepidopterans are insects",
+"Each arthropod is segmented",
+"Max is a painted lady"
+],
+"missing": "Insects are arthropods",
+"label": "true"
+},
+{
+"question": "7 is not imaginary.",
+"query": "True or false: 7 is not imaginary.",
+"chain_of_thought": [
+"7 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"7 is a prime number.",
+"Each prime number is a natural number.",
+"7 is a natural number.",
+"Natural numbers are integers.",
+"7 is an integer.",
+"Integers are real numbers.",
+"7 is a real number.",
+"Every real number is not imaginary.",
+"7 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Each prime number is a natural number",
+"Natural numbers are integers",
+"Integers are real numbers",
+"Every real number is not imaginary"
+],
+"missing": "7 is a Mersenne prime",
+"label": "true"
+},
+{
+"question": "Sam is cold-blooded.",
+"query": "True or false: Sam is cold-blooded.",
+"chain_of_thought": [
+"Sam is a tabby.",
+"Tabbies are cats.",
+"Sam is a cat.",
+"Cats are felines.",
+"Sam is a feline.",
+"Felines are carnivores.",
+"Sam is a carnivore.",
+"Each carnivore is a mammal.",
+"Sam is a mammal.",
+"Mammals are not cold-blooded.",
+"Sam is not cold-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Cats are felines",
+"Felines are carnivores",
+"Each carnivore is a mammal",
+"Mammals are not cold-blooded"
+],
+"missing": "Sam is a tabby",
+"label": "false"
+},
+{
+"question": "Fae is bony.",
+"query": "True or false: Fae is bony.",
+"chain_of_thought": [
+"Fae is a painted lady.",
+"Painted ladies are butterflies.",
+"Fae is a butterfly.",
+"Butterflies are lepidopterans.",
+"Fae is a lepidopteran.",
+"Lepidopterans are insects.",
+"Fae is an insect.",
+"Insects are arthropods.",
+"Fae is an arthropod.",
+"Arthropods are not bony.",
+"Fae is not bony."
+],
+"context": [
+"Painted ladies are butterflies",
+"Butterflies are lepidopterans",
+"Lepidopterans are insects",
+"Insects are arthropods",
+"Arthropods are not bony"
+],
+"missing": "Fae is a painted lady",
+"label": "false"
+},
+{
+"question": "Rex is cold-blooded.",
+"query": "True or false: Rex is cold-blooded.",
+"chain_of_thought": [
+"Rex is a tabby.",
+"Tabbies are cats.",
+"Rex is a cat.",
+"Cats are felines.",
+"Rex is a feline.",
+"Felines are carnivores.",
+"Rex is a carnivore.",
+"Each carnivore is a mammal.",
+"Rex is a mammal.",
+"Every mammal is not cold-blooded.",
+"Rex is not cold-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Cats are felines",
+"Felines are carnivores",
+"Each carnivore is a mammal",
+"Every mammal is not cold-blooded"
+],
+"missing": "Rex is a tabby",
+"label": "false"
+},
+{
+"question": "8191 is real.",
+"query": "True or false: 8191 is real.",
+"chain_of_thought": [
+"8191 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"8191 is a prime number.",
+"Each prime number is a natural number.",
+"8191 is a natural number.",
+"Natural numbers are integers.",
+"8191 is an integer.",
+"Integers are real numbers.",
+"8191 is a real number.",
+"Real numbers are real.",
+"8191 is real."
+],
+"context": [
+"Each Mersenne prime is a prime number",
+"Each prime number is a natural number",
+"Natural numbers are integers",
+"Integers are real numbers",
+"Real numbers are real"
+],
+"missing": "8191 is a Mersenne prime",
+"label": "true"
+},
+{
+"question": "Stella is not bony.",
+"query": "True or false: Stella is not bony.",
+"chain_of_thought": [
+"Stella is a painted lady.",
+"Painted ladies are butterflies.",
+"Stella is a butterfly.",
+"Butterflies are lepidopterans.",
+"Stella is a lepidopteran.",
+"Lepidopterans are insects.",
+"Stella is an insect.",
+"Each insect is an arthropod.",
+"Stella is an arthropod.",
+"Arthropods are not bony.",
+"Stella is not bony."
+],
+"context": [
+"Painted ladies are butterflies",
+"Lepidopterans are insects",
+"Each insect is an arthropod",
+"Arthropods are not bony",
+"Stella is a painted lady"
+],
+"missing": "Butterflies are lepidopterans",
+"label": "true"
+},
+{
+"question": "Sam is not bony.",
+"query": "True or false: Sam is not bony.",
+"chain_of_thought": [
+"Sam is a painted lady.",
+"Painted ladies are butterflies.",
+"Sam is a butterfly.",
+"Every butterfly is a lepidopteran.",
+"Sam is a lepidopteran.",
+"Lepidopterans are insects.",
+"Sam is an insect.",
+"Each insect is an arthropod.",
+"Sam is an arthropod.",
+"Every arthropod is not bony.",
+"Sam is not bony."
+],
+"context": [
+"Every butterfly is a lepidopteran",
+"Lepidopterans are insects",
+"Each insect is an arthropod",
+"Every arthropod is not bony",
+"Sam is a painted lady"
+],
+"missing": "Painted ladies are butterflies",
+"label": "true"
+},
+{
+"question": "Rex is not bony.",
+"query": "True or false: Rex is not bony.",
+"chain_of_thought": [
+"Rex is a painted lady.",
+"Every painted lady is a butterfly.",
+"Rex is a butterfly.",
+"Butterflies are lepidopterans.",
+"Rex is a lepidopteran.",
+"Every lepidopteran is an insect.",
+"Rex is an insect.",
+"Insects are arthropods.",
+"Rex is an arthropod.",
+"Each arthropod is not bony.",
+"Rex is not bony."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Butterflies are lepidopterans",
+"Insects are arthropods",
+"Each arthropod is not bony",
+"Rex is a painted lady"
+],
+"missing": "Every lepidopteran is an insect",
+"label": "true"
+},
+{
+"question": "Alex is not warm-blooded.",
+"query": "True or false: Alex is not warm-blooded.",
+"chain_of_thought": [
+"Alex is a tabby.",
+"Each tabby is a cat.",
+"Alex is a cat.",
+"Cats are felines.",
+"Alex is a feline.",
+"Felines are carnivores.",
+"Alex is a carnivore.",
+"Carnivores are mammals.",
+"Alex is a mammal.",
+"Mammals are warm-blooded.",
+"Alex is warm-blooded."
+],
+"context": [
+"Cats are felines",
+"Felines are carnivores",
+"Carnivores are mammals",
+"Mammals are warm-blooded",
+"Alex is a tabby"
+],
+"missing": "Each tabby is a cat",
+"label": "false"
+},
+{
+"question": "8191 is real.",
+"query": "True or false: 8191 is real.",
+"chain_of_thought": [
+"8191 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"8191 is a prime number.",
+"Prime numbers are natural numbers.",
+"8191 is a natural number.",
+"Each natural number is an integer.",
+"8191 is an integer.",
+"Integers are real numbers.",
+"8191 is a real number.",
+"Each real number is real.",
+"8191 is real."
+],
+"context": [
+"Each Mersenne prime is a prime number",
+"Prime numbers are natural numbers",
+"Integers are real numbers",
+"Each real number is real",
+"8191 is a Mersenne prime"
+],
+"missing": "Each natural number is an integer",
+"label": "true"
+},
+{
+"question": "Alex is not segmented.",
+"query": "True or false: Alex is not segmented.",
+"chain_of_thought": [
+"Alex is a painted lady.",
+"Every painted lady is a butterfly.",
+"Alex is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Alex is a lepidopteran.",
+"Every lepidopteran is an insect.",
+"Alex is an insect.",
+"Each insect is an arthropod.",
+"Alex is an arthropod.",
+"Each arthropod is segmented.",
+"Alex is segmented."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Each butterfly is a lepidopteran",
+"Every lepidopteran is an insect",
+"Each insect is an arthropod",
+"Each arthropod is segmented"
+],
+"missing": "Alex is a painted lady",
+"label": "false"
+},
+{
+"question": "Sally is small.",
+"query": "True or false: Sally is small.",
+"chain_of_thought": [
+"Sally is a painted lady.",
+"Each painted lady is a butterfly.",
+"Sally is a butterfly.",
+"Butterflies are lepidopterans.",
+"Sally is a lepidopteran.",
+"Lepidopterans are insects.",
+"Sally is an insect.",
+"Insects are arthropods.",
+"Sally is an arthropod.",
+"Every arthropod is small.",
+"Sally is small."
+],
+"context": [
+"Each painted lady is a butterfly",
+"Butterflies are lepidopterans",
+"Insects are arthropods",
+"Every arthropod is small",
+"Sally is a painted lady"
+],
+"missing": "Lepidopterans are insects",
+"label": "true"
+},
+{
+"question": "127 is imaginary.",
+"query": "True or false: 127 is imaginary.",
+"chain_of_thought": [
+"127 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"127 is a prime number.",
+"Each prime number is a natural number.",
+"127 is a natural number.",
+"Each natural number is an integer.",
+"127 is an integer.",
+"Integers are real numbers.",
+"127 is a real number.",
+"Real numbers are not imaginary.",
+"127 is not imaginary."
+],
+"context": [
+"Each prime number is a natural number",
+"Each natural number is an integer",
+"Integers are real numbers",
+"Real numbers are not imaginary",
+"127 is a Mersenne prime"
+],
+"missing": "Mersenne primes are prime numbers",
+"label": "false"
+},
+{
+"question": "Alex is not segmented.",
+"query": "True or false: Alex is not segmented.",
+"chain_of_thought": [
+"Alex is a painted lady.",
+"Every painted lady is a butterfly.",
+"Alex is a butterfly.",
+"Butterflies are lepidopterans.",
+"Alex is a lepidopteran.",
+"Each lepidopteran is an insect.",
+"Alex is an insect.",
+"Every insect is an arthropod.",
+"Alex is an arthropod.",
+"Arthropods are segmented.",
+"Alex is segmented."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Butterflies are lepidopterans",
+"Each lepidopteran is an insect",
+"Arthropods are segmented",
+"Alex is a painted lady"
+],
+"missing": "Every insect is an arthropod",
+"label": "false"
+},
+{
+"question": "127 is imaginary.",
+"query": "True or false: 127 is imaginary.",
+"chain_of_thought": [
+"127 is a Mersenne prime.",
+"Every Mersenne prime is a prime number.",
+"127 is a prime number.",
+"Every prime number is a natural number.",
+"127 is a natural number.",
+"Every natural number is an integer.",
+"127 is an integer.",
+"Integers are real numbers.",
+"127 is a real number.",
+"Real numbers are not imaginary.",
+"127 is not imaginary."
+],
+"context": [
+"Every Mersenne prime is a prime number",
+"Every prime number is a natural number",
+"Every natural number is an integer",
+"Real numbers are not imaginary",
+"127 is a Mersenne prime"
+],
+"missing": "Integers are real numbers",
+"label": "false"
+},
+{
+"question": "Sam is not small.",
+"query": "True or false: Sam is not small.",
+"chain_of_thought": [
+"Sam is a painted lady.",
+"Painted ladies are butterflies.",
+"Sam is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Sam is a lepidopteran.",
+"Lepidopterans are insects.",
+"Sam is an insect.",
+"Each insect is an arthropod.",
+"Sam is an arthropod.",
+"Each arthropod is small.",
+"Sam is small."
+],
+"context": [
+"Painted ladies are butterflies",
+"Each butterfly is a lepidopteran",
+"Lepidopterans are insects",
+"Each insect is an arthropod",
+"Sam is a painted lady"
+],
+"missing": "Each arthropod is small",
+"label": "false"
+},
+{
+"question": "Sally is warm-blooded.",
+"query": "True or false: Sally is warm-blooded.",
+"chain_of_thought": [
+"Sally is a tabby.",
+"Tabbies are cats.",
+"Sally is a cat.",
+"Every cat is a feline.",
+"Sally is a feline.",
+"Felines are carnivores.",
+"Sally is a carnivore.",
+"Every carnivore is a mammal.",
+"Sally is a mammal.",
+"Mammals are warm-blooded.",
+"Sally is warm-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Felines are carnivores",
+"Every carnivore is a mammal",
+"Mammals are warm-blooded",
+"Sally is a tabby"
+],
+"missing": "Every cat is a feline",
+"label": "true"
+},
+{
+"question": "Fae is not warm-blooded.",
+"query": "True or false: Fae is not warm-blooded.",
+"chain_of_thought": [
+"Fae is a tabby.",
+"Every tabby is a cat.",
+"Fae is a cat.",
+"Every cat is a feline.",
+"Fae is a feline.",
+"Each feline is a carnivore.",
+"Fae is a carnivore.",
+"Every carnivore is a mammal.",
+"Fae is a mammal.",
+"Mammals are warm-blooded.",
+"Fae is warm-blooded."
+],
+"context": [
+"Every tabby is a cat",
+"Every cat is a feline",
+"Each feline is a carnivore",
+"Every carnivore is a mammal",
+"Fae is a tabby"
+],
+"missing": "Mammals are warm-blooded",
+"label": "false"
+},
+{
+"question": "127 is real.",
+"query": "True or false: 127 is real.",
+"chain_of_thought": [
+"127 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"127 is a prime number.",
+"Prime numbers are natural numbers.",
+"127 is a natural number.",
+"Natural numbers are integers.",
+"127 is an integer.",
+"Each integer is a real number.",
+"127 is a real number.",
+"Real numbers are real.",
+"127 is real."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Prime numbers are natural numbers",
+"Natural numbers are integers",
+"Each integer is a real number",
+"127 is a Mersenne prime"
+],
+"missing": "Real numbers are real",
+"label": "true"
+},
+{
+"question": "131071 is not imaginary.",
+"query": "True or false: 131071 is not imaginary.",
+"chain_of_thought": [
+"131071 is a Mersenne prime.",
+"Every Mersenne prime is a prime number.",
+"131071 is a prime number.",
+"Every prime number is a natural number.",
+"131071 is a natural number.",
+"Every natural number is an integer.",
+"131071 is an integer.",
+"Every integer is a real number.",
+"131071 is a real number.",
+"Every real number is not imaginary.",
+"131071 is not imaginary."
+],
+"context": [
+"Every Mersenne prime is a prime number",
+"Every natural number is an integer",
+"Every integer is a real number",
+"Every real number is not imaginary",
+"131071 is a Mersenne prime"
+],
+"missing": "Every prime number is a natural number",
+"label": "true"
+},
+{
+"question": "8191 is imaginary.",
+"query": "True or false: 8191 is imaginary.",
+"chain_of_thought": [
+"8191 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"8191 is a prime number.",
+"Every prime number is a natural number.",
+"8191 is a natural number.",
+"Every natural number is an integer.",
+"8191 is an integer.",
+"Every integer is a real number.",
+"8191 is a real number.",
+"Each real number is not imaginary.",
+"8191 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Every prime number is a natural number",
+"Every natural number is an integer",
+"Each real number is not imaginary",
+"8191 is a Mersenne prime"
+],
+"missing": "Every integer is a real number",
+"label": "false"
+},
+{
+"question": "Stella is bony.",
+"query": "True or false: Stella is bony.",
+"chain_of_thought": [
+"Stella is a painted lady.",
+"Each painted lady is a butterfly.",
+"Stella is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Stella is a lepidopteran.",
+"Lepidopterans are insects.",
+"Stella is an insect.",
+"Insects are arthropods.",
+"Stella is an arthropod.",
+"Arthropods are not bony.",
+"Stella is not bony."
+],
+"context": [
+"Each painted lady is a butterfly",
+"Each butterfly is a lepidopteran",
+"Lepidopterans are insects",
+"Insects are arthropods",
+"Arthropods are not bony"
+],
+"missing": "Stella is a painted lady",
+"label": "false"
+},
+{
+"question": "31 is real.",
+"query": "True or false: 31 is real.",
+"chain_of_thought": [
+"31 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"31 is a prime number.",
+"Prime numbers are natural numbers.",
+"31 is a natural number.",
+"Each natural number is an integer.",
+"31 is an integer.",
+"Integers are real numbers.",
+"31 is a real number.",
+"Each real number is real.",
+"31 is real."
+],
+"context": [
+"Each Mersenne prime is a prime number",
+"Prime numbers are natural numbers",
+"Each natural number is an integer",
+"Integers are real numbers",
+"31 is a Mersenne prime"
+],
+"missing": "Each real number is real",
+"label": "true"
+},
+{
+"question": "127 is not imaginary.",
+"query": "True or false: 127 is not imaginary.",
+"chain_of_thought": [
+"127 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"127 is a prime number.",
+"Each prime number is a natural number.",
+"127 is a natural number.",
+"Every natural number is an integer.",
+"127 is an integer.",
+"Integers are real numbers.",
+"127 is a real number.",
+"Real numbers are not imaginary.",
+"127 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Each prime number is a natural number",
+"Every natural number is an integer",
+"Integers are real numbers",
+"Real numbers are not imaginary"
+],
+"missing": "127 is a Mersenne prime",
+"label": "true"
+},
+{
+"question": "127 is not imaginary.",
+"query": "True or false: 127 is not imaginary.",
+"chain_of_thought": [
+"127 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"127 is a prime number.",
+"Prime numbers are natural numbers.",
+"127 is a natural number.",
+"Natural numbers are integers.",
+"127 is an integer.",
+"Each integer is a real number.",
+"127 is a real number.",
+"Every real number is not imaginary.",
+"127 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Natural numbers are integers",
+"Each integer is a real number",
+"Every real number is not imaginary",
+"127 is a Mersenne prime"
+],
+"missing": "Prime numbers are natural numbers",
+"label": "true"
+},
+{
+"question": "7 is not imaginary.",
+"query": "True or false: 7 is not imaginary.",
+"chain_of_thought": [
+"7 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"7 is a prime number.",
+"Each prime number is a natural number.",
+"7 is a natural number.",
+"Every natural number is an integer.",
+"7 is an integer.",
+"Integers are real numbers.",
+"7 is a real number.",
+"Each real number is not imaginary.",
+"7 is not imaginary."
+],
+"context": [
+"Each Mersenne prime is a prime number",
+"Every natural number is an integer",
+"Integers are real numbers",
+"Each real number is not imaginary",
+"7 is a Mersenne prime"
+],
+"missing": "Each prime number is a natural number",
+"label": "true"
+},
+{
+"question": "Polly is warm-blooded.",
+"query": "True or false: Polly is warm-blooded.",
+"chain_of_thought": [
+"Polly is a tabby.",
+"Tabbies are cats.",
+"Polly is a cat.",
+"Cats are felines.",
+"Polly is a feline.",
+"Felines are carnivores.",
+"Polly is a carnivore.",
+"Every carnivore is a mammal.",
+"Polly is a mammal.",
+"Mammals are warm-blooded.",
+"Polly is warm-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Cats are felines",
+"Felines are carnivores",
+"Every carnivore is a mammal",
+"Polly is a tabby"
+],
+"missing": "Mammals are warm-blooded",
+"label": "true"
+},
+{
+"question": "31 is not real.",
+"query": "True or false: 31 is not real.",
+"chain_of_thought": [
+"31 is a Mersenne prime.",
+"Every Mersenne prime is a prime number.",
+"31 is a prime number.",
+"Each prime number is a natural number.",
+"31 is a natural number.",
+"Every natural number is an integer.",
+"31 is an integer.",
+"Every integer is a real number.",
+"31 is a real number.",
+"Every real number is real.",
+"31 is real."
+],
+"context": [
+"Each prime number is a natural number",
+"Every natural number is an integer",
+"Every integer is a real number",
+"Every real number is real",
+"31 is a Mersenne prime"
+],
+"missing": "Every Mersenne prime is a prime number",
+"label": "false"
+},
+{
+"question": "Fae is small.",
+"query": "True or false: Fae is small.",
+"chain_of_thought": [
+"Fae is a painted lady.",
+"Painted ladies are butterflies.",
+"Fae is a butterfly.",
+"Butterflies are lepidopterans.",
+"Fae is a lepidopteran.",
+"Lepidopterans are insects.",
+"Fae is an insect.",
+"Each insect is an arthropod.",
+"Fae is an arthropod.",
+"Each arthropod is small.",
+"Fae is small."
+],
+"context": [
+"Painted ladies are butterflies",
+"Butterflies are lepidopterans",
+"Lepidopterans are insects",
+"Each arthropod is small",
+"Fae is a painted lady"
+],
+"missing": "Each insect is an arthropod",
+"label": "true"
+},
+{
+"question": "31 is imaginary.",
+"query": "True or false: 31 is imaginary.",
+"chain_of_thought": [
+"31 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"31 is a prime number.",
+"Each prime number is a natural number.",
+"31 is a natural number.",
+"Every natural number is an integer.",
+"31 is an integer.",
+"Integers are real numbers.",
+"31 is a real number.",
+"Every real number is not imaginary.",
+"31 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Each prime number is a natural number",
+"Every natural number is an integer",
+"Integers are real numbers",
+"31 is a Mersenne prime"
+],
+"missing": "Every real number is not imaginary",
+"label": "false"
+},
+{
+"question": "7 is not imaginary.",
+"query": "True or false: 7 is not imaginary.",
+"chain_of_thought": [
+"7 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"7 is a prime number.",
+"Each prime number is a natural number.",
+"7 is a natural number.",
+"Natural numbers are integers.",
+"7 is an integer.",
+"Integers are real numbers.",
+"7 is a real number.",
+"Each real number is not imaginary.",
+"7 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Each prime number is a natural number",
+"Natural numbers are integers",
+"Integers are real numbers",
+"7 is a Mersenne prime"
+],
+"missing": "Each real number is not imaginary",
+"label": "true"
+},
+{
+"question": "Alex is not small.",
+"query": "True or false: Alex is not small.",
+"chain_of_thought": [
+"Alex is a painted lady.",
+"Every painted lady is a butterfly.",
+"Alex is a butterfly.",
+"Butterflies are lepidopterans.",
+"Alex is a lepidopteran.",
+"Lepidopterans are insects.",
+"Alex is an insect.",
+"Insects are arthropods.",
+"Alex is an arthropod.",
+"Every arthropod is small.",
+"Alex is small."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Lepidopterans are insects",
+"Insects are arthropods",
+"Every arthropod is small",
+"Alex is a painted lady"
+],
+"missing": "Butterflies are lepidopterans",
+"label": "false"
+},
+{
+"question": "Rex is small.",
+"query": "True or false: Rex is small.",
+"chain_of_thought": [
+"Rex is a painted lady.",
+"Painted ladies are butterflies.",
+"Rex is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Rex is a lepidopteran.",
+"Lepidopterans are insects.",
+"Rex is an insect.",
+"Every insect is an arthropod.",
+"Rex is an arthropod.",
+"Each arthropod is small.",
+"Rex is small."
+],
+"context": [
+"Painted ladies are butterflies",
+"Lepidopterans are insects",
+"Every insect is an arthropod",
+"Each arthropod is small",
+"Rex is a painted lady"
+],
+"missing": "Each butterfly is a lepidopteran",
+"label": "true"
+},
+{
+"question": "Sally is not small.",
+"query": "True or false: Sally is not small.",
+"chain_of_thought": [
+"Sally is a painted lady.",
+"Painted ladies are butterflies.",
+"Sally is a butterfly.",
+"Every butterfly is a lepidopteran.",
+"Sally is a lepidopteran.",
+"Lepidopterans are insects.",
+"Sally is an insect.",
+"Insects are arthropods.",
+"Sally is an arthropod.",
+"Every arthropod is small.",
+"Sally is small."
+],
+"context": [
+"Painted ladies are butterflies",
+"Every butterfly is a lepidopteran",
+"Lepidopterans are insects",
+"Insects are arthropods",
+"Every arthropod is small"
+],
+"missing": "Sally is a painted lady",
+"label": "false"
+},
+{
+"question": "Wren is furry.",
+"query": "True or false: Wren is furry.",
+"chain_of_thought": [
+"Wren is a tabby.",
+"Tabbies are cats.",
+"Wren is a cat.",
+"Cats are felines.",
+"Wren is a feline.",
+"Every feline is a carnivore.",
+"Wren is a carnivore.",
+"Every carnivore is a mammal.",
+"Wren is a mammal.",
+"Every mammal is furry.",
+"Wren is furry."
+],
+"context": [
+"Tabbies are cats",
+"Cats are felines",
+"Every feline is a carnivore",
+"Every carnivore is a mammal",
+"Wren is a tabby"
+],
+"missing": "Every mammal is furry",
+"label": "true"
+},
+{
+"question": "3 is not imaginary.",
+"query": "True or false: 3 is not imaginary.",
+"chain_of_thought": [
+"3 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"3 is a prime number.",
+"Prime numbers are natural numbers.",
+"3 is a natural number.",
+"Each natural number is an integer.",
+"3 is an integer.",
+"Every integer is a real number.",
+"3 is a real number.",
+"Real numbers are not imaginary.",
+"3 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Each natural number is an integer",
+"Every integer is a real number",
+"Real numbers are not imaginary",
+"3 is a Mersenne prime"
+],
+"missing": "Prime numbers are natural numbers",
+"label": "true"
+},
+{
+"question": "Wren is not bony.",
+"query": "True or false: Wren is not bony.",
+"chain_of_thought": [
+"Wren is a painted lady.",
+"Each painted lady is a butterfly.",
+"Wren is a butterfly.",
+"Butterflies are lepidopterans.",
+"Wren is a lepidopteran.",
+"Lepidopterans are insects.",
+"Wren is an insect.",
+"Every insect is an arthropod.",
+"Wren is an arthropod.",
+"Every arthropod is not bony.",
+"Wren is not bony."
+],
+"context": [
+"Each painted lady is a butterfly",
+"Butterflies are lepidopterans",
+"Every insect is an arthropod",
+"Every arthropod is not bony",
+"Wren is a painted lady"
+],
+"missing": "Lepidopterans are insects",
+"label": "true"
+},
+{
+"question": "Fae is not furry.",
+"query": "True or false: Fae is not furry.",
+"chain_of_thought": [
+"Fae is a tabby.",
+"Every tabby is a cat.",
+"Fae is a cat.",
+"Cats are felines.",
+"Fae is a feline.",
+"Felines are carnivores.",
+"Fae is a carnivore.",
+"Each carnivore is a mammal.",
+"Fae is a mammal.",
+"Mammals are furry.",
+"Fae is furry."
+],
+"context": [
+"Every tabby is a cat",
+"Felines are carnivores",
+"Each carnivore is a mammal",
+"Mammals are furry",
+"Fae is a tabby"
+],
+"missing": "Cats are felines",
+"label": "false"
+},
+{
+"question": "Rex is bony.",
+"query": "True or false: Rex is bony.",
+"chain_of_thought": [
+"Rex is a painted lady.",
+"Every painted lady is a butterfly.",
+"Rex is a butterfly.",
+"Butterflies are lepidopterans.",
+"Rex is a lepidopteran.",
+"Each lepidopteran is an insect.",
+"Rex is an insect.",
+"Insects are arthropods.",
+"Rex is an arthropod.",
+"Every arthropod is not bony.",
+"Rex is not bony."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Each lepidopteran is an insect",
+"Insects are arthropods",
+"Every arthropod is not bony",
+"Rex is a painted lady"
+],
+"missing": "Butterflies are lepidopterans",
+"label": "false"
+},
+{
+"question": "Fae is segmented.",
+"query": "True or false: Fae is segmented.",
+"chain_of_thought": [
+"Fae is a painted lady.",
+"Every painted lady is a butterfly.",
+"Fae is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Fae is a lepidopteran.",
+"Lepidopterans are insects.",
+"Fae is an insect.",
+"Every insect is an arthropod.",
+"Fae is an arthropod.",
+"Each arthropod is segmented.",
+"Fae is segmented."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Each butterfly is a lepidopteran",
+"Lepidopterans are insects",
+"Every insect is an arthropod",
+"Each arthropod is segmented"
+],
+"missing": "Fae is a painted lady",
+"label": "true"
+},
+{
+"question": "3 is imaginary.",
+"query": "True or false: 3 is imaginary.",
+"chain_of_thought": [
+"3 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"3 is a prime number.",
+"Prime numbers are natural numbers.",
+"3 is a natural number.",
+"Natural numbers are integers.",
+"3 is an integer.",
+"Integers are real numbers.",
+"3 is a real number.",
+"Real numbers are not imaginary.",
+"3 is not imaginary."
+],
+"context": [
+"Each Mersenne prime is a prime number",
+"Prime numbers are natural numbers",
+"Natural numbers are integers",
+"Real numbers are not imaginary",
+"3 is a Mersenne prime"
+],
+"missing": "Integers are real numbers",
+"label": "false"
+},
+{
+"question": "Fae is not cold-blooded.",
+"query": "True or false: Fae is not cold-blooded.",
+"chain_of_thought": [
+"Fae is a tabby.",
+"Tabbies are cats.",
+"Fae is a cat.",
+"Each cat is a feline.",
+"Fae is a feline.",
+"Felines are carnivores.",
+"Fae is a carnivore.",
+"Carnivores are mammals.",
+"Fae is a mammal.",
+"Every mammal is not cold-blooded.",
+"Fae is not cold-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Each cat is a feline",
+"Felines are carnivores",
+"Carnivores are mammals",
+"Every mammal is not cold-blooded"
+],
+"missing": "Fae is a tabby",
+"label": "true"
+},
+{
+"question": "Sally is warm-blooded.",
+"query": "True or false: Sally is warm-blooded.",
+"chain_of_thought": [
+"Sally is a tabby.",
+"Tabbies are cats.",
+"Sally is a cat.",
+"Each cat is a feline.",
+"Sally is a feline.",
+"Felines are carnivores.",
+"Sally is a carnivore.",
+"Every carnivore is a mammal.",
+"Sally is a mammal.",
+"Every mammal is warm-blooded.",
+"Sally is warm-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Each cat is a feline",
+"Felines are carnivores",
+"Every carnivore is a mammal",
+"Every mammal is warm-blooded"
+],
+"missing": "Sally is a tabby",
+"label": "true"
+},
+{
+"question": "Rex is not small.",
+"query": "True or false: Rex is not small.",
+"chain_of_thought": [
+"Rex is a painted lady.",
+"Every painted lady is a butterfly.",
+"Rex is a butterfly.",
+"Butterflies are lepidopterans.",
+"Rex is a lepidopteran.",
+"Lepidopterans are insects.",
+"Rex is an insect.",
+"Every insect is an arthropod.",
+"Rex is an arthropod.",
+"Arthropods are small.",
+"Rex is small."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Lepidopterans are insects",
+"Every insect is an arthropod",
+"Arthropods are small",
+"Rex is a painted lady"
+],
+"missing": "Butterflies are lepidopterans",
+"label": "false"
+},
+{
+"question": "131071 is imaginary.",
+"query": "True or false: 131071 is imaginary.",
+"chain_of_thought": [
+"131071 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"131071 is a prime number.",
+"Each prime number is a natural number.",
+"131071 is a natural number.",
+"Natural numbers are integers.",
+"131071 is an integer.",
+"Each integer is a real number.",
+"131071 is a real number.",
+"Each real number is not imaginary.",
+"131071 is not imaginary."
+],
+"context": [
+"Each prime number is a natural number",
+"Natural numbers are integers",
+"Each integer is a real number",
+"Each real number is not imaginary",
+"131071 is a Mersenne prime"
+],
+"missing": "Each Mersenne prime is a prime number",
+"label": "false"
+},
+{
+"question": "Polly is not bony.",
+"query": "True or false: Polly is not bony.",
+"chain_of_thought": [
+"Polly is a painted lady.",
+"Each painted lady is a butterfly.",
+"Polly is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Polly is a lepidopteran.",
+"Lepidopterans are insects.",
+"Polly is an insect.",
+"Insects are arthropods.",
+"Polly is an arthropod.",
+"Arthropods are not bony.",
+"Polly is not bony."
+],
+"context": [
+"Each painted lady is a butterfly",
+"Each butterfly is a lepidopteran",
+"Lepidopterans are insects",
+"Arthropods are not bony",
+"Polly is a painted lady"
+],
+"missing": "Insects are arthropods",
+"label": "true"
+},
+{
+"question": "Sally is warm-blooded.",
+"query": "True or false: Sally is warm-blooded.",
+"chain_of_thought": [
+"Sally is a tabby.",
+"Each tabby is a cat.",
+"Sally is a cat.",
+"Cats are felines.",
+"Sally is a feline.",
+"Felines are carnivores.",
+"Sally is a carnivore.",
+"Carnivores are mammals.",
+"Sally is a mammal.",
+"Each mammal is warm-blooded.",
+"Sally is warm-blooded."
+],
+"context": [
+"Each tabby is a cat",
+"Felines are carnivores",
+"Carnivores are mammals",
+"Each mammal is warm-blooded",
+"Sally is a tabby"
+],
+"missing": "Cats are felines",
+"label": "true"
+},
+{
+"question": "Alex is not warm-blooded.",
+"query": "True or false: Alex is not warm-blooded.",
+"chain_of_thought": [
+"Alex is a tabby.",
+"Tabbies are cats.",
+"Alex is a cat.",
+"Cats are felines.",
+"Alex is a feline.",
+"Felines are carnivores.",
+"Alex is a carnivore.",
+"Every carnivore is a mammal.",
+"Alex is a mammal.",
+"Every mammal is warm-blooded.",
+"Alex is warm-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Felines are carnivores",
+"Every carnivore is a mammal",
+"Every mammal is warm-blooded",
+"Alex is a tabby"
+],
+"missing": "Cats are felines",
+"label": "false"
+},
+{
+"question": "131071 is imaginary.",
+"query": "True or false: 131071 is imaginary.",
+"chain_of_thought": [
+"131071 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"131071 is a prime number.",
+"Prime numbers are natural numbers.",
+"131071 is a natural number.",
+"Every natural number is an integer.",
+"131071 is an integer.",
+"Integers are real numbers.",
+"131071 is a real number.",
+"Real numbers are not imaginary.",
+"131071 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Prime numbers are natural numbers",
+"Every natural number is an integer",
+"Integers are real numbers",
+"Real numbers are not imaginary"
+],
+"missing": "131071 is a Mersenne prime",
+"label": "false"
+},
+{
+"question": "31 is not imaginary.",
+"query": "True or false: 31 is not imaginary.",
+"chain_of_thought": [
+"31 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"31 is a prime number.",
+"Every prime number is a natural number.",
+"31 is a natural number.",
+"Natural numbers are integers.",
+"31 is an integer.",
+"Integers are real numbers.",
+"31 is a real number.",
+"Every real number is not imaginary.",
+"31 is not imaginary."
+],
+"context": [
+"Every prime number is a natural number",
+"Natural numbers are integers",
+"Integers are real numbers",
+"Every real number is not imaginary",
+"31 is a Mersenne prime"
+],
+"missing": "Each Mersenne prime is a prime number",
+"label": "true"
+},
+{
+"question": "Alex is small.",
+"query": "True or false: Alex is small.",
+"chain_of_thought": [
+"Alex is a painted lady.",
+"Painted ladies are butterflies.",
+"Alex is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Alex is a lepidopteran.",
+"Each lepidopteran is an insect.",
+"Alex is an insect.",
+"Each insect is an arthropod.",
+"Alex is an arthropod.",
+"Arthropods are small.",
+"Alex is small."
+],
+"context": [
+"Painted ladies are butterflies",
+"Each butterfly is a lepidopteran",
+"Each lepidopteran is an insect",
+"Arthropods are small",
+"Alex is a painted lady"
+],
+"missing": "Each insect is an arthropod",
+"label": "true"
+},
+{
+"question": "Polly is warm-blooded.",
+"query": "True or false: Polly is warm-blooded.",
+"chain_of_thought": [
+"Polly is a tabby.",
+"Tabbies are cats.",
+"Polly is a cat.",
+"Every cat is a feline.",
+"Polly is a feline.",
+"Each feline is a carnivore.",
+"Polly is a carnivore.",
+"Carnivores are mammals.",
+"Polly is a mammal.",
+"Each mammal is warm-blooded.",
+"Polly is warm-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Each feline is a carnivore",
+"Carnivores are mammals",
+"Each mammal is warm-blooded",
+"Polly is a tabby"
+],
+"missing": "Every cat is a feline",
+"label": "true"
+},
+{
+"question": "Rex is not segmented.",
+"query": "True or false: Rex is not segmented.",
+"chain_of_thought": [
+"Rex is a painted lady.",
+"Each painted lady is a butterfly.",
+"Rex is a butterfly.",
+"Butterflies are lepidopterans.",
+"Rex is a lepidopteran.",
+"Lepidopterans are insects.",
+"Rex is an insect.",
+"Each insect is an arthropod.",
+"Rex is an arthropod.",
+"Every arthropod is segmented.",
+"Rex is segmented."
+],
+"context": [
+"Each painted lady is a butterfly",
+"Butterflies are lepidopterans",
+"Lepidopterans are insects",
+"Each insect is an arthropod",
+"Rex is a painted lady"
+],
+"missing": "Every arthropod is segmented",
+"label": "false"
+},
+{
+"question": "8191 is not real.",
+"query": "True or false: 8191 is not real.",
+"chain_of_thought": [
+"8191 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"8191 is a prime number.",
+"Every prime number is a natural number.",
+"8191 is a natural number.",
+"Natural numbers are integers.",
+"8191 is an integer.",
+"Each integer is a real number.",
+"8191 is a real number.",
+"Every real number is real.",
+"8191 is real."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Every prime number is a natural number",
+"Each integer is a real number",
+"Every real number is real",
+"8191 is a Mersenne prime"
+],
+"missing": "Natural numbers are integers",
+"label": "false"
+},
+{
+"question": "Alex is not bony.",
+"query": "True or false: Alex is not bony.",
+"chain_of_thought": [
+"Alex is a painted lady.",
+"Each painted lady is a butterfly.",
+"Alex is a butterfly.",
+"Each butterfly is a lepidopteran.",
+"Alex is a lepidopteran.",
+"Every lepidopteran is an insect.",
+"Alex is an insect.",
+"Insects are arthropods.",
+"Alex is an arthropod.",
+"Every arthropod is not bony.",
+"Alex is not bony."
+],
+"context": [
+"Each painted lady is a butterfly",
+"Each butterfly is a lepidopteran",
+"Every lepidopteran is an insect",
+"Every arthropod is not bony",
+"Alex is a painted lady"
+],
+"missing": "Insects are arthropods",
+"label": "true"
+},
+{
+"question": "Sally is not small.",
+"query": "True or false: Sally is not small.",
+"chain_of_thought": [
+"Sally is a painted lady.",
+"Painted ladies are butterflies.",
+"Sally is a butterfly.",
+"Butterflies are lepidopterans.",
+"Sally is a lepidopteran.",
+"Each lepidopteran is an insect.",
+"Sally is an insect.",
+"Insects are arthropods.",
+"Sally is an arthropod.",
+"Arthropods are small.",
+"Sally is small."
+],
+"context": [
+"Painted ladies are butterflies",
+"Butterflies are lepidopterans",
+"Each lepidopteran is an insect",
+"Arthropods are small",
+"Sally is a painted lady"
+],
+"missing": "Insects are arthropods",
+"label": "false"
+},
+{
+"question": "Sam is not warm-blooded.",
+"query": "True or false: Sam is not warm-blooded.",
+"chain_of_thought": [
+"Sam is a tabby.",
+"Tabbies are cats.",
+"Sam is a cat.",
+"Cats are felines.",
+"Sam is a feline.",
+"Felines are carnivores.",
+"Sam is a carnivore.",
+"Every carnivore is a mammal.",
+"Sam is a mammal.",
+"Mammals are warm-blooded.",
+"Sam is warm-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Cats are felines",
+"Felines are carnivores",
+"Mammals are warm-blooded",
+"Sam is a tabby"
+],
+"missing": "Every carnivore is a mammal",
+"label": "false"
+},
+{
+"question": "3 is not imaginary.",
+"query": "True or false: 3 is not imaginary.",
+"chain_of_thought": [
+"3 is a Mersenne prime.",
+"Every Mersenne prime is a prime number.",
+"3 is a prime number.",
+"Prime numbers are natural numbers.",
+"3 is a natural number.",
+"Natural numbers are integers.",
+"3 is an integer.",
+"Every integer is a real number.",
+"3 is a real number.",
+"Real numbers are not imaginary.",
+"3 is not imaginary."
+],
+"context": [
+"Every Mersenne prime is a prime number",
+"Prime numbers are natural numbers",
+"Natural numbers are integers",
+"Real numbers are not imaginary",
+"3 is a Mersenne prime"
+],
+"missing": "Every integer is a real number",
+"label": "true"
+},
+{
+"question": "7 is real.",
+"query": "True or false: 7 is real.",
+"chain_of_thought": [
+"7 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"7 is a prime number.",
+"Every prime number is a natural number.",
+"7 is a natural number.",
+"Natural numbers are integers.",
+"7 is an integer.",
+"Integers are real numbers.",
+"7 is a real number.",
+"Real numbers are real.",
+"7 is real."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Every prime number is a natural number",
+"Natural numbers are integers",
+"Integers are real numbers",
+"Real numbers are real"
+],
+"missing": "7 is a Mersenne prime",
+"label": "true"
+},
+{
+"question": "Alex is not bony.",
+"query": "True or false: Alex is not bony.",
+"chain_of_thought": [
+"Alex is a painted lady.",
+"Painted ladies are butterflies.",
+"Alex is a butterfly.",
+"Butterflies are lepidopterans.",
+"Alex is a lepidopteran.",
+"Lepidopterans are insects.",
+"Alex is an insect.",
+"Every insect is an arthropod.",
+"Alex is an arthropod.",
+"Each arthropod is not bony.",
+"Alex is not bony."
+],
+"context": [
+"Painted ladies are butterflies",
+"Butterflies are lepidopterans",
+"Every insect is an arthropod",
+"Each arthropod is not bony",
+"Alex is a painted lady"
+],
+"missing": "Lepidopterans are insects",
+"label": "true"
+},
+{
+"question": "Max is not cold-blooded.",
+"query": "True or false: Max is not cold-blooded.",
+"chain_of_thought": [
+"Max is a tabby.",
+"Each tabby is a cat.",
+"Max is a cat.",
+"Cats are felines.",
+"Max is a feline.",
+"Each feline is a carnivore.",
+"Max is a carnivore.",
+"Each carnivore is a mammal.",
+"Max is a mammal.",
+"Mammals are not cold-blooded.",
+"Max is not cold-blooded."
+],
+"context": [
+"Cats are felines",
+"Each feline is a carnivore",
+"Each carnivore is a mammal",
+"Mammals are not cold-blooded",
+"Max is a tabby"
+],
+"missing": "Each tabby is a cat",
+"label": "true"
+},
+{
+"question": "Alex is not bony.",
+"query": "True or false: Alex is not bony.",
+"chain_of_thought": [
+"Alex is a painted lady.",
+"Every painted lady is a butterfly.",
+"Alex is a butterfly.",
+"Butterflies are lepidopterans.",
+"Alex is a lepidopteran.",
+"Every lepidopteran is an insect.",
+"Alex is an insect.",
+"Insects are arthropods.",
+"Alex is an arthropod.",
+"Arthropods are not bony.",
+"Alex is not bony."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Butterflies are lepidopterans",
+"Insects are arthropods",
+"Arthropods are not bony",
+"Alex is a painted lady"
+],
+"missing": "Every lepidopteran is an insect",
+"label": "true"
+},
+{
+"question": "Max is bony.",
+"query": "True or false: Max is bony.",
+"chain_of_thought": [
+"Max is a painted lady.",
+"Every painted lady is a butterfly.",
+"Max is a butterfly.",
+"Butterflies are lepidopterans.",
+"Max is a lepidopteran.",
+"Every lepidopteran is an insect.",
+"Max is an insect.",
+"Each insect is an arthropod.",
+"Max is an arthropod.",
+"Each arthropod is not bony.",
+"Max is not bony."
+],
+"context": [
+"Every painted lady is a butterfly",
+"Every lepidopteran is an insect",
+"Each insect is an arthropod",
+"Each arthropod is not bony",
+"Max is a painted lady"
+],
+"missing": "Butterflies are lepidopterans",
+"label": "false"
+},
+{
+"question": "Sally is cold-blooded.",
+"query": "True or false: Sally is cold-blooded.",
+"chain_of_thought": [
+"Sally is a tabby.",
+"Tabbies are cats.",
+"Sally is a cat.",
+"Cats are felines.",
+"Sally is a feline.",
+"Every feline is a carnivore.",
+"Sally is a carnivore.",
+"Each carnivore is a mammal.",
+"Sally is a mammal.",
+"Mammals are not cold-blooded.",
+"Sally is not cold-blooded."
+],
+"context": [
+"Tabbies are cats",
+"Cats are felines",
+"Each carnivore is a mammal",
+"Mammals are not cold-blooded",
+"Sally is a tabby"
+],
+"missing": "Every feline is a carnivore",
+"label": "false"
+},
+{
+"question": "127 is imaginary.",
+"query": "True or false: 127 is imaginary.",
+"chain_of_thought": [
+"127 is a Mersenne prime.",
+"Each Mersenne prime is a prime number.",
+"127 is a prime number.",
+"Prime numbers are natural numbers.",
+"127 is a natural number.",
+"Each natural number is an integer.",
+"127 is an integer.",
+"Each integer is a real number.",
+"127 is a real number.",
+"Real numbers are not imaginary.",
+"127 is not imaginary."
+],
+"context": [
+"Each Mersenne prime is a prime number",
+"Prime numbers are natural numbers",
+"Each natural number is an integer",
+"Each integer is a real number",
+"127 is a Mersenne prime"
+],
+"missing": "Real numbers are not imaginary",
+"label": "false"
+},
+{
+"question": "31 is imaginary.",
+"query": "True or false: 31 is imaginary.",
+"chain_of_thought": [
+"31 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"31 is a prime number.",
+"Every prime number is a natural number.",
+"31 is a natural number.",
+"Natural numbers are integers.",
+"31 is an integer.",
+"Every integer is a real number.",
+"31 is a real number.",
+"Real numbers are not imaginary.",
+"31 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Every prime number is a natural number",
+"Natural numbers are integers",
+"Every integer is a real number",
+"31 is a Mersenne prime"
+],
+"missing": "Real numbers are not imaginary",
+"label": "false"
+},
+{
+"question": "8191 is not imaginary.",
+"query": "True or false: 8191 is not imaginary.",
+"chain_of_thought": [
+"8191 is a Mersenne prime.",
+"Mersenne primes are prime numbers.",
+"8191 is a prime number.",
+"Prime numbers are natural numbers.",
+"8191 is a natural number.",
+"Natural numbers are integers.",
+"8191 is an integer.",
+"Each integer is a real number.",
+"8191 is a real number.",
+"Every real number is not imaginary.",
+"8191 is not imaginary."
+],
+"context": [
+"Mersenne primes are prime numbers",
+"Natural numbers are integers",
+"Each integer is a real number",
+"Every real number is not imaginary",
+"8191 is a Mersenne prime"
+],
+"missing": "Prime numbers are natural numbers",
+"label": "true"
+}
+]

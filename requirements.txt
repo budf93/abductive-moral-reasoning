@@ -1,0 +1,19 @@
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch
+torchvision
+torchaudio
+tqdm
+sympy
+openai==0.28
+requests 
+urllib3 
+transformers
+func_timeout
+z3
+accelerate
+bitsandbytes>=0.46.1
+packaging 
+ninja
+wheel
+python-dotenv
+# flash_attn

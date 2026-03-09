@@ -1,0 +1,34 @@
+usage: run_manual.py [-h] [--task TASK] [--eval_split EVAL_SPLIT] [--slice_train SLICE_TRAIN] [--num_train NUM_TRAIN] [--num_shots NUM_SHOTS]
+                     [--slice_dev SLICE_DEV] [--num_dev NUM_DEV] [--do_print] [--num_eval_samples NUM_EVAL_SAMPLES] [--first_k FIRST_K]
+                     [--do_impose_prediction] [--engine {gpt-3.5-turbo-instruct,code-davinci-002}] [--run_prediction] [--do_dryrun] [--force_override]
+                     [--batch_size BATCH_SIZE] [--num_samples NUM_SAMPLES] [--temperature TEMPERATURE] --manual_prompt_id MANUAL_PROMPT_ID
+                     [--style_template STYLE_TEMPLATE]
+
+options:
+  -h, --help            show this help message and exit
+  --task TASK
+  --eval_split EVAL_SPLIT
+  --slice_train SLICE_TRAIN
+  --num_train NUM_TRAIN
+  --num_shots NUM_SHOTS
+  --slice_dev SLICE_DEV
+  --num_dev NUM_DEV
+  --do_print
+  --num_eval_samples NUM_EVAL_SAMPLES
+  --first_k FIRST_K
+  --do_impose_prediction
+  --engine {gpt-3.5-turbo-instruct,code-davinci-002}
+  --run_prediction
+  --do_dryrun
+  --force_override
+  --batch_size BATCH_SIZE
+  --num_samples NUM_SAMPLES
+  --temperature TEMPERATURE
+  --manual_prompt_id MANUAL_PROMPT_ID
+  --style_template STYLE_TEMPLATE
+
+- mapping dari kodingan ke paper
+- nguji buat dataset kecil supaya ngetes dulu biar jalan
+- kalo udah paham baru nyoba ganti ke dataset baru
+- pahamin repo + paper cadical + cadiback
+- deadline pahamin sampe step 6 senin
