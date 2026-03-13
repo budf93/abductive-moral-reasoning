@@ -85,7 +85,8 @@ args = {'train_file_path': './example_data', 'test_file_path': './example_data',
 # args['engine'] = 'meta-llama/Meta-Llama-3-70B-Instruct'
 # args['engine'] = "mistralai/Mistral-7B-Instruct-v0.3"
 # args['engine'] = "Qwen/Qwen2.5-VL-32B-Instruct"
-args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+# args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
 args = Struct(**args)
 
 class LLM():

@@ -29,7 +29,7 @@ load_dotenv()
 
 os.environ["CURL_CA_BUNDLE"]=""
 os.environ["REQUESTS_CA_BUNDLE"]=""
-os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 # os.environ['TRANSFORMERS_CACHE'] = USER_PATH + '/.cache/huggingface/hub'
 # cache_dir = '/ephemeral/media/data1/XXXX/hub/'
 cache_dir = os.path.join(os.getcwd(), '.cache/huggingface/hub')
@@ -98,7 +98,8 @@ class LLM():
         # self.args['engine'] = 'meta-llama/CodeLlama-70b-Python-hf'
         # self.args['engine'] = 'meta-llama/Meta-Llama-3-70B'
         # self.args['engine'] = 'meta-llama/Llama-2-13b-chat-hf'
-        self.args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+        # self.args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+        self.args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
         # model_args = {'max_length': 20000, 'hidden_size':20000}
         self.args = Struct(**self.args)
         with no_ssl_verification():
@@ -208,7 +209,7 @@ def run_evaluation(args, test_data, responses, print_perplexity=False, return_ve
         [Prediction(x["text"], x["prompt"], *score_of_completion(x)) for x in completions[:num_eval_samples]] for completions in responses
     ]
 
-    # print(f"predictions {predictions}")
+    print(f"predictions {predictions}")
 
     if args.do_print:
         TaskEvaluator.do_printing = True

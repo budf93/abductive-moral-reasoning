@@ -84,7 +84,8 @@ args = {'train_file_path': './example_data', 'test_file_path': './example_data',
         'n_rows': 20, 'max_length': 300,'temperature': 1, 'lr': 5e-05, 'weight_decay': 0.0, 'epochs': 10, 'max_grad_norm': 1.0, 'batch_size': 2, 'save_strategy': 'no', 'use_lora': True}
 # args['engine'] = 'meta-llama/Meta-Llama-3-8B-Instruct'
 # args['engine'] = "Qwen/Qwen2.5-VL-32B-Instruct"
-args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+# args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
 args = Struct(**args)
 
 class LLM():

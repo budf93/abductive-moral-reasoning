@@ -20,7 +20,8 @@ API_ERROR_IDENTIFIER = "OPENAI Error"
 
 os.environ["CURL_CA_BUNDLE"]=""
 os.environ["REQUESTS_CA_BUNDLE"]=""
-os.environ["CUDA_VISIBLE_DEVICES"] = '2'
+# os.environ["CUDA_VISIBLE_DEVICES"] = '2'
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 # os.environ['TRANSFORMERS_CACHE'] = USER_PATH + '/.cache/huggingface/hub'
 # cache_dir = '/ephemeral/media/data1/XXXX/hub/'
 cache_dir = os.path.join(os.getcwd(), '.cache/huggingface/hub')
@@ -35,7 +36,8 @@ args = {'train_file_path': './example_data', 'test_file_path': './example_data',
 
 # args['engine'] = 'meta-llama/Llama-2-13b-chat-hf'
 # args['engine'] = 'meta-llama/CodeLlama-70b-Python-hf'
-args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+# args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
 class Struct:
     def __init__(self, **entries):
         self.__dict__.update(entries)
@@ -86,7 +88,7 @@ with no_ssl_verification():
     API_ERROR_IDENTIFIER = "OPENAI Error"
 # 1. Update the models list to include your local options
 models = ['gpt-3.5-turbo-instruct', 'code-davinci-002']
-local_models = ['HuggingFaceTB/SmolLM2-1.7B-Instruct', 'meta-llama/Llama-2-13b-chat-hf']
+local_models = ['HuggingFaceTB/SmolLM2-1.7B-Instruct', 'meta-llama/Llama-2-13b-chat-hf', 'Qwen/Qwen2.5-Coder-3B-Instruct']
 print('done api-utils')
 def register_query_args(parser):
     # parser.add_argument('--engine', default='gpt-3.5-turbo-instruct', choices=models)

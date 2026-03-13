@@ -1,5 +1,5 @@
 from z3 import *
-PeopleSort, (Clarence, Emily) = EnumSort('PeopleSort', ['Clarence', 'Emily'])
+PeopleSort, (Clarence, Emily, Michael) = EnumSort('PeopleSort', ['Clarence', 'Emily', 'Michael'])
 q0 = Michael
 q1 = Clarence
 RelationSort, (self, cousin, brother_in_law, sister_in_law, mother_in_law, daughter_in_law, father_in_law, son_in_law, grandson, niece, grandmother, wife, grandfather, uncle, mother, nephew, brother, granddaughter, husband, father, aunt, son, sister, daughter) = EnumSort('RelationSort', ['self', 'cousin', 'brother_in_law', 'sister_in_law', 'mother_in_law', 'daughter_in_law', 'father_in_law', 'son_in_law', 'grandson', 'niece', 'grandmother', 'wife', 'grandfather', 'uncle', 'mother', 'nephew', 'brother', 'granddaughter', 'husband', 'father', 'aunt', 'son', 'sister', 'daughter'])
@@ -9,8 +9,10 @@ R = Function('R', PeopleSort, PeopleSort, RelationSort)
 cer_precond = []
 x, y, z = Consts('x y z', PeopleSort)
 decl_conditions = []
-decl_conditions.append(R(Clarence, Emily) == daughter)
+decl_conditions.append(R(Clarence, Emily) == granddaughter)
 decl_conditions.append(R(Emily, Clarence) == grandfather)
+decl_conditions.append(R(Clarence, Michael) == grandson)
+decl_conditions.append(R(Michael, Clarence) == grandfather)
 s = Solver()
 s.add(cer_precond)
 s.add(decl_conditions)

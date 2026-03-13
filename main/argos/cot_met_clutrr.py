@@ -10,7 +10,7 @@ load_dotenv()
 
 import torch
 from torch.utils.data import DataLoader
-USER_PATH = '/home/XXXX/XXXX/'
+USER_PATH = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/'
 
 os.environ["CURL_CA_BUNDLE"]=""
 os.environ["REQUESTS_CA_BUNDLE"]=""
@@ -95,7 +95,8 @@ class LLM():
                     args.engine,
                     cache_dir = cache_dir,
                     token = os.getenv("HF_TOKEN"),
-                    attn_implementation="flash_attention_2"
+                    # attn_implementation="flash_attention_2"
+                    attn_implmentation="sdpa",
 
                     )
             self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -106,30 +107,46 @@ class LLM():
                     quantization_config=quant_config,
                     device_map='auto',
                     token = os.getenv("HF_TOKEN"),
-                    attn_implementation="flash_attention_2"
+                    # attn_implementation="flash_attention_2"
+                    # attn_implmentation="sdpa",
                     )
 
         self.tokenizer.pad_token = self.tokenizer.eos_token
     
+    @property
+    def device(self):
+        """Returns the device the model is actually on, derived from its parameters."""
+        return next(self.model.parameters()).device
+
     def sentence_probabilities(self, sentences):
         with torch.no_grad():
             sentence_tokens = self.tokenizer(sentences, return_tensors='pt', padding=True)
-            sentence_token_ids = sentence_tokens.input_ids.cuda()
+            sentence_token_ids = sentence_tokens.input_ids.to(self.device)
 
             # Little hack to cut down inference time by 4-5x (leads to some imprecisions when using quantization)
             # Find the common prefix and run it through the model once, to save time
             first_different_token = (sentence_token_ids == sentence_token_ids[0, :].unsqueeze(0)).all(dim=0).long().argmin()
             common_prefix = sentence_token_ids[0, :first_different_token].unsqueeze(0)
             common_prefix_output = self.model(common_prefix, use_cache=True)
-            common_prefix_key_values = tuple(tuple(tensor.expand(len(sentences), -1, -1, -1) for tensor in layer) 
-                                             for layer in common_prefix_output.past_key_values)
 
-            # Process the rest of the sentences
-            rest_outputs = self.model(sentence_token_ids[:, first_different_token:], past_key_values=common_prefix_key_values)
-            logits = torch.concat([common_prefix_output.logits.expand(len(sentences), -1, -1), rest_outputs.logits], dim=1).cuda()
+            if common_prefix_output.past_key_values is not None:
+                # Fast path: reuse the prefix KV-cache across all sentences
+                common_prefix_key_values = tuple(
+                    tuple(tensor.expand(len(sentences), -1, -1, -1) for tensor in layer)
+                    for layer in common_prefix_output.past_key_values
+                )
+                rest_outputs = self.model(sentence_token_ids[:, first_different_token:], past_key_values=common_prefix_key_values)
+                logits = torch.concat([common_prefix_output.logits.expand(len(sentences), -1, -1), rest_outputs.logits], dim=1).to(self.device)
+            else:
+                # Fallback: model doesn't support KV-cache (e.g. CPU + bitsandbytes).
+                # Run full sequences directly — slower but always correct.
+                print("[sentence_probabilities] past_key_values=None, falling back to full forward pass (slower).")
+                full_outputs = self.model(sentence_token_ids)
+                logits = full_outputs.logits.to(self.device)
+
             log_probs = logits.log_softmax(-1)
-            log_probs = log_probs[:, :-1, :].gather(2, sentence_token_ids[:, 1:][:, :, None]).squeeze(-1).cuda()
-            log_probs = (log_probs*sentence_tokens.attention_mask.cuda()[:, 1:]).sum(-1).cpu()
+            log_probs = log_probs[:, :-1, :].gather(2, sentence_token_ids[:, 1:][:, :, None]).squeeze(-1).to(self.device)
+            log_probs = (log_probs*sentence_tokens.attention_mask.to(self.device)[:, 1:]).sum(-1).cpu()
         return log_probs
     def nli(self, sentences, unknown):
         # true_probs = self.sentence_probabilities(sentences + " True.")
@@ -227,7 +244,7 @@ class LLM():
         padding=True,
         truncation=True,
         max_length=len(prompt)+1
-    ).input_ids.cuda()
+    ).input_ids.to(self.device)
         generated_outputs = self.model.generate(
         encode_ids, 
         max_new_tokens=max_new, 
@@ -458,7 +475,7 @@ def get_bb(file, del_sols=None, seedrun=0):
                 cf.write(write_str)
                 cf.close()
         # print('running cadical')
-        os.system("timeout 5000 " + USER_PATH + "/LLM-project/cadiback/cadiback " + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1]) + '> '  + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/'+ str(file.split('/')[-1])[:-4] + ".bbone")
+        os.system("timeout 5000 " + USER_PATH + "/main/cadiback/cadiback " + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1]) + '> '  + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/'+ str(file.split('/')[-1])[:-4] + ".bbone")
         #   
         bbone= open('/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1])[:-4] + ".bbone", 'r')
         lines = bbone.readlines()
@@ -847,10 +864,10 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
     for f in files:
         for s in sfx:
             if 'pos' in f:
-                shutil.copy(f[:-3] + s, '/home/XXXX/XXXX/LLM-project/workfiles' + str(seedrun) + '/pos_tmp.' + s)
+                shutil.copy(f[:-3] + s, '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) + '/pos_tmp.' + s)
             else:
-                shutil.copy(f[:-3] + s, '/home/XXXX/XXXX/LLM-project/workfiles' + str(seedrun) + '/neg_tmp.' + s)
-    file = '/home/XXXX/XXXX/LLM-project/workfiles' + str(seedrun) +  '/tmp.cnf'
+                shutil.copy(f[:-3] + s, '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) + '/neg_tmp.' + s)
+    file = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) +  '/tmp.cnf'
     
     
     em = '/'.join(file[:-4].split('/')[:-1]) + '/neg_' + file[:-4].split('/')[-1] + '.maptxt'
@@ -1281,16 +1298,16 @@ if __name__ == '__main__':
     # config =  "rulethresh 05, dynamic False, sc5 llama 8B,  no rules in prompt, yes solver, shuffled, new fewshot without rules, fixed_iter_4"                                                             
 
     config = "rulethresh 03 cot_thresh 100 anneal 01, dynamic True, sc5,llama 8B, no RULES IN PROMPT fixed, yes separation, always YN WITH MAYBE, og prompt, no cot gen, augmented extr, expweight"                                                             
-    c = '/home/XXXX/XXXX/LLM-project/dimacs_clutrr_csvs/solver_finished.csv'
+    c = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs_csvs/solver_finished.csv'
     import csv
     import json
     import random
-    dataset = '/home/XXXX/XXXX/SAT-LM/data/clutrr_test.json'
+    dataset = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data/clutrr_test.json'
     with open(dataset, 'r') as df:
         data = json.loads(df.read())
     try:
-        os.mkdir('/home/XXXX/XXXX/LLM-project/tempfiles' + str(seedrun) + '/')
-        os.mkdir('/home/XXXX/XXXX/LLM-project/workfiles' + str(seedrun) + '/')
+        os.mkdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/tempfiles' + str(seedrun) + '/')
+        os.mkdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) + '/')
     except:
         print('dir already exists')
     os.environ["CUDA_VISIBLE_DEVICES"] = str(seedrun.split('_')[1])
@@ -1305,7 +1322,7 @@ if __name__ == '__main__':
     labels = {}
     for row in cr:
         if row[2] == 'SAT' and row[3] == 'SAT':
-            cnf = open('/home/XXXX/XXXX/LLM-project/dimacs_clutrr/neg_'+row[1]).readlines()[0].strip('\n')
+            cnf = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_'+row[1]).readlines()[0].strip('\n')
             num_clause = int(cnf.split(' ')[-1])
             if row[1] in noisy_data or row[1] in mistr_data:
                 continue
@@ -1316,12 +1333,12 @@ if __name__ == '__main__':
     #   
     preds = {}
     if task == 'clutrr':
-        c = open('/home/XXXX/XXXX/LLM-project/clutrr_labels.csv', 'r')
+        c = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/clutrr_new_labels.csv', 'r')
         cr = csv.reader(c)
         for row in cr:
-            if not os.path.exists('/home/XXXX/XXXX/LLM-project/dimacs_clutrr/neg_'+row[0][:-2]+'cnf'):
+            if not os.path.exists('//mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_'+row[0][:-2]+'cnf'):
                 continue
-            cnf = open('/home/XXXX/XXXX/LLM-project/dimacs_clutrr/neg_'+row[0][:-2]+'cnf').readlines()[0].strip('\n')
+            cnf = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_'+row[0][:-2]+'cnf').readlines()[0].strip('\n')
             num_clause = int(cnf.split(' ')[-1])
             if row[1] in noisy_data or row[1] in mistr_data:
                 continue
@@ -1333,7 +1350,8 @@ if __name__ == '__main__':
     args = {'train_file_path': './example_data', 'test_file_path': './example_data', 'save_path': './../SFT_train_res', 'engine': 'meta-llama/Llama-2-13b-chat-hf', 
         'n_rows': 20, 'max_length': 300,'temperature': 1, 'lr': 5e-05, 'weight_decay': 0.0, 'epochs': 10, 'max_grad_norm': 1.0, 'batch_size': 2, 'save_strategy': 'no', 'use_lora': True}
     # args['engine'] = 'meta-llama/Meta-Llama-3-8B-Instruct'
-    args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+    # args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+    args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
     args = Struct(**args)
     llm = LLM(args)
 
@@ -1387,7 +1405,7 @@ if __name__ == '__main__':
         skip_pbar=False 
         start_time = time.time()
         print(name)
-        p = '/home/XXXX/XXXX/LLM-project/dimacs_clutrr/' + name
+        p = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + name
         # p = '/home/XXXX/XXXX/LLM-project/tempfiles/dimacs_test.cnf'
         # sols = get_sol(p, lim=100)
         #   
@@ -1466,7 +1484,7 @@ if __name__ == '__main__':
         else:
             counter += 1
         if stepcount%50 == 0:
-            pkl.dump(all_outs, open('/home/XXXX/XXXX/all_outs_cot_met_clutrr_' + config.replace(' ', '_') + '.pkl', 'wb'))
+            pkl.dump(all_outs, open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/all_outs_cot_met_clutrr_' + config.replace(' ', '_') + '.pkl', 'wb'))
         
 
     acc = 0

@@ -1,0 +1,72 @@
+c CadiBack BackBone Extractor
+c Copyright (c) 2023 Armin Biere University of Freiburg
+c Version 1.5.0 manual
+c CaDiCaL 1.7.0 (null)
+c Compiled with 'g++ -Wall -O3 -DNDEBUG'
+c
+c writing backbones to '<stdout>'
+c not checking models and backbones (enable with '--check')
+c core based preprocessing disabled (enable with '--cores')
+c using 'constrain' interface (disable with '--no-constrain')
+c filtering backbones by models (disable with '--no-filter')
+c using root-level fixed literals (disable with '--no-fixed')
+c trying to use flippable literals (disable with '--no-flip')
+c only dropping flippable candidates without flipping them
+c SAT solver inprocessing (disable with '--no-inprocessing')
+c backbone candidates checked all-at-once (disable with '--one-by-one')
+c phases picked by SAT solver (force with '--set-phase')
+c
+c reading from '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/tempfilesclutrr_2/neg_clutrr0.cnf'
+c opening file to read '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/tempfilesclutrr_2/neg_clutrr0.cnf'
+c found 'p cnf 5 5' header
+c parsed 5 clauses in 0.00 seconds process time
+c closing file '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/tempfilesclutrr_2/neg_clutrr0.cnf'
+c after reading 30 bytes 0.0 MB
+c found 5 variables
+c
+c starting solving after 0.00 seconds
+c solver determined first model after 0.00 seconds
+b -1
+b 2
+b 3
+b 4
+b 5
+b 0
+c
+s SATISFIABLE
+c
+c --- [ backbone statistics ] ------------------------------------------------
+c
+c found                 5 backbones     100%
+c dropped               0 candidates      0%
+c
+c filtered              0 candidates      0%
+c flippable             0 candidates      0%
+c flipped               0 candidates      0%
+c fixed                 5 candidates    100%
+c core                  0 candidates      0%
+c found                 0 big_backbone   0%
+c failed                0 candidates      0%
+c
+c called solver         1 times          17%
+c satisfiable           1 times         100%
+c unsatisfiable         0 times           0%
+c
+c --- [ backbone profiling ] -------------------------------------------------
+c
+c         0.00   1.10 % first
+c         0.00   1.10 % sat
+c         0.00   1.10 % satmax
+c         0.00   1.10 % solving
+c         0.00   0.07 % flip
+c ====================================
+c         0.00 100.00 % total
+c
+c
+c --- [ resources ] ----------------------------------------------------------
+c 
+c total process time since initialization:         0.00    seconds
+c total real time since initialization:            0.00    seconds
+c maximum resident set size of process:            3.38    MB
+c
+c exit 10

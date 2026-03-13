@@ -176,7 +176,7 @@ print("All files patched and directories created.")
     --style_template satlm \
     --run_prediction \
     --eval_split test \
-    --engine HuggingFaceTB/SmolLM2-1.7B-Instruct \
+    --engine Qwen/Qwen2.5-Coder-3B-Instruct \
     --first_k 10 
 ```
 

@@ -151,12 +151,15 @@ class TaskEvaluator(ABC):
 
             gt = cls.postprocess_ground_truth(ref["label"])
             # breakpoint()
+            print(f"answer {answer}")
+            print(f"gt {gt}")
+            print(f"example {ref}")
             acc_records.append(cls.answer_equal(answer, gt, example=ref))
             if 'Error' in answer or 'error' in answer:
                 exec_reccords.append(False)
             else:exec_reccords.append(True)
             if cls.answer_equal(answer, gt, example=ref):
-                f = open('/home/XXXX/XXXX/SAT-LM/' +cls.__name__ + '_correct.csv', 'a')
+                f = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/' +cls.__name__ + '_correct.csv', 'a')
                 f.write(filename + ', ' + str(gt) + '\n')
                 f.close()   
 
@@ -346,7 +349,36 @@ class GSMEvaluator(TaskEvaluator):
 class CLUTRREvaluator(TaskEvaluator):
     @staticmethod
     def postprocess_ground_truth(gt):
+        # gt here is actually the raw label string from the dataset.
+        # The real correctness flag lives in example['gt'] and is handled
+        # by overriding answer_equal below.
         return gt.strip()
+
+    @staticmethod
+    def answer_equal(pred, gt, example=None):
+        """Compare prediction against ground truth, accounting for the CLUTRR
+        dataset's 'gt' field which marks whether the stored label is the
+        correct answer (gt=='true') or a wrong distractor (gt=='false').
+
+        - gt=='true'  → label IS the correct relation; pred must equal it.
+        - gt=='false' → label is a WRONG distractor; pred must be a valid
+                        relation AND differ from the wrong label.
+        """
+        error_sentinels = {
+            CLUTRREvaluator.NULL_ANSWER,
+            CLUTRREvaluator.EXCEPTION,
+            CLUTRREvaluator.TIMEOUT,
+            CLUTRREvaluator.AMBIG,
+            CLUTRREvaluator.UNSAT,
+        }
+        if example is not None and example.get('gt') == 'false':
+            # The label in the dataset is intentionally wrong.
+            # A correct model should predict something OTHER than that label.
+            if pred in error_sentinels:
+                return False
+            return pred != gt
+        # Default: label is the correct answer.
+        return pred == gt
 
     @staticmethod
     def postprocess_completion(completion, prompting_style, train_sep, example=None, filename=None):

@@ -5,10 +5,10 @@ import os
 #for circuit in [ 23]:
     #for subdir in ["atmost2_1_", "atmost3_1_", "atmost4_3_", "equal2_", "exact2_1_", "exact2_2_", "exact3_3_", "exact4_4_", "xor2_"]:
     #for subdir in ["atmost2_1_"]:
-directory = '/home/XXXX/XXXX/fs_backup_feb13/LLM-project/dimacs_clutrr_core_new/'
+directory = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/'
 # gen_files_path = '/home/XXXX/sat_gen/CoreDetection/HardPSGEN/formulas/PS_generated/'
-log_directory = '/home/XXXX/XXXX/fs_backup_feb13/LLM-project/dimacs_clutrr_core_new_output/'
-csv_directory = '/home/XXXX/XXXX/fs_backup_feb13/LLM-project/dimacs_clutrr_core_new_csvs/'
+log_directory = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs_output/'
+csv_directory = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs_csvs/'
 times_dict = {}
 finished_dict = {}
 os.mkdir(csv_directory)
