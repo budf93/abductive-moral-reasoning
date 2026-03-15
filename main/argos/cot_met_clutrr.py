@@ -88,65 +88,103 @@ class LLM():
             bnb_4bit_use_double_quant=True,
         )
         with no_ssl_verification():
-            
-
-            
             self.tokenizer = AutoTokenizer.from_pretrained(
                     args.engine,
-                    cache_dir = cache_dir,
-                    token = os.getenv("HF_TOKEN"),
-                    # attn_implementation="flash_attention_2"
-                    attn_implmentation="sdpa",
-
+                    cache_dir=cache_dir,
+                    token=os.getenv("HF_TOKEN"),
                     )
+            # Llama 3.x uses a different pad token setup — set padding side to left
+            # so batch inference doesn't corrupt attention on the right-hand tokens
             self.tokenizer.pad_token = self.tokenizer.eos_token
-            self.tokenizer.pad_token_id = self.tokenizer.eos_token_id            
+            self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
+            self.tokenizer.padding_side = "left"
+
             self.model = AutoModelForCausalLM.from_pretrained(
-                    args.engine, 
-                    cache_dir = cache_dir,
+                    args.engine,
+                    cache_dir=cache_dir,
                     quantization_config=quant_config,
                     device_map='auto',
-                    token = os.getenv("HF_TOKEN"),
-                    # attn_implementation="flash_attention_2"
-                    # attn_implmentation="sdpa",
+                    token=os.getenv("HF_TOKEN"),
+                    attn_implementation="sdpa",
                     )
-
-        self.tokenizer.pad_token = self.tokenizer.eos_token
+            self.model.config.use_cache = True
     
     @property
     def device(self):
         """Returns the device the model is actually on, derived from its parameters."""
         return next(self.model.parameters()).device
 
+    _kv_cache_reported = False  # print KV-cache status only once
+
     def sentence_probabilities(self, sentences):
         with torch.no_grad():
             sentence_tokens = self.tokenizer(sentences, return_tensors='pt', padding=True)
             sentence_token_ids = sentence_tokens.input_ids.to(self.device)
+            attention_mask = sentence_tokens.attention_mask.to(self.device)
 
-            # Little hack to cut down inference time by 4-5x (leads to some imprecisions when using quantization)
-            # Find the common prefix and run it through the model once, to save time
+            # Optimisation: find the common prefix and run it once, then reuse the
+            # KV-cache for the diverging suffixes (4-5x faster when it works).
             first_different_token = (sentence_token_ids == sentence_token_ids[0, :].unsqueeze(0)).all(dim=0).long().argmin()
             common_prefix = sentence_token_ids[0, :first_different_token].unsqueeze(0)
             common_prefix_output = self.model(common_prefix, use_cache=True)
+            pkv = common_prefix_output.past_key_values
 
-            if common_prefix_output.past_key_values is not None:
-                # Fast path: reuse the prefix KV-cache across all sentences
-                common_prefix_key_values = tuple(
-                    tuple(tensor.expand(len(sentences), -1, -1, -1) for tensor in layer)
-                    for layer in common_prefix_output.past_key_values
+            # Try to expand the KV-cache for all sentences in the batch.
+            # Handles both the old tuple-of-tuples format and the newer DynamicCache
+            # used by Llama 3.x / Mistral 3.x. Falls back if anything is None.
+            expanded_pkv = None
+            try:
+                from transformers.cache_utils import DynamicCache
+                if isinstance(pkv, DynamicCache):
+                    # DynamicCache stores keys/values in .key_cache / .value_cache lists
+                    if (pkv.key_cache and
+                            all(k is not None and v is not None
+                                for k, v in zip(pkv.key_cache, pkv.value_cache))):
+                        new_cache = DynamicCache()
+                        for k, v in zip(pkv.key_cache, pkv.value_cache):
+                            new_cache.key_cache.append(k.expand(len(sentences), -1, -1, -1).contiguous())
+                            new_cache.value_cache.append(v.expand(len(sentences), -1, -1, -1).contiguous())
+                        expanded_pkv = new_cache
+                elif pkv is not None:
+                    # Legacy tuple-of-tuples format
+                    if all(t is not None for layer in pkv for t in layer):
+                        expanded_pkv = tuple(
+                            tuple(t.expand(len(sentences), -1, -1, -1) for t in layer)
+                            for layer in pkv
+                        )
+            except Exception as e:
+                print(f'KV-cache expansion failed: {e}')
+                expanded_pkv = None  # fall through to slow path
+
+            if expanded_pkv is not None:
+                if not LLM._kv_cache_reported:
+                    cache_type = type(pkv).__name__
+                    print(f"[KV-cache] ACTIVE — using {cache_type} fast-path (prefix shared, ~4-5x faster)")
+                    LLM._kv_cache_reported = True
+                rest_outputs = self.model(
+                    sentence_token_ids[:, first_different_token:],
+                    past_key_values=expanded_pkv
                 )
-                rest_outputs = self.model(sentence_token_ids[:, first_different_token:], past_key_values=common_prefix_key_values)
-                logits = torch.concat([common_prefix_output.logits.expand(len(sentences), -1, -1), rest_outputs.logits], dim=1).to(self.device)
+                logits = torch.concat(
+                    [common_prefix_output.logits.expand(len(sentences), -1, -1),
+                     rest_outputs.logits], dim=1
+                ).to(self.device)
             else:
-                # Fallback: model doesn't support KV-cache (e.g. CPU + bitsandbytes).
-                # Run full sequences directly — slower but always correct.
-                print("[sentence_probabilities] past_key_values=None, falling back to full forward pass (slower).")
-                full_outputs = self.model(sentence_token_ids)
+                if not LLM._kv_cache_reported:
+                    reason = "unknown"
+                    if pkv is None:
+                        reason = "model returned None past_key_values"
+                    else:
+                        reason = f"{type(pkv).__name__} contains None tensors (sliding window / GQA)"
+                    print(f"[KV-cache] DISABLED — {reason}. Using slow full forward pass.")
+                    LLM._kv_cache_reported = True
+                # Slow path: full forward pass for every sentence
+                full_outputs = self.model(sentence_token_ids, attention_mask=attention_mask)
                 logits = full_outputs.logits.to(self.device)
 
             log_probs = logits.log_softmax(-1)
             log_probs = log_probs[:, :-1, :].gather(2, sentence_token_ids[:, 1:][:, :, None]).squeeze(-1).to(self.device)
-            log_probs = (log_probs*sentence_tokens.attention_mask.to(self.device)[:, 1:]).sum(-1).cpu()
+            log_probs = (log_probs * attention_mask[:, 1:]).sum(-1).cpu()
         return log_probs
     def nli(self, sentences, unknown):
         # true_probs = self.sentence_probabilities(sentences + " True.")
@@ -234,32 +272,38 @@ class LLM():
         # print('cache length', len(cache))
         # if maybe:
         
-        if maybe: return torch.stack([torch.tensor(pyes), torch.tensor(pmaybe), torch.tensor(pno)])
-        return [torch.tensor(pyes), torch.tensor(pmaybe), torch.tensor(pno)]
-    def complete(self, prompt, max_new = 25, temp = 1, topk=0):
-        max_length = args.max_length
-        encode_ids = self.tokenizer(
-        prompt, 
-        return_tensors='pt',
-        padding=True,
-        truncation=True,
-        max_length=len(prompt)+1
-    ).input_ids.to(self.device)
+        if maybe:
+            return torch.stack([torch.tensor(pyes), torch.tensor(pmaybe), torch.tensor(pno)])
+        if unknown:
+            return [torch.tensor(pyes), torch.tensor(pmaybe), torch.tensor(pno)]
+        return [torch.tensor(pyes), torch.tensor(pno)]
+    def complete(self, prompt, max_new=25, temp=1, topk=0, max_length=300):
+        encoded = self.tokenizer(
+            prompt,
+            return_tensors='pt',
+            padding=True,
+            truncation=True,
+            max_length=max_length
+        )
+        encode_ids = encoded.input_ids.to(self.device)
+        attn_mask = encoded.attention_mask.to(self.device)
         generated_outputs = self.model.generate(
-        encode_ids, 
-        max_new_tokens=max_new, 
-        return_dict_in_generate=True, 
-        output_scores=True,
-        temperature=temp,
-        top_k=topk
+            encode_ids,
+            attention_mask=attn_mask,
+            pad_token_id=self.tokenizer.eos_token_id,
+            max_new_tokens=max_new,
+            return_dict_in_generate=True,
+            output_scores=True,
+            do_sample=(temp > 0 and topk > 0),
+            temperature=temp if (temp > 0 and topk > 0) else None,
+            top_k=topk if topk > 0 else None,
         )
         responses = self.tokenizer.batch_decode(
             generated_outputs.sequences,
             skip_special_tokens=True
         )
-        return responses
-        
-        
+        return responses   
+
 def add_clause(file):
     f = open(file, 'r')
     lines = f.readlines()
@@ -699,7 +743,7 @@ def cot(prob, n=5, jbprompt=False):
     #         "\nQuestion: Is the following statement true: \n\"[Ashley] is not [Dale]\'s mother\"\n\nAnswer:\nLet\'s think step by step. \n1. We are given that [Dale] is the son of [Ashley]. \n2. If [Dale] is the son of [Ashle], then [Ashley] is the mother of [Dale]. " + \
     #         "\nTherefore, the answer to the question is No, the statement is not true.\n***\n"
     system_prompt = "You are a logical reasoner. You will be given some information, and will be asked to determine if a statement is true. Answer each question by providng a detailed and careful trace of your reasoning process. If there is not enough information, the correct answer is \"Unknown\". Here are some examples: \n"
-    user_prompt = "Now, please answer the following logc problem carefully, following the examples provided above: \n"
+    user_prompt = "Now, please answer the following logic problem carefully, following the examples provided above: \n"
     if not jbprompt:
         if 'newrules' in prob.keys():
             # prompt =  few_shot  + 'Facts: \n' + '. '.join(prob['context'].split('. ')) + '\nHere are some additional facts we\'ve found: \n' + '.\n'.join(prob['newrules']) +  '\nQuestion: \n' + prob['question'].strip('.') + '\nAnswer:\nLet\'s think step by step.\n1.' 
@@ -1310,7 +1354,8 @@ if __name__ == '__main__':
         os.mkdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) + '/')
     except:
         print('dir already exists')
-    os.environ["CUDA_VISIBLE_DEVICES"] = str(seedrun.split('_')[1])
+    # os.environ["CUDA_VISIBLE_DEVICES"] = str(seedrun.split('_')[1])
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     task = 'clutrr'
     missed=False
     c = open(c, 'r')
@@ -1350,8 +1395,9 @@ if __name__ == '__main__':
     args = {'train_file_path': './example_data', 'test_file_path': './example_data', 'save_path': './../SFT_train_res', 'engine': 'meta-llama/Llama-2-13b-chat-hf', 
         'n_rows': 20, 'max_length': 300,'temperature': 1, 'lr': 5e-05, 'weight_decay': 0.0, 'epochs': 10, 'max_grad_norm': 1.0, 'batch_size': 2, 'save_strategy': 'no', 'use_lora': True}
     # args['engine'] = 'meta-llama/Meta-Llama-3-8B-Instruct'
+    args['engine'] = 'meta-llama/Llama-3.2-3B-Instruct'
     # args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
-    args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
+    # args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
     args = Struct(**args)
     llm = LLM(args)
 

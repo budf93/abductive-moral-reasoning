@@ -1,18 +1,18 @@
---extra-index-url https://download.pytorch.org/whl/cu126
+--extra-index-url https://download.pytorch.org/whl/cu121
 torch
 torchvision
 torchaudio
 tqdm
 sympy
-openai==0.28
-requests 
-urllib3 
+openai
+requests
+urllib3
 transformers
 func_timeout
-z3
+z3-solver
 accelerate
-bitsandbytes>=0.46.1
-packaging 
+bitsandbytes
+packaging
 ninja
 wheel
 python-dotenv

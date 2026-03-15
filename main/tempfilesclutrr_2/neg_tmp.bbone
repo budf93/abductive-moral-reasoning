@@ -54,11 +54,11 @@ c unsatisfiable         0 times           0%
 c
 c --- [ backbone profiling ] -------------------------------------------------
 c
-c         0.00   1.75 % first
-c         0.00   1.75 % sat
-c         0.00   1.75 % satmax
-c         0.00   1.75 % solving
-c         0.00   0.07 % flip
+c         0.00   1.02 % first
+c         0.00   1.02 % sat
+c         0.00   1.02 % satmax
+c         0.00   1.02 % solving
+c         0.00   0.05 % flip
 c ====================================
 c         0.00 100.00 % total
 c
@@ -67,6 +67,6 @@ c --- [ resources ] ----------------------------------------------------------
 c 
 c total process time since initialization:         0.00    seconds
 c total real time since initialization:            0.01    seconds
-c maximum resident set size of process:            3.38    MB
+c maximum resident set size of process:            3.50    MB
 c
 c exit 10

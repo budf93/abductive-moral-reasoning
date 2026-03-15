@@ -20,8 +20,8 @@ API_ERROR_IDENTIFIER = "OPENAI Error"
 
 os.environ["CURL_CA_BUNDLE"]=""
 os.environ["REQUESTS_CA_BUNDLE"]=""
-# os.environ["CUDA_VISIBLE_DEVICES"] = '2'
-os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+# os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 # os.environ['TRANSFORMERS_CACHE'] = USER_PATH + '/.cache/huggingface/hub'
 # cache_dir = '/ephemeral/media/data1/XXXX/hub/'
 cache_dir = os.path.join(os.getcwd(), '.cache/huggingface/hub')
