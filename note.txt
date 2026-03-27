@@ -1,34 +1,215 @@
-usage: run_manual.py [-h] [--task TASK] [--eval_split EVAL_SPLIT] [--slice_train SLICE_TRAIN] [--num_train NUM_TRAIN] [--num_shots NUM_SHOTS]
-                     [--slice_dev SLICE_DEV] [--num_dev NUM_DEV] [--do_print] [--num_eval_samples NUM_EVAL_SAMPLES] [--first_k FIRST_K]
-                     [--do_impose_prediction] [--engine {gpt-3.5-turbo-instruct,code-davinci-002}] [--run_prediction] [--do_dryrun] [--force_override]
-                     [--batch_size BATCH_SIZE] [--num_samples NUM_SAMPLES] [--temperature TEMPERATURE] --manual_prompt_id MANUAL_PROMPT_ID
-                     [--style_template STYLE_TEMPLATE]
-
-options:
-  -h, --help            show this help message and exit
-  --task TASK
-  --eval_split EVAL_SPLIT
-  --slice_train SLICE_TRAIN
-  --num_train NUM_TRAIN
-  --num_shots NUM_SHOTS
-  --slice_dev SLICE_DEV
-  --num_dev NUM_DEV
-  --do_print
-  --num_eval_samples NUM_EVAL_SAMPLES
-  --first_k FIRST_K
-  --do_impose_prediction
-  --engine {gpt-3.5-turbo-instruct,code-davinci-002}
-  --run_prediction
-  --do_dryrun
-  --force_override
-  --batch_size BATCH_SIZE
-  --num_samples NUM_SAMPLES
-  --temperature TEMPERATURE
-  --manual_prompt_id MANUAL_PROMPT_ID
-  --style_template STYLE_TEMPLATE
-
 - mapping dari kodingan ke paper
 - nguji buat dataset kecil supaya ngetes dulu biar jalan
 - kalo udah paham baru nyoba ganti ke dataset baru
 - pahamin repo + paper cadical + cadiback
 - deadline pahamin sampe step 6 senin
+
+- prediksi relation awal salah
+- rule baru digenerate dari 2 literal yang entitynya paling banyak mirip sama literal lain di backbone, 
+  ini juga ngaco
+
+  (venv) fikribudianto@LAPTOP-BKMERSSI:/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data$ python read_dataset.py --file clutr
+r_test.json --first 3
+--- First 3 items ---
+[
+    {
+        "id": "511be16e-05ba-4d6a-b258-ef2201d6757a",
+        "context": "[Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college.",      
+        "query": "('Clarence', 'Michael')",
+        "label": "father-in-law",
+        "gt": "false"
+    },
+    {
+        "id": "0f226f4d-dc2d-4051-a875-9e555ecf0f22",
+        "context": "[Emily] and her granddaughter [Ashley] went to the mall [Michael] likes to visit his sister. Her name is [Emily].",
+        "query": "('Ashley', 'Michael')",
+        "label": "sister",
+        "gt": "false"
+    },
+    {
+        "id": "946e19f0-a149-4317-9ea9-053788662090",
+        "context": "[Clarence] has 3 children, and one grandson. The Grandsons name is [Tony] [Tony] and his sister, [June], went to a sneak preview of the Avengers movie and loved it.",
+        "query": "('Clarence', 'June')",
+        "label": "father-in-law",
+        "gt": "false"
+    }
+]
+(venv) fikribudianto@LAPTOP-BKMERSSI:/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data$ python read_dataset.py --file folio_proofd5_test.json --first 3
+--- First 3 items ---
+[
+    {
+        "example_id": 1126,
+        "premises": "All people who regularly drink coffee are dependent on caffeine.\nPeople regularly drink coffee, or they don't want to be dependent to caffeine, or both.\nNo one who doesn't want to be addicted to caffeine is unaware that caffeine is a drug.\nRina is either a scholar who is unconcious that caffeine is a drug, or she is not a student and is she aware that caffeine is a drug.\nRina is either a student who is dependent on caffeine, or she is not a scholar and not dependent on caffeine.",
+        "conclusion": "Rina doesn't want to be addicted to caffeine or is unaware that caffeine is a drug.",
+        "premises-FOL": "\u2200x (DrinkRegularly(x, coffee) \u2192 IsDependentOn(x, caffeine))\n\u2200x (DrinkRegularly(x, coffee)  \u2228 (\u00acWantToBeDependentTo(x, caffeine)))\n\u2200x (\u00acWantToBeAddictedTo(x, caffeine) \u2192 AwareThatDrug(x, caffeine))\nScholar(rina) \u2295  ConsciousThatDrug(rina, caffeine)\n\u00ac(IsDependentOn(rina, caffeine) \u2295 Scholar(rina))",
+        "conclusion-FOL": "\u00acWantToBeAddictedTo(rina, caffeine) \u2228 (\u00acAwareThatDrug(rina, caffeine))",        
+        "label": "true",
+        "question": "Rina doesn't want to be addicted to caffeine or is unaware that caffeine is a drug.",
+        "context": [
+            "All people who regularly drink coffee are dependent on caffeine.",
+            "People regularly drink coffee, or they don't want to be dependent to caffeine, or both.",
+            "No one who doesn't want to be addicted to caffeine is unaware that caffeine is a drug.",
+            "Rina is either a scholar who is unconcious that caffeine is a drug, or she is not a student and is she aware that caffeine is a drug.",
+            "Rina is either a student who is dependent on caffeine, or she is not a scholar and not dependent on caffeine."
+        ]
+    },
+    {
+        "example_id": 1127,
+        "premises": "All people who regularly drink coffee are dependent on caffeine.\nPeople regularly drink coffee, or they don't want to be dependent to caffeine, or both.\nNo one who doesn't want to be addicted to caffeine is unaware that caffeine is a drug.\nRina is either a scholar who is unconcious that caffeine is a drug, or she is not a scholar and is she aware that caffeine is a drug.\nRina is either a scholar who is reliant on caffeine, or she is not a scholar and not dependent on caffeine.",
+        "conclusion": "Rina eith doesn't want to be addicted to caffeine or is unaware that caffeine is a drug.",
+        "premises-FOL": "\u2200x (DrinkRegularly(x, coffee) \u2192 IsDependentOn(x, caffeine))\n\u2200x (DrinkRegularly(x, coffee)  \u2228 (\u00acWantToBeDependentTo(x, caffeine)))\n\u2200x (\u00acWantToBeAddictedTo(x, caffeine) \u2192 AwareThatDrug(x, caffeine))\nScholar(rina) \u2295  ConsciousThatDrug(rina, caffeine)\n\u00ac(IsReliantOn(rina, caffeine) \u2295 Scholar(rina))",
+        "conclusion-FOL": "\u00acWantToBeAddictedTo(rina, caffeine) \u2295 \u00acAwareThatDrug(rina, caffeine)",
+        "label": "true",
+        "question": "Rina eith doesn't want to be addicted to caffeine or is unaware that caffeine is a drug.",
+        "context": [
+            "All people who regularly drink coffee are dependent on caffeine.",
+            "People regularly drink coffee, or they don't want to be dependent to caffeine, or both.",
+            "No one who doesn't want to be addicted to caffeine is unaware that caffeine is a drug.",
+            "Rina is either a scholar who is unconcious that caffeine is a drug, or she is not a scholar and is she aware that caffeine is a drug.",
+            "Rina is either a scholar who is reliant on caffeine, or she is not a scholar and not dependent on caffeine." 
+        ]
+    },
+    {
+        "example_id": 1128,
+        "premises": "All people who regularly drink coffee are dependent on caffeine.\nPeople regularly drink coffee, or they don't want to be hooked to caffeine, or both.\nNo one who doesn't want to be addicted to caffeine is unconcious that caffeine is a drug.\nRina is either a pupil who is unaware that caffeine is a drug, or she is not a scholar and is she aware that caffeine is a drug.\nRina is either a pupil who is dependent on caffeine, or she is not a scholar and not dependent on caffeine.",
+        "conclusion": "Rina either regularly drinks coffee or is unaware that caffeine is a drug.",
+        "premises-FOL": "\u2200x (DrinkRegularly(x, coffee) \u2192 IsDependentOn(x, caffeine))\n\u2200x (DrinkRegularly(x, coffee)  \u2228 (\u00acWantToBeHookedTo(x, caffeine)))\n\u2200x (\u00acWantToBeAddictedTo(x, caffeine) \u2192 ConsciousThatDrug(x, caffeine))\nPupil(rina) \u2295  \u00acAwareThatDrug(rina, caffeine)\n\u00ac(IsDependentOn(rina, caffeine) \u2295 Pupil(rina))",
+        "conclusion-FOL": "DrinkRegularly(rina, coffee)  \u2295 IsUnawareThatCaffeineIsADrug(rina)",
+        "label": "false",
+        "question": "Rina either regularly drinks coffee or is unaware that caffeine is a drug.",
+        "context": [
+            "All people who regularly drink coffee are dependent on caffeine.",
+            "People regularly drink coffee, or they don't want to be hooked to caffeine, or both.",
+            "No one who doesn't want to be addicted to caffeine is unconcious that caffeine is a drug.",
+            "Rina is either a pupil who is unaware that caffeine is a drug, or she is not a scholar and is she aware that caffeine is a drug.",
+            "Rina is either a pupil who is dependent on caffeine, or she is not a scholar and not dependent on caffeine." 
+        ]
+    }
+]
+(venv) fikribudianto@LAPTOP-BKMERSSI:/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data$ python read_dataset.py --file pronto_test.json --first 3
+--- First 3 items ---
+[
+    {
+        "question": "3 is real.",
+        "query": "True or false: 3 is real.",
+        "chain_of_thought": [
+            "3 is a Mersenne prime.",
+            "Each Mersenne prime is a prime number.",
+            "3 is a prime number.",
+            "Prime numbers are natural numbers.",
+            "3 is a natural number.",
+            "Every natural number is an integer.",
+            "3 is an integer.",
+            "Integers are real numbers.",
+            "3 is a real number.",
+            "Real numbers are real.",
+            "3 is real."
+        ],
+        "context": [
+            "Prime numbers are natural numbers",
+            "Every natural number is an integer",
+            "Integers are real numbers",
+            "Real numbers are real",
+            "3 is a Mersenne prime"
+        ],
+        "missing": "Each Mersenne prime is a prime number",
+        "label": "true"
+    },
+    {
+        "question": "Sally is warm-blooded.",
+        "query": "True or false: Sally is warm-blooded.",
+        "chain_of_thought": [
+            "Sally is a tabby.",
+            "Tabbies are cats.",
+            "Sally is a cat.",
+            "Cats are felines.",
+            "Sally is a feline.",
+            "Every feline is a carnivore.",
+            "Sally is a carnivore.",
+            "Carnivores are mammals.",
+            "Sally is a mammal.",
+            "Every mammal is warm-blooded.",
+            "Sally is warm-blooded."
+        ],
+        "context": [
+            "Tabbies are cats",
+            "Cats are felines",
+            "Every feline is a carnivore",
+            "Carnivores are mammals",
+            "Sally is a tabby"
+        ],
+        "missing": "Every mammal is warm-blooded",
+        "label": "true"
+    },
+    {
+        "question": "3 is imaginary.",
+        "query": "True or false: 3 is imaginary.",
+        "chain_of_thought": [
+            "3 is a Mersenne prime.",
+            "Every Mersenne prime is a prime number.",
+            "3 is a prime number.",
+            "Prime numbers are natural numbers.",
+            "3 is a natural number.",
+            "Natural numbers are integers.",
+            "3 is an integer.",
+            "Every integer is a real number.",
+            "3 is a real number.",
+            "Every real number is not imaginary.",
+            "3 is not imaginary."
+        ],
+        "context": [
+            "Every Mersenne prime is a prime number",
+            "Prime numbers are natural numbers",
+            "Every integer is a real number",
+            "Every real number is not imaginary",
+            "3 is a Mersenne prime"
+        ],
+        "missing": "Natural numbers are integers",
+        "label": "false"
+    }
+]
+(venv) fikribudianto@LAPTOP-BKMERSSI:/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data$ python read_dataset.py --file ExplainEthics/json/hard_question.json --first 3
+--- First 3 items ---
+[
+    {
+        "id": "t_1",
+        "context": "I covered up the truth about their employee spreading fake news.",
+        "explanation": "covering up the truth about an employee spreading fake news is a form of deception. harm to the reputation of a group, especially a company, can be seen as a behavior involving cheating and deception. deception is a form of dishonest behavior which can harm the reputation of a group, in this case, the company. spreading fake news is a form of deception and dishonesty.",
+        "label": "violate_fairness",
+        "gt": "true",
+        "gold_foundation": "violate_fairness",
+        "AnswerKey": "B",
+        "category": "hard",
+        "agents": "I, their employee",
+        "actions": "covered, spreading",
+        "patients": "the truth about their employee spreading fake news, fake news"
+    },
+    {
+        "id": "t_2",
+        "context": "I tore down the birthday decorations for tomorrow.",
+        "explanation": "there is an emotional harm made to a human. the act of tearing down the decorations is an act of causing emotional harm. birthday decorations are typically set up by someone who cares for the birthday person.",
+        "label": "violate_fairness",
+        "gt": "false",
+        "gold_foundation": "violate_care",
+        "AnswerKey": "B",
+        "category": "hard",
+        "agents": "I",
+        "actions": "tore",
+        "patients": "the birthday decorations for tomorrow"
+    },
+    {
+        "id": "t_3",
+        "context": "In the middle of the exam, I asked permission to go to the bathroom, then went to the bathroom and called my friend to talk about the exam, then returned to finish the exam.",
+        "explanation": "discussing the exam during the exam period, even if you've taken a bathroom break, is a form of cheating. there is a behavior involving cheating and deception.",
+        "label": "violate_care",
+        "gt": "false",
+        "gold_foundation": "violate_fairness",
+        "AnswerKey": "B",
+        "category": "hard",
+        "agents": "I, my friend",
+        "actions": "asked, go, went, called, talk, returned, finish",
+        "patients": "permission to go to the bathroom, to the bathroom, my friend, about the exam, the exam",
+        "arguments": "In the middle of the exam, to the bathroom, then, to talk about the exam, to finish the exam"       
+    }
+]
+(venv) fikribudianto@LAPTOP-BKMERSSI:/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data$

@@ -24,8 +24,8 @@ c closing file '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/tempfilesclutrr_2/pos_
 c after reading 29 bytes 0.0 MB
 c found 5 variables
 c
-c starting solving after 0.01 seconds
-c solver determined first model after 0.01 seconds
+c starting solving after 0.02 seconds
+c solver determined first model after 0.02 seconds
 b 1
 b 2
 b 3
@@ -54,13 +54,13 @@ c unsatisfiable         0 times           0%
 c
 c --- [ backbone profiling ] -------------------------------------------------
 c
-c         0.00   5.36 % first
-c         0.00   5.36 % sat
-c         0.00   5.36 % satmax
-c         0.00   5.36 % solving
+c         0.00   4.61 % first
+c         0.00   4.61 % sat
+c         0.00   4.61 % satmax
+c         0.00   4.61 % solving
 c         0.00   0.01 % flip
 c ====================================
-c         0.01 100.00 % total
+c         0.02 100.00 % total
 c
 c
 c --- [ resources ] ----------------------------------------------------------

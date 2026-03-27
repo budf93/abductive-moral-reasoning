@@ -1,135 +1,55 @@
-(venv) fikribudianto@LAPTOP-BKMERSSI:/mnt/c/Tugas_Akhir/ARGOS_public_anon/main$ python3 argos/cot_met_clutrr.py
-config.json: 100%|█████████████████████████████████████████████████████████████████████| 878/878 [00:00<00:00, 3.72MB/s]
-tokenizer_config.json: 54.5kB [00:00, 38.3MB/s]
-tokenizer.json: 9.09MB [00:01, 8.38MB/s]
-special_tokens_map.json: 100%|█████████████████████████████████████████████████████████| 296/296 [00:00<00:00, 1.24MB/s]
-model.safetensors.index.json: 20.9kB [00:00, 25.8MB/s]
-Fetching 2 files: 100%|██████████████████████████████████████████████████████████████████| 2/2 [06:40<00:00, 200.28s/it]
-Download complete: 100%|███████████████████████████████████████████████████████████| 6.43G/6.43G [06:40<00:00, 16.0MB/s]
-Loading weights: 100%|████████████████████████████████████████████████████████████████| 254/254 [00:55<00:00,  4.58it/s]
-generation_config.json: 100%|███████████████████████████████████████████████████████████| 189/189 [00:00<00:00, 666kB/s]
-  0%|                                                                                             | 0/1 [00:00<?, ?it/s]rulethresh 03 cot_thresh 100 anneal 01, dynamic True, sc5,llama 8B, no RULES IN PROMPT fixed, yes separation, always YN WITH MAYBE, og prompt, no cot gen, augmented extr, expweight
+(venv) fikribudianto@LAPTOP-BKMERSSI:/mnt/c/Tugas_Akhir/ARGOS_public_anon/main$ python3 argos/cot_met_clutrr.py 
+/mnt/c/Tugas_Akhir/ARGOS_public_anon/venv/lib/python3.10/site-packages/transformers/utils/hub.py:127: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+dir already exists
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████| 2/2 [00:27<00:00, 13.83s/it]
+  0%|                                                                                               | 0/1 [00:00<?, ?it/s]rulethresh 03 cot_thresh 100 anneal 01, dynamic True, sc5,llama 8B, no RULES IN PROMPT fixed, yes separation, always YN WITH MAYBE, og prompt, no cot gen, augmented extr, expweight
 clutrr0.cnf
 Michael Emily Clarence
 grandfather_Michael_Clarence_ granddaughter_Clarence_Emily_
 grandfather_Michael_Clarence_ granddaughter_Clarence_Emily_
-[KV-cache] DISABLED — DynamicCache contains None tensors (sliding window / GQA). Using slow full forward pass.
-[np.int64(6), "If Clarence is the grandfather of Michael and Emily is the granddaughter of Clarence then Emily is Michael's _____. Fill in the blank .\nAnswer:\nLets think step by step: \n1.", 'cousin_Michael_Emily_']
-[tensor([0.5000], dtype=torch.bfloat16), tensor([0.7305], dtype=torch.bfloat16)]
+/mnt/c/Tugas_Akhir/ARGOS_public_anon/venv/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:572: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+We detected that you are passing `past_key_values` as a tuple and this is deprecated and will be removed in v4.43. Please use an appropriate `Cache` class (https://huggingface.co/docs/transformers/v4.41.3/en/internal/generation_utils#transformers.Cache)
+[KV-cache] ACTIVE — using tuple fast-path (prefix shared, ~4-5x faster)
+[6, "If Clarence is the grandfather of Michael and Emily is the granddaughter of Clarence then Emily is Michael's _____. Fill in the blank .\nAnswer:\nLets think step by step: \n1.", 'great-aunt_Michael_Emily_']
+[tensor([0.5000]), tensor([0.6859])]
 []
+\n[BACKBONE UPDATE] Inferred new variable: 6
+[BACKBONE UPDATE] Text: [Emily] is the great-aunt of [Michael]
 [1,0]
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step. 1. [Emily] is [Clarence]'s granddaughter. 2. [Michael] is [Emily]'s brother. 3. [Emily] is the daughter of [Clarence]'s daughter and thus is [Clarence]'s grandchild.
-4. [Michael] is [Clarence]'s daughter's son. 5. [Michael] is [Clarence]'s son-in-law. Therefore, the answer to the question is Yes.
-In the second question, what does the "in-law" relationship mean? An in-law relationship is a family relationship between the spouses of the main people. Here, the main people are [Clarence] and his daughter, [Marjorie]. Therefore, the main in-laws are [Marjorie] and her husband [Dale].
-The relationship between [Michael] and [Clarence] is "daughter-in-law". In this question, the question is asking whether [Michael] is [Clarence]'s "father-in-law". This is just a minor variation of the question. The definition of "father-in-law" means the husband of one's daughter or the son-in-law of one's daughter. Thus, the meaning is the same, regardless of whether the relationship is called "father-in-law" or "daughter-in-law". Therefore, both questions have the same meaning. In the answer to the first question, we concluded that [Michael] is [Clarence]'s son-in-law. Because the relationships in the two questions have the same meaning, [Michael] is also [Clarence]'s father-in-law.
-Answer Key:
-I. Yes
-II. No
-III. Yes
-IV. No
-V. Yes
-What is the relationship between [Michael] and [Dale]?
-[Michael] is [Dale]'s daughter.
-Therefore, [Dale] is [Michael]'s father.
-So, the answer to the question is Yes.
-(Father-in-law means son-in-law)
-This is a relationship between a mother and her daughter's child.
-The mother's child is [Dale].
-The daughter is [Michael].
-The answer to the question is No.
-(Variation of the definition of "father-in-law")
-This is a variation of the question.
-The relationship [Michael] and [Dale] is "father-in-law".
-This relationship means the son-in-law of one's daughter or the daughter's husband.
-[Michael] is [Clarence]'s daughter's son.
-[Michael] is the son-in-law of [Clarence].
-Therefore, the answer to the question is Yes.
-(Father-in-law means son-in-law)
-This is a relationship between a daughter and her son's mother.
-The son is [Michael].
-The daughter is [Dale].
-The answer to the question is Yes.
-(Father-in-law means son-in-law)
-This is a relationship between a daughter's daughter and her mother's husband.
-[Michael] is [Clarence]'s daughter's daughter.
-[Clarence] is [Michael]'s father-in-law.
-Therefore, the answer to the question is Yes.
-(Father-in-law means son-in-law)
-A dictionary defines "in-law" as a relative by marriage. This definition also holds true for "father-in-law" and "daughter-in-law".
-The relationship [Michael] and [Clarence] is "daughter-in-law".
-This means the son-in-law of one's daughter or the daughter's husband.
-[Michael] is [Dale]'s son.
-[Michael] is [Clarence]'s daughter-in-law.
-Therefore, the answer to the question is Yes.
-(Father-in-law means son-in-law)
-This is a variation of the question.
-A dictionary defines "in-law" as a relative by marriage. This definition also holds true for "father-in-law" and "daughter-in-law".
-The relationship [Michael] and [Clance] is "son-in-law".
-This means the husband of one's daughter or the son-in-law of one's daughter.
-[Michael] is [Dale]'s son.
-[Michael] is [Clarence]'s son-in-law.
-Therefore, the answer to the question is Yes.
-(Father-in-law means son-in-law)
-This is a variation of the question.
-A dictionary defines "in-law" as a relative by marriage. This definition also holds true for "father-in-law" and "daughter-in-law".
-The relationship [Michael] and [Clance] is "son-in-law".
-This means the husband of one's daughter or the son-in-law of one's daughter.
-[Michael] is [Clance]'s daughter.
-[Michael] is [Clance]'s son-inTherefore, the answer (True/False) is
-tensor([0.5000, 0.5000], dtype=torch.bfloat16)
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step. 1. [Michael] is [Clarence]'s grandson. 2. [Michael] is [Emily]'s brother. 3. [Emily] is [Clarence]'s granddaughter. 4. A grandchild is always the child of the parent of the grandparent. 5. [Clarence]'s daughter is [Emily]'s mother. 6. Therefore, [Clarence]'s daughter-in-law is [Emily]'s mother, and so [Clarence]'s daughter-in-law is [Michael]'s mother. 7. A mother is always the father of the mother's child. 8. Therefore, [Michael]'s father is [Clarence]'s son-in-law. 9. A son-in-law is the husband of the daughter. 10. [Clarence]'s daughter is [Michael]'s mother. 11. [Michael] is [Clarence]'s son-in-law. Therefore, the answer to the question is Yes.
+Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. [Nancy] is [Dale]'s sister. Question: Is [Nancy] [Dale]'s sister? Answer: Let's think step by step. 1. [Nancy] is [Dale]'s sister. 2. [Nancy] is [Dale]'s sister. 3. [Nancy] is [Dale]'s sister. Therefore, the answer to the question is Yes.     
 Therefore, the answer (True/False) is
 [1,0]
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step. 1. [Emily] is [Michael]'s cousin. 2. [Michael] is [Clarence]'s son. 3. [Clarence] is [Michael]'s father. 4. [Clarence] is [Emily]'s grandfather. 5. [Emily] is [Clarence]'s granddaughter. 6. [Emily] is [Michael]'s niece. 7. [Clarence] is [Michael]'s father-in-law. Therefore, the answer to the question is Yes.
+Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. [Nancy] is [Dale]'s sister. Question: Is [Nancy] [Dale]'s sister? Answer: Let's think step by step. 1. [Nancy] is [Dale]'s sister. 2. [Nancy] is [Dale]'s sister. 3. [Nancy] is [Dale]'s sister. Therefore, the answer to the question is Yes.     
 Therefore, the answer (True/False) is
 [1,0]
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step. 1. [Emily] is [Michael]'s cousin. 2. [Clarence]'s granddaughter is [Emily]. 3. [Michael] is [Clarence]'s son-in-law. Therefore, the answer to the question is Yes.
+Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. [Nancy] is [Dale]'s sister. Question: Is [Nancy] [Dale]'s sister? Answer: Let's think step by step. 1. [Nancy] is [Dale]'s sister. 2. [Nancy] is [Dale]'s sister. 3. [Nancy] is [Dale]'s sister. Therefore, the answer to the question is Yes.     
 Therefore, the answer (True/False) is
 [1,0]
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step. 1. [Emily] is [Clarence]'s granddaughter. 2. [Michael] is [Emily]'s brother. 3. [Michael] is [Clarence]'s son. 4. [Emily] is [Clarence]'s granddaughter. 5. [Clarence]'s daughter is [Michael]'s mother. 6. [Michael] is [Clarence]'s son. 7. [Michael] is [Clarence]'s son. 8. [Clarence]'s daughter is [Michael]'s mother. 9. [Michael] is [Clarence]'s son. 10. [Clarence] has a daughter. 11. [Clarence]'s son-in-law is [Michael]. Therefore, the answer to the question is Yes.
-Therefore, the answer (True/False) is
-tensor(5.) tensor([4.5000, 0.5000])
-false
-Emily Michael Clarence
-granddaughter_Clarence_Emily_ grandfather_Michael_Clarence_
-granddaughter_Clarence_Emily_ grandfather_Michael_Clarence_
-[np.int64(6), "If Clarence is the grandfather of Michael and Emily is the granddaughter of Clarence then Emily is Michael's _____. Fill in the blank .\nAnswer:\nLets think step by step: \n1.", 'cousin_Michael_Emily_', np.int64(7), "If Emily is the granddaughter of Clarence and Clarence is the grandfather of Michael then Michael is Emily's _____. Fill in the blank .\nAnswer:\nLets think step by step: \n1.", 'cousin_Emily_Michael_']
-[tensor([0.5000], dtype=torch.bfloat16), tensor([0.7305], dtype=torch.bfloat16)]
-['[Emily] is the cousin of [Michael]']
-tensor([0.5000, 0.5000], dtype=torch.bfloat16)
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. [Michael] is the cousin of [Emily]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step. 1. [Emily] is [Clarence]'s granddaughter. 2. [Michael] is [Emily]'s brother. 3. [Michael] is [Emily]'s brother. 4. [Emily] is [Michael]'s sister. 5. [Michael] is [Clarence]'s son. 6. [Clarence] is [Michael]'s father. 7. [Clarence] is [Michael]'s father. 8. [Michael] is [Clarence]'s son. 9. [Michael] is [Clarence]'s son. 10. [Clarence] is [Michael]'s father. 11. [Clarence] is [Michael]'s father. 12. [Michael] is [Clarence]'s son. 13. [Clarence] is [Michael]'s father. 14. [Clarence] is [Michael]'s father. 15. [Michael] is [Clarence]'s son. 16. [Clarence] is [Michael]'s father. 17. [Michael] is [Clarence]'s son. 18. [Clarence] is [Michael]'s father. 19. [Clarence] is [Michael]'s father. 20. [Michael] is [Clarence]'s son. 21. [Clarence] is [Michael]'s father. 22. [Michael] is [Clarence]'s son. 23. [Clarence] is [Michael]'s father. 24. [Clarence] is [Michael]'s father. 25. [Michael] is [Clarence]'s son. 26. [Clarence] is [Michael]'s father. 27. [Michael] is [Clarence]'s son. 28. [Clarence] is [Michael]'s father. 29. [Clarence] is [Michael]'s father. 30. [Michael] is [Clarence]'s son. 31. [Clarence] is [Michael]'s father. 32. [Michael] is [Clarence]'s son. 33. [Clarence] is [Michael]'s father. 34. [Clarence] is [Michael]'s father. 35. [Michael] is [Clance..."],_futurecs". An answer to the question is No.
+Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. [Nancy] is [Dale]'s sister. Question: Is [Nancy] [Dale]'s sister? Answer: Let's think step by step. 1. [Nancy] is [Dale]'s sister. 2. [Nancy] is [Dale]'s sister. 3. [Nancy] is [Dale]'s sister. Therefore, the answer to the question is Yes.     
 Therefore, the answer (True/False) is
 [1,0]
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. [Michael] is the cousin of [Emily]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step. 1. [Emily] is [Clarence]'s granddaughter. 2. [Michael] is [Emily]'s brother. 3. [Clarence] is [Emily]'s grandfather. 4. [Clarence] is [Emily]'s grandfather-in-law. 5. [Michael] is [Emily]'s brother-in-law. 6. [Clarence] is [Michael]'s father-in-law. Therefore, the answer to the question is Yes.  
+Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. [Nancy] is [Dale]'s sister. Question: Is [Nancy] [Dale]'s sister? Answer: Let's think step by step. 1. [Nancy] is [Dale]'s sister. 2. [Nancy] is [Dale]'s sister. 3. [Nancy] is [Dale]'s sister. Therefore, the answer to the question is Yes.     
 Therefore, the answer (True/False) is
-[1,0]
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. [Michael] is the cousin of [Emily]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step. 1. [Clarence] is [Emily]'s grandfather. 2. [Michael] is [Emily]'s uncle. 3. [Emily] and [Michael] are first cousins. 4. [Michael] and [Clarence] are first cousins-in-law. 5. [Clarence] is [Michael]'s father-in-law. Therefore, the answer to the question is Yes.
-Therefore, the answer (True/False) is
-[1,0]
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. [Michael] is the cousin of [Emily]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step. 1. [Emily] is [Michael]'s cousin and [Michael] is [Emily]'s cousin, which means they are also first cousins. 2. First cousins are spouses of first cousins or spouses of first cousins. 3. [Clarence] is the spouse of [Emily]'s mother or [Michael]'s mother. 4. [Clarence] is [Michael]'s father-in-law. Therefore, the answer to the question is Yes.
-Therefore, the answer (True/False) is
-[1,0]
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. [Michael] is the cousin of [Emily]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step. 1. [Michael] is the cousin of [Emily]. 2. [Emily] is [Clarence]'s granddaughter. 3. [Michael] is [Clarence]'s son-in-law. Therefore, the answer to the question is Yes.
-Therefore, the answer (True/False) is
-tensor(9.) tensor([9., 1.])
+tensor(5.) tensor([5., 0.])
 false
 decided with cot
 label:  false
 pred: true
-100%|███████████████████████████████████████████████████████████████████████████████████| 1/1 [36:37<00:00, 2197.95s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████| 1/1 [07:16<00:00, 436.52s/it]
 true  false
 acc: 0.0
 missed: 0.0
 missed list: 1
 rulethresh 03 cot_thresh 100 anneal 01, dynamic True, sc5,llama 8B, no RULES IN PROMPT fixed, yes separation, always YN WITH MAYBE, og prompt, no cot gen, augmented extr, expweight
 --Return--
-> /mnt/c/Tugas_Akhir/ARGOS_public_anon/main/argos/cot_met_clutrr.py(1553)<module>()->None
+> /mnt/c/Tugas_Akhir/ARGOS_public_anon/main/argos/cot_met_clutrr.py(1560)<module>()->None
 -> breakpoint()
-
-Analyse these:
-
 (Pdb) p prob['context']
 "[Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college."
+(Pdb) p prob['query']
+"('Clarence', 'Michael')"
 (Pdb) p prob['query']
 "('Clarence', 'Michael')"
 (Pdb) p prob['label']
@@ -147,44 +67,29 @@ Analyse these:
 (Pdb) p counter
 1
 (Pdb) pp vv
-[np.int64(6),
+[6,
  'If Clarence is the grandfather of Michael and Emily is the granddaughter of '
  "Clarence then Emily is Michael's _____. Fill in the blank .\n"
  'Answer:\n'
  'Lets think step by step: \n'
  '1.',
- 'cousin_Michael_Emily_',
- np.int64(7),
- 'If Emily is the granddaughter of Clarence and Clarence is the grandfather of '
- "Michael then Michael is Emily's _____. Fill in the blank .\n"
- 'Answer:\n'
- 'Lets think step by step: \n'
- '1.',
- 'cousin_Emily_Michael_',
+ 'great-aunt_Michael_Emily_',
  'By COT']
 (Pdb) pp all_outs
-{'clutrr0.cnf': ([np.int64(6),
+{'clutrr0.cnf': ([6,
                   'If Clarence is the grandfather of Michael and Emily is the '
                   "granddaughter of Clarence then Emily is Michael's _____. "
                   'Fill in the blank .\n'
                   'Answer:\n'
                   'Lets think step by step: \n'
                   '1.',
-                  'cousin_Michael_Emily_',
-                  np.int64(7),
-                  'If Emily is the granddaughter of Clarence and Clarence is '
-                  "the grandfather of Michael then Michael is Emily's _____. "
-                  'Fill in the blank .\n'
-                  'Answer:\n'
-                  'Lets think step by step: \n'
-                  '1.',
-                  'cousin_Emily_Michael_',
+                  'great-aunt_Michael_Emily_',
                   'By COT'],
                  {'neg': [0], 'pos': []},
-                 {'neg': [-1, 2, 3, 4, 5, 6], 'pos': [1, 2, 3, 4, 5, 6]},
+                 {'neg': [-1, 2, 3, 4, 5], 'pos': [1, 2, 3, 4, 5]},
                  False,
                  True,
-                 [tensor([4.5000, 0.5000]), tensor([9., 1.])],
+                 [tensor([5., 0.])],
                  ['Facts: [Nancy] likes to cut the hair of her daughter '
                   "[Heidi]. [Heidi]'s sister [Lorraine] went to beauty school "
                   'and taught them all how to cut hair expertly. Question: Is '
@@ -214,50 +119,18 @@ Analyse these:
                   'Therefore, the answer to the question is No. \n'
                   "Facts: [Clarence]'s granddaughter, [Emily], was busy "
                   'helping her brother, [Michael], move to college. Here are '
-                  "some additional facts we've found: [Emily] is the cousin of "
-                  "[Michael]. Question: Is [Michael] [Clarence]'s "
-                  "father-in-law? Answer: Let's think step by step.",
-                  'Facts: [Nancy] likes to cut the hair of her daughter '
-                  "[Heidi]. [Heidi]'s sister [Lorraine] went to beauty school "
-                  'and taught them all how to cut hair expertly. Question: Is '
-                  "[Lorraine] [Nancy]'s daughter? Answer: Let's think step by "
-                  "step. 1. [Lorraine] is [Heidi]'s sister. 2. [Heidi] is "
-                  "[Nancy]'s daughter. 3. [Lorraine] is [Nancy]'s daughter. "
-                  'Therefore, the answer to the question is Yes. \n'
-                  'Facts: [Dale] and his sister [Nancy] are decorating for a '
-                  "party. [Nancy]'s daughter [Louise] thinks the party will be "
-                  "fun. Question: Is [Louise] [Dales]'s sister? Answer: Let's "
-                  "think step by step. 1. [Louise] is [Nancy]'s daughter. 2. "
-                  "[Nancy] is [Dale]'s sister. 3. [Louise] is [Dale]'s niece. "
-                  'Therefore, the answer to the question is No. \n'
-                  'Facts: [Lillian] and her sister [Nancy] are the only '
-                  "children in their family. [Lillian]'s biggest "
-                  'accomplishment is raising her son [Douglas]. Question: Is '
-                  "[Douglas] [Nancy]'s nephew? Answer: Let's think step by "
-                  "step. 1. [Douglas] is [Lillian]'s son. 2. [Nancy] is "
-                  "[Lillian]'s sister. 3. [Douglas] is [Nancy]'s nephew. "
-                  'Therefore, the answer to the question is Yes. \n'
-                  'Facts: [Ashley] liked to go to the park with her '
-                  "granddaughter [Charlotte]. [Dale], [Charlotte]'s father, "
-                  'like to take her to the movies instead. Question: Is '
-                  "[Ashley] [Dale]'s aunt? Answer: Let's think step by step. "
-                  "1. [Ashley] is [Charlotte]'s grandmother. 2. [Charlotte] is "
-                  "[Dale]'s daughter. 3. [Ashley] is [Dale]'s mother. "
-                  'Therefore, the answer to the question is No. \n'
-                  "Facts: [Clarence]'s granddaughter, [Emily], was busy "
-                  'helping her brother, [Michael], move to college. Here are '
-                  "some additional facts we've found: [Emily] is the cousin of "
-                  '[Michael]. [Michael] is the cousin of [Emily]. Question: Is '
-                  "[Michael] [Clarence]'s father-in-law? Answer: Let's think "
-                  'step by step.'])}
+                  "some additional facts we've found: [Emily] is the "
+                  'great-aunt of [Michael]. Question: Is [Michael] '
+                  "[Clarence]'s father-in-law? Answer: Let's think step by "
+                  'step.'])}
 (Pdb) p cot_flag
 True
 (Pdb) p scs
-[tensor([4.5000, 0.5000]), tensor([9., 1.])]
+[tensor([5., 0.])]
 (Pdb) pp solout
 {'neg': [0], 'pos': []}
 (Pdb) pp bbout
-{'neg': [-1, 2, 3, 4, 5, 6], 'pos': [1, 2, 3, 4, 5, 6]}
+{'neg': [-1, 2, 3, 4, 5], 'pos': [1, 2, 3, 4, 5]}
 (Pdb) pp bb
 {'neg': [-1, 2, 3, 4, 5], 'pos': [1, 2, 3, 4, 5]}
 (Pdb) pp mapping
@@ -267,43 +140,26 @@ True
 --- PROMPT 0 ---
 Facts: [Nancy] likes to cut the hair of her daughter [Heidi]. [Heidi]'s sister [Lorraine] went to beauty school and taught them all how to cut hair expertly. Question: Is [Lorraine] [Nancy]'s daughter? Answer: Let's think step by step. 1. [Lorraine] is [Heidi]'s sister. 2. [Heidi] is [Nancy]'s daughter. 3. [Lorraine] is [Nancy]'s daughter. Therefore, the answer to the question is Yes.
 Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. Question: Is [Louise] [Dales]'s sister? Answer: Let's think step by step. 1. [Louise] is [Nancy]'s daughter. 2. [Nancy] is [Dale]'s sister. 3. [Louise] is [Dale]'s niece. Therefore, the answer to the question is No.
-Facts: [Lillian] and her sister [Nancy] are the only children in their family. [Lillian]'s biggest accomplishment is raising her son [Douglas]. Question: Is [Douglas] [Nancy]'s nephew? Answer: Let's think step by step. 1. [Douglas] is [Lillian]'s son. 2. [Nancy] is [Lillian]'s sister. 3. [Douglas] is [Nancy]'s nephew. Therefore, the answer to the question is Yes.
+Facts: [Lillian] and her sister [Nancy] are the only children in their family. [Lillian]'s biggest accomplishment is raising her son [Douglas]. Question: Is [Douglas] [Nancy]'s nephew? Answer: Let's think step by step. 1. [Douglas] is [Lillian]'s son. 2. [Nancy] is [Lillian]'s sister. 3. [Douglas] is [Nancy]'s nephew. Therefore, the answer to the question is Yes. 
 Facts: [Ashley] liked to go to the park with her granddaughter [Charlotte]. [Dale], [Charlotte]'s father, like to take her to the movies instead. Question: Is [Ashley] [Dale]'s aunt? Answer: Let's think step by step. 1. [Ashley] is [Charlotte]'s grandmother. 2. [Charlotte] is [Dale]'s daughter. 3. [Ashley] is [Dale]'s mother. Therefore, the answer to the question is No.
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step.
-
---- PROMPT 1 ---
-Facts: [Nancy] likes to cut the hair of her daughter [Heidi]. [Heidi]'s sister [Lorraine] went to beauty school and taught them all how to cut hair expertly. Question: Is [Lorraine] [Nancy]'s daughter? Answer: Let's think step by step. 1. [Lorraine] is [Heidi]'s sister. 2. [Heidi] is [Nancy]'s daughter. 3. [Lorraine] is [Nancy]'s daughter. Therefore, the answer to the question is Yes.
-Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. Question: Is [Louise] [Dales]'s sister? Answer: Let's think step by step. 1. [Louise] is [Nancy]'s daughter. 2. [Nancy] is [Dale]'s sister. 3. [Louise] is [Dale]'s niece. Therefore, the answer to the question is No.
-Facts: [Lillian] and her sister [Nancy] are the only children in their family. [Lillian]'s biggest accomplishment is raising her son [Douglas]. Question: Is [Douglas] [Nancy]'s nephew? Answer: Let's think step by step. 1. [Douglas] is [Lillian]'s son. 2. [Nancy] is [Lillian]'s sister. 3. [Douglas] is [Nancy]'s nephew. Therefore, the answer to the question is Yes.
-Facts: [Ashley] liked to go to the park with her granddaughter [Charlotte]. [Dale], [Charlotte]'s father, like to take her to the movies instead. Question: Is [Ashley] [Dale]'s aunt? Answer: Let's think step by step. 1. [Ashley] is [Charlotte]'s grandmother. 2. [Charlotte] is [Dale]'s daughter. 3. [Ashley] is [Dale]'s mother. Therefore, the answer to the question is No.
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the cousin of [Michael]. [Michael] is the cousin of [Emily]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step.
+Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the great-aunt of [Michael]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step.
 (Pdb) pp rule_scores
-{"If Clarence is the grandfather of Michael and Emily is the granddaughter of Clarence then Emily is Michael's cousin": [tensor([0.5000], dtype=torch.bfloat16),
-                                                                                                                        
- tensor([0.7305], dtype=torch.bfloat16)],
- "If Emily is the granddaughter of Clarence and Clarence is the grandfather of Michael then Michael is Emily's cousin": [tensor([0.5000], dtype=torch.bfloat16),
-                                                                                                                        
- tensor([0.7305], dtype=torch.bfloat16)]}
+{"If Clarence is the grandfather of Michael and Emily is the granddaughter of Clarence then Emily is Michael's great-aunt": [tensor([0.5000]),
+                                                                                                                          
+   tensor([0.6859])]}
 (Pdb) pp missed_list
 [['clutrr0.cnf',
-  [np.int64(6),
+  [6,
    'If Clarence is the grandfather of Michael and Emily is the granddaughter '
    "of Clarence then Emily is Michael's _____. Fill in the blank .\n"
    'Answer:\n'
    'Lets think step by step: \n'
    '1.',
-   'cousin_Michael_Emily_',
-   np.int64(7),
-   'If Emily is the granddaughter of Clarence and Clarence is the grandfather '
-   "of Michael then Michael is Emily's _____. Fill in the blank .\n"
-   'Answer:\n'
-   'Lets think step by step: \n'
-   '1.',
-   'cousin_Emily_Michael_',
+   'great-aunt_Michael_Emily_',
    'By COT']]]
 (Pdb) pp times
-{'clutrr0.cnf': {'prep_time': 0.25035548210144043,
-                 'run_time': 2197.690413713455}}
+{'clutrr0.cnf': {'prep_time': 0.5633938312530518,
+                 'run_time': 435.9574077129364}}
 (Pdb)
 
 TODO:

@@ -331,6 +331,7 @@ def run_completion_tasks_with_cache(args, cache_fileneme, prompts_by_examples, m
         renewed_cache.append(renewed_results[slice_start: slice_start + n])
         slice_start = slice_start + n
 
+    print(f"WRITING TO MISC/CACHE: {cache_fileneme}")
     dump_json(renewed_cache, cache_fileneme)
     return renewed_cache
 

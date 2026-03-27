@@ -65,7 +65,7 @@ Translate natural language stories into symbolic logic programs.
 2.  **Run:**
     ```powershell
     cd SAT-LM
-    python3 run_manual.py --task clutrr --manual_prompt_id proglm --style_template proglm --run_prediction --eval_split test --engine HuggingFaceTB/SmolLM2-1.7B-Instruct
+    python3 run_manual.py --task clutrr --num_dev 1 --manual_prompt_id satlm --style_template satlm --run_prediction
     ```
 3.  **Output:** Python logic scripts will appear in `SAT-LM/tmp/`.
 

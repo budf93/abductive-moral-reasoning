@@ -18,6 +18,12 @@ from prog_solver.clutrr_solver import clutrr_proglm_exec, clutrr_satlm_exec
 from prog_solver.proof_solver import proof_proglm_exec, proof_satlm_exec
 from prog_solver.arlsat_solver import arlsat_satlm_exec
 from prog_solver.boardgame_solver import board_satlm_exec
+# >>> [ExplainEthics Adaptation] BEGIN: import explain_ethics_solver
+# Import the new solver that handles implies()-chain code for the ethics task.
+# This is the ethics-domain equivalent of clutrr_satlm_exec.
+from prog_solver.explain_ethics_solver import explain_ethics_satlm_exec
+# <<< [ExplainEthics Adaptation] END: import explain_ethics_solver
+
 
 
 EVALUATOR_REGISTRY = {}
@@ -371,12 +377,12 @@ class CLUTRREvaluator(TaskEvaluator):
             CLUTRREvaluator.AMBIG,
             CLUTRREvaluator.UNSAT,
         }
-        if example is not None and example.get('gt') == 'false':
-            # The label in the dataset is intentionally wrong.
-            # A correct model should predict something OTHER than that label.
-            if pred in error_sentinels:
-                return False
-            return pred != gt
+        # if example is not None and example.get('gt') == 'false':
+        #     # The label in the dataset is intentionally wrong.
+        #     # A correct model should predict something OTHER than that label.
+        #     if pred in error_sentinels:
+        #         return False
+        #     return pred != gt
         # Default: label is the correct answer.
         return pred == gt
 
@@ -619,6 +625,176 @@ class Boardmaindp2Evaluator(BoardgameQAEvaluator):
 
 class Boardmaindp3Evaluator(BoardgameQAEvaluator):
     pass
+
+# >>> [ExplainEthics Adaptation] BEGIN: ExplainEthicsEvaluator
+class ExplainEthicsEvaluator(TaskEvaluator):
+    """
+    Evaluator for the ExplainEthics dataset.
+
+    The ExplainEthics dataset has two label-related fields:
+      - 'label'          : the label that was shown to the model (may be correct OR a decoy)
+      - 'gold_foundation': the true moral norm that is actually violated
+      - 'gt'             : 'true'  → 'label' IS the correct answer
+                          'false' → 'label' is a deliberate wrong decoy
+
+    The pipeline prediction is compared against 'gold_foundation'. We follow
+    the same pattern as CLUTRREvaluator: a correct prediction means the model
+    identified the true norm regardless of whether the shown label was right.
+
+    Supported prompting styles:
+      - 'satlm'        : implies() code → Z3 solver → norm string
+      - 'satcotsolver' : CoT text + code → Z3 solver → norm string
+      - 'satnosolver'  : implies() code → read 'return' line directly (no solver)
+      - 'proglm'       : Python function → exec() → norm string
+    """
+
+    # The six canonical moral norms used for random answer fallback
+    _MORAL_NORMS = [
+        "violate_care", "violate_fairness", "violate_loyalty",
+        "violate_authority", "violate_sanctity", "violate_liberty",
+    ]
+
+    # The hint phrase the LLM writes when using CoT style
+    ANSWER_HINT = "the answer is"
+
+    @classmethod
+    def generate_random_answer(cls):
+        # Used when do_impose_prediction=True and no answer could be parsed
+        return random.choice(cls._MORAL_NORMS)
+
+    @staticmethod
+    def postprocess_ground_truth(gt):
+        """
+        Return the raw 'label' field as-is so we can use it in the compare step.
+        The true evaluation happens in answer_equal() where we compare against
+        'gold_foundation' via the example dict.
+        """
+        return str(gt).strip()
+
+    @staticmethod
+    def answer_equal(pred, gt, example=None):
+        """
+        Compare prediction against the TRUE norm label ('gold_foundation').
+
+        Uses the 'gt' flag to determine whether the shown 'label' was correct:
+          - gt == 'true'  → gold_foundation == label; prediction must equal it
+          - gt == 'false' → gold_foundation differs from label; prediction must
+                            equal gold_foundation (i.e. the model resisted the decoy)
+        Falls back to pred == gt if the example dict is unavailable.
+        """
+        # Treat error sentinels as always wrong
+        error_sentinels = {
+            ExplainEthicsEvaluator.NULL_ANSWER,
+            ExplainEthicsEvaluator.EXCEPTION,
+            ExplainEthicsEvaluator.TIMEOUT,
+            ExplainEthicsEvaluator.AMBIG,
+            ExplainEthicsEvaluator.UNSAT,
+        }
+        if pred in error_sentinels:
+            return False
+
+        if example is not None and "gold_foundation" in example:
+            # Always compare against the TRUE norm, regardless of the shown 'label'
+            true_norm = str(example["gold_foundation"]).strip().replace("-", "_")
+            pred_norm = str(pred).strip().replace("-", "_")
+            return pred_norm == true_norm
+
+        # Fallback if example not available: compare against shown label
+        return str(pred).strip() == str(gt).strip()
+
+    @staticmethod
+    def postprocess_completion(completion, prompting_style, train_sep, example=None, filename=None):
+        """
+        Dispatch to the correct completion handler based on prompting_style.
+        This mirrors CLUTRREvaluator.postprocess_completion() in structure.
+        """
+        # Strip the separator and any trailing whitespace first
+        completion = completion.rstrip().split(train_sep)[0]
+
+        if prompting_style in ("satlm", "satcotsolver", "satnosolver"):
+            # All SAT-style prompts produce implies() code; run through Z3
+            return ExplainEthicsEvaluator.postprocess_sat_style_completion(
+                completion, prompting_style, filename=filename
+            )
+        elif prompting_style == "proglm":
+            # proglm prompts produce plain Python; exec() and read return value
+            return ExplainEthicsEvaluator.postprocess_proglm_style_completion(
+                completion, filename=filename
+            )
+        else:
+            raise RuntimeError(f"ExplainEthicsEvaluator: unsupported style '{prompting_style}'")
+
+    @staticmethod
+    def postprocess_sat_style_completion(completion, prompting_style, filename=None):
+        """
+        Handle satlm / satcotsolver / satnosolver completions.
+
+        For satnosolver: skip the Z3 solver and just read the 'return' line.
+        For satlm/satcotsolver: run the implies() code through Z3 via
+        explain_ethics_satlm_exec() and return the predicted norm.
+        """
+        try:
+            # The LLM output starts after 'def solution():' — strip the scaffold
+            code = completion.split("def solution():")[0].strip()
+        except (IndexError, AttributeError):
+            # LLM did not produce a valid def solution(): block
+            return completion, ExplainEthicsEvaluator.EXCEPTION, filename
+
+        if prompting_style == "satnosolver":
+            # satnosolver: read the 'return' statement directly, no SAT call
+            # Find the last 'return <norm>(...)' line and extract the norm name
+            pred = ExplainEthicsEvaluator.NULL_ANSWER
+            for line in reversed(code.splitlines()):
+                line = line.strip()
+                if line.startswith("return "):
+                    # e.g. "return violate_fairness(I)" → "violate_fairness"
+                    inner = line[len("return "):].split("(")[0].strip()
+                    if inner:
+                        pred = inner
+                        break
+            return completion, pred, filename
+
+        # satlm / satcotsolver: pass the code to the Z3 solver
+        try:
+            status, result = explain_ethics_satlm_exec(code, prompting_style, filename=filename)
+            print(f"[ExplainEthicsEvaluator] status={status}, result={result}")
+            if not status:
+                # Z3 returned an error (execution error or timeout)
+                result = ExplainEthicsEvaluator.EXCEPTION
+        except Exception as e:
+            print(f"[ExplainEthicsEvaluator] exception: {e}")
+            result = ExplainEthicsEvaluator.EXCEPTION
+
+        # Voting mode: treat any error sentinel as NULL so it doesn't influence majority vote
+        if ExplainEthicsEvaluator.do_voting:
+            if result in [
+                ExplainEthicsEvaluator.AMBIG, ExplainEthicsEvaluator.EXCEPTION,
+                ExplainEthicsEvaluator.UNSAT, ExplainEthicsEvaluator.TIMEOUT,
+            ]:
+                result = ExplainEthicsEvaluator.NULL_ANSWER
+
+        return completion, result, filename
+
+    @staticmethod
+    def postprocess_proglm_style_completion(completion, filename=None):
+        """
+        Handle proglm completions: exec() the Python function and read its output.
+        The LLM is expected to write a function that returns a norm label string.
+        """
+        try:
+            # Execute the code in a sandboxed namespace and call solution()
+            namespace = {}
+            exec(completion, namespace)  # populates namespace with 'solution' function
+            result = str(namespace["solution"]()).strip()
+        except Exception as e:
+            print(f"[ExplainEthicsEvaluator proglm] exception: {e}")
+            result = ExplainEthicsEvaluator.EXCEPTION
+
+        if ExplainEthicsEvaluator.do_voting and result == ExplainEthicsEvaluator.EXCEPTION:
+            result = ExplainEthicsEvaluator.NULL_ANSWER
+
+        return completion, result, filename
+# <<< [ExplainEthics Adaptation] END: ExplainEthicsEvaluator
 
 def get_task_evaluator(taskname):
     return EVALUATOR_REGISTRY[taskname.lower()]

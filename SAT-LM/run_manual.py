@@ -210,8 +210,12 @@ def run_evaluation(args, test_data, responses, print_perplexity=False, return_ve
         [Prediction(x["text"], x["prompt"], *score_of_completion(x)) for x in completions[:num_eval_samples]] for completions in responses
     ]
 
-    print(f"predictions {predictions}")
-
+    print("\\n=== PREDICTIONS ===")
+    for i, preds_list in enumerate(predictions):
+        for j, pred in enumerate(preds_list):
+            print(f"--- Example {i}, Sample {j} ---")
+            print(pred.completion)
+            print("-" * 50)
     if args.do_print:
         TaskEvaluator.do_printing = True
     if args.do_impose_prediction:

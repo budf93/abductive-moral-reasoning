@@ -54,11 +54,11 @@ c unsatisfiable         0 times           0%
 c
 c --- [ backbone profiling ] -------------------------------------------------
 c
-c         0.00   1.81 % first
-c         0.00   1.81 % sat
-c         0.00   1.81 % satmax
-c         0.00   1.81 % solving
-c         0.00   0.06 % flip
+c         0.00   1.71 % first
+c         0.00   1.71 % sat
+c         0.00   1.71 % satmax
+c         0.00   1.71 % solving
+c         0.00   0.03 % flip
 c ====================================
 c         0.00 100.00 % total
 c

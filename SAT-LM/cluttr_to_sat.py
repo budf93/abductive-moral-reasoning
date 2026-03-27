@@ -94,6 +94,7 @@ def translate_expression(logical_expr):
 # if not os.path.exists()
 # os.mkdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs')
 def to_dimacs_formula(sympy_cnf, dimacs_mapping=None):
+    print(f"sympy cnf: {sympy_cnf}")
     if dimacs_mapping == None:
         dimacs_mapping = DimacsMapping()
     dimacs_clauses = []
@@ -103,6 +104,7 @@ def to_dimacs_formula(sympy_cnf, dimacs_mapping=None):
         # print(type(sympy_cnf))
         # breakpoint()
     for sympy_clause in sympy_cnf.args:
+        print(f"sympy_clause : {sympy_clause}")
         dimacs_clause = []
         try:
             assert type(sympy_clause) == Or
@@ -134,12 +136,18 @@ def to_dimacs_formula(sympy_cnf, dimacs_mapping=None):
                 raise AssertionError("invalid cnf")
 
             dimacs_variable = dimacs_mapping.get_variable_for(sympy_symbol)
+            print(f"dimacs_variable : {dimacs_variable}")
             dimacs_literal = dimacs_variable * polarity
+            print(f"dimacs_literal : {dimacs_literal}")
             dimacs_clause.append(dimacs_literal)
 
         dimacs_clauses.append(dimacs_clause)
         # breakpoint()
 
+    print(f"dimacs_mapping : {dimacs_mapping}")
+    print(f"dimacs_mapping._variable_to_symbol : {dimacs_mapping._variable_to_symbol}")
+    print(f"dimacs_mapping._symbol_to_variable : {dimacs_mapping._symbol_to_variable}")
+    print(f"dimacs_clauses : {dimacs_clauses}")
     return DimacsFormula(dimacs_mapping, dimacs_clauses)
 
 from sympy import *
@@ -161,18 +169,21 @@ for file in tqdm(os.listdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp')):
     label = data[fn]['label']
     gt = data[fn]['gt']
     question = label.replace('-', '_') + '_' + query[0].strip(' ') + '_' + query[1].strip(' ') + '_'
+    print(f"question: {question}")
 
     file = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp/' + file
     # file = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp/94a88eb2cc77dbb6.py'
     lines = open(file, 'r').readlines()
+    print(f"lines: {lines}")
     rels = []
     for line in lines:
         if line.startswith('relation_names'):
             rnames = line.split('[')[1].split(']')[0]
             for r in rnames.split(', '):
-                rels.append(r.strip('\''))
-    
+                rels.append(r.strip('\'').replace('-', '_'))
+    # print(f"rels: {rels}")
     vars = lines[1].split('PeopleSort, (')[1].split(') =')[0].replace(' ', '').split(',')
+    # print(f"vars: {vars}")
 
     # breakpoint()
     lits = {}
@@ -182,12 +193,15 @@ for file in tqdm(os.listdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp')):
         for j in range(len(vars)):
             var1 = vars[i]
             var2 = vars[j]
+            # print(f"var1: {var1}, var2: {var2}")
             if var1 == var2:
                 conts += 1
                 continue
             for k in range(len(rels)):
                 func=rels[k]
                 lits[(var1, var2, func)] = len(vars)*len(rels)*i + len(rels)*j+k - conts
+                # print(f"lits[(var1, var2, func)]: {lits[(var1, var2, func)]}")
+    # print(f"lits: {lits}")
     
     # cer = []
     # cerlines = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/cer_lines.py', 'r').readlines()
@@ -248,7 +262,9 @@ for file in tqdm(os.listdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp')):
             var1 ,var2, func = key
             # print(key)
             # print(func + '_' + var1 + '_' + var2+'_' +'= symbols(' + '\'' + func+ '\'' + "+'_'+" + '\'' + var1 + '_'  + var2 + '\''+ "+'_')")
-            try:exec(func + '_' + var1 + '_' + var2+'_' +'= symbols(' + '\'' + func+ '\'' + "+'_'+" + '\'' + var1 + '_'  + var2 + '\''+ "+'_')")
+            try:
+                exec(func + '_' + var1 + '_' + var2+'_' +'= symbols(' + '\'' + func+ '\'' + "+'_'+" + '\'' + var1 + '_'  + var2 + '\''+ "+'_')")
+                # print(f"func {func}, var1 {var1}, var2 {var2}")
             except: 
                 breakpoint()
                 skip_problem=True
@@ -256,18 +272,22 @@ for file in tqdm(os.listdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp')):
         else: 
             var, func = key
             exec(func + '_' + var + '_' + '= symbols(' + '\'' + func+ '\'' + "+'_'+" + '\'' + var + '\'' + "+'_')")
+            # print(f"func {func}, var {var}")
     if skip_problem:
         continue
     # breakpoint()
     conds = []
     for line in lines:
+        # print(f"line: {line}")
         if line.startswith('decl_conditions.append('):
             tmp = line
             n1 = line.split('R(')[1].split(', ')[0]
             n2 = line.split('R(')[1].split(', ')[1].split(')')[0]
-            rel = line.split('R(' + n1 + ', ' + n2 + ') == ')[1].split(')\n')[0]
+            rel = line.split('R(' + n1 + ', ' + n2 + ') == ')[1].split(')\n')[0].replace('-', '_')
 
             conds.append(rel + '_' + n1 + '_' + n2 + '_')
+            # print(f"conds appended with: {rel + '_' + n1 + '_' + n2 + '_'}")
+    # print(f"conds: {conds}")
     # conds += cer_g
     if len(conds) == 0:
         print(file)
@@ -287,8 +307,10 @@ for file in tqdm(os.listdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp')):
         if q == 'neg':
             # new_question = 'Or(Not(' +question + ')' ', False)'
             new_question = 'Not(' + question + ')'
+            print(f"neg question: {new_question}")
         elif q == 'pos':
             new_question = 'Not(Not(' + question + '))'
+            print(f"pos question: {new_question}")
         formula = 'And('
         for line in conds:
             formula += line + ','
@@ -301,7 +323,7 @@ for file in tqdm(os.listdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp')):
         formula += new_question
         formula += ')'
     
-        
+        print(f"formula: {formula}")
         try:
             exec('f = to_cnf(' + formula + ')')
         except:
@@ -331,10 +353,15 @@ for file in tqdm(os.listdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp')):
         # for clause in f_dimacs:
         #     print(clause)
         # print(f_dimacs)
-        dimacs = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.cnf', 'w')
+        dimacs_pth = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.cnf'
+        print(f"WRITING TO DIMACS: {dimacs_pth}")
+        dimacs = open(dimacs_pth, 'w')
         dimacs.write(str(f_dimacs))
         dimacs.close()
-        maptxt = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.maptxt', 'w')
+        
+        maptxt_pth = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.maptxt'
+        print(f"WRITING TO DIMACS: {maptxt_pth}")
+        maptxt = open(maptxt_pth, 'w')
         import numpy as np
         # np.save(mapping, 
         # acs.mapping)
@@ -342,7 +369,9 @@ for file in tqdm(os.listdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp')):
         maptxt.close() 
         # breakpoint()
 
-        mapping = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.mapping', 'wb')
+        mapping_pth = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.mapping'
+        print(f"WRITING TO DIMACS: {mapping_pth}")
+        mapping = open(mapping_pth, 'wb')
         np.save(mapping, f_dimacs.mapping)
         mapping.close()
         labels = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/clutrr_new_labels.csv', 'a')

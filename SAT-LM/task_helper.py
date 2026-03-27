@@ -42,6 +42,12 @@ class TaskHelper:
             return Boardmaindp2TaskHelper(style)
         elif taskname == "boardmaindp3":
             return Boardmaindp3TaskHelper(style)
+        # >>> [ExplainEthics Adaptation] BEGIN: register explain_ethics task
+        elif taskname == "explainethics":
+            # Route the 'explain_ethics' task name to the new ExplainEthicsTaskHelper.
+            # This allows run_manual.py to use --task explain_ethics without other changes.
+            return ExplainEthicsTaskHelper(style)
+        # <<< [ExplainEthics Adaptation] END: register explain_ethics task
         else:
             raise RuntimeError("Not Implemented Yet")
 
@@ -335,8 +341,142 @@ class Boardmaindp2TaskHelper(BoardgameQATaskHelper):
         "satlm": 1536,
     }
 
+
 class Boardmaindp3TaskHelper(BoardgameQATaskHelper):
     style_to_completion_length = {
         "cot": 768,
         "satlm": 1536,
     }
+
+# >>> [ExplainEthics Adaptation] BEGIN: ExplainEthicsTaskHelper
+class ExplainEthicsTaskHelper(TaskHelper):
+    """
+    TaskHelper for the ExplainEthics dataset.
+
+    This helper translates ExplainEthics dataset examples (which have keys
+    'context', 'explanation', 'label', 'agents', 'actions', 'patients') into
+    prompts for each supported prompting style (satlm, satcotsolver, satnosolver,
+    proglm). The manual few-shot examples live in manual_prompts/explain_ethics.jsonline.
+
+    Unlike CLUTRRTaskHelper (which formats kinship pairs), this helper formats
+    the ethical context and moral explanation into a Python-style solution block
+    that the SAT/logic solver can execute.
+    """
+
+    # Token budget per prompting style.
+    # satlm/proglm need more tokens because they emit full implies() chains,
+    # whereas satcotsolver emits a reasoning paragraph followed by the code.
+    style_to_completion_length = {
+        "satlm": 512,        # implies() chain is usually ≤ 20 lines
+        "satcotsolver": 768, # includes CoT reasoning paragraph + code
+        "satnosolver": 512,  # same code format but no SAT solver check
+        "proglm": 512,       # Python function with moral predicates
+    }
+
+    # Separator between few-shot examples in the concatenated prompt.
+    # Four newlines matches the convention used by CLUTRRTaskHelper for satlm.
+    style_to_train_sep = {
+        "satlm": "\n\n\n\n",
+        "satcotsolver": "\n\n\n\n",
+        "satnosolver": "\n\n\n\n",
+        "proglm": "\n\n\n\n",
+    }
+
+    def prompt_func(self, test_ex, shots):
+        """Dispatch to the appropriate per-style prompt builder."""
+        if self.style == "satlm":
+            return self.satlm_prompt(test_ex, shots)
+        elif self.style == "satcotsolver":
+            return self.satcotsolver_prompt(test_ex, shots)
+        elif self.style == "satnosolver":
+            return self.satnosolver_prompt(test_ex, shots)
+        elif self.style == "proglm":
+            return self.proglm_prompt(test_ex, shots)
+        else:
+            raise RuntimeError(f"ExplainEthicsTaskHelper: unsupported style '{self.style}'")
+
+    def _format_satlm_example(self, ex, is_train):
+        """
+        Format a single example in the satlm (SAT-LM) prompting style.
+
+        The LLM is asked to produce Python pseudo-code with:
+          - action(agent, predicate) = True  for each observed fact
+          - implies(antecedent, consequent) = True  for each causal chain step
+          - return <norm>(agent)  to state the violated norm
+
+        is_train=True appends the ground-truth code block from the 'output' key
+        (used for few-shot examples). is_train=False leaves the block open for
+        the LLM to complete (used for the test example).
+        """
+        # The prompt header mirrors the CLUTRR satlm style: docstring context + code scaffold
+        header = (
+            '"""\n'
+            f'Context: {ex["context"]}\n'
+            f'Explanation: {ex["explanation"]}\n'
+            '"""\n'
+            '# solution in Python:\n'
+            'def solution():\n'
+        )
+        if is_train and "output" in ex:
+            # Append the reference output for few-shot demonstration
+            return header + ex["output"]
+        return header  # test example: LLM fills in the rest
+
+    def satlm_prompt(self, test_ex, shots):
+        """Build the full satlm prompt: few-shot examples + test query."""
+        showcase = [self._format_satlm_example(s, True) for s in shots]
+        test = [self._format_satlm_example(test_ex, False)]
+        return self.get_train_sep().join(showcase + test)
+
+    def satcotsolver_prompt(self, test_ex, shots):
+        """
+        satcotsolver style: like satlm but adds a natural-language reasoning
+        paragraph before the code so the model explains its moral reasoning.
+        The CoT reasoning helps the model make fewer errors in the implies() chain.
+        """
+        def _fmt(ex, is_train):
+            # Same header as satlm; the CoT paragraph is embedded inside the block
+            header = (
+                '"""\n'
+                f'Context: {ex["context"]}\n'
+                f'Explanation: {ex["explanation"]}\n'
+                '"""\n'
+                '# Reasoning:\n'
+                '# solution in Python:\n'
+                'def solution():\n'
+            )
+            if is_train and "output" in ex:
+                return header + ex["output"]
+            return header
+        showcase = [_fmt(s, True) for s in shots]
+        test = [_fmt(test_ex, False)]
+        return self.get_train_sep().join(showcase + test)
+
+    def satnosolver_prompt(self, test_ex, shots):
+        """
+        satnosolver style: identical format to satlm but the pipeline does NOT
+        run the SAT solver — the final answer is read directly from the 'return'
+        line of the LLM output. Used for ablation experiments.
+        """
+        # Re-use the satlm formatter since the prompt format is identical
+        return self.satlm_prompt(test_ex, shots)
+
+    def proglm_prompt(self, test_ex, shots):
+        """
+        proglm style: the LLM writes a plain Python function that directly
+        returns the norm label as a string, without using implies() chains.
+        Simpler but less interpretable than satlm.
+        """
+        def _fmt(ex, is_train):
+            header = (
+                f'# Context: {ex["context"]}\n'
+                f'# Explanation: {ex["explanation"]}\n'
+                'def solution():\n'
+            )
+            if is_train and "output" in ex:
+                return header + ex["output"]
+            return header
+        showcase = [_fmt(s, True) for s in shots]
+        test = [_fmt(test_ex, False)]
+        return self.get_train_sep().join(showcase + test)
+# <<< [ExplainEthics Adaptation] END: ExplainEthicsTaskHelper

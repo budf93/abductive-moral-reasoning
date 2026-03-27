@@ -446,20 +446,33 @@ def get_sol(file, lim=10000, del_sols=None, seedrun=0):
             count += 1
             if count > lim:
                 break
-            os.system(USER_PATH + '/sat_gen/sat_tools/postprocess/cadical/build/cadical ' + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1]) + '> ' + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1])[:-4] + '.log')
             
-            cf = open( '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1])[:-4] + '.log', 'r')
+            # ---------------------------------------------------------------------------------------------------------
+            # SAT SOLVER EXECUTION: CaDiCaL
+            # This calls the externally compiled CaDiCaL SAT solver binary via command line.
+            # CaDiCaL reads the provided .cnf file and looks for a valid 1/0 assignment to variables that 
+            # makes the entire boolean formula TRUE.
+            # It dumps the output (satisfiable/unsatisfiable and the solution) into a .log file.
+            # ---------------------------------------------------------------------------------------------------------
+            log_pth = '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1])[:-4] + '.log'
+            print(f"WRITING TO TEMPFILES (CaDiCaL Log): {log_pth}")
+            os.system(USER_PATH + '/sat_gen/sat_tools/postprocess/cadical/build/cadical ' + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1]) + '> ' + log_pth)
+            
+            cf = open( log_pth, 'r')
 
             lines = cf.readlines()
 
             el = lines[-1]
-            # print(el)
+            print(f"EL: {el}")
             try:
+                print(f"try EL: {el}")
                 ec = el.split('exit ')[1].strip('\n')
             except:
+                print(f"except EL: {el}")
                 breakpoint()
             # lf.close()
             if ec == '20':
+                print('UNSATISFIABLE, error code 20')
                 break
             sl = lines[1:]
             while not sl[0].startswith('s '):
@@ -518,10 +531,20 @@ def get_bb(file, del_sols=None, seedrun=0):
                 # write_str += '0'
                 cf.write(write_str)
                 cf.close()
-        # print('running cadical')
-        os.system("timeout 5000 " + USER_PATH + "/main/cadiback/cadiback " + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1]) + '> '  + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/'+ str(file.split('/')[-1])[:-4] + ".bbone")
+        
+        # ---------------------------------------------------------------------------------------------------------
+        # SAT SOLVER EXECUTION: CadiBack
+        # This calls 'cadiback', a custom backbone extractor built on top of CaDiCaL.
+        # It doesn't just find ONE solution; it finds the LOGICAL BACKBONE: the set of logic literals 
+        # that must be assigned the exact same truth value across ALL possible valid solutions.
+        # It pipes this list of certainties out to a .bbone file which the python code will read.
+        # ---------------------------------------------------------------------------------------------------------
+        print('running cadical')
+        bbone_pth = '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/'+ str(file.split('/')[-1])[:-4] + ".bbone"
+        print(f"WRITING TO TEMPFILES (CadiBack bbone): {bbone_pth}")
+        os.system("timeout 5000 " + USER_PATH + "/main/cadiback/cadiback " + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1]) + '> '  + bbone_pth)
         #   
-        bbone= open('/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1])[:-4] + ".bbone", 'r')
+        bbone= open(bbone_pth, 'r')
         lines = bbone.readlines()
         #   
         for line in lines:
@@ -807,10 +830,11 @@ def cot(prob, n=5, jbprompt=False):
             print(ans_prompt)
             continue
         else: 
+            print(f"nli: {llm.nli(ans_prompt, False)}")
             nli = torch.tensor(list(llm.nli(ans_prompt, False).values()))
             votes += nli.softmax(-1)
             print(nli.softmax(-1))
-            print(ans_prompt)
+            print(f"ans_prompt: {ans_prompt}")
             continue  
         try:
             while 'Therefore' not in lines[i]:
@@ -854,8 +878,8 @@ def cot(prob, n=5, jbprompt=False):
             # nli = torch.tensor(list(llm.nli(ans + "\Therefore, the answer (True/False) is ", False).values()))
             # nli = torch.tensor([yn[0], yn[1]])
             # print('had to yn', yn)
-            print(ans)
-            print(yn)
+            print(f"ans: {ans}")
+            print(f"yn: {yn}")
             # print(nli)
 
 
@@ -1073,6 +1097,15 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                 # breakpoint()[]
                 print(b, mapping[str(np.abs(jb[j]))])
                 print(mapping[str(np.abs(n1var))], mapping[str(np.abs(n2var))])
+                print(f"\\n[{'='*40}]\\n[ITERATION DETAILS]\\n[{'='*40}]")
+                print(f"[1] Entity Selection:")
+                print(f"    - Target Name 1 (uo[{p1}]): {name1}")
+                print(f"    - Target Name 2 (do[{p2}]): {name2}")
+                print(f"    - Connecting Name 3: {name3}")
+                
+                print(f"\\n[2] Found Connecting Backbone Literals:")
+                print(f"    - Literal 1: {mapping[str(np.abs(n1var))]}")
+                print(f"    - Literal 2: {mapping[str(np.abs(n2var))]}")
 
                 v1names = (mapping[str(np.abs(n1var))].split('_')[-3], mapping[str(np.abs(n1var))].split('_')[-2])
                 v1rel = ' '.join(mapping[str(np.abs(n1var))].lower().split('_')[:-3])
@@ -1129,6 +1162,11 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                         + v2names[1] + " is the "+ v2rel + " of " + v2names[0]  + " then " + name2 + " is " + name1 + "\'s _____." + ' is \\box{ ')[0] 
                         rel = '_'.join(completion.split('box{')[n_fs+1].split('}')[0].lower().strip(' ').strip('.').strip(' ').strip('.').strip(' ').strip(' ').lower().split(' '))
 
+                print(f"\n[3] LLM Interrogation:")
+                print(f"    - Fill-in-the-blank prompt sent: {question.strip()}")
+                print(f"    - Raw output completion length: {len(completion)}")
+                print(f"    - Extracted Relationship: '{rel}'")
+
                     # breakpoint()
                 if rel == 'ister':
                     breakpoint()
@@ -1140,6 +1178,11 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                         + v2names[1] + " is the "+ v2rel + " of " + v2names[0]  + " then " + name2 + " is " + name1 + "\'s " + rel
                 check, ab = rule_check(rule, prob=prob, llm=llm)
                 rule_scores[rule] = ab
+                
+                print(f"\n[4] Rule Validation (Rule Check):")
+                print(f"    - Proposed Rule: {rule}")
+                print(f"    - Entailment Scores (ab): {ab} -> Passed Check? {check}")
+
                 if ab[0]==0.0675: breakpoint()
                 if rule == 'devices(model_xx) and controlled_by(employee, google_home) implies NOT belong_to(google_home, employee)': breakpoint()
                 if check == False:
@@ -1231,6 +1274,9 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                 if 'newrules' not in prob.keys():
                     prob['newrules'] = [varname]
                 else: prob['newrules'].append(varname)
+                
+                print(f"\\n[BACKBONE UPDATE] Inferred new variable: {nv}")
+                print(f"[BACKBONE UPDATE] Text: {varname}")
                 # breakpoint()
                 # print('newrules')
                 # split = mapping[str(np.abs(nvi))].split('_')
@@ -1281,6 +1327,7 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                     names[name2]=np.max(list(names.values()))+1
                 break
             if good:
+                print('good')
                 break
             # #   
             # if len(vv) > lim*2:
@@ -1295,6 +1342,7 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
             # print("missed")
             # breakpoint()
             # break
+            print('not good')
             continue
         tmpfiles = ['/'.join(file.split('/')[:-1]) + '/pos_' + file.split('/')[-1], '/'.join(file.split('/')[:-1]) + '/neg_' + file.split('/')[-1] ]
         for f in tmpfiles:
@@ -1320,6 +1368,7 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
         #   
         if len(new_sols['pos']) == 0 or len(new_sols['neg']) == 0:
             # break
+            print("both pos and neg are empty")
             return vv, new_sols, bb, False, rule_scores, False, scs, prompts
     # print('done')
     print('***END REACHED***')                        
@@ -1328,6 +1377,11 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
     prompts += cot_out[1]
     scs.append(ps.clone())
     print('cot: ', ps)
+    
+    print("\\n[FINAL BACKBONE]")
+    print(f"Positives ({len(bb['pos'])} items): {bb['pos']}")
+    print(f"Negatives ({len(bb['neg'])} items): {bb['neg']}")
+
     # return ['True', 'False'][torch.argmax(ps)]
     answs = [{'pos': [], 'neg': [0]}, {'pos': [0], 'neg': []}]
     return vv + ['END REACHED'], answs[ps.argmax()], bb, True, rule_scores, True, scs, prompts
@@ -1339,9 +1393,9 @@ if __name__ == '__main__':
     import pickle as pkl
     mistr_data = []
     seedrun = 'clutrr_2'
-    # config =  "rulethresh 05, dynamic False, sc5 llama 8B,  no rules in prompt, yes solver, shuffled, new fewshot without rules, fixed_iter_4"                                                             
+    # config =  "rulethresh 05, dynamic False, sc5 llama 3B,  no rules in prompt, yes solver, shuffled, new fewshot without rules, fixed_iter_4"                                                             
 
-    config = "rulethresh 03 cot_thresh 100 anneal 01, dynamic True, sc5,llama 8B, no RULES IN PROMPT fixed, yes separation, always YN WITH MAYBE, og prompt, no cot gen, augmented extr, expweight"                                                             
+    config = "rulethresh 03 cot_thresh 100 anneal 01, dynamic True, sc5,llama 3B, no RULES IN PROMPT fixed, yes separation, always YN WITH MAYBE, og prompt, no cot gen, augmented extr, expweight"                                                             
     c = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs_csvs/solver_finished.csv'
     import csv
     import json
@@ -1350,8 +1404,12 @@ if __name__ == '__main__':
     with open(dataset, 'r') as df:
         data = json.loads(df.read())
     try:
-        os.mkdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/tempfiles' + str(seedrun) + '/')
-        os.mkdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) + '/')
+        temp_dir = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/tempfiles' + str(seedrun) + '/'
+        work_dir = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) + '/'
+        print(f"CREATING DIR: {temp_dir}")
+        os.mkdir(temp_dir)
+        print(f"CREATING DIR: {work_dir}")
+        os.mkdir(work_dir)
     except:
         print('dir already exists')
     # os.environ["CUDA_VISIBLE_DEVICES"] = str(seedrun.split('_')[1])
@@ -1547,6 +1605,6 @@ if __name__ == '__main__':
 
     # for miss in missed_list:
     #     print(data[int(miss.split('clutrr')[1].split('.cnf')[0])]['missing'])
-    # print('rulethresh 05 cot_thresh 0.79, sc5 llama 8B, no jb prompt, fixed prmopt, no rules in prompt, yes solver')
+    # print('rulethresh 05 cot_thresh 0.79, sc5 llama 3B, no jb prompt, fixed prmopt, no rules in prompt, yes solver')
     print(config)
     breakpoint()

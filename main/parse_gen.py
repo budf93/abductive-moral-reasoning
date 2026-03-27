@@ -35,7 +35,7 @@ for filename in os.listdir(directory):
             line_counter = 0
             with open(g) as file:
                 for line in file:
-                    
+                    # print(f"line: {line}")
                     lines.append(line.strip())
                     if "resources" in line:
                         start_line = line_counter
@@ -61,6 +61,7 @@ dic = {}
 print(finished_dict)
 for file in finished_dict.keys(): 
     pol, file_base = file.split('_')
+    print(f"file: {file}, pol: {pol}, file_base: {file_base}")
     if file_base not in dic.keys():
         dic[file_base] = ['pos', 'neg']
     if pol == 'pos':
@@ -84,6 +85,7 @@ posl = []
 negl = []
 name = []
 for key, value in dic.items():
+    print(f"key: {key}, value: {value}")
     pos, neg = value
     if pos == 10:
         # print('hi')
