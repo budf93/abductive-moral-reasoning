@@ -120,6 +120,7 @@ class LLM():
                 args.engine,
                 cache_dir=cache_dir,
                 token=os.getenv("HF_TOKEN"),
+                trust_remote_code=False
             )
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
@@ -132,6 +133,7 @@ class LLM():
                 device_map='auto',
                 token=os.getenv("HF_TOKEN"),
                 attn_implementation="sdpa",
+                trust_remote_code=False
             )
             self.model.config.use_cache = True
 
@@ -158,20 +160,32 @@ class LLM():
             expanded_pkv = None
             try:
                 from transformers.cache_utils import DynamicCache
+                import transformers
+                transformers_version = tuple(int(x) for x in transformers.__version__.split(".")[:2])
+
                 if isinstance(pkv, DynamicCache):
-                    if pkv.key_cache and all(
-                        k is not None and v is not None
-                        for k, v in zip(pkv.key_cache, pkv.value_cache)
-                    ):
-                        new_cache = DynamicCache()
-                        for k, v in zip(pkv.key_cache, pkv.value_cache):
-                            new_cache.key_cache.append(k.expand(len(sentences), -1, -1, -1).contiguous())
-                            new_cache.value_cache.append(v.expand(len(sentences), -1, -1, -1).contiguous())
-                        expanded_pkv = new_cache
+                    if transformers_version >= (4, 43):
+                        # New API: key_cache / value_cache lists
+                        if pkv.key_cache and all(k is not None and v is not None
+                                for k, v in zip(pkv.key_cache, pkv.value_cache)):
+                            new_cache = DynamicCache()
+                            for k, v in zip(pkv.key_cache, pkv.value_cache):
+                                new_cache.key_cache.append(k.expand(len(sentences), -1, -1, -1).contiguous())
+                                new_cache.value_cache.append(v.expand(len(sentences), -1, -1, -1).contiguous())
+                            expanded_pkv = new_cache
+                    else:
+                        # Old API: iterate over layers directly as (key, value) tuples
+                        layers = list(pkv)
+                        if layers and all(t is not None for layer in layers for t in layer):
+                            expanded_pkv = tuple(
+                                tuple(t.expand(len(sentences), -1, -1, -1).contiguous() for t in layer)
+                                for layer in layers
+                            )
                 elif pkv is not None:
+                    # Legacy pure tuple-of-tuples format
                     if all(t is not None for layer in pkv for t in layer):
                         expanded_pkv = tuple(
-                            tuple(t.expand(len(sentences), -1, -1, -1) for t in layer)
+                            tuple(t.expand(len(sentences), -1, -1, -1).contiguous() for t in layer)
                             for layer in pkv
                         )
             except Exception as e:
@@ -393,7 +407,7 @@ def get_bb(file, del_sols=None, seedrun=0):
             lines = bbone_f.readlines()
         except Exception as e:
             print(f"[get_bb] Failed to open bbone file: {e}")
-            breakpoint()
+            # breakpoint()
             continue
         for line in lines:
             if line.startswith('b'):
@@ -500,7 +514,8 @@ def cot(prob, n=5):
                 votes += nli.softmax(-1)
                 print(f'[cot] nli fallback: {nli.softmax(-1)}')
             except Exception:
-                breakpoint()
+                print("breakpoint")
+                # breakpoint()
 
     return votes, [prompt]
 # <<< [ExplainEthics Adaptation] END: cot() function for ethics
@@ -727,7 +742,8 @@ def next_var(
                     rel = name1  # the consequent predicate (rule conclusion)
                     if not rel or len(rel) < 2:
                         # Unexpected short/empty rel — inspect interactively
-                        breakpoint()
+                        print("breakpoint")
+                        # breakpoint()
                     break
                 if p_no > thresh:
                     pass  # no implication; try next pair
@@ -858,7 +874,7 @@ if __name__ == '__main__':
         # pos=SAT, neg=SAT  → underdetermined; backbone loop will resolve it
         if row[2] != 'SAT':
             continue
-        names.append(row[1])
+            
         # [ExplainEthics Adaptation] Parse the index from filename 'explainethics{idx}.cnf'
         try:
             idx = int(row[1].replace('explainethics', '').split('.')[0])
@@ -866,10 +882,17 @@ if __name__ == '__main__':
         except (ValueError, IndexError):
             print(f"[main] Could not parse index from {row[1]}")
             continue
+
         # If neg=UNSAT the answer is already 'true' (norm violated); record immediately
         if row[3] == 'UNSAT':
             preds[row[1]] = 'true'
             print(f"[main] {row[1]} pre-solved: pos=SAT, neg=UNSAT → pred=true")
+            # Inject perfectly solved result into the PKL cache, checking if correct
+            vv = ('true' == labels.get(row[1], '').lower().strip())
+            all_outs[row[1]] = (vv, {'pos': ['dummy'], 'neg': []}, None, False, {}, False, [], [])
+            continue  # SKIP adding to names so it doesn't run through the LLM loop!
+            
+        names.append(row[1])
 
 
     # [ExplainEthics Adaptation] Also load labels from the explain_ethics_labels.csv
@@ -952,7 +975,7 @@ if __name__ == '__main__':
         end_time = time.time() - start_time - prep_time
         times[name] = {'prep_time': prep_time, 'run_time': end_time}
 
-        all_outs[name] = (vv, solout, bbout, missed_flag, cot_flag, scs, prompts)
+        all_outs[name] = (vv, solout, bbout, missed_flag, rule_scores, cot_flag, scs, prompts)
 
         if cot_flag:
             cot_list.append(name)
@@ -988,15 +1011,23 @@ if __name__ == '__main__':
             counter += 1
 
         # Periodically save progress to avoid losing results on crash
-        if stepcount % 50 == 0:
+        print(f"stepcount : {stepcount}")
+        if stepcount % 1 == 0:
             pkl.dump(
                 all_outs,
-                open(f'/mnt/c/Tugas_Akhir/ARGOS_public_anon/all_outs_cot_met_explain_ethics_{config.replace(" ", "_")}.pkl', 'wb')
+                open(f'{USER_PATH}all_outs_cot_met_explain_ethics_{config.replace(" ", "_")}.pkl', 'wb')
             )
 
     # -----------------------------------------------------------------------
-    # Final accuracy report
+    # Final accuracy report and Fallback Dump
     # -----------------------------------------------------------------------
+    
+    # Save the PKL file explicitly after the loop runs (or doesn't run!) to guarantee creation.
+    pkl.dump(
+        all_outs,
+        open(f'{USER_PATH}all_outs_cot_met_explain_ethics_{config.replace(" ", "_")}.pkl', 'wb')
+    )
+
     acc = 0
     missed = 0
     for key, value in preds.items():
@@ -1010,7 +1041,7 @@ if __name__ == '__main__':
     print(f'missed: {missed / max(len(preds), 1):.4f}')
     print(f'missed_list: {len(missed_list)}')
     print(config)
-    breakpoint()  # inspect preds/labels interactively after run completes
+    # breakpoint()  # inspect preds/labels interactively after run completes
 # <<< [ExplainEthics Adaptation] END: main execution block
 
 # <<< END OF FILE

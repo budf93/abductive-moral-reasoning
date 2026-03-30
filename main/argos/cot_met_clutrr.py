@@ -135,26 +135,37 @@ class LLM():
             expanded_pkv = None
             try:
                 from transformers.cache_utils import DynamicCache
+                import transformers
+                transformers_version = tuple(int(x) for x in transformers.__version__.split(".")[:2])
+
                 if isinstance(pkv, DynamicCache):
-                    # DynamicCache stores keys/values in .key_cache / .value_cache lists
-                    if (pkv.key_cache and
-                            all(k is not None and v is not None
-                                for k, v in zip(pkv.key_cache, pkv.value_cache))):
-                        new_cache = DynamicCache()
-                        for k, v in zip(pkv.key_cache, pkv.value_cache):
-                            new_cache.key_cache.append(k.expand(len(sentences), -1, -1, -1).contiguous())
-                            new_cache.value_cache.append(v.expand(len(sentences), -1, -1, -1).contiguous())
-                        expanded_pkv = new_cache
+                    if transformers_version >= (4, 43):
+                        # New API: key_cache / value_cache lists
+                        if pkv.key_cache and all(k is not None and v is not None
+                                for k, v in zip(pkv.key_cache, pkv.value_cache)):
+                            new_cache = DynamicCache()
+                            for k, v in zip(pkv.key_cache, pkv.value_cache):
+                                new_cache.key_cache.append(k.expand(len(sentences), -1, -1, -1).contiguous())
+                                new_cache.value_cache.append(v.expand(len(sentences), -1, -1, -1).contiguous())
+                            expanded_pkv = new_cache
+                    else:
+                        # Old API: iterate over layers directly as (key, value) tuples
+                        layers = list(pkv)
+                        if layers and all(t is not None for layer in layers for t in layer):
+                            expanded_pkv = tuple(
+                                tuple(t.expand(len(sentences), -1, -1, -1).contiguous() for t in layer)
+                                for layer in layers
+                            )
                 elif pkv is not None:
-                    # Legacy tuple-of-tuples format
+                    # Legacy pure tuple-of-tuples format
                     if all(t is not None for layer in pkv for t in layer):
                         expanded_pkv = tuple(
-                            tuple(t.expand(len(sentences), -1, -1, -1) for t in layer)
+                            tuple(t.expand(len(sentences), -1, -1, -1).contiguous() for t in layer)
                             for layer in pkv
                         )
             except Exception as e:
                 print(f'KV-cache expansion failed: {e}')
-                expanded_pkv = None  # fall through to slow path
+                expanded_pkv = None
 
             if expanded_pkv is not None:
                 if not LLM._kv_cache_reported:
@@ -1587,7 +1598,8 @@ if __name__ == '__main__':
             counter+= 1
         else:
             counter += 1
-        if stepcount%50 == 0:
+        print(f"stepcount : {stepcount}")
+        if stepcount%25 == 0:
             pkl.dump(all_outs, open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/all_outs_cot_met_clutrr_' + config.replace(' ', '_') + '.pkl', 'wb'))
         
 

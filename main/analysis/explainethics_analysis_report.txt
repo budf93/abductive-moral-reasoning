@@ -1,0 +1,129 @@
+Available ExplainEthics pkl files:
+  /mnt/c/Tugas_Akhir/ARGOS_public_anon/all_outs_cot_met_explain_ethics_explain_ethics_rulethresh=0.3,_cot_thresh=1.0,_dynamic=True,_llama3B,_no_rules_in_prompt.pkl
+
+Loaded 67 examples from all_outs_cot_met_explain_ethics_explain_ethics_rulethresh=0.3,_cot_thresh=1.0,_dynamic=True,_llama3B,_no_rules_in_prompt.pkl
+Dataset: 145 ExplainEthics examples
+Loaded 67 labels from explain_ethics_labels.csv
+
+Total preds: 67
+  SAT backbone: 19
+  CoT fallback: 48
+  Missed:       0
+
+Overall accuracy : 0.4627  (31/67)
+Correct via SAT  : 10
+Correct via CoT  : 21
+Missed/skipped   : 0
+
+Confusion matrix  (pred=true → violated, pred=false → not violated):
+  TP=25  FP=29  TN=6  FN=7
+  n_true=32 (genuinely violating)  n_false=35 (decoy)
+
+Name                           Pred     GT       Shown norm                Gold norm                 OK?
+--------------------------------------------------------------------------------------------------------------
+explainethics107.cnf           true     true     violate_authority         violate_authority         ✓
+explainethics1.cnf             true     false    violate_fairness          violate_care              ✗
+explainethics69.cnf            true     false    violate_care              violate_sanctity          ✗
+explainethics10.cnf            true     false    violate_liberty           violate_care              ✗
+explainethics98.cnf            true     true     violate_care              violate_care              ✓
+explainethics99.cnf            true     false    violate_loyalty           violate_care              ✗
+explainethics131.cnf           true     true     violate_care              violate_care              ✓
+explainethics35.cnf            true     true     violate_care              violate_care              ✓
+explainethics57.cnf            true     true     violate_authority         violate_authority         ✓
+explainethics123.cnf           true     false    violate_liberty           violate_authority         ✗
+explainethics125.cnf           true     true     violate_care              violate_care              ✓
+explainethics126.cnf           true     false    violate_authority         violate_fairness          ✗
+explainethics88.cnf            true     true     violate_fairness          violate_fairness          ✓
+explainethics0.cnf             true     true     violate_fairness          violate_fairness          ✓
+explainethics142.cnf           true     false    violate_loyalty           violate_care              ✗
+explainethics137.cnf           true     true     violate_authority         violate_authority         ✓
+explainethics106.cnf           true     false    violate_sanctity          violate_care              ✗
+explainethics143.cnf           true     true     violate_authority         violate_authority         ✓
+explainethics3.cnf             true     false    violate_care              violate_authority         ✗
+explainethics23.cnf            true     false    violate_fairness          violate_care              ✗
+explainethics101.cnf           false    true     violate_care              violate_care              ✗
+explainethics28.cnf            true     false    violate_loyalty           violate_fairness          ✗
+explainethics15.cnf            true     false    violate_sanctity          violate_care              ✗
+explainethics93.cnf            true     true     violate_care              violate_care              ✓
+explainethics136.cnf           true     false    violate_sanctity          violate_care              ✗
+explainethics116.cnf           false    true     violate_authority         violate_authority         ✗
+explainethics78.cnf            false    false    violate_authority         violate_care              ✓
+explainethics29.cnf            false    true     violate_care              violate_care              ✗
+explainethics6.cnf             true     true     violate_care              violate_care              ✓
+explainethics144.cnf           false    false    violate_fairness          violate_care              ✓
+explainethics42.cnf            true     true     violate_care              violate_care              ✓
+explainethics140.cnf           false    false    violate_authority         violate_care              ✓
+explainethics105.cnf           true     false    violate_liberty           violate_care              ✗
+explainethics60.cnf            true     false    violate_fairness          violate_care              ✗
+explainethics135.cnf           true     true     violate_care              violate_care              ✓
+explainethics63.cnf            true     false    violate_care              violate_authority         ✗
+explainethics115.cnf           true     true     violate_care              violate_care              ✓
+explainethics11.cnf            true     true     violate_care              violate_care              ✓
+explainethics66.cnf            true     false    violate_fairness          violate_care              ✗
+explainethics33.cnf            true     true     violate_care              violate_care              ✓
+explainethics17.cnf            true     false    violate_fairness          violate_authority         ✗
+explainethics67.cnf            true     true     violate_care              violate_care              ✓
+explainethics89.cnf            true     false    violate_liberty           violate_care              ✗
+explainethics96.cnf            true     false    violate_liberty           violate_care              ✗
+explainethics102.cnf           true     true     violate_authority         violate_authority         ✓
+explainethics7.cnf             true     false    violate_loyalty           violate_care              ✗
+explainethics77.cnf            true     true     violate_fairness          violate_fairness          ✓
+explainethics112.cnf           false    false    violate_liberty           violate_care              ✓
+explainethics138.cnf           true     true     violate_care              violate_care              ✓
+explainethics124.cnf           true     false    violate_loyalty           violate_authority         ✗
+explainethics37.cnf            true     true     violate_care              violate_care              ✓
+explainethics132.cnf           true     false    violate_fairness          violate_care              ✗
+explainethics130.cnf           false    true     violate_care              violate_care              ✗
+explainethics49.cnf            true     false    violate_loyalty           violate_care              ✗
+explainethics38.cnf            true     true     violate_care              violate_care              ✓
+explainethics54.cnf            false    false    violate_authority         violate_care              ✓
+explainethics16.cnf            false    true     violate_care              violate_care              ✗
+explainethics76.cnf            true     false    violate_liberty           violate_authority         ✗
+explainethics22.cnf            true     true     violate_care              violate_care              ✓
+explainethics46.cnf            true     false    violate_liberty           violate_care              ✗
+explainethics119.cnf           true     true     violate_care              violate_care              ✓
+explainethics48.cnf            false    true     violate_fairness          violate_fairness          ✗
+explainethics50.cnf            false    true     violate_care              violate_care              ✗
+explainethics100.cnf           false    false    violate_authority         violate_care              ✓
+explainethics65.cnf            true     false    violate_authority         violate_care              ✗
+explainethics117.cnf           true     false    violate_liberty           violate_care              ✗
+explainethics19.cnf            true     false    violate_loyalty           violate_care              ✗
+
+SAT backbone accuracy: 10/19 = 0.526
+CoT fallback accuracy: 21/48 = 0.438
+
+Per-norm accuracy (by gold_foundation):
+  violate_authority         5/12 = 0.417
+  violate_care              23/48 = 0.479
+  violate_fairness          3/6 = 0.500
+  violate_sanctity          0/1 = 0.000
+
+Decoy resistance  : 6/35 = 0.171
+True-label recall : 25/32 = 0.781
+CoT iter 0: acc=35
+CoT iter 1: acc=35
+CoT iter 2: acc=35
+CoT iter 3: acc=35
+CoT iter 4: acc=35
+CoT iter 5: acc=35
+CoT iter 6: acc=35
+CoT iter 7: acc=35
+CoT iter 8: acc=35
+CoT iter 9: acc=35
+
+Self-consistency acc: 35/67 = 0.522
+Mean CoT acc:          0.522
+
+Bootstrap ARGOS mean acc : 0.4611
+Bootstrap SC mean acc    : 0.5168
+
+Wilcoxon signed-rank (ARGOS > SC): stat=399.0000  p=1.0000   not significant (α=0.05)
+95% CI on ARGOS accuracy: (0.4449, 0.4773)
+
+Trajectory flags:
+  unflipped-wrong: 18
+  unflipped-correct: 16
+  flipped correct: 5
+  flipped incorrect: 9
+
+[Done] Available: preds, labels, outs, data, names, scs_all, flag_all, bs_outs_acc

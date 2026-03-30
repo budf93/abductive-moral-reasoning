@@ -1,0 +1,2493 @@
+128.6s	1372	--- Compilation Complete ---
+128.7s	1373	cadiback      cadiback.o  configure  generate  makefile     NEWS.md    test
+128.7s	1374	cadiback.cpp  config.hpp  fuzzing    LICENSE   makefile.in  README.md  VERSION
+128.8s	1375	/kaggle/working/argos-kaggle
+129.2s	1376	All ExplainEthics files patched and directories created.
+129.3s	1377	/kaggle/working/argos-kaggle/SAT-LM
+142.5s	1378	
+config.json:   0%|                                    | 0.00/661 [00:00<?, ?B/s]
+config.json: 100%|█████████████████████████████| 661/661 [00:00<00:00, 2.89MB/s]
+142.6s	1379	
+tokenizer_config.json: 0.00B [00:00, ?B/s]
+tokenizer_config.json: 7.30kB [00:00, 3.27MB/s]
+142.8s	1380	
+vocab.json: 0.00B [00:00, ?B/s]
+vocab.json: 2.78MB [00:00, 50.6MB/s]
+142.9s	1381	
+merges.txt: 0.00B [00:00, ?B/s]
+merges.txt: 1.67MB [00:00, 130MB/s]
+143.1s	1382	
+tokenizer.json: 0.00B [00:00, ?B/s]
+tokenizer.json: 7.03MB [00:00, 147MB/s]
+144.0s	1383	done api-utils
+144.1s	1384	l. 98
+145.3s	1385	l. 100
+152.2s	1386	
+model.safetensors.index.json: 0.00B [00:00, ?B/s]
+model.safetensors.index.json: 35.6kB [00:00, 109MB/s]
+152.3s	1387	
+Downloading (incomplete total...): 0.00B [00:00, ?B/s]
+169.4s	1388	
+Fetching 2 files:   0%|                                   | 0/2 [00:00<?, ?it/s][A
+Downloading (incomplete total...):   0%|            | 0.00/1.21G [00:00<?, ?B/s]
+Downloading (incomplete total...):   0%|            | 0.00/6.17G [00:00<?, ?B/s]
+Downloading (incomplete total...):   0%|  | 1.07M/6.17G [00:01<2:19:35, 737kB/s]
+Downloading (incomplete total...):   1%|   | 68.1M/6.17G [00:01<01:54, 53.3MB/s]
+Downloading (incomplete total...):   1%|   | 84.0M/6.17G [00:02<02:47, 36.3MB/s]
+Downloading (incomplete total...):   2%|    | 103M/6.17G [00:03<02:52, 35.2MB/s]
+Downloading (incomplete total...):   3%|    | 170M/6.17G [00:03<01:23, 71.9MB/s]
+Downloading (incomplete total...):   4%|▏   | 237M/6.17G [00:04<01:10, 84.2MB/s]
+Downloading (incomplete total...):   5%|▏    | 304M/6.17G [00:04<00:47, 122MB/s]
+Downloading (incomplete total...):   6%|▎    | 371M/6.17G [00:04<00:36, 159MB/s]
+Downloading (incomplete total...):   8%|▍    | 505M/6.17G [00:04<00:23, 242MB/s]
+Downloading (incomplete total...):  10%|▍    | 599M/6.17G [00:04<00:17, 320MB/s]
+Downloading (incomplete total...):  11%|▌    | 707M/6.17G [00:04<00:13, 418MB/s]
+Downloading (incomplete total...):  13%|▋    | 774M/6.17G [00:05<00:12, 421MB/s]
+Downloading (incomplete total...):  14%|▋    | 841M/6.17G [00:05<00:11, 445MB/s]
+Downloading (incomplete total...):  16%|▊    | 975M/6.17G [00:05<00:11, 447MB/s]
+Downloading (incomplete total...):  17%|▋   | 1.04G/6.17G [00:05<00:12, 410MB/s]
+Downloading (incomplete total...):  18%|▋   | 1.11G/6.17G [00:05<00:11, 451MB/s]
+Downloading (incomplete total...):  20%|▊   | 1.22G/6.17G [00:06<00:11, 421MB/s]
+Downloading (incomplete total...):  21%|▊   | 1.28G/6.17G [00:06<00:11, 431MB/s]
+Downloading (incomplete total...):  22%|▉   | 1.35G/6.17G [00:06<00:11, 413MB/s]
+Downloading (incomplete total...):  24%|▉   | 1.49G/6.17G [00:06<00:08, 525MB/s]
+Downloading (incomplete total...):  26%|█   | 1.62G/6.17G [00:06<00:09, 470MB/s]
+Downloading (incomplete total...):  27%|█   | 1.69G/6.17G [00:07<00:14, 311MB/s]
+Downloading (incomplete total...):  30%|█▏  | 1.82G/6.17G [00:07<00:12, 355MB/s]
+Downloading (incomplete total...):  31%|█▏  | 1.89G/6.17G [00:07<00:12, 353MB/s]
+Downloading (incomplete total...):  33%|█▎  | 2.02G/6.17G [00:08<00:09, 458MB/s]
+Downloading (incomplete total...):  34%|█▎  | 2.09G/6.17G [00:08<00:09, 443MB/s]
+Downloading (incomplete total...):  35%|█▍  | 2.18G/6.17G [00:08<00:11, 347MB/s]
+Downloading (incomplete total...):  36%|█▍  | 2.25G/6.17G [00:08<00:11, 336MB/s]
+Downloading (incomplete total...):  39%|█▌  | 2.38G/6.17G [00:09<00:09, 389MB/s]
+Downloading (incomplete total...):  41%|█▋  | 2.52G/6.17G [00:09<00:09, 397MB/s]
+Downloading (incomplete total...):  44%|█▊  | 2.72G/6.17G [00:09<00:07, 463MB/s]
+Downloading (incomplete total...):  45%|█▊  | 2.78G/6.17G [00:10<00:09, 361MB/s]
+Downloading (incomplete total...):  46%|█▊  | 2.85G/6.17G [00:10<00:11, 296MB/s]
+Downloading (incomplete total...):  47%|█▉  | 2.92G/6.17G [00:10<00:10, 307MB/s]
+Downloading (incomplete total...):  48%|█▉  | 2.99G/6.17G [00:10<00:10, 308MB/s]
+Downloading (incomplete total...):  49%|█▉  | 3.05G/6.17G [00:11<00:11, 275MB/s]
+Downloading (incomplete total...):  51%|██  | 3.12G/6.17G [00:11<00:13, 232MB/s]
+Downloading (incomplete total...):  52%|██  | 3.19G/6.17G [00:11<00:11, 259MB/s]
+Downloading (incomplete total...):  53%|██  | 3.25G/6.17G [00:11<00:09, 306MB/s]
+Downloading (incomplete total...):  54%|██▏ | 3.32G/6.17G [00:12<00:08, 344MB/s]
+Downloading (incomplete total...):  55%|██▏ | 3.39G/6.17G [00:12<00:09, 285MB/s]
+Downloading (incomplete total...):  57%|██▎ | 3.52G/6.17G [00:12<00:06, 427MB/s]
+Downloading (incomplete total...):  58%|██▎ | 3.59G/6.17G [00:12<00:06, 371MB/s]
+Downloading (incomplete total...):  60%|██▍ | 3.72G/6.17G [00:12<00:04, 511MB/s]
+Downloading (incomplete total...):  62%|██▍ | 3.85G/6.17G [00:13<00:06, 335MB/s]
+Downloading (incomplete total...):  64%|██▌ | 3.96G/6.17G [00:13<00:05, 380MB/s]
+Downloading (incomplete total...):  66%|██▋ | 4.09G/6.17G [00:13<00:04, 453MB/s]
+Downloading (incomplete total...):  67%|██▋ | 4.16G/6.17G [00:14<00:04, 474MB/s]
+Downloading (incomplete total...):  68%|██▋ | 4.23G/6.17G [00:14<00:04, 424MB/s]
+Downloading (incomplete total...):  70%|██▊ | 4.29G/6.17G [00:14<00:04, 447MB/s]
+Downloading (incomplete total...):  71%|██▊ | 4.36G/6.17G [00:14<00:04, 365MB/s]
+Downloading (incomplete total...):  72%|██▊ | 4.43G/6.17G [00:14<00:04, 414MB/s]
+Downloading (incomplete total...):  74%|██▉ | 4.56G/6.17G [00:14<00:03, 501MB/s]
+Downloading (incomplete total...):  75%|███ | 4.63G/6.17G [00:15<00:03, 436MB/s]
+Downloading (incomplete total...):  76%|███ | 4.70G/6.17G [00:15<00:03, 439MB/s]
+Downloading (incomplete total...):  78%|███▏| 4.83G/6.17G [00:15<00:02, 525MB/s]
+Downloading (incomplete total...):  79%|███▏| 4.90G/6.17G [00:15<00:02, 498MB/s]
+Downloading (incomplete total...):  80%|███▏| 4.96G/6.17G [00:15<00:02, 522MB/s]
+Downloading (incomplete total...):  82%|███▎| 5.03G/6.17G [00:15<00:02, 501MB/s]
+Downloading (incomplete total...):  83%|███▎| 5.10G/6.17G [00:16<00:02, 513MB/s]
+Downloading (incomplete total...):  85%|███▍| 5.23G/6.17G [00:16<00:01, 659MB/s]
+Downloading (incomplete total...):  87%|███▍| 5.37G/6.17G [00:16<00:01, 774MB/s]
+Downloading (incomplete total...):  89%|███▌| 5.50G/6.17G [00:16<00:00, 830MB/s]
+Downloading (incomplete total...):  91%|███▋| 5.64G/6.17G [00:16<00:00, 787MB/s]
+Downloading (incomplete total...):  93%|███▋| 5.77G/6.17G [00:16<00:00, 810MB/s]
+Downloading (incomplete total...):  96%|███▊| 5.90G/6.17G [00:16<00:00, 902MB/s]
+Downloading (incomplete total...):  98%|███▉| 6.04G/6.17G [00:17<00:00, 961MB/s]
+169.4s	1389	
+Fetching 2 files:  50%|█████████████▌             | 1/2 [00:17<00:17, 17.16s/it][A
+Fetching 2 files: 100%|███████████████████████████| 2/2 [00:17<00:00,  8.58s/it]
+169.4s	1390	
+Download complete: 100%|████████████████████| 6.17G/6.17G [00:17<00:00, 961MB/s]
+Download complete: 100%|████████████████████| 6.17G/6.17G [00:17<00:00, 358MB/s]
+172.2s	1391	
+Loading weights:   0%|                                  | 0/434 [00:00<?, ?it/s]
+Loading weights:   0%| | 1/434 [00:00<00:00, 9822.73it/s, Materializing param=mo
+Loading weights:   0%| | 1/434 [00:00<00:00, 4104.02it/s, Materializing param=mo
+Loading weights:   0%| | 2/434 [00:00<00:23, 18.08it/s, Materializing param=mode
+Loading weights:   0%| | 2/434 [00:00<00:23, 18.08it/s, Materializing param=mode
+Loading weights:   0%| | 2/434 [00:00<00:23, 18.08it/s, Materializing param=mode
+Loading weights:   1%| | 3/434 [00:00<00:23, 18.08it/s, Materializing param=mode
+Loading weights:   1%| | 3/434 [00:00<00:23, 18.08it/s, Materializing param=mode
+Loading weights:   1%| | 4/434 [00:00<00:45,  9.46it/s, Materializing param=mode
+Loading weights:   1%| | 4/434 [00:00<00:45,  9.46it/s, Materializing param=mode
+Loading weights:   1%| | 4/434 [00:00<00:45,  9.46it/s, Materializing param=mode
+Loading weights:   1%| | 5/434 [00:00<00:45,  9.46it/s, Materializing param=mode
+Loading weights:   1%| | 5/434 [00:00<00:45,  9.46it/s, Materializing param=mode
+Loading weights:   1%| | 6/434 [00:00<00:46,  9.21it/s, Materializing param=mode
+Loading weights:   1%| | 6/434 [00:00<00:46,  9.21it/s, Materializing param=mode
+Loading weights:   1%| | 6/434 [00:00<00:46,  9.21it/s, Materializing param=mode
+Loading weights:   2%| | 7/434 [00:00<00:46,  9.21it/s, Materializing param=mode
+Loading weights:   2%| | 7/434 [00:00<00:46,  9.21it/s, Materializing param=mode
+Loading weights:   2%| | 8/434 [00:00<00:46,  9.21it/s, Materializing param=mode
+Loading weights:   2%| | 8/434 [00:00<00:46,  9.21it/s, Materializing param=mode
+Loading weights:   2%| | 9/434 [00:00<00:31, 13.43it/s, Materializing param=mode
+Loading weights:   2%| | 9/434 [00:00<00:31, 13.43it/s, Materializing param=mode
+Loading weights:   2%| | 9/434 [00:00<00:31, 13.43it/s, Materializing param=mode
+Loading weights:   2%| | 10/434 [00:00<00:31, 13.43it/s, Materializing param=mod
+Loading weights:   2%| | 10/434 [00:00<00:31, 13.43it/s, Materializing param=mod
+Loading weights:   3%| | 11/434 [00:00<00:31, 13.43it/s, Materializing param=mod
+Loading weights:   3%| | 11/434 [00:00<00:31, 13.43it/s, Materializing param=mod
+Loading weights:   3%| | 12/434 [00:00<00:28, 15.07it/s, Materializing param=mod
+Loading weights:   3%| | 12/434 [00:00<00:28, 15.07it/s, Materializing param=mod
+Loading weights:   3%| | 12/434 [00:00<00:28, 15.07it/s, Materializing param=mod
+Loading weights:   3%| | 13/434 [00:00<00:27, 15.07it/s, Materializing param=mod
+Loading weights:   3%| | 13/434 [00:00<00:27, 15.07it/s, Materializing param=mod
+Loading weights:   3%| | 14/434 [00:01<00:26, 15.98it/s, Materializing param=mod
+Loading weights:   3%| | 14/434 [00:01<00:26, 15.98it/s, Materializing param=mod
+Loading weights:   3%| | 14/434 [00:01<00:26, 15.98it/s, Materializing param=mod
+Loading weights:   3%| | 15/434 [00:01<00:26, 15.98it/s, Materializing param=mod
+Loading weights:   3%| | 15/434 [00:01<00:26, 15.98it/s, Materializing param=mod
+Loading weights:   4%| | 16/434 [00:01<00:24, 16.76it/s, Materializing param=mod
+Loading weights:   4%| | 16/434 [00:01<00:24, 16.76it/s, Materializing param=mod
+Loading weights:   4%| | 16/434 [00:01<00:24, 16.76it/s, Materializing param=mod
+Loading weights:   4%| | 17/434 [00:01<00:24, 16.76it/s, Materializing param=mod
+Loading weights:   4%| | 17/434 [00:01<00:24, 16.76it/s, Materializing param=mod
+Loading weights:   4%| | 18/434 [00:01<00:33, 12.53it/s, Materializing param=mod
+Loading weights:   4%| | 18/434 [00:01<00:33, 12.53it/s, Materializing param=mod
+Loading weights:   4%| | 18/434 [00:01<00:33, 12.53it/s, Materializing param=mod
+Loading weights:   4%| | 19/434 [00:01<00:33, 12.53it/s, Materializing param=mod
+Loading weights:   4%| | 19/434 [00:01<00:33, 12.53it/s, Materializing param=mod
+Loading weights:   5%| | 20/434 [00:01<00:33, 12.53it/s, Materializing param=mod
+Loading weights:   5%| | 20/434 [00:01<00:33, 12.53it/s, Materializing param=mod
+Loading weights:   5%| | 21/434 [00:01<00:26, 15.59it/s, Materializing param=mod
+Loading weights:   5%| | 21/434 [00:01<00:26, 15.59it/s, Materializing param=mod
+Loading weights:   5%| | 21/434 [00:01<00:26, 15.59it/s, Materializing param=mod
+Loading weights:   5%| | 22/434 [00:01<00:26, 15.59it/s, Materializing param=mod
+Loading weights:   5%| | 22/434 [00:01<00:26, 15.59it/s, Materializing param=mod
+Loading weights:   5%| | 23/434 [00:01<00:26, 15.73it/s, Materializing param=mod
+Loading weights:   5%| | 23/434 [00:01<00:26, 15.73it/s, Materializing param=mod
+Loading weights:   5%| | 23/434 [00:01<00:26, 15.73it/s, Materializing param=mod
+Loading weights:   6%| | 24/434 [00:01<00:26, 15.73it/s, Materializing param=mod
+Loading weights:   6%| | 24/434 [00:01<00:26, 15.73it/s, Materializing param=mod
+Loading weights:   6%| | 25/434 [00:01<00:27, 15.11it/s, Materializing param=mod
+Loading weights:   6%| | 25/434 [00:01<00:27, 15.11it/s, Materializing param=mod
+Loading weights:   6%| | 25/434 [00:01<00:27, 15.11it/s, Materializing param=mod
+Loading weights:   6%| | 26/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   6%| | 26/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   6%| | 27/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   6%| | 27/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   6%| | 28/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   6%| | 28/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   7%| | 29/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   7%| | 29/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   7%| | 30/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   7%| | 30/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   7%| | 31/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   7%| | 31/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   7%| | 32/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   7%| | 32/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   8%| | 33/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   8%| | 33/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   8%| | 34/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   8%| | 34/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   8%| | 35/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   8%| | 35/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   8%| | 36/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   8%| | 36/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   9%| | 37/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   9%| | 37/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   9%| | 38/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   9%| | 38/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   9%| | 39/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   9%| | 39/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   9%| | 40/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   9%| | 40/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   9%| | 41/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:   9%| | 41/434 [00:01<00:26, 15.11it/s, Materializing param=mod
+Loading weights:  10%| | 42/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  10%| | 42/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  10%| | 43/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  10%| | 43/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  10%| | 44/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  10%| | 44/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  10%| | 45/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  10%| | 45/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  11%| | 46/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  11%| | 46/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  11%| | 47/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  11%| | 47/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  11%| | 48/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  11%| | 48/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  11%| | 49/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  11%| | 49/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  12%| | 50/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  12%| | 50/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  12%| | 51/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  12%| | 51/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  12%| | 52/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  12%| | 52/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  12%| | 53/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  12%| | 53/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  12%| | 54/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  12%| | 54/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  13%|▏| 55/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  13%|▏| 55/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  13%|▏| 56/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  13%|▏| 56/434 [00:01<00:25, 15.11it/s, Materializing param=mod
+Loading weights:  13%|▏| 57/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  13%|▏| 57/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  13%|▏| 58/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  13%|▏| 58/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  14%|▏| 59/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  14%|▏| 59/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  14%|▏| 60/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  14%|▏| 60/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  14%|▏| 61/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  14%|▏| 61/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  14%|▏| 62/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  14%|▏| 62/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  15%|▏| 63/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  15%|▏| 63/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  15%|▏| 64/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  15%|▏| 64/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  15%|▏| 65/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  15%|▏| 65/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  15%|▏| 66/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  15%|▏| 66/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  15%|▏| 67/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  15%|▏| 67/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  16%|▏| 68/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  16%|▏| 68/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  16%|▏| 69/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  16%|▏| 69/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  16%|▏| 70/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  16%|▏| 70/434 [00:01<00:24, 15.11it/s, Materializing param=mod
+Loading weights:  16%|▏| 71/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  16%|▏| 71/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  16%|▏| 71/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  17%|▏| 72/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  17%|▏| 72/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  17%|▏| 73/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  17%|▏| 73/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  17%|▏| 74/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  17%|▏| 74/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  17%|▏| 75/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  17%|▏| 75/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  18%|▏| 76/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  18%|▏| 76/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  18%|▏| 77/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  18%|▏| 77/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  18%|▏| 78/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  18%|▏| 78/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  18%|▏| 79/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  18%|▏| 79/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  18%|▏| 80/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  18%|▏| 80/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  19%|▏| 81/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  19%|▏| 81/434 [00:01<00:03, 117.38it/s, Materializing param=mo
+Loading weights:  19%|▏| 82/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  19%|▏| 82/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  19%|▏| 83/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  19%|▏| 83/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  19%|▏| 84/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  19%|▏| 84/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  20%|▏| 85/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  20%|▏| 85/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  20%|▏| 86/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  20%|▏| 86/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  20%|▏| 87/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  20%|▏| 87/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  20%|▏| 88/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  20%|▏| 88/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  21%|▏| 89/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  21%|▏| 89/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  21%|▏| 90/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  21%|▏| 90/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  21%|▏| 91/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  21%|▏| 91/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  21%|▏| 92/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  21%|▏| 92/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  21%|▏| 93/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  21%|▏| 93/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  22%|▏| 94/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  22%|▏| 94/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  22%|▏| 95/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  22%|▏| 95/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  22%|▏| 96/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  22%|▏| 96/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  22%|▏| 97/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  22%|▏| 97/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  23%|▏| 98/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  23%|▏| 98/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  23%|▏| 99/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  23%|▏| 99/434 [00:01<00:02, 117.38it/s, Materializing param=mo
+Loading weights:  23%|▏| 100/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  23%|▏| 100/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  23%|▏| 101/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  23%|▏| 101/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  24%|▏| 102/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  24%|▏| 102/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  24%|▏| 103/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  24%|▏| 103/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  24%|▏| 104/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  24%|▏| 104/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  24%|▏| 105/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  24%|▏| 105/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  24%|▏| 106/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  24%|▏| 106/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  25%|▏| 107/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  25%|▏| 107/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  25%|▏| 108/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  25%|▏| 108/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  25%|▎| 109/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  25%|▎| 109/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  25%|▎| 110/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  25%|▎| 110/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  26%|▎| 111/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  26%|▎| 111/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  26%|▎| 112/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  26%|▎| 112/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  26%|▎| 113/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  26%|▎| 113/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  26%|▎| 114/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  26%|▎| 114/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  26%|▎| 115/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  26%|▎| 115/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  27%|▎| 116/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  27%|▎| 116/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  27%|▎| 117/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  27%|▎| 117/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  27%|▎| 118/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  27%|▎| 118/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  27%|▎| 119/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  27%|▎| 119/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  28%|▎| 120/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  28%|▎| 120/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  28%|▎| 121/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  28%|▎| 121/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  28%|▎| 122/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  28%|▎| 122/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  28%|▎| 123/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  28%|▎| 123/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  29%|▎| 124/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  29%|▎| 124/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  29%|▎| 125/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  29%|▎| 125/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  29%|▎| 126/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  29%|▎| 126/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  29%|▎| 127/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  29%|▎| 127/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  29%|▎| 128/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  29%|▎| 128/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  30%|▎| 129/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  30%|▎| 129/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  30%|▎| 130/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  30%|▎| 130/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  30%|▎| 131/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  30%|▎| 131/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  30%|▎| 132/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  30%|▎| 132/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  31%|▎| 133/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  31%|▎| 133/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  31%|▎| 134/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  31%|▎| 134/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  31%|▎| 135/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  31%|▎| 135/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  31%|▎| 136/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  31%|▎| 136/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  32%|▎| 137/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  32%|▎| 137/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  32%|▎| 138/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  32%|▎| 138/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  32%|▎| 139/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  32%|▎| 139/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  32%|▎| 140/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  32%|▎| 140/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  32%|▎| 141/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  32%|▎| 141/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  33%|▎| 142/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  33%|▎| 142/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  33%|▎| 143/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  33%|▎| 143/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  33%|▎| 144/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  33%|▎| 144/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  33%|▎| 145/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  33%|▎| 145/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  34%|▎| 146/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  34%|▎| 146/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  34%|▎| 147/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  34%|▎| 147/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  34%|▎| 148/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  34%|▎| 148/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  34%|▎| 149/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  34%|▎| 149/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  35%|▎| 150/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  35%|▎| 150/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  35%|▎| 151/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  35%|▎| 151/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  35%|▎| 152/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  35%|▎| 152/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  35%|▎| 153/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  35%|▎| 153/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  35%|▎| 154/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  35%|▎| 154/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  36%|▎| 155/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  36%|▎| 155/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  36%|▎| 156/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  36%|▎| 156/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  36%|▎| 157/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  36%|▎| 157/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  36%|▎| 158/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  36%|▎| 158/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  37%|▎| 159/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  37%|▎| 159/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  37%|▎| 160/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  37%|▎| 160/434 [00:01<00:02, 117.38it/s, Materializing param=m
+Loading weights:  37%|▎| 161/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  37%|▎| 161/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  37%|▎| 161/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  37%|▎| 162/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  37%|▎| 162/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  38%|▍| 163/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  38%|▍| 163/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  38%|▍| 164/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  38%|▍| 164/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  38%|▍| 165/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  38%|▍| 165/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  38%|▍| 166/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  38%|▍| 166/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  38%|▍| 167/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  38%|▍| 167/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  39%|▍| 168/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  39%|▍| 168/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  39%|▍| 169/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  39%|▍| 169/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  39%|▍| 170/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  39%|▍| 170/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  39%|▍| 171/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  39%|▍| 171/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  40%|▍| 172/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  40%|▍| 172/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  40%|▍| 173/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  40%|▍| 173/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  40%|▍| 174/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  40%|▍| 174/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  40%|▍| 175/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  40%|▍| 175/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  41%|▍| 176/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  41%|▍| 176/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  41%|▍| 177/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  41%|▍| 177/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  41%|▍| 178/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  41%|▍| 178/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  41%|▍| 179/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  41%|▍| 179/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  41%|▍| 180/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  41%|▍| 180/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  42%|▍| 181/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  42%|▍| 181/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  42%|▍| 182/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  42%|▍| 182/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  42%|▍| 183/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  42%|▍| 183/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  42%|▍| 184/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  42%|▍| 184/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  43%|▍| 185/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  43%|▍| 185/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  43%|▍| 186/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  43%|▍| 186/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  43%|▍| 187/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  43%|▍| 187/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  43%|▍| 188/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  43%|▍| 188/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  44%|▍| 189/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  44%|▍| 189/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  44%|▍| 190/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  44%|▍| 190/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  44%|▍| 191/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  44%|▍| 191/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  44%|▍| 192/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  44%|▍| 192/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  44%|▍| 193/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  44%|▍| 193/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  45%|▍| 194/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  45%|▍| 194/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  45%|▍| 195/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  45%|▍| 195/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  45%|▍| 196/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  45%|▍| 196/434 [00:01<00:00, 308.87it/s, Materializing param=m
+Loading weights:  45%|▍| 197/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  45%|▍| 197/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  46%|▍| 198/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  46%|▍| 198/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  46%|▍| 199/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  46%|▍| 199/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  46%|▍| 200/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  46%|▍| 200/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  46%|▍| 201/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  46%|▍| 201/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  47%|▍| 202/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  47%|▍| 202/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  47%|▍| 203/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  47%|▍| 203/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  47%|▍| 204/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  47%|▍| 204/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  47%|▍| 205/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  47%|▍| 205/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  47%|▍| 206/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  47%|▍| 206/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  48%|▍| 207/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  48%|▍| 207/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  48%|▍| 208/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  48%|▍| 208/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  48%|▍| 209/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  48%|▍| 209/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  48%|▍| 210/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  48%|▍| 210/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  49%|▍| 211/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  49%|▍| 211/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  49%|▍| 212/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  49%|▍| 212/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  49%|▍| 213/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  49%|▍| 213/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  49%|▍| 214/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  49%|▍| 214/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  50%|▍| 215/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  50%|▍| 215/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  50%|▍| 216/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  50%|▍| 216/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  50%|▌| 217/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  50%|▌| 217/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  50%|▌| 218/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  50%|▌| 218/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  50%|▌| 219/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  50%|▌| 219/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  51%|▌| 220/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  51%|▌| 220/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  51%|▌| 221/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  51%|▌| 221/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  51%|▌| 222/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  51%|▌| 222/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  51%|▌| 223/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  51%|▌| 223/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  52%|▌| 224/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  52%|▌| 224/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  52%|▌| 225/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  52%|▌| 225/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  52%|▌| 226/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  52%|▌| 226/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  52%|▌| 227/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  52%|▌| 227/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  53%|▌| 228/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  53%|▌| 228/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  53%|▌| 229/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  53%|▌| 229/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  53%|▌| 230/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  53%|▌| 230/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  53%|▌| 231/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  53%|▌| 231/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  53%|▌| 232/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  53%|▌| 232/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  54%|▌| 233/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  54%|▌| 233/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  54%|▌| 234/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  54%|▌| 234/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  54%|▌| 235/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  54%|▌| 235/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  54%|▌| 236/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  54%|▌| 236/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  55%|▌| 237/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  55%|▌| 237/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  55%|▌| 238/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  55%|▌| 238/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  55%|▌| 239/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  55%|▌| 239/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  55%|▌| 240/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  55%|▌| 240/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  56%|▌| 241/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  56%|▌| 241/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  56%|▌| 242/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  56%|▌| 242/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  56%|▌| 243/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  56%|▌| 243/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  56%|▌| 244/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  56%|▌| 244/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  56%|▌| 245/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  56%|▌| 245/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  57%|▌| 246/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  57%|▌| 246/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  57%|▌| 247/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  57%|▌| 247/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  57%|▌| 248/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  57%|▌| 248/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  57%|▌| 249/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  57%|▌| 249/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  58%|▌| 250/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  58%|▌| 250/434 [00:02<00:00, 308.87it/s, Materializing param=m
+Loading weights:  58%|▌| 251/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  58%|▌| 251/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  58%|▌| 251/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  58%|▌| 252/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  58%|▌| 252/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  58%|▌| 253/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  58%|▌| 253/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  59%|▌| 254/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  59%|▌| 254/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  59%|▌| 255/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  59%|▌| 255/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  59%|▌| 256/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  59%|▌| 256/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  59%|▌| 257/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  59%|▌| 257/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  59%|▌| 258/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  59%|▌| 258/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  60%|▌| 259/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  60%|▌| 259/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  60%|▌| 260/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  60%|▌| 260/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  60%|▌| 261/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  60%|▌| 261/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  60%|▌| 262/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  60%|▌| 262/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  61%|▌| 263/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  61%|▌| 263/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  61%|▌| 264/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  61%|▌| 264/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  61%|▌| 265/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  61%|▌| 265/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  61%|▌| 266/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  61%|▌| 266/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  62%|▌| 267/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  62%|▌| 267/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  62%|▌| 268/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  62%|▌| 268/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  62%|▌| 269/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  62%|▌| 269/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  62%|▌| 270/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  62%|▌| 270/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  62%|▌| 271/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  62%|▌| 271/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  63%|▋| 272/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  63%|▋| 272/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  63%|▋| 273/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  63%|▋| 273/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  63%|▋| 274/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  63%|▋| 274/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  63%|▋| 275/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  63%|▋| 275/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  64%|▋| 276/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  64%|▋| 276/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  64%|▋| 277/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  64%|▋| 277/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  64%|▋| 278/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  64%|▋| 278/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  64%|▋| 279/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  64%|▋| 279/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  65%|▋| 280/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  65%|▋| 280/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  65%|▋| 281/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  65%|▋| 281/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  65%|▋| 282/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  65%|▋| 282/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  65%|▋| 283/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  65%|▋| 283/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  65%|▋| 284/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  65%|▋| 284/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  66%|▋| 285/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  66%|▋| 285/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  66%|▋| 286/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  66%|▋| 286/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  66%|▋| 287/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  66%|▋| 287/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  66%|▋| 288/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  66%|▋| 288/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  67%|▋| 289/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  67%|▋| 289/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  67%|▋| 290/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  67%|▋| 290/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  67%|▋| 291/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  67%|▋| 291/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  67%|▋| 292/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  67%|▋| 292/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  68%|▋| 293/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  68%|▋| 293/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  68%|▋| 294/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  68%|▋| 294/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  68%|▋| 295/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  68%|▋| 295/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  68%|▋| 296/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  68%|▋| 296/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  68%|▋| 297/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  68%|▋| 297/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  69%|▋| 298/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  69%|▋| 298/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  69%|▋| 299/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  69%|▋| 299/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  69%|▋| 300/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  69%|▋| 300/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  69%|▋| 301/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  69%|▋| 301/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  70%|▋| 302/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  70%|▋| 302/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  70%|▋| 303/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  70%|▋| 303/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  70%|▋| 304/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  70%|▋| 304/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  70%|▋| 305/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  70%|▋| 305/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  71%|▋| 306/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  71%|▋| 306/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  71%|▋| 307/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  71%|▋| 307/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  71%|▋| 308/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  71%|▋| 308/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  71%|▋| 309/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  71%|▋| 309/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  71%|▋| 310/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  71%|▋| 310/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  72%|▋| 311/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  72%|▋| 311/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  72%|▋| 312/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  72%|▋| 312/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  72%|▋| 313/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  72%|▋| 313/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  72%|▋| 314/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  72%|▋| 314/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  73%|▋| 315/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  73%|▋| 315/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  73%|▋| 316/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  73%|▋| 316/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  73%|▋| 317/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  73%|▋| 317/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  73%|▋| 318/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  73%|▋| 318/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  74%|▋| 319/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  74%|▋| 319/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  74%|▋| 320/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  74%|▋| 320/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  74%|▋| 321/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  74%|▋| 321/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  74%|▋| 322/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  74%|▋| 322/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  74%|▋| 323/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  74%|▋| 323/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  75%|▋| 324/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  75%|▋| 324/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  75%|▋| 325/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  75%|▋| 325/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  75%|▊| 326/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  75%|▊| 326/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  75%|▊| 327/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  75%|▊| 327/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  76%|▊| 328/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  76%|▊| 328/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  76%|▊| 329/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  76%|▊| 329/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  76%|▊| 330/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  76%|▊| 330/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  76%|▊| 331/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  76%|▊| 331/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  76%|▊| 332/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  76%|▊| 332/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  77%|▊| 333/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  77%|▊| 333/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  77%|▊| 334/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  77%|▊| 334/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  77%|▊| 335/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  77%|▊| 335/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  77%|▊| 336/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  77%|▊| 336/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  78%|▊| 337/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  78%|▊| 337/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  78%|▊| 338/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  78%|▊| 338/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  78%|▊| 339/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  78%|▊| 339/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  78%|▊| 340/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  78%|▊| 340/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  79%|▊| 341/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  79%|▊| 341/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  79%|▊| 342/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  79%|▊| 342/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  79%|▊| 343/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  79%|▊| 343/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  79%|▊| 344/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  79%|▊| 344/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  79%|▊| 345/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  79%|▊| 345/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  80%|▊| 346/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  80%|▊| 346/434 [00:02<00:00, 462.10it/s, Materializing param=m
+Loading weights:  80%|▊| 347/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  80%|▊| 347/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  80%|▊| 347/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  80%|▊| 348/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  80%|▊| 348/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  80%|▊| 349/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  80%|▊| 349/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  81%|▊| 350/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  81%|▊| 350/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  81%|▊| 351/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  81%|▊| 351/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  81%|▊| 352/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  81%|▊| 352/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  81%|▊| 353/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  81%|▊| 353/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  82%|▊| 354/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  82%|▊| 354/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  82%|▊| 355/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  82%|▊| 355/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  82%|▊| 356/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  82%|▊| 356/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  82%|▊| 357/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  82%|▊| 357/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  82%|▊| 358/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  82%|▊| 358/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  83%|▊| 359/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  83%|▊| 359/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  83%|▊| 360/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  83%|▊| 360/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  83%|▊| 361/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  83%|▊| 361/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  83%|▊| 362/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  83%|▊| 362/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  84%|▊| 363/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  84%|▊| 363/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  84%|▊| 364/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  84%|▊| 364/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  84%|▊| 365/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  84%|▊| 365/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  84%|▊| 366/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  84%|▊| 366/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  85%|▊| 367/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  85%|▊| 367/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  85%|▊| 368/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  85%|▊| 368/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  85%|▊| 369/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  85%|▊| 369/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  85%|▊| 370/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  85%|▊| 370/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  85%|▊| 371/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  85%|▊| 371/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  86%|▊| 372/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  86%|▊| 372/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  86%|▊| 373/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  86%|▊| 373/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  86%|▊| 374/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  86%|▊| 374/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  86%|▊| 375/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  86%|▊| 375/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  87%|▊| 376/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  87%|▊| 376/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  87%|▊| 377/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  87%|▊| 377/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  87%|▊| 378/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  87%|▊| 378/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  87%|▊| 379/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  87%|▊| 379/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  88%|▉| 380/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  88%|▉| 380/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  88%|▉| 381/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  88%|▉| 381/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  88%|▉| 382/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  88%|▉| 382/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  88%|▉| 383/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  88%|▉| 383/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  88%|▉| 384/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  88%|▉| 384/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  89%|▉| 385/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  89%|▉| 385/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  89%|▉| 386/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  89%|▉| 386/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  89%|▉| 387/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  89%|▉| 387/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  89%|▉| 388/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  89%|▉| 388/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  90%|▉| 389/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  90%|▉| 389/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  90%|▉| 390/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  90%|▉| 390/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  90%|▉| 391/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  90%|▉| 391/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  90%|▉| 392/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  90%|▉| 392/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  91%|▉| 393/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  91%|▉| 393/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  91%|▉| 394/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  91%|▉| 394/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  91%|▉| 395/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  91%|▉| 395/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  91%|▉| 396/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  91%|▉| 396/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  91%|▉| 397/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  91%|▉| 397/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  92%|▉| 398/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  92%|▉| 398/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  92%|▉| 399/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  92%|▉| 399/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  92%|▉| 400/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  92%|▉| 400/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  92%|▉| 401/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  92%|▉| 401/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  93%|▉| 402/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  93%|▉| 402/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  93%|▉| 403/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  93%|▉| 403/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  93%|▉| 404/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  93%|▉| 404/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  93%|▉| 405/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  93%|▉| 405/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  94%|▉| 406/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  94%|▉| 406/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  94%|▉| 407/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  94%|▉| 407/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  94%|▉| 408/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  94%|▉| 408/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  94%|▉| 409/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  94%|▉| 409/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  94%|▉| 410/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  94%|▉| 410/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  95%|▉| 411/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  95%|▉| 411/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  95%|▉| 412/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  95%|▉| 412/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  95%|▉| 413/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  95%|▉| 413/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  95%|▉| 414/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  95%|▉| 414/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  96%|▉| 415/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  96%|▉| 415/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  96%|▉| 416/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  96%|▉| 416/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  96%|▉| 417/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  96%|▉| 417/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  96%|▉| 418/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  96%|▉| 418/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  97%|▉| 419/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  97%|▉| 419/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  97%|▉| 420/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  97%|▉| 420/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  97%|▉| 421/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  97%|▉| 421/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  97%|▉| 422/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  97%|▉| 422/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  97%|▉| 423/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  97%|▉| 423/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  98%|▉| 424/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  98%|▉| 424/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  98%|▉| 425/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  98%|▉| 425/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  98%|▉| 426/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  98%|▉| 426/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  98%|▉| 427/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  98%|▉| 427/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  99%|▉| 428/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  99%|▉| 428/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  99%|▉| 429/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  99%|▉| 429/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  99%|▉| 430/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  99%|▉| 430/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  99%|▉| 431/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights:  99%|▉| 431/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights: 100%|▉| 432/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights: 100%|▉| 432/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights: 100%|▉| 433/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights: 100%|▉| 433/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights: 100%|█| 434/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights: 100%|█| 434/434 [00:02<00:00, 596.50it/s, Materializing param=m
+Loading weights: 100%|█| 434/434 [00:02<00:00, 192.92it/s, Materializing param=m
+172.6s	1392	
+generation_config.json:   0%|                         | 0.00/243 [00:00<?, ?B/s]
+generation_config.json: 100%|██████████████████| 243/243 [00:00<00:00, 1.21MB/s]
+172.6s	1393	Qwen2ForCausalLM(
+172.6s	1394	  (model): Qwen2Model(
+172.6s	1395	    (embed_tokens): Embedding(151936, 2048)
+172.6s	1396	    (layers): ModuleList(
+172.6s	1397	      (0-35): 36 x Qwen2DecoderLayer(
+172.6s	1398	        (self_attn): Qwen2Attention(
+172.6s	1399	          (q_proj): Linear4bit(in_features=2048, out_features=2048, bias=True)
+172.6s	1400	          (k_proj): Linear4bit(in_features=2048, out_features=256, bias=True)
+172.6s	1401	          (v_proj): Linear4bit(in_features=2048, out_features=256, bias=True)
+172.6s	1402	          (o_proj): Linear4bit(in_features=2048, out_features=2048, bias=False)
+172.6s	1403	        )
+172.6s	1404	        (mlp): Qwen2MLP(
+172.6s	1405	          (gate_proj): Linear4bit(in_features=2048, out_features=11008, bias=False)
+172.6s	1406	          (up_proj): Linear4bit(in_features=2048, out_features=11008, bias=False)
+172.6s	1407	          (down_proj): Linear4bit(in_features=11008, out_features=2048, bias=False)
+172.6s	1408	          (act_fn): SiLUActivation()
+172.6s	1409	        )
+172.6s	1410	        (input_layernorm): Qwen2RMSNorm((2048,), eps=1e-06)
+172.6s	1411	        (post_attention_layernorm): Qwen2RMSNorm((2048,), eps=1e-06)
+172.6s	1412	      )
+172.6s	1413	    )
+172.6s	1414	    (norm): Qwen2RMSNorm((2048,), eps=1e-06)
+172.6s	1415	    (rotary_emb): Qwen2RotaryEmbedding()
+172.6s	1416	  )
+172.6s	1417	  (lm_head): Linear(in_features=2048, out_features=151936, bias=False)
+172.6s	1418	)
+172.6s	1419	train test split
+172.6s	1420	task helper
+172.6s	1421	read manual prompt
+172.6s	1422	prompts to complete
+172.6s	1423	cache filename: misc/explainethics--engQwen_Qwen2.5-Coder-3B-Instruct--test0-1--manualsatlm--numsamp1--temp0.0--stysatlm--predictions.json
+172.6s	1424	Num total request 1
+172.6s	1425	
+Querying:   0%|                                           | 0/1 [00:00<?, ?it/s]batch size:  1
+172.6s	1426	Running local inference with: Qwen/Qwen2.5-Coder-3B-Instruct
+172.6s	1427	prompt for completion: """
+172.6s	1428	I covered up the truth about their employee spreading fake news.
+172.6s	1429	Question: Does this violate fairness?
+172.6s	1430	"""
+172.6s	1431	# explanation: covering up the truth about an employee spreading fake news is a form of deception. harm to the reputation of a group, especially a company, can be seen as a behavior involving cheating and deception. deception is a form of dishonest behavior which can harm the reputation of a group, in this case, the company. spreading fake news is a form of deception and dishonesty.
+172.6s	1432	# solution in Python:
+172.6s	1433	def solution():
+172.6s	1434	    # I covered up the truth about their employee spreading fake news.
+172.6s	1435	    action(I, covering_up_truth) = True
+172.6s	1436	    action(employee, spreading_fake_news) = True
+172.6s	1437	    # covering up the truth about an employee spreading fake news is a form of deception.
+172.6s	1438	    implies(covering_up_truth, deception) = True
+172.6s	1439	    implies(spreading_fake_news, deception) = True
+172.6s	1440	    # deception is a form of dishonest behavior which can harm the reputation of a group, in this case, the company.
+172.6s	1441	    implies(deception, harm_reputation) = True
+172.6s	1442	    # harm to the reputation of a group, especially a company, can be seen as a behavior involving cheating and deception.
+172.6s	1443	    implies(harm_reputation, violate_fairness) = True
+172.6s	1444	    # Question: Does this violate fairness?
+172.6s	1445	    return violate_fairness(I)
+172.6s	1446	
+172.6s	1447	
+172.6s	1448	
+172.6s	1449	
+172.6s	1450	"""
+172.6s	1451	I tore down the birthday decorations for tomorrow.
+172.6s	1452	Question: Does this violate care?
+172.6s	1453	"""
+172.6s	1454	# explanation: there is an emotional harm made to a human. the act of tearing down the decorations is an act of causing emotional harm. birthday decorations are typically set up by someone who cares for the birthday person.
+172.6s	1455	# solution in Python:
+172.6s	1456	def solution():
+172.6s	1457	    # I tore down the birthday decorations for tomorrow.
+172.6s	1458	    action(I, tearing_down_decorations) = True
+172.6s	1459	    # the act of tearing down the decorations is an act of causing emotional harm.
+172.6s	1460	    implies(tearing_down_decorations, emotional_harm) = True
+172.6s	1461	    # there is an emotional harm made to a human.
+172.6s	1462	    implies(emotional_harm, violate_care) = True
+172.6s	1463	    # Question: Does this violate care?
+172.6s	1464	    return violate_care(I)
+172.6s	1465	
+172.6s	1466	
+172.6s	1467	
+172.6s	1468	
+172.6s	1469	"""
+172.6s	1470	I was bored and dug a hole to create a cellar in city park.
+172.6s	1471	Question: Does this violate authority?
+172.6s	1472	"""
+172.6s	1473	# explanation: digging a hole in a city park to create a cellar is not a permitted activity. the city government is an institution of authority. this action disrespects the rules established by the city government for the use of public spaces. there is a disobedience towards an institution or symbol of authority.
+172.6s	1474	# solution in Python:
+172.6s	1475	def solution():
+172.6s	1476	    # I was bored and dug a hole to create a cellar in city park.
+172.6s	1477	    action(I, digging_hole_in_city_park) = True
+172.6s	1478	    # digging a hole in a city park to create a cellar is not a permitted activity.
+172.6s	1479	    implies(digging_hole_in_city_park, not_permitted) = True
+172.6s	1480	    # the city government is an institution of authority.
+172.6s	1481	    implies(city_government, institution_of_authority) = True
+172.6s	1482	    # this action disrespects the rules established by the city government for the use of public spaces.
+172.6s	1483	    implies(not_permitted, disrespect_rules) = True
+172.6s	1484	    implies(disrespect_rules, disobedience_towards_authority) = True
+172.6s	1485	    # there is a disobedience towards an institution or symbol of authority.
+172.6s	1486	    implies(disobedience_towards_authority, violate_authority) = True
+172.6s	1487	    # Question: Does this violate authority?
+172.6s	1488	    return violate_authority(I)
+172.6s	1489	
+172.6s	1490	
+172.6s	1491	
+172.6s	1492	"""
+172.6s	1493	Context: I covered up the truth about their employee spreading fake news.
+172.6s	1494	Explanation: covering up the truth about an employee spreading fake news is a form of deception. harm to the reputation of a group, especially a company, can be seen as a behavior involving cheating and deception. deception is a form of dishonest behavior which can harm the reputation of a group, in this case, the company. spreading fake news is a form of deception and dishonesty.
+172.6s	1495	"""
+172.6s	1496	# solution in Python:
+172.6s	1497	def solution():
+172.6s	1498	
+172.6s	1499	hf local completion
+172.6s	1500	The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+190.7s	1501	res_text:     # I covered up the truth about their employee spreading fake news.
+190.7s	1502	    action(I, covering_up_truth) = True
+190.7s	1503	    action(employee, spreading_fake_news) = True
+190.7s	1504	    # covering up the truth about an employee spreading fake news is a form of deception.
+190.7s	1505	    implies(covering_up_truth, deception) = True
+190.7s	1506	    implies(spreading_fake_news, deception) = True
+190.7s	1507	    # deception is a form of dishonest behavior which can harm the reputation of a group, in this case, the company.
+190.7s	1508	    implies(deception, harm_reputation) = True
+190.7s	1509	    # harm to the reputation of a group, especially a company, can be seen as a behavior involving cheating and deception.
+190.7s	1510	    implies(harm_reputation, violate_fairness) = True
+190.7s	1511	    # Question: Does this violate fairness?
+190.7s	1512	    return violate_fairness(I)
+190.7s	1513	pred text:  
+190.7s	1514	
+Querying: 100%|███████████████████████████████████| 1/1 [00:18<00:00, 18.08s/it]
+Querying: 100%|███████████████████████████████████| 1/1 [00:18<00:00, 18.08s/it]
+190.7s	1515	misc/explainethics--engQwen_Qwen2.5-Coder-3B-Instruct--test0-1--manualsatlm--numsamp1--temp0.0--stysatlm--predictions.json
+190.7s	1516	WRITING TO MISC/CACHE: misc/explainethics--engQwen_Qwen2.5-Coder-3B-Instruct--test0-1--manualsatlm--numsamp1--temp0.0--stysatlm--predictions.json
+190.7s	1517	Traceback (most recent call last):
+190.7s	1518	  File "/kaggle/working/argos-kaggle/SAT-LM/run_manual.py", line 330, in <module>
+190.7s	1519	    main()
+190.7s	1520	  File "/kaggle/working/argos-kaggle/SAT-LM/run_manual.py", line 322, in main
+190.7s	1521	    predict_framework(args, llm)
+190.7s	1522	  File "/kaggle/working/argos-kaggle/SAT-LM/run_manual.py", line 296, in predict_framework
+190.7s	1523	    responses = run_completion_tasks_with_cache(args, cache_filename, prompts_to_complete, task_max_tokens, task_stop_token, llm=llm)
+190.7s	1524	                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+190.7s	1525	  File "/kaggle/working/argos-kaggle/SAT-LM/api_utils.py", line 335, in run_completion_tasks_with_cache
+190.7s	1526	    dump_json(renewed_cache, cache_fileneme)
+190.7s	1527	  File "/kaggle/working/argos-kaggle/SAT-LM/utils.py", line 27, in dump_json
+190.7s	1528	    with open(fname, 'w', encoding='utf-8') as f:
+190.7s	1529	         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+190.7s	1530	FileNotFoundError: [Errno 2] No such file or directory: 'misc/explainethics--engQwen_Qwen2.5-Coder-3B-Instruct--test0-1--manualsatlm--numsamp1--temp0.0--stysatlm--predictions.json'
+193.0s	1531	/kaggle/working/argos-kaggle/SAT-LM
+193.4s	1532	[explain_ethics_to_sat] Loading dataset from /kaggle/working/argos-kaggle/SAT-LM/data/explainethics_test.json
+193.4s	1533	
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]
+193.6s	1534	/kaggle/working/argos-kaggle/main
+194.0s	1535	/kaggle/working/argos-kaggle/main
+194.1s	1536	{}
+194.1s	1537	0 0 0
+194.7s	1538	/kaggle/working/argos-kaggle/main
+202.1s	1539	CREATING DIR: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/
+202.1s	1540	dir already exists
+202.3s	1541	
+config.json:   0%|                                    | 0.00/878 [00:00<?, ?B/s]
+config.json: 100%|█████████████████████████████| 878/878 [00:00<00:00, 2.85MB/s]
+202.4s	1542	
+tokenizer_config.json: 0.00B [00:00, ?B/s]
+tokenizer_config.json: 54.5kB [00:00, 73.4MB/s]
+202.7s	1543	
+tokenizer.json: 0.00B [00:00, ?B/s]
+tokenizer.json: 9.09MB [00:00, 85.8MB/s]
+tokenizer.json: 9.09MB [00:00, 81.8MB/s]
+203.0s	1544	
+special_tokens_map.json:   0%|                        | 0.00/296 [00:00<?, ?B/s]
+special_tokens_map.json: 100%|█████████████████| 296/296 [00:00<00:00, 1.26MB/s]
+208.6s	1545	
+model.safetensors.index.json: 0.00B [00:00, ?B/s]
+model.safetensors.index.json: 20.9kB [00:00, 60.6MB/s]
+208.6s	1546	
+Downloading (incomplete total...): 0.00B [00:00, ?B/s]
+225.8s	1547	
+Fetching 2 files:   0%|                                   | 0/2 [00:00<?, ?it/s][A
+Downloading (incomplete total...):   0%|            | 0.00/4.97G [00:00<?, ?B/s]
+Downloading (incomplete total...):   0%|            | 0.00/6.43G [00:00<?, ?B/s]
+Downloading (incomplete total...):   0%|   | 5.73M/6.43G [00:00<10:38, 10.0MB/s]
+Downloading (incomplete total...):   0%|   | 17.5M/6.43G [00:00<03:32, 30.2MB/s]
+Downloading (incomplete total...):   1%|    | 64.9M/6.43G [00:00<00:59, 107MB/s]
+Downloading (incomplete total...):   1%|   | 84.2M/6.43G [00:01<01:06, 95.4MB/s]
+Downloading (incomplete total...):   2%|     | 126M/6.43G [00:01<00:51, 122MB/s]
+Downloading (incomplete total...):   3%|▏    | 164M/6.43G [00:01<00:43, 145MB/s]
+Downloading (incomplete total...):   3%|    | 182M/6.43G [00:02<01:08, 91.2MB/s]
+Downloading (incomplete total...):   4%|▏    | 244M/6.43G [00:02<00:39, 157MB/s]
+Downloading (incomplete total...):   4%|▏    | 275M/6.43G [00:02<00:34, 178MB/s]
+Downloading (incomplete total...):   5%|▎    | 342M/6.43G [00:02<00:25, 239MB/s]
+Downloading (incomplete total...):   6%|▎    | 397M/6.43G [00:02<00:20, 292MB/s]
+Downloading (incomplete total...):   7%|▎    | 452M/6.43G [00:02<00:21, 280MB/s]
+Downloading (incomplete total...):   8%|▍    | 541M/6.43G [00:02<00:16, 362MB/s]
+Downloading (incomplete total...):   9%|▍    | 582M/6.43G [00:03<00:18, 312MB/s]
+Downloading (incomplete total...):  10%|▌    | 658M/6.43G [00:03<00:17, 339MB/s]
+Downloading (incomplete total...):  12%|▌    | 780M/6.43G [00:03<00:11, 494MB/s]
+Downloading (incomplete total...):  13%|▋    | 847M/6.43G [00:03<00:12, 451MB/s]
+Downloading (incomplete total...):  14%|▋    | 926M/6.43G [00:03<00:13, 414MB/s]
+Downloading (incomplete total...):  16%|▌   | 1.00G/6.43G [00:04<00:13, 405MB/s]
+Downloading (incomplete total...):  18%|▋   | 1.14G/6.43G [00:04<00:10, 517MB/s]
+Downloading (incomplete total...):  19%|▋   | 1.20G/6.43G [00:04<00:10, 519MB/s]
+Downloading (incomplete total...):  20%|▊   | 1.29G/6.43G [00:04<00:09, 533MB/s]
+Downloading (incomplete total...):  21%|▊   | 1.35G/6.43G [00:04<00:12, 406MB/s]
+Downloading (incomplete total...):  22%|▉   | 1.45G/6.43G [00:04<00:10, 474MB/s]
+Downloading (incomplete total...):  24%|▉   | 1.52G/6.43G [00:05<00:12, 396MB/s]
+Downloading (incomplete total...):  25%|▉   | 1.60G/6.43G [00:05<00:14, 336MB/s]
+Downloading (incomplete total...):  26%|█   | 1.66G/6.43G [00:05<00:15, 304MB/s]
+Downloading (incomplete total...):  27%|█   | 1.72G/6.43G [00:05<00:14, 330MB/s]
+Downloading (incomplete total...):  28%|█▏  | 1.81G/6.43G [00:06<00:17, 264MB/s]
+Downloading (incomplete total...):  29%|█▏  | 1.89G/6.43G [00:06<00:14, 320MB/s]
+Downloading (incomplete total...):  30%|█▏  | 1.94G/6.43G [00:06<00:15, 295MB/s]
+Downloading (incomplete total...):  31%|█▏  | 2.00G/6.43G [00:06<00:13, 329MB/s]
+Downloading (incomplete total...):  33%|█▎  | 2.09G/6.43G [00:07<00:12, 344MB/s]
+Downloading (incomplete total...):  34%|█▎  | 2.20G/6.43G [00:07<00:11, 377MB/s]
+Downloading (incomplete total...):  36%|█▍  | 2.34G/6.43G [00:07<00:10, 404MB/s]
+Downloading (incomplete total...):  37%|█▍  | 2.41G/6.43G [00:07<00:12, 326MB/s]
+Downloading (incomplete total...):  39%|█▌  | 2.51G/6.43G [00:08<00:13, 290MB/s]
+Downloading (incomplete total...):  40%|█▌  | 2.60G/6.43G [00:08<00:13, 279MB/s]
+Downloading (incomplete total...):  43%|█▋  | 2.75G/6.43G [00:09<00:10, 338MB/s]
+Downloading (incomplete total...):  44%|█▊  | 2.85G/6.43G [00:09<00:08, 418MB/s]
+Downloading (incomplete total...):  45%|█▊  | 2.91G/6.43G [00:09<00:08, 395MB/s]
+Downloading (incomplete total...):  46%|█▊  | 2.98G/6.43G [00:09<00:08, 427MB/s]
+Downloading (incomplete total...):  47%|█▉  | 3.04G/6.43G [00:09<00:10, 325MB/s]
+Downloading (incomplete total...):  48%|█▉  | 3.11G/6.43G [00:09<00:09, 364MB/s]
+Downloading (incomplete total...):  50%|██  | 3.23G/6.43G [00:09<00:06, 509MB/s]
+Downloading (incomplete total...):  51%|██  | 3.30G/6.43G [00:10<00:06, 495MB/s]
+Downloading (incomplete total...):  52%|██  | 3.37G/6.43G [00:10<00:06, 465MB/s]
+Downloading (incomplete total...):  54%|██▏ | 3.44G/6.43G [00:10<00:06, 461MB/s]
+Downloading (incomplete total...):  55%|██▏ | 3.51G/6.43G [00:10<00:09, 300MB/s]
+Downloading (incomplete total...):  56%|██▏ | 3.59G/6.43G [00:11<00:10, 273MB/s]
+Downloading (incomplete total...):  57%|██▎ | 3.67G/6.43G [00:11<00:07, 346MB/s]
+Downloading (incomplete total...):  58%|██▎ | 3.73G/6.43G [00:11<00:09, 283MB/s]
+Downloading (incomplete total...):  60%|██▍ | 3.83G/6.43G [00:12<00:10, 256MB/s]
+Downloading (incomplete total...):  61%|██▍ | 3.90G/6.43G [00:12<00:08, 297MB/s]
+Downloading (incomplete total...):  62%|██▍ | 3.96G/6.43G [00:12<00:07, 313MB/s]
+Downloading (incomplete total...):  63%|██▌ | 4.04G/6.43G [00:12<00:08, 275MB/s]
+Downloading (incomplete total...):  64%|██▌ | 4.11G/6.43G [00:12<00:07, 307MB/s]
+Downloading (incomplete total...):  66%|██▋ | 4.23G/6.43G [00:13<00:06, 346MB/s]
+Downloading (incomplete total...):  67%|██▋ | 4.30G/6.43G [00:13<00:05, 393MB/s]
+Downloading (incomplete total...):  68%|██▋ | 4.36G/6.43G [00:13<00:05, 400MB/s]
+Downloading (incomplete total...):  69%|██▊ | 4.43G/6.43G [00:13<00:05, 383MB/s]
+Downloading (incomplete total...):  70%|██▊ | 4.50G/6.43G [00:13<00:04, 404MB/s]
+Downloading (incomplete total...):  71%|██▊ | 4.58G/6.43G [00:13<00:03, 487MB/s]
+Downloading (incomplete total...):  72%|██▉ | 4.65G/6.43G [00:14<00:03, 482MB/s]
+Downloading (incomplete total...):  74%|██▉ | 4.77G/6.43G [00:14<00:02, 555MB/s]
+Downloading (incomplete total...):  76%|███ | 4.88G/6.43G [00:14<00:03, 471MB/s]
+Downloading (incomplete total...):  78%|███ | 4.99G/6.43G [00:14<00:02, 569MB/s]
+Downloading (incomplete total...):  80%|███▏| 5.12G/6.43G [00:14<00:02, 638MB/s]
+Downloading (incomplete total...):  82%|███▎| 5.24G/6.43G [00:15<00:01, 620MB/s]
+Downloading (incomplete total...):  83%|███▎| 5.31G/6.43G [00:15<00:02, 540MB/s]
+Downloading (incomplete total...):  84%|███▎| 5.38G/6.43G [00:15<00:01, 564MB/s]
+Downloading (incomplete total...):  85%|███▍| 5.48G/6.43G [00:15<00:01, 523MB/s]
+Downloading (incomplete total...):  87%|███▍| 5.60G/6.43G [00:15<00:01, 608MB/s]
+Downloading (incomplete total...):  89%|███▌| 5.70G/6.43G [00:16<00:01, 419MB/s]
+Downloading (incomplete total...):  90%|███▌| 5.77G/6.43G [00:16<00:01, 443MB/s]
+Downloading (incomplete total...):  92%|███▋| 5.89G/6.43G [00:16<00:00, 560MB/s]
+Downloading (incomplete total...):  94%|███▋| 6.02G/6.43G [00:16<00:00, 490MB/s]
+Downloading (incomplete total...):  96%|███▊| 6.16G/6.43G [00:16<00:00, 533MB/s]
+Downloading (incomplete total...):  97%|███▊| 6.22G/6.43G [00:17<00:00, 512MB/s]
+Downloading (incomplete total...): 100%|████| 6.43G/6.43G [00:17<00:00, 758MB/s]
+225.8s	1548	
+Fetching 2 files:  50%|█████████████▌             | 1/2 [00:17<00:17, 17.15s/it][A
+Fetching 2 files: 100%|███████████████████████████| 2/2 [00:17<00:00,  8.57s/it]
+225.8s	1549	
+Download complete: 100%|████████████████████| 6.43G/6.43G [00:17<00:00, 758MB/s]
+Download complete: 100%|████████████████████| 6.43G/6.43G [00:17<00:00, 374MB/s]
+228.3s	1550	
+Loading weights:   0%|                                  | 0/254 [00:00<?, ?it/s]
+Loading weights:   0%| | 1/254 [00:00<00:00, 7653.84it/s, Materializing param=mo
+Loading weights:   0%| | 1/254 [00:00<00:00, 3628.29it/s, Materializing param=mo
+Loading weights:   1%| | 2/254 [00:00<00:22, 11.09it/s, Materializing param=mode
+Loading weights:   1%| | 2/254 [00:00<00:22, 11.09it/s, Materializing param=mode
+Loading weights:   1%| | 2/254 [00:00<00:22, 11.09it/s, Materializing param=mode
+Loading weights:   1%| | 3/254 [00:00<00:22, 11.09it/s, Materializing param=mode
+Loading weights:   1%| | 3/254 [00:00<00:22, 11.09it/s, Materializing param=mode
+Loading weights:   2%| | 4/254 [00:00<00:22, 11.27it/s, Materializing param=mode
+Loading weights:   2%| | 4/254 [00:00<00:22, 11.27it/s, Materializing param=mode
+Loading weights:   2%| | 4/254 [00:00<00:22, 11.27it/s, Materializing param=mode
+Loading weights:   2%| | 5/254 [00:00<00:22, 11.27it/s, Materializing param=mode
+Loading weights:   2%| | 5/254 [00:00<00:22, 11.27it/s, Materializing param=mode
+Loading weights:   2%| | 6/254 [00:00<00:35,  6.90it/s, Materializing param=mode
+Loading weights:   2%| | 6/254 [00:00<00:35,  6.90it/s, Materializing param=mode
+Loading weights:   2%| | 6/254 [00:00<00:35,  6.90it/s, Materializing param=mode
+Loading weights:   3%| | 7/254 [00:00<00:35,  6.90it/s, Materializing param=mode
+Loading weights:   3%| | 7/254 [00:00<00:35,  6.90it/s, Materializing param=mode
+Loading weights:   3%| | 8/254 [00:01<00:32,  7.54it/s, Materializing param=mode
+Loading weights:   3%| | 8/254 [00:01<00:32,  7.54it/s, Materializing param=mode
+Loading weights:   3%| | 8/254 [00:01<00:32,  7.54it/s, Materializing param=mode
+Loading weights:   4%| | 9/254 [00:01<00:42,  5.70it/s, Materializing param=mode
+Loading weights:   4%| | 9/254 [00:01<00:42,  5.70it/s, Materializing param=mode
+Loading weights:   4%| | 9/254 [00:01<00:42,  5.70it/s, Materializing param=mode
+Loading weights:   4%| | 10/254 [00:01<00:48,  5.06it/s, Materializing param=mod
+Loading weights:   4%| | 10/254 [00:01<00:48,  5.06it/s, Materializing param=mod
+Loading weights:   4%| | 10/254 [00:01<00:48,  5.06it/s, Materializing param=mod
+Loading weights:   4%| | 11/254 [00:01<00:46,  5.25it/s, Materializing param=mod
+Loading weights:   4%| | 11/254 [00:01<00:46,  5.25it/s, Materializing param=mod
+Loading weights:   4%| | 11/254 [00:01<00:46,  5.25it/s, Materializing param=mod
+Loading weights:   5%| | 12/254 [00:01<00:46,  5.25it/s, Materializing param=mod
+Loading weights:   5%| | 12/254 [00:01<00:46,  5.25it/s, Materializing param=mod
+Loading weights:   5%| | 13/254 [00:01<00:45,  5.25it/s, Materializing param=mod
+Loading weights:   5%| | 13/254 [00:01<00:45,  5.25it/s, Materializing param=mod
+Loading weights:   6%| | 14/254 [00:01<00:45,  5.25it/s, Materializing param=mod
+Loading weights:   6%| | 14/254 [00:01<00:45,  5.25it/s, Materializing param=mod
+Loading weights:   6%| | 15/254 [00:01<00:45,  5.25it/s, Materializing param=mod
+Loading weights:   6%| | 15/254 [00:01<00:45,  5.25it/s, Materializing param=mod
+Loading weights:   6%| | 16/254 [00:01<00:45,  5.25it/s, Materializing param=mod
+Loading weights:   6%| | 16/254 [00:01<00:45,  5.25it/s, Materializing param=mod
+Loading weights:   7%| | 17/254 [00:01<00:45,  5.25it/s, Materializing param=mod
+Loading weights:   7%| | 17/254 [00:01<00:45,  5.25it/s, Materializing param=mod
+Loading weights:   7%| | 18/254 [00:01<00:44,  5.25it/s, Materializing param=mod
+Loading weights:   7%| | 18/254 [00:01<00:44,  5.25it/s, Materializing param=mod
+Loading weights:   7%| | 19/254 [00:01<00:44,  5.25it/s, Materializing param=mod
+Loading weights:   7%| | 19/254 [00:01<00:44,  5.25it/s, Materializing param=mod
+Loading weights:   8%| | 20/254 [00:01<00:44,  5.25it/s, Materializing param=mod
+Loading weights:   8%| | 20/254 [00:01<00:44,  5.25it/s, Materializing param=mod
+Loading weights:   8%| | 21/254 [00:01<00:44,  5.25it/s, Materializing param=mod
+Loading weights:   8%| | 21/254 [00:01<00:44,  5.25it/s, Materializing param=mod
+Loading weights:   9%| | 22/254 [00:01<00:44,  5.25it/s, Materializing param=mod
+Loading weights:   9%| | 22/254 [00:01<00:44,  5.25it/s, Materializing param=mod
+Loading weights:   9%| | 23/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:   9%| | 23/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:   9%| | 24/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:   9%| | 24/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:  10%| | 25/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:  10%| | 25/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:  10%| | 26/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:  10%| | 26/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:  11%| | 27/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:  11%| | 27/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:  11%| | 28/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:  11%| | 28/254 [00:01<00:43,  5.25it/s, Materializing param=mod
+Loading weights:  11%| | 29/254 [00:01<00:42,  5.25it/s, Materializing param=mod
+Loading weights:  11%| | 29/254 [00:01<00:42,  5.25it/s, Materializing param=mod
+Loading weights:  12%| | 30/254 [00:01<00:42,  5.25it/s, Materializing param=mod
+Loading weights:  12%| | 30/254 [00:01<00:42,  5.25it/s, Materializing param=mod
+Loading weights:  12%| | 31/254 [00:01<00:42,  5.25it/s, Materializing param=mod
+Loading weights:  12%| | 31/254 [00:01<00:42,  5.25it/s, Materializing param=mod
+Loading weights:  13%|▏| 32/254 [00:01<00:42,  5.25it/s, Materializing param=mod
+Loading weights:  13%|▏| 32/254 [00:01<00:42,  5.25it/s, Materializing param=mod
+Loading weights:  13%|▏| 33/254 [00:01<00:42,  5.25it/s, Materializing param=mod
+Loading weights:  13%|▏| 33/254 [00:01<00:42,  5.25it/s, Materializing param=mod
+Loading weights:  13%|▏| 34/254 [00:01<00:41,  5.25it/s, Materializing param=mod
+Loading weights:  13%|▏| 34/254 [00:01<00:41,  5.25it/s, Materializing param=mod
+Loading weights:  14%|▏| 35/254 [00:01<00:41,  5.25it/s, Materializing param=mod
+Loading weights:  14%|▏| 35/254 [00:01<00:41,  5.25it/s, Materializing param=mod
+Loading weights:  14%|▏| 36/254 [00:01<00:41,  5.25it/s, Materializing param=mod
+Loading weights:  14%|▏| 36/254 [00:01<00:41,  5.25it/s, Materializing param=mod
+Loading weights:  15%|▏| 37/254 [00:01<00:41,  5.25it/s, Materializing param=mod
+Loading weights:  15%|▏| 37/254 [00:01<00:41,  5.25it/s, Materializing param=mod
+Loading weights:  15%|▏| 38/254 [00:01<00:41,  5.25it/s, Materializing param=mod
+Loading weights:  15%|▏| 38/254 [00:01<00:41,  5.25it/s, Materializing param=mod
+Loading weights:  15%|▏| 39/254 [00:01<00:40,  5.25it/s, Materializing param=mod
+Loading weights:  15%|▏| 39/254 [00:01<00:40,  5.25it/s, Materializing param=mod
+Loading weights:  16%|▏| 40/254 [00:01<00:40,  5.25it/s, Materializing param=mod
+Loading weights:  16%|▏| 40/254 [00:01<00:40,  5.25it/s, Materializing param=mod
+Loading weights:  16%|▏| 41/254 [00:01<00:40,  5.25it/s, Materializing param=mod
+Loading weights:  16%|▏| 41/254 [00:01<00:40,  5.25it/s, Materializing param=mod
+Loading weights:  17%|▏| 42/254 [00:01<00:40,  5.25it/s, Materializing param=mod
+Loading weights:  17%|▏| 42/254 [00:01<00:40,  5.25it/s, Materializing param=mod
+Loading weights:  17%|▏| 43/254 [00:01<00:40,  5.25it/s, Materializing param=mod
+Loading weights:  17%|▏| 43/254 [00:01<00:40,  5.25it/s, Materializing param=mod
+Loading weights:  17%|▏| 44/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  17%|▏| 44/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  18%|▏| 45/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  18%|▏| 45/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  18%|▏| 46/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  18%|▏| 46/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  19%|▏| 47/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  19%|▏| 47/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  19%|▏| 48/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  19%|▏| 48/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  19%|▏| 49/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  19%|▏| 49/254 [00:01<00:39,  5.25it/s, Materializing param=mod
+Loading weights:  20%|▏| 50/254 [00:01<00:38,  5.25it/s, Materializing param=mod
+Loading weights:  20%|▏| 50/254 [00:01<00:38,  5.25it/s, Materializing param=mod
+Loading weights:  20%|▏| 51/254 [00:01<00:38,  5.25it/s, Materializing param=mod
+Loading weights:  20%|▏| 51/254 [00:01<00:38,  5.25it/s, Materializing param=mod
+Loading weights:  20%|▏| 52/254 [00:01<00:38,  5.25it/s, Materializing param=mod
+Loading weights:  20%|▏| 52/254 [00:01<00:38,  5.25it/s, Materializing param=mod
+Loading weights:  21%|▏| 53/254 [00:01<00:38,  5.25it/s, Materializing param=mod
+Loading weights:  21%|▏| 53/254 [00:01<00:38,  5.25it/s, Materializing param=mod
+Loading weights:  21%|▏| 54/254 [00:01<00:38,  5.25it/s, Materializing param=mod
+Loading weights:  21%|▏| 54/254 [00:01<00:38,  5.25it/s, Materializing param=mod
+Loading weights:  22%|▏| 55/254 [00:01<00:37,  5.25it/s, Materializing param=mod
+Loading weights:  22%|▏| 55/254 [00:01<00:37,  5.25it/s, Materializing param=mod
+Loading weights:  22%|▏| 56/254 [00:01<00:37,  5.25it/s, Materializing param=mod
+Loading weights:  22%|▏| 56/254 [00:01<00:37,  5.25it/s, Materializing param=mod
+Loading weights:  22%|▏| 57/254 [00:01<00:37,  5.25it/s, Materializing param=mod
+Loading weights:  22%|▏| 57/254 [00:01<00:37,  5.25it/s, Materializing param=mod
+Loading weights:  23%|▏| 58/254 [00:01<00:37,  5.25it/s, Materializing param=mod
+Loading weights:  23%|▏| 58/254 [00:01<00:37,  5.25it/s, Materializing param=mod
+Loading weights:  23%|▏| 59/254 [00:01<00:37,  5.25it/s, Materializing param=mod
+Loading weights:  23%|▏| 59/254 [00:01<00:37,  5.25it/s, Materializing param=mod
+Loading weights:  24%|▏| 60/254 [00:01<00:36,  5.25it/s, Materializing param=mod
+Loading weights:  24%|▏| 60/254 [00:01<00:36,  5.25it/s, Materializing param=mod
+Loading weights:  24%|▏| 61/254 [00:01<00:36,  5.25it/s, Materializing param=mod
+Loading weights:  24%|▏| 61/254 [00:01<00:36,  5.25it/s, Materializing param=mod
+Loading weights:  24%|▏| 62/254 [00:01<00:36,  5.25it/s, Materializing param=mod
+Loading weights:  24%|▏| 62/254 [00:01<00:36,  5.25it/s, Materializing param=mod
+Loading weights:  25%|▏| 63/254 [00:01<00:36,  5.25it/s, Materializing param=mod
+Loading weights:  25%|▏| 63/254 [00:01<00:36,  5.25it/s, Materializing param=mod
+Loading weights:  25%|▎| 64/254 [00:01<00:36,  5.25it/s, Materializing param=mod
+Loading weights:  25%|▎| 64/254 [00:01<00:36,  5.25it/s, Materializing param=mod
+Loading weights:  26%|▎| 65/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  26%|▎| 65/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  26%|▎| 66/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  26%|▎| 66/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  26%|▎| 67/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  26%|▎| 67/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  27%|▎| 68/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  27%|▎| 68/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  27%|▎| 69/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  27%|▎| 69/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  28%|▎| 70/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  28%|▎| 70/254 [00:01<00:35,  5.25it/s, Materializing param=mod
+Loading weights:  28%|▎| 71/254 [00:01<00:34,  5.25it/s, Materializing param=mod
+Loading weights:  28%|▎| 71/254 [00:01<00:34,  5.25it/s, Materializing param=mod
+Loading weights:  28%|▎| 72/254 [00:01<00:34,  5.25it/s, Materializing param=mod
+Loading weights:  28%|▎| 72/254 [00:01<00:34,  5.25it/s, Materializing param=mod
+Loading weights:  29%|▎| 73/254 [00:01<00:34,  5.25it/s, Materializing param=mod
+Loading weights:  29%|▎| 73/254 [00:01<00:34,  5.25it/s, Materializing param=mod
+Loading weights:  29%|▎| 74/254 [00:01<00:34,  5.25it/s, Materializing param=mod
+Loading weights:  29%|▎| 74/254 [00:01<00:34,  5.25it/s, Materializing param=mod
+Loading weights:  30%|▎| 75/254 [00:01<00:34,  5.25it/s, Materializing param=mod
+Loading weights:  30%|▎| 75/254 [00:01<00:34,  5.25it/s, Materializing param=mod
+Loading weights:  30%|▎| 76/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  30%|▎| 76/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  30%|▎| 76/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  30%|▎| 77/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  30%|▎| 77/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  31%|▎| 78/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  31%|▎| 78/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  31%|▎| 79/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  31%|▎| 79/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  31%|▎| 80/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  31%|▎| 80/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  32%|▎| 81/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  32%|▎| 81/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  32%|▎| 82/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  32%|▎| 82/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  33%|▎| 83/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  33%|▎| 83/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  33%|▎| 84/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  33%|▎| 84/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  33%|▎| 85/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  33%|▎| 85/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  34%|▎| 86/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  34%|▎| 86/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  34%|▎| 87/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  34%|▎| 87/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  35%|▎| 88/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  35%|▎| 88/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  35%|▎| 89/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  35%|▎| 89/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  35%|▎| 90/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  35%|▎| 90/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  36%|▎| 91/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  36%|▎| 91/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  36%|▎| 92/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  36%|▎| 92/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  37%|▎| 93/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  37%|▎| 93/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  37%|▎| 94/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  37%|▎| 94/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  37%|▎| 95/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  37%|▎| 95/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  38%|▍| 96/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  38%|▍| 96/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  38%|▍| 97/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  38%|▍| 97/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  39%|▍| 98/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  39%|▍| 98/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  39%|▍| 99/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  39%|▍| 99/254 [00:01<00:01, 108.40it/s, Materializing param=mo
+Loading weights:  39%|▍| 100/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  39%|▍| 100/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  40%|▍| 101/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  40%|▍| 101/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  40%|▍| 102/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  40%|▍| 102/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  41%|▍| 103/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  41%|▍| 103/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  41%|▍| 104/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  41%|▍| 104/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  41%|▍| 105/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  41%|▍| 105/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  42%|▍| 106/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  42%|▍| 106/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  42%|▍| 107/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  42%|▍| 107/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  43%|▍| 108/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  43%|▍| 108/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  43%|▍| 109/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  43%|▍| 109/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  43%|▍| 110/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  43%|▍| 110/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  44%|▍| 111/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  44%|▍| 111/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  44%|▍| 112/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  44%|▍| 112/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  44%|▍| 113/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  44%|▍| 113/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  45%|▍| 114/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  45%|▍| 114/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  45%|▍| 115/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  45%|▍| 115/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  46%|▍| 116/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  46%|▍| 116/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  46%|▍| 117/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  46%|▍| 117/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  46%|▍| 118/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  46%|▍| 118/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  47%|▍| 119/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  47%|▍| 119/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  47%|▍| 120/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  47%|▍| 120/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  48%|▍| 121/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  48%|▍| 121/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  48%|▍| 122/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  48%|▍| 122/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  48%|▍| 123/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  48%|▍| 123/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  49%|▍| 124/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  49%|▍| 124/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  49%|▍| 125/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  49%|▍| 125/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  50%|▍| 126/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  50%|▍| 126/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  50%|▌| 127/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  50%|▌| 127/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  50%|▌| 128/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  50%|▌| 128/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  51%|▌| 129/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  51%|▌| 129/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  51%|▌| 130/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  51%|▌| 130/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  52%|▌| 131/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  52%|▌| 131/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  52%|▌| 132/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  52%|▌| 132/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  52%|▌| 133/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  52%|▌| 133/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  53%|▌| 134/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  53%|▌| 134/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  53%|▌| 135/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  53%|▌| 135/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  54%|▌| 136/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  54%|▌| 136/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  54%|▌| 137/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  54%|▌| 137/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  54%|▌| 138/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  54%|▌| 138/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  55%|▌| 139/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  55%|▌| 139/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  55%|▌| 140/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  55%|▌| 140/254 [00:01<00:01, 108.40it/s, Materializing param=m
+Loading weights:  56%|▌| 141/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  56%|▌| 141/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  56%|▌| 141/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  56%|▌| 142/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  56%|▌| 142/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  56%|▌| 143/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  56%|▌| 143/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  57%|▌| 144/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  57%|▌| 144/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  57%|▌| 145/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  57%|▌| 145/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  57%|▌| 146/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  57%|▌| 146/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  58%|▌| 147/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  58%|▌| 147/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  58%|▌| 148/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  58%|▌| 148/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  59%|▌| 149/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  59%|▌| 149/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  59%|▌| 150/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  59%|▌| 150/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  59%|▌| 151/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  59%|▌| 151/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  60%|▌| 152/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  60%|▌| 152/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  60%|▌| 153/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  60%|▌| 153/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  61%|▌| 154/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  61%|▌| 154/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  61%|▌| 155/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  61%|▌| 155/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  61%|▌| 156/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  61%|▌| 156/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  62%|▌| 157/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  62%|▌| 157/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  62%|▌| 158/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  62%|▌| 158/254 [00:01<00:00, 208.34it/s, Materializing param=m
+Loading weights:  63%|▋| 159/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  63%|▋| 159/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  63%|▋| 160/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  63%|▋| 160/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  63%|▋| 161/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  63%|▋| 161/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  64%|▋| 162/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  64%|▋| 162/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  64%|▋| 163/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  64%|▋| 163/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  65%|▋| 164/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  65%|▋| 164/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  65%|▋| 165/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  65%|▋| 165/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  65%|▋| 166/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  65%|▋| 166/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  66%|▋| 167/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  66%|▋| 167/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  66%|▋| 168/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  66%|▋| 168/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  67%|▋| 169/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  67%|▋| 169/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  67%|▋| 170/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  67%|▋| 170/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  67%|▋| 171/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  67%|▋| 171/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  68%|▋| 172/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  68%|▋| 172/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  68%|▋| 173/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  68%|▋| 173/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  69%|▋| 174/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  69%|▋| 174/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  69%|▋| 175/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  69%|▋| 175/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  69%|▋| 176/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  69%|▋| 176/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  70%|▋| 177/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  70%|▋| 177/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  70%|▋| 178/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  70%|▋| 178/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  70%|▋| 179/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  70%|▋| 179/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  71%|▋| 180/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  71%|▋| 180/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  71%|▋| 181/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  71%|▋| 181/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  72%|▋| 182/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  72%|▋| 182/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  72%|▋| 183/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  72%|▋| 183/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  72%|▋| 184/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  72%|▋| 184/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  73%|▋| 185/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  73%|▋| 185/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  73%|▋| 186/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  73%|▋| 186/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  74%|▋| 187/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  74%|▋| 187/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  74%|▋| 188/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  74%|▋| 188/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  74%|▋| 189/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  74%|▋| 189/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  75%|▋| 190/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  75%|▋| 190/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  75%|▊| 191/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  75%|▊| 191/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  76%|▊| 192/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  76%|▊| 192/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  76%|▊| 193/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  76%|▊| 193/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  76%|▊| 194/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  76%|▊| 194/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  77%|▊| 195/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  77%|▊| 195/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  77%|▊| 196/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  77%|▊| 196/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  78%|▊| 197/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  78%|▊| 197/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  78%|▊| 198/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  78%|▊| 198/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  78%|▊| 199/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  78%|▊| 199/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  79%|▊| 200/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  79%|▊| 200/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  79%|▊| 201/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  79%|▊| 201/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  80%|▊| 202/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  80%|▊| 202/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  80%|▊| 203/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  80%|▊| 203/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  80%|▊| 204/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  80%|▊| 204/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  81%|▊| 205/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  81%|▊| 205/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  81%|▊| 206/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  81%|▊| 206/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  81%|▊| 207/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  81%|▊| 207/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  82%|▊| 208/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  82%|▊| 208/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  82%|▊| 209/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  82%|▊| 209/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  83%|▊| 210/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  83%|▊| 210/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  83%|▊| 211/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  83%|▊| 211/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  83%|▊| 212/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  83%|▊| 212/254 [00:02<00:00, 208.34it/s, Materializing param=m
+Loading weights:  84%|▊| 213/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  84%|▊| 213/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  84%|▊| 213/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  84%|▊| 214/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  84%|▊| 214/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  85%|▊| 215/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  85%|▊| 215/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  85%|▊| 216/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  85%|▊| 216/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  85%|▊| 217/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  85%|▊| 217/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  86%|▊| 218/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  86%|▊| 218/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  86%|▊| 219/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  86%|▊| 219/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  87%|▊| 220/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  87%|▊| 220/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  87%|▊| 221/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  87%|▊| 221/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  87%|▊| 222/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  87%|▊| 222/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  88%|▉| 223/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  88%|▉| 223/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  88%|▉| 224/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  88%|▉| 224/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  89%|▉| 225/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  89%|▉| 225/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  89%|▉| 226/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  89%|▉| 226/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  89%|▉| 227/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  89%|▉| 227/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  90%|▉| 228/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  90%|▉| 228/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  90%|▉| 229/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  90%|▉| 229/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  91%|▉| 230/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  91%|▉| 230/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  91%|▉| 231/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  91%|▉| 231/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  91%|▉| 232/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  91%|▉| 232/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  92%|▉| 233/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  92%|▉| 233/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  92%|▉| 234/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  92%|▉| 234/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  93%|▉| 235/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  93%|▉| 235/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  93%|▉| 236/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  93%|▉| 236/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  93%|▉| 237/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  93%|▉| 237/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  94%|▉| 238/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  94%|▉| 238/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  94%|▉| 239/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  94%|▉| 239/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  94%|▉| 240/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  94%|▉| 240/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  95%|▉| 241/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  95%|▉| 241/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  95%|▉| 242/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  95%|▉| 242/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  96%|▉| 243/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  96%|▉| 243/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  96%|▉| 244/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  96%|▉| 244/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  96%|▉| 245/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  96%|▉| 245/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  97%|▉| 246/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  97%|▉| 246/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  97%|▉| 247/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  97%|▉| 247/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  98%|▉| 248/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  98%|▉| 248/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  98%|▉| 249/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  98%|▉| 249/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  98%|▉| 250/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  98%|▉| 250/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  99%|▉| 251/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  99%|▉| 251/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  99%|▉| 252/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights:  99%|▉| 252/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights: 100%|▉| 253/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights: 100%|▉| 253/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights: 100%|█| 254/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights: 100%|█| 254/254 [00:02<00:00, 315.15it/s, Materializing param=m
+Loading weights: 100%|█| 254/254 [00:02<00:00, 119.02it/s, Materializing param=m
+228.7s	1551	
+generation_config.json:   0%|                         | 0.00/189 [00:00<?, ?B/s]
+generation_config.json: 100%|███████████████████| 189/189 [00:00<00:00, 878kB/s]
+228.7s	1552	
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]
+228.7s	1553	acc: 0.0000
+228.7s	1554	missed: 0.0000
+228.7s	1555	missed_list: 0
+228.7s	1556	explain_ethics rulethresh=0.3, cot_thresh=1.0, dynamic=True, llama3B, no rules in prompt
+230.2s	1557	/kaggle/working/argos-kaggle/main
+238.3s	1558	Engine    : meta-llama/Llama-3.2-3B-Instruct
+238.3s	1559	Running Iterations: 0 through 19 (inclusive)
+238.3s	1560	Dataset   : 145 examples
+238.3s	1561	Examples to evaluate: 0
+238.3s	1562	Loading model...
+246.7s	1563	
+Loading weights:   0%|                                  | 0/254 [00:00<?, ?it/s]
+Loading weights:   0%| | 1/254 [00:00<00:00, 11305.40it/s, Materializing param=m
+Loading weights:   0%| | 1/254 [00:00<00:00, 4544.21it/s, Materializing param=mo
+Loading weights:   1%| | 2/254 [00:00<00:22, 11.16it/s, Materializing param=mode
+Loading weights:   1%| | 2/254 [00:00<00:22, 11.16it/s, Materializing param=mode
+Loading weights:   1%| | 2/254 [00:00<00:22, 11.16it/s, Materializing param=mode
+Loading weights:   1%| | 3/254 [00:00<00:22, 11.16it/s, Materializing param=mode
+Loading weights:   1%| | 3/254 [00:00<00:22, 11.16it/s, Materializing param=mode
+Loading weights:   2%| | 4/254 [00:00<00:21, 11.66it/s, Materializing param=mode
+Loading weights:   2%| | 4/254 [00:00<00:21, 11.66it/s, Materializing param=mode
+Loading weights:   2%| | 4/254 [00:00<00:21, 11.66it/s, Materializing param=mode
+Loading weights:   2%| | 5/254 [00:00<00:21, 11.66it/s, Materializing param=mode
+Loading weights:   2%| | 5/254 [00:00<00:21, 11.66it/s, Materializing param=mode
+Loading weights:   2%| | 6/254 [00:00<00:34,  7.10it/s, Materializing param=mode
+Loading weights:   2%| | 6/254 [00:00<00:34,  7.10it/s, Materializing param=mode
+Loading weights:   2%| | 6/254 [00:00<00:34,  7.10it/s, Materializing param=mode
+Loading weights:   3%| | 7/254 [00:00<00:34,  7.10it/s, Materializing param=mode
+Loading weights:   3%| | 7/254 [00:00<00:34,  7.10it/s, Materializing param=mode
+Loading weights:   3%| | 8/254 [00:00<00:29,  8.20it/s, Materializing param=mode
+Loading weights:   3%| | 8/254 [00:00<00:29,  8.20it/s, Materializing param=mode
+Loading weights:   3%| | 8/254 [00:00<00:29,  8.20it/s, Materializing param=mode
+Loading weights:   4%| | 9/254 [00:01<00:39,  6.23it/s, Materializing param=mode
+Loading weights:   4%| | 9/254 [00:01<00:39,  6.23it/s, Materializing param=mode
+Loading weights:   4%| | 9/254 [00:01<00:39,  6.23it/s, Materializing param=mode
+Loading weights:   4%| | 10/254 [00:01<00:46,  5.23it/s, Materializing param=mod
+Loading weights:   4%| | 10/254 [00:01<00:46,  5.23it/s, Materializing param=mod
+Loading weights:   4%| | 10/254 [00:01<00:46,  5.23it/s, Materializing param=mod
+Loading weights:   4%| | 11/254 [00:01<00:46,  5.22it/s, Materializing param=mod
+Loading weights:   4%| | 11/254 [00:01<00:46,  5.22it/s, Materializing param=mod
+Loading weights:   4%| | 11/254 [00:01<00:46,  5.22it/s, Materializing param=mod
+Loading weights:   5%| | 12/254 [00:01<00:46,  5.22it/s, Materializing param=mod
+Loading weights:   5%| | 12/254 [00:01<00:46,  5.22it/s, Materializing param=mod
+Loading weights:   5%| | 13/254 [00:01<00:46,  5.22it/s, Materializing param=mod
+Loading weights:   5%| | 13/254 [00:01<00:46,  5.22it/s, Materializing param=mod
+Loading weights:   6%| | 14/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   6%| | 14/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   6%| | 15/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   6%| | 15/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   6%| | 16/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   6%| | 16/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   7%| | 17/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   7%| | 17/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   7%| | 18/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   7%| | 18/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   7%| | 19/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   7%| | 19/254 [00:01<00:45,  5.22it/s, Materializing param=mod
+Loading weights:   8%| | 20/254 [00:01<00:44,  5.22it/s, Materializing param=mod
+Loading weights:   8%| | 20/254 [00:01<00:44,  5.22it/s, Materializing param=mod
+Loading weights:   8%| | 21/254 [00:01<00:44,  5.22it/s, Materializing param=mod
+Loading weights:   8%| | 21/254 [00:01<00:44,  5.22it/s, Materializing param=mod
+Loading weights:   9%| | 22/254 [00:01<00:44,  5.22it/s, Materializing param=mod
+Loading weights:   9%| | 22/254 [00:01<00:44,  5.22it/s, Materializing param=mod
+Loading weights:   9%| | 23/254 [00:01<00:44,  5.22it/s, Materializing param=mod
+Loading weights:   9%| | 23/254 [00:01<00:44,  5.22it/s, Materializing param=mod
+Loading weights:   9%| | 24/254 [00:01<00:44,  5.22it/s, Materializing param=mod
+Loading weights:   9%| | 24/254 [00:01<00:44,  5.22it/s, Materializing param=mod
+Loading weights:  10%| | 25/254 [00:01<00:43,  5.22it/s, Materializing param=mod
+Loading weights:  10%| | 25/254 [00:01<00:43,  5.22it/s, Materializing param=mod
+Loading weights:  10%| | 26/254 [00:01<00:43,  5.22it/s, Materializing param=mod
+Loading weights:  10%| | 26/254 [00:01<00:43,  5.22it/s, Materializing param=mod
+Loading weights:  11%| | 27/254 [00:01<00:43,  5.22it/s, Materializing param=mod
+Loading weights:  11%| | 27/254 [00:01<00:43,  5.22it/s, Materializing param=mod
+Loading weights:  11%| | 28/254 [00:01<00:43,  5.22it/s, Materializing param=mod
+Loading weights:  11%| | 28/254 [00:01<00:43,  5.22it/s, Materializing param=mod
+Loading weights:  11%| | 29/254 [00:01<00:43,  5.22it/s, Materializing param=mod
+Loading weights:  11%| | 29/254 [00:01<00:43,  5.22it/s, Materializing param=mod
+Loading weights:  12%| | 30/254 [00:01<00:42,  5.22it/s, Materializing param=mod
+Loading weights:  12%| | 30/254 [00:01<00:42,  5.22it/s, Materializing param=mod
+Loading weights:  12%| | 31/254 [00:01<00:42,  5.22it/s, Materializing param=mod
+Loading weights:  12%| | 31/254 [00:01<00:42,  5.22it/s, Materializing param=mod
+Loading weights:  13%|▏| 32/254 [00:01<00:42,  5.22it/s, Materializing param=mod
+Loading weights:  13%|▏| 32/254 [00:01<00:42,  5.22it/s, Materializing param=mod
+Loading weights:  13%|▏| 33/254 [00:01<00:42,  5.22it/s, Materializing param=mod
+Loading weights:  13%|▏| 33/254 [00:01<00:42,  5.22it/s, Materializing param=mod
+Loading weights:  13%|▏| 34/254 [00:01<00:42,  5.22it/s, Materializing param=mod
+Loading weights:  13%|▏| 34/254 [00:01<00:42,  5.22it/s, Materializing param=mod
+Loading weights:  14%|▏| 35/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  14%|▏| 35/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  14%|▏| 36/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  14%|▏| 36/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  15%|▏| 37/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  15%|▏| 37/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  15%|▏| 38/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  15%|▏| 38/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  15%|▏| 39/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  15%|▏| 39/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  16%|▏| 40/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  16%|▏| 40/254 [00:01<00:41,  5.22it/s, Materializing param=mod
+Loading weights:  16%|▏| 41/254 [00:01<00:40,  5.22it/s, Materializing param=mod
+Loading weights:  16%|▏| 41/254 [00:01<00:40,  5.22it/s, Materializing param=mod
+Loading weights:  17%|▏| 42/254 [00:01<00:40,  5.22it/s, Materializing param=mod
+Loading weights:  17%|▏| 42/254 [00:01<00:40,  5.22it/s, Materializing param=mod
+Loading weights:  17%|▏| 43/254 [00:01<00:40,  5.22it/s, Materializing param=mod
+Loading weights:  17%|▏| 43/254 [00:01<00:40,  5.22it/s, Materializing param=mod
+Loading weights:  17%|▏| 44/254 [00:01<00:40,  5.22it/s, Materializing param=mod
+Loading weights:  17%|▏| 44/254 [00:01<00:40,  5.22it/s, Materializing param=mod
+Loading weights:  18%|▏| 45/254 [00:01<00:40,  5.22it/s, Materializing param=mod
+Loading weights:  18%|▏| 45/254 [00:01<00:40,  5.22it/s, Materializing param=mod
+Loading weights:  18%|▏| 46/254 [00:01<00:39,  5.22it/s, Materializing param=mod
+Loading weights:  18%|▏| 46/254 [00:01<00:39,  5.22it/s, Materializing param=mod
+Loading weights:  19%|▏| 47/254 [00:01<00:39,  5.22it/s, Materializing param=mod
+Loading weights:  19%|▏| 47/254 [00:01<00:39,  5.22it/s, Materializing param=mod
+Loading weights:  19%|▏| 48/254 [00:01<00:39,  5.22it/s, Materializing param=mod
+Loading weights:  19%|▏| 48/254 [00:01<00:39,  5.22it/s, Materializing param=mod
+Loading weights:  19%|▏| 49/254 [00:01<00:39,  5.22it/s, Materializing param=mod
+Loading weights:  19%|▏| 49/254 [00:01<00:39,  5.22it/s, Materializing param=mod
+Loading weights:  20%|▏| 50/254 [00:01<00:39,  5.22it/s, Materializing param=mod
+Loading weights:  20%|▏| 50/254 [00:01<00:39,  5.22it/s, Materializing param=mod
+Loading weights:  20%|▏| 51/254 [00:01<00:38,  5.22it/s, Materializing param=mod
+Loading weights:  20%|▏| 51/254 [00:01<00:38,  5.22it/s, Materializing param=mod
+Loading weights:  20%|▏| 52/254 [00:01<00:38,  5.22it/s, Materializing param=mod
+Loading weights:  20%|▏| 52/254 [00:01<00:38,  5.22it/s, Materializing param=mod
+Loading weights:  21%|▏| 53/254 [00:01<00:38,  5.22it/s, Materializing param=mod
+Loading weights:  21%|▏| 53/254 [00:01<00:38,  5.22it/s, Materializing param=mod
+Loading weights:  21%|▏| 54/254 [00:01<00:38,  5.22it/s, Materializing param=mod
+Loading weights:  21%|▏| 54/254 [00:01<00:38,  5.22it/s, Materializing param=mod
+Loading weights:  22%|▏| 55/254 [00:01<00:38,  5.22it/s, Materializing param=mod
+Loading weights:  22%|▏| 55/254 [00:01<00:38,  5.22it/s, Materializing param=mod
+Loading weights:  22%|▏| 56/254 [00:01<00:37,  5.22it/s, Materializing param=mod
+Loading weights:  22%|▏| 56/254 [00:01<00:37,  5.22it/s, Materializing param=mod
+Loading weights:  22%|▏| 57/254 [00:01<00:37,  5.22it/s, Materializing param=mod
+Loading weights:  22%|▏| 57/254 [00:01<00:37,  5.22it/s, Materializing param=mod
+Loading weights:  23%|▏| 58/254 [00:01<00:37,  5.22it/s, Materializing param=mod
+Loading weights:  23%|▏| 58/254 [00:01<00:37,  5.22it/s, Materializing param=mod
+Loading weights:  23%|▏| 59/254 [00:01<00:37,  5.22it/s, Materializing param=mod
+Loading weights:  23%|▏| 59/254 [00:01<00:37,  5.22it/s, Materializing param=mod
+Loading weights:  24%|▏| 60/254 [00:01<00:37,  5.22it/s, Materializing param=mod
+Loading weights:  24%|▏| 60/254 [00:01<00:37,  5.22it/s, Materializing param=mod
+Loading weights:  24%|▏| 61/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  24%|▏| 61/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  24%|▏| 62/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  24%|▏| 62/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  25%|▏| 63/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  25%|▏| 63/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  25%|▎| 64/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  25%|▎| 64/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  26%|▎| 65/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  26%|▎| 65/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  26%|▎| 66/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  26%|▎| 66/254 [00:01<00:36,  5.22it/s, Materializing param=mod
+Loading weights:  26%|▎| 67/254 [00:01<00:35,  5.22it/s, Materializing param=mod
+Loading weights:  26%|▎| 67/254 [00:01<00:35,  5.22it/s, Materializing param=mod
+Loading weights:  27%|▎| 68/254 [00:01<00:35,  5.22it/s, Materializing param=mod
+Loading weights:  27%|▎| 68/254 [00:01<00:35,  5.22it/s, Materializing param=mod
+Loading weights:  27%|▎| 69/254 [00:01<00:35,  5.22it/s, Materializing param=mod
+Loading weights:  27%|▎| 69/254 [00:01<00:35,  5.22it/s, Materializing param=mod
+Loading weights:  28%|▎| 70/254 [00:01<00:35,  5.22it/s, Materializing param=mod
+Loading weights:  28%|▎| 70/254 [00:01<00:35,  5.22it/s, Materializing param=mod
+Loading weights:  28%|▎| 71/254 [00:01<00:35,  5.22it/s, Materializing param=mod
+Loading weights:  28%|▎| 71/254 [00:01<00:35,  5.22it/s, Materializing param=mod
+Loading weights:  28%|▎| 72/254 [00:01<00:34,  5.22it/s, Materializing param=mod
+Loading weights:  28%|▎| 72/254 [00:01<00:34,  5.22it/s, Materializing param=mod
+Loading weights:  29%|▎| 73/254 [00:01<00:34,  5.22it/s, Materializing param=mod
+Loading weights:  29%|▎| 73/254 [00:01<00:34,  5.22it/s, Materializing param=mod
+Loading weights:  29%|▎| 74/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  29%|▎| 74/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  29%|▎| 74/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  30%|▎| 75/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  30%|▎| 75/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  30%|▎| 76/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  30%|▎| 76/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  30%|▎| 77/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  30%|▎| 77/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  31%|▎| 78/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  31%|▎| 78/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  31%|▎| 79/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  31%|▎| 79/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  31%|▎| 80/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  31%|▎| 80/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  32%|▎| 81/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  32%|▎| 81/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  32%|▎| 82/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  32%|▎| 82/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  33%|▎| 83/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  33%|▎| 83/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  33%|▎| 84/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  33%|▎| 84/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  33%|▎| 85/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  33%|▎| 85/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  34%|▎| 86/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  34%|▎| 86/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  34%|▎| 87/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  34%|▎| 87/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  35%|▎| 88/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  35%|▎| 88/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  35%|▎| 89/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  35%|▎| 89/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  35%|▎| 90/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  35%|▎| 90/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  36%|▎| 91/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  36%|▎| 91/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  36%|▎| 92/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  36%|▎| 92/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  37%|▎| 93/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  37%|▎| 93/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  37%|▎| 94/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  37%|▎| 94/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  37%|▎| 95/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  37%|▎| 95/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  38%|▍| 96/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  38%|▍| 96/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  38%|▍| 97/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  38%|▍| 97/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  39%|▍| 98/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  39%|▍| 98/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  39%|▍| 99/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  39%|▍| 99/254 [00:01<00:01, 104.74it/s, Materializing param=mo
+Loading weights:  39%|▍| 100/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  39%|▍| 100/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  40%|▍| 101/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  40%|▍| 101/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  40%|▍| 102/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  40%|▍| 102/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  41%|▍| 103/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  41%|▍| 103/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  41%|▍| 104/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  41%|▍| 104/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  41%|▍| 105/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  41%|▍| 105/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  42%|▍| 106/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  42%|▍| 106/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  42%|▍| 107/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  42%|▍| 107/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  43%|▍| 108/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  43%|▍| 108/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  43%|▍| 109/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  43%|▍| 109/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  43%|▍| 110/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  43%|▍| 110/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  44%|▍| 111/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  44%|▍| 111/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  44%|▍| 112/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  44%|▍| 112/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  44%|▍| 113/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  44%|▍| 113/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  45%|▍| 114/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  45%|▍| 114/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  45%|▍| 115/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  45%|▍| 115/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  46%|▍| 116/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  46%|▍| 116/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  46%|▍| 117/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  46%|▍| 117/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  46%|▍| 118/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  46%|▍| 118/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  47%|▍| 119/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  47%|▍| 119/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  47%|▍| 120/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  47%|▍| 120/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  48%|▍| 121/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  48%|▍| 121/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  48%|▍| 122/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  48%|▍| 122/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  48%|▍| 123/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  48%|▍| 123/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  49%|▍| 124/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  49%|▍| 124/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  49%|▍| 125/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  49%|▍| 125/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  50%|▍| 126/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  50%|▍| 126/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  50%|▌| 127/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  50%|▌| 127/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  50%|▌| 128/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  50%|▌| 128/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  51%|▌| 129/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  51%|▌| 129/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  51%|▌| 130/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  51%|▌| 130/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  52%|▌| 131/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  52%|▌| 131/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  52%|▌| 132/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  52%|▌| 132/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  52%|▌| 133/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  52%|▌| 133/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  53%|▌| 134/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  53%|▌| 134/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  53%|▌| 135/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  53%|▌| 135/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  54%|▌| 136/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  54%|▌| 136/254 [00:01<00:01, 104.74it/s, Materializing param=m
+Loading weights:  54%|▌| 137/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  54%|▌| 137/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  54%|▌| 137/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  54%|▌| 138/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  54%|▌| 138/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  55%|▌| 139/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  55%|▌| 139/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  55%|▌| 140/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  55%|▌| 140/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  56%|▌| 141/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  56%|▌| 141/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  56%|▌| 142/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  56%|▌| 142/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  56%|▌| 143/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  56%|▌| 143/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  57%|▌| 144/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  57%|▌| 144/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  57%|▌| 145/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  57%|▌| 145/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  57%|▌| 146/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  57%|▌| 146/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  58%|▌| 147/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  58%|▌| 147/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  58%|▌| 148/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  58%|▌| 148/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  59%|▌| 149/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  59%|▌| 149/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  59%|▌| 150/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  59%|▌| 150/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  59%|▌| 151/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  59%|▌| 151/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  60%|▌| 152/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  60%|▌| 152/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  60%|▌| 153/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  60%|▌| 153/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  61%|▌| 154/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  61%|▌| 154/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  61%|▌| 155/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  61%|▌| 155/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  61%|▌| 156/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  61%|▌| 156/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  62%|▌| 157/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  62%|▌| 157/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  62%|▌| 158/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  62%|▌| 158/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  63%|▋| 159/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  63%|▋| 159/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  63%|▋| 160/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  63%|▋| 160/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  63%|▋| 161/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  63%|▋| 161/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  64%|▋| 162/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  64%|▋| 162/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  64%|▋| 163/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  64%|▋| 163/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  65%|▋| 164/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  65%|▋| 164/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  65%|▋| 165/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  65%|▋| 165/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  65%|▋| 166/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  65%|▋| 166/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  66%|▋| 167/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  66%|▋| 167/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  66%|▋| 168/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  66%|▋| 168/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  67%|▋| 169/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  67%|▋| 169/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  67%|▋| 170/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  67%|▋| 170/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  67%|▋| 171/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  67%|▋| 171/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  68%|▋| 172/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  68%|▋| 172/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  68%|▋| 173/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  68%|▋| 173/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  69%|▋| 174/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  69%|▋| 174/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  69%|▋| 175/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  69%|▋| 175/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  69%|▋| 176/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  69%|▋| 176/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  70%|▋| 177/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  70%|▋| 177/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  70%|▋| 178/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  70%|▋| 178/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  70%|▋| 179/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  70%|▋| 179/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  71%|▋| 180/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  71%|▋| 180/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  71%|▋| 181/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  71%|▋| 181/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  72%|▋| 182/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  72%|▋| 182/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  72%|▋| 183/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  72%|▋| 183/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  72%|▋| 184/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  72%|▋| 184/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  73%|▋| 185/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  73%|▋| 185/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  73%|▋| 186/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  73%|▋| 186/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  74%|▋| 187/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  74%|▋| 187/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  74%|▋| 188/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  74%|▋| 188/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  74%|▋| 189/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  74%|▋| 189/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  75%|▋| 190/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  75%|▋| 190/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  75%|▊| 191/254 [00:01<00:00, 202.04it/s, Materializing param=m
+Loading weights:  75%|▊| 191/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  76%|▊| 192/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  76%|▊| 192/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  76%|▊| 193/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  76%|▊| 193/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  76%|▊| 194/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  76%|▊| 194/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  77%|▊| 195/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  77%|▊| 195/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  77%|▊| 196/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  77%|▊| 196/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  78%|▊| 197/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  78%|▊| 197/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  78%|▊| 198/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  78%|▊| 198/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  78%|▊| 199/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  78%|▊| 199/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  79%|▊| 200/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  79%|▊| 200/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  79%|▊| 201/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  79%|▊| 201/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  80%|▊| 202/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  80%|▊| 202/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  80%|▊| 203/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  80%|▊| 203/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  80%|▊| 204/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  80%|▊| 204/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  81%|▊| 205/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  81%|▊| 205/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  81%|▊| 206/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  81%|▊| 206/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  81%|▊| 207/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  81%|▊| 207/254 [00:02<00:00, 202.04it/s, Materializing param=m
+Loading weights:  82%|▊| 208/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  82%|▊| 208/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  82%|▊| 208/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  82%|▊| 209/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  82%|▊| 209/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  83%|▊| 210/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  83%|▊| 210/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  83%|▊| 211/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  83%|▊| 211/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  83%|▊| 212/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  83%|▊| 212/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  84%|▊| 213/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  84%|▊| 213/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  84%|▊| 214/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  84%|▊| 214/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  85%|▊| 215/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  85%|▊| 215/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  85%|▊| 216/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  85%|▊| 216/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  85%|▊| 217/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  85%|▊| 217/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  86%|▊| 218/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  86%|▊| 218/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  86%|▊| 219/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  86%|▊| 219/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  87%|▊| 220/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  87%|▊| 220/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  87%|▊| 221/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  87%|▊| 221/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  87%|▊| 222/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  87%|▊| 222/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  88%|▉| 223/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  88%|▉| 223/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  88%|▉| 224/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  88%|▉| 224/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  89%|▉| 225/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  89%|▉| 225/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  89%|▉| 226/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  89%|▉| 226/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  89%|▉| 227/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  89%|▉| 227/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  90%|▉| 228/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  90%|▉| 228/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  90%|▉| 229/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  90%|▉| 229/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  91%|▉| 230/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  91%|▉| 230/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  91%|▉| 231/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  91%|▉| 231/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  91%|▉| 232/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  91%|▉| 232/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  92%|▉| 233/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  92%|▉| 233/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  92%|▉| 234/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  92%|▉| 234/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  93%|▉| 235/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  93%|▉| 235/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  93%|▉| 236/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  93%|▉| 236/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  93%|▉| 237/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  93%|▉| 237/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  94%|▉| 238/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  94%|▉| 238/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  94%|▉| 239/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  94%|▉| 239/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  94%|▉| 240/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  94%|▉| 240/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  95%|▉| 241/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  95%|▉| 241/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  95%|▉| 242/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  95%|▉| 242/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  96%|▉| 243/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  96%|▉| 243/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  96%|▉| 244/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  96%|▉| 244/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  96%|▉| 245/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  96%|▉| 245/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  97%|▉| 246/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  97%|▉| 246/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  97%|▉| 247/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  97%|▉| 247/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  98%|▉| 248/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  98%|▉| 248/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  98%|▉| 249/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  98%|▉| 249/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  98%|▉| 250/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  98%|▉| 250/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  99%|▉| 251/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  99%|▉| 251/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  99%|▉| 252/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights:  99%|▉| 252/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights: 100%|▉| 253/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights: 100%|▉| 253/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights: 100%|█| 254/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights: 100%|█| 254/254 [00:02<00:00, 308.09it/s, Materializing param=m
+Loading weights: 100%|█| 254/254 [00:02<00:00, 121.54it/s, Materializing param=m
+247.2s	1564	Model loaded on: cuda:0
+247.2s	1565	
+247.2s	1566	=== Starting Iteration 0 ===
+247.2s	1567	=== Iter 0 done ===
+247.2s	1568	Accuracy: 0/0 = 0.0000
+247.2s	1569	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter0
+247.2s	1570	
+247.2s	1571	=== Starting Iteration 1 ===
+247.2s	1572	=== Iter 1 done ===
+247.2s	1573	Accuracy: 0/0 = 0.0000
+247.2s	1574	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter1
+247.2s	1575	
+247.2s	1576	=== Starting Iteration 2 ===
+247.2s	1577	=== Iter 2 done ===
+247.2s	1578	Accuracy: 0/0 = 0.0000
+247.2s	1579	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter2
+247.2s	1580	
+247.2s	1581	=== Starting Iteration 3 ===
+247.2s	1582	=== Iter 3 done ===
+247.2s	1583	Accuracy: 0/0 = 0.0000
+247.2s	1584	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter3
+247.2s	1585	
+247.2s	1586	=== Starting Iteration 4 ===
+247.2s	1587	=== Iter 4 done ===
+247.2s	1588	Accuracy: 0/0 = 0.0000
+247.2s	1589	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter4
+247.2s	1590	
+247.2s	1591	=== Starting Iteration 5 ===
+247.2s	1592	=== Iter 5 done ===
+247.2s	1593	Accuracy: 0/0 = 0.0000
+247.2s	1594	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter5
+247.2s	1595	
+247.2s	1596	=== Starting Iteration 6 ===
+247.2s	1597	=== Iter 6 done ===
+247.2s	1598	Accuracy: 0/0 = 0.0000
+247.2s	1599	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter6
+247.2s	1600	
+247.2s	1601	=== Starting Iteration 7 ===
+247.2s	1602	=== Iter 7 done ===
+247.2s	1603	Accuracy: 0/0 = 0.0000
+247.2s	1604	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter7
+247.2s	1605	
+247.2s	1606	=== Starting Iteration 8 ===
+247.2s	1607	=== Iter 8 done ===
+247.2s	1608	Accuracy: 0/0 = 0.0000
+247.2s	1609	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter8
+247.2s	1610	
+247.2s	1611	=== Starting Iteration 9 ===
+247.2s	1612	=== Iter 9 done ===
+247.2s	1613	Accuracy: 0/0 = 0.0000
+247.2s	1614	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter9
+247.2s	1615	
+247.2s	1616	=== Starting Iteration 10 ===
+247.2s	1617	=== Iter 10 done ===
+247.2s	1618	Accuracy: 0/0 = 0.0000
+247.2s	1619	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter10
+247.2s	1620	
+247.2s	1621	=== Starting Iteration 11 ===
+247.2s	1622	=== Iter 11 done ===
+247.2s	1623	Accuracy: 0/0 = 0.0000
+247.2s	1624	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter11
+247.2s	1625	
+247.2s	1626	=== Starting Iteration 12 ===
+247.2s	1627	=== Iter 12 done ===
+247.2s	1628	Accuracy: 0/0 = 0.0000
+247.2s	1629	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter12
+247.2s	1630	
+247.2s	1631	=== Starting Iteration 13 ===
+247.2s	1632	=== Iter 13 done ===
+247.2s	1633	Accuracy: 0/0 = 0.0000
+247.2s	1634	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter13
+247.2s	1635	
+247.2s	1636	=== Starting Iteration 14 ===
+247.2s	1637	=== Iter 14 done ===
+247.2s	1638	Accuracy: 0/0 = 0.0000
+247.2s	1639	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter14
+247.2s	1640	
+247.2s	1641	=== Starting Iteration 15 ===
+247.2s	1642	=== Iter 15 done ===
+247.2s	1643	Accuracy: 0/0 = 0.0000
+247.2s	1644	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter15
+247.2s	1645	
+247.2s	1646	=== Starting Iteration 16 ===
+247.2s	1647	=== Iter 16 done ===
+247.2s	1648	Accuracy: 0/0 = 0.0000
+247.2s	1649	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter16
+247.2s	1650	
+247.2s	1651	=== Starting Iteration 17 ===
+247.2s	1652	=== Iter 17 done ===
+247.2s	1653	Accuracy: 0/0 = 0.0000
+247.2s	1654	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter17
+247.2s	1655	
+247.2s	1656	=== Starting Iteration 18 ===
+247.2s	1657	=== Iter 18 done ===
+247.2s	1658	Accuracy: 0/0 = 0.0000
+247.2s	1659	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter18
+247.2s	1660	
+247.2s	1661	=== Starting Iteration 19 ===
+247.2s	1662	=== Iter 19 done ===
+247.2s	1663	Accuracy: 0/0 = 0.0000
+247.2s	1664	Saved to: /kaggle/working/argos-kaggle/preds/FewShotCOTExplainEthics_iter19
+248.6s	1665	/kaggle/working/argos-kaggle/main/analysis
+250.9s	1666	Available ExplainEthics pkl files:
+250.9s	1667	No pkl files found. Run cot_met_explain_ethics.py first.
+250.9s	1668	Dataset: 145 ExplainEthics examples
+250.9s	1669	Derived 0 labels from dataset gt field
+250.9s	1670	
+250.9s	1671	Total preds: 0
+250.9s	1672	  SAT backbone: 0
+250.9s	1673	  CoT fallback: 0
+250.9s	1674	  Missed:       0
+250.9s	1675	
+250.9s	1676	Overall accuracy : 0.0000  (0/1)
+250.9s	1677	Correct via SAT  : 0
+250.9s	1678	Correct via CoT  : 0
+250.9s	1679	Missed/skipped   : 0
+250.9s	1680	
+250.9s	1681	Confusion matrix  (pred=true → violated, pred=false → not violated):
+250.9s	1682	  TP=0  FP=0  TN=0  FN=0
+250.9s	1683	  n_true=0 (genuinely violating)  n_false=0 (decoy)
+250.9s	1684	
+250.9s	1685	Name                           Pred     GT       Shown norm                Gold norm                 OK?
+250.9s	1686	--------------------------------------------------------------------------------------------------------------
+250.9s	1687	
+250.9s	1688	SAT backbone accuracy: 0/0 = 0.000
+250.9s	1689	CoT fallback accuracy: 0/0 = 0.000
+250.9s	1690	
+250.9s	1691	Per-norm accuracy (by gold_foundation):
+250.9s	1692	
+250.9s	1693	Decoy resistance  : 0/0 = 0.000
+250.9s	1694	True-label recall : 0/0 = 0.000
+250.9s	1695	CoT iter 0: acc=0
+250.9s	1696	CoT iter 1: acc=0
+250.9s	1697	CoT iter 2: acc=0
+250.9s	1698	CoT iter 3: acc=0
+250.9s	1699	CoT iter 4: acc=0
+250.9s	1700	CoT iter 5: acc=0
+250.9s	1701	CoT iter 6: acc=0
+250.9s	1702	CoT iter 7: acc=0
+250.9s	1703	CoT iter 8: acc=0
+250.9s	1704	CoT iter 9: acc=0
+250.9s	1705	CoT iter 10: acc=0
+250.9s	1706	CoT iter 11: acc=0
+250.9s	1707	CoT iter 12: acc=0
+250.9s	1708	CoT iter 13: acc=0
+250.9s	1709	CoT iter 14: acc=0
+250.9s	1710	CoT iter 15: acc=0
+250.9s	1711	CoT iter 16: acc=0
+250.9s	1712	CoT iter 17: acc=0
+250.9s	1713	CoT iter 18: acc=0
+250.9s	1714	CoT iter 19: acc=0
+250.9s	1715	
+250.9s	1716	Self-consistency acc: 0/0 = 0.000
+250.9s	1717	Mean CoT acc:          0.000
+251.8s	1718	Traceback (most recent call last):
+251.8s	1719	  File "/kaggle/working/argos-kaggle/main/analysis/run_analysis_explainethics.py", line 286, in <module>
+251.8s	1720	    bs_outs_acc = [np.sum(resample(outs_pred_val, n_samples=BS_N)) / BS_N
+251.8s	1721	                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+251.8s	1722	  File "/usr/local/lib/python3.12/dist-packages/sklearn/utils/_param_validation.py", line 216, in wrapper
+251.8s	1723	    return func(*args, **kwargs)
+251.8s	1724	           ^^^^^^^^^^^^^^^^^^^^^
+251.8s	1725	  File "/usr/local/lib/python3.12/dist-packages/sklearn/utils/_indexing.py", line 526, in resample
+251.8s	1726	    indices = random_state.randint(0, n_samples, size=(max_n_samples,))
+251.8s	1727	              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+251.8s	1728	  File "numpy/random/mtrand.pyx", line 798, in numpy.random.mtrand.RandomState.randint
+251.8s	1729	  File "numpy/random/_bounded_integers.pyx", line 1334, in numpy.random._bounded_integers._rand_int64
+251.8s	1730	ValueError: high <= 0
+255.4s	1731	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+255.4s	1732	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+255.6s	1733	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+255.6s	1734	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+256.1s	1735	/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=["remove_papermill_header.RemovePapermillHeader"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.
+256.1s	1736	  warn(
+256.1s	1737	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+256.5s	1738	[NbConvertApp] Writing 202333 bytes to __notebook__.ipynb
+258.8s	1739	/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=["nbconvert.preprocessors.ExtractOutputPreprocessor"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.
+258.8s	1740	  warn(
+258.8s	1741	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+259.7s	1742	[NbConvertApp] Writing 467153 bytes to __results__.html

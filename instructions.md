@@ -1,116 +1,153 @@
 # ARGOS: CLUTRR Dataset Execution Guide
 
-This guide provides the step-by-step instructions to run the ARGOS neuro-symbolic pipeline using the **CLUTRR** dataset.
+This guide provides step-by-step instructions to run the ARGOS neuro-symbolic pipeline on the **CLUTRR** dataset (kinship relation reasoning).
 
 ## ⚠️ Important: Path Configuration
-Most scripts in this repository contain hardcoded absolute paths (e.g., `C:/Tugas Akhir/...` or `/home/XXXX/...`). Before running each step, you **must** open the corresponding Python file and update variables like `USER_PATH`, `path`, and `dataset` to match your local workspace.
+Most scripts contain hardcoded paths (e.g., `/mnt/c/Tugas_Akhir/...`). The key variable to update is `USER_PATH` in `cot_met_clutrr.py`. Other paths are derived from it automatically.
 
 ---
 
 ## Step 1: Environment Setup
-1.  **Setup Virtual Environment (Recommended):**
+1.  **Setup Virtual Environment:**
     *   **Windows (PowerShell):**
         ```powershell
         python -m venv venv
         .\venv\Scripts\Activate.ps1
         ```
-    *   **Unix / Linux / macOS:**
+    *   **Unix / Linux / WSL:**
         ```bash
         python3 -m venv venv
         source venv/bin/activate
         ```
 2.  **Install Python Dependencies:**
-    Installing `flash_attn` requires `torch` and `packaging` to be pre-installed. Run these commands in order:
     ```bash
-    # Step A: Install core build dependencies
+    # Step A: Install core build dependencies first
     pip install packaging ninja wheel
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 
-    # Step B: Install the rest of the requirements
+    # Step B: Install the rest
     pip install -r requirements.txt
     ```
-3.  **Compile SAT Tools:**
-    *   **CaDiCaL:** 
-        Navigate to `sat_gen/sat_tools/postprocess/cadical/` and run:
+3.  **Compile SAT Tools** *(requires Unix/WSL)*:
+    *   **CaDiCaL:**
         ```bash
+        cd sat_gen/sat_tools/postprocess/cadical
         ./configure && make
+        # Binary: sat_gen/sat_tools/postprocess/cadical/build/cadical
         ```
-        The executable will be generated at `sat_gen/sat_tools/postprocess/cadical/build/cadical`. 
-        *Note: Requires a Unix-like environment (Linux, macOS, or WSL on Windows) with GNU Make.*
-    *   **CadiBack:** 
-        Navigate to `main/` and set up the dependency link, then compile:
+    *   **CadiBack:**
         ```bash
-        # Create link to the compiled CaDiCaL
         cd main
         ln -s ../sat_gen/sat_tools/postprocess/cadical cadical
-        
-        # Compile CadiBack
         cd cadiback
-        # Manually create config if git is not present
+        # Create config manually if git is not present
         echo '#define VERSION "1.5.0"' > config.hpp
-        echo '#define DATE "'$(date)'"' >> config.hpp
+        echo '#define DATE "manual"' >> config.hpp
         echo '#define IDENTIFIER "manual"' >> config.hpp
         echo '#define GITID "manual"' >> config.hpp
         echo '#define BUILD "g++ -Wall -O3 -DNDEBUG"' >> config.hpp
-        
-        ./configure
-        make
+        ./configure && make
         ```
 
 ---
 
 ## Step 2: Logic Generation (SAT-LM)
-Translate natural language stories into symbolic logic programs.
-1.  **Configure:** Create a `.env` file in the project root and set your HuggingFace token: `HF_TOKEN=hf_xxxx`.
-2.  **Run:**
-    ```powershell
-    cd SAT-LM
-    python3 run_manual.py --task clutrr --num_dev 1 --manual_prompt_id satlm --style_template satlm --run_prediction
+Translate natural language kinship stories into Z3 Python logic programs.
+
+1.  **Configure:** Create a `.env` file in the project root:
     ```
-3.  **Output:** Python logic scripts will appear in `SAT-LM/tmp/`.
+    HF_TOKEN=hf_xxxx
+    ```
+2.  **Run:**
+    ```bash
+    cd SAT-LM
+    python3 run_manual.py \
+        --task clutrr \
+        --manual_prompt_id satlm \
+        --style_template satlm \
+        --run_prediction \
+        --eval_split test \
+        --engine Qwen/Qwen2.5-Coder-3B-Instruct \
+        --first_k 10
+    ```
+3.  **Output:** Z3 Python scripts in `SAT-LM/tmp/` named `clutrrN.py`.
 
 ---
 
 ## Step 3: SAT Formulation (Conversion to DIMACS)
-Convert the logic programs into DIMACS CNF format.
-1.  **Configure:** Open `SAT-LM/cluttr_to_sat.py`. Update paths for `os.listdir` (pointing to `SAT-LM/tmp/`), `js` (pointing to `SAT-LM/data/clutrr_test.json`), and the output `dimacs` directory.
+Convert Z3 programs into DIMACS CNF files for the SAT solver.
+
+1.  **Configure:** Open `SAT-LM/cluttr_to_sat.py` and verify:
+    - `tmp` directory → `SAT-LM/tmp/`
+    - `dataset` path → `SAT-LM/data/clutrr_test.json`
+    - DIMACS output directory → `main/dimacs/`
 2.  **Run:**
-    ```powershell
-    python cluttr_to_sat.py
+    ```bash
+    cd SAT-LM
+    python3 cluttr_to_sat.py
     ```
-3.  **Output:** `.cnf`, `.mapping`, and `.maptxt` files in your specified DIMACS directory.
+3.  **Output:** `clutrrN.cnf`, `pos_clutrrN.cnf`, `neg_clutrrN.cnf`, `clutrrN.mapping` files in your `dimacs/` directory.
 
 ---
 
 ## Step 4: Initial SAT Solving
-Check for initial consistency using the CaDiCaL solver.
-1.  **Configure:** Open `main/cadical_solve.py`. Update `path` (your DIMACS folder), `output_path` (for logs), and the absolute path to your `cadical` binary.
+Check which CNF problems are satisfiable using CaDiCaL.
+
+1.  **Configure:** Open `main/cadical_solve.py` and verify:
+    - `path` → your `dimacs/` folder
+    - `output_path` → `dimacs_output/`
+    - Path to `cadical` binary
 2.  **Run:**
-    ```powershell
-    cd ../main
-    python cadical_solve.py
+    ```bash
+    cd main
+    python3 cadical_solve.py
     ```
 
 ---
 
 ## Step 5: Result Aggregation
-Summarize the solver outputs into a format readable by the ARGOS loop.
-1.  **Configure:** Open `main/parse_gen.py`. Update `directory` (DIMACS folder), `log_directory` (solver logs), and `csv_directory`.
+Summarise solver outputs into a CSV readable by the ARGOS loop.
+
+1.  **Configure:** Open `main/parse_gen.py` and verify:
+    - `directory` → `dimacs/`
+    - `log_directory` → `dimacs_output/`
+    - `csv_directory` → `main/dimacs_csvs/`
 2.  **Run:**
-    ```powershell
-    python parse_gen.py
+    ```bash
+    python3 parse_gen.py
     ```
-3.  **Output:** `solver_finished.csv` in your specified CSV directory.
+3.  **Output:** `main/dimacs_csvs/solver_finished.csv`
+    - Rows where `pos=SAT, neg=SAT` are the ambiguous cases passed to ARGOS.
 
 ---
 
-## Step 6: ARGOS Neuro-Symbolic Refinement
-Run the iterative refinement loop to resolve uncertainties using an LLM.
-1.  **Configure:** Open `main/argos/cot_met_clutrr.py`.
-    *   Update paths for `dataset` (`clutrr_test.json`), `c` (`solver_finished.csv`), and the `dimacs` directory.
-    *   Set `seedrun` (e.g., `clutrr_1`) to distinguish temporary working folders.
+## Step 6: ARGOS Neuro-Symbolic Refinement Loop
+Run the iterative backbone-driven loop to resolve ambiguous cases with an LLM.
+
+1.  **Configure:** Open `main/argos/cot_met_clutrr.py`:
+    - Set `USER_PATH` to your project root (e.g., `/mnt/c/Tugas_Akhir/ARGOS_public_anon`)
+    - Set `seedrun = 'clutrr_1'` (controls temp folder naming)
+    - Verify `dataset` path → `SAT-LM/data/clutrr_test.json`
 2.  **Run:**
-    ```powershell
-    python argos/cot_met_clutrr.py
+    ```bash
+    cd main
+    python3 argos/cot_met_clutrr.py
     ```
-3.  **Output:** Final accuracy results and detailed reasoning traces.
+3.  **Output:**
+    - Accuracy printed to console every iteration
+    - `all_outs_cot_met_clutrr_<config>.pkl` saved to project root every 50 steps
+
+---
+
+## Step 7: Analysis
+Load the saved `.pkl` file and compute full statistics.
+
+```bash
+cd main/analysis
+python3 -i run_analysis_clutrr.py
+```
+
+**Produces:**
+- Overall accuracy, CoT vs SAT breakdown, confusion matrix
+- Bootstrap 95% CI, Wilcoxon signed-rank test vs self-consistency baseline
+- Confidence trajectory plots, iteration histogram (`clutrr_lenhist.pdf`, `clutrr_threedhist.pdf`)

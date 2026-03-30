@@ -16,4 +16,6 @@ packaging
 ninja
 wheel
 python-dotenv
+scikit-learn
+matplotlib
 # flash_attn
