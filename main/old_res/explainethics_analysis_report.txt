@@ -19,6 +19,11 @@ Confusion matrix  (pred=true → violated, pred=false → not violated):
   TP=25  FP=29  TN=6  FN=7
   n_true=32 (genuinely violating)  n_false=35 (decoy)
 
+Standard Metrics:
+  Accuracy : 0.4627
+  Precision: 0.4630
+  Recall   : 0.7812
+  F1 Score : 0.5814
 Name                           Pred     GT       Shown norm                Gold norm                 OK?
 --------------------------------------------------------------------------------------------------------------
 explainethics107.cnf           true     true     violate_authority         violate_authority         ✓

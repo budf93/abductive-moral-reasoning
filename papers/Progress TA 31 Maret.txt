@@ -1,0 +1,63 @@
+--------------------
+PERTEMUAN SEBELUMNYA
+--------------------
+
+Dari pertemuan sebelumnya, saya sudah membaca dan memahami kode yang digunakan untuk eksperimen. Ringkasan untuk file eksperimen yang digunakan adalah sebagai berikut:
+1. run_manual.py: mengubah teks konteks menjadi bentuk yang mengikuti syntax python. File yang dihasilkan run_manual.py ini nantinya akan digunakan untuk parsing di clutrr_to_sat.py untuk mengambil relasi dan implikasi yang terdapat di data konteks
+2. clutrr_to_sat.py: mengubah output dari run_manual.py menjadi format DIMACS. Output dari clutrr_to_sat.py nantinya akan file .cnf yang merupakan bentuk conjunctive normal form dari clause yang direpresentasikan dalam bentuk angka dan file .maptxt yang memetakan angka ke proposisi. clutrr_to_sat.py menghasilkan file .cnf positif yang query nya positif dan file .cnf yang query nya negatif (query disini adalah proposisi yang ingin kita buktikan) yang nantinya akan digunakan oleh cadical_solve.py untuk ditentukan satisfiabilitynya. Contoh penamaan file positif adalah pos_clutrr0.cnf sedangkan contoh penamaan file negatif adalah neg_clutrr0.cnf
+
+Contoh file .cnf:
+p cnf 5 7
+1 0
+2 0
+-3 0
+4 -1 0
+4 -2 0
+5 -4 0
+3 -5 0
+
+Ini berarti (1) ^ (2) ^ (-3) ^ (4 v -1) ^ (4 v -2) ^ (5 v -4) ^ (5 v -3)
+
+Contoh file .maptxt
+
+{1: covering_up_truth_, 2: spreading_fake_news_, 3: violate_fairness_, 4: deception_, 5: harm_reputation_}
+
+3. cadical_solve.py: menjalankan program cadical berdasarkan output dari clutrr_to_sat.py. Contoh output satisfiable dari cadical_solve adalah sebagai berikut:
+
+s SATISFIABLE
+v -1 2 3 4 5 0
+
+c exit 10
+
+Contoh output unsatisfiable:
+
+s UNSATISFIABLE
+
+c exit 20
+
+Satisfiability dari masing-masing file positif dan negatif nantinya dicatat oleh parse_gen.py.
+
+4. parse_gen.py: Mencatat output satisfiability dari cadical_solve.py untuk menentukan file .cnf mana saja yang querynya satisfiable dan mana yang satisfiable. Hasil pencatatan dimasukkan ke file solver_finished.csv lalu digunakan cot_met_clutrr.py untuk menentukan pertanyaan mana saja yang kesimpulannya sudah diperoleh dari Cadical dan mana yang perlu menggunakan LLM untuk pengambilan keputusan sebelum dijalankan ke loop penambahan variable proposisi.
+
+Contoh output:
+
+,name,pos,neg
+2,explainethics12.cnf,SAT,UNSAT -> Tidak perlu dijalankan loop, kebenaran query sudah ditentukan (query SATISFIABLE)
+4,explainethics13.cnf,UNSAT,SAT -> Tidak perlu dijalankan loop, kebenaran query sudah ditentukan (query UNSATISFIABLE)
+3,explainethics14.cnf,SAT,SAT -> Belum jelas kebenarannya karena file positif dan negated sama2 satisfiable, perlu dijalankan loop
+5,explainethics15.cnf,UNSAT,UNSAT -> Terdapat kesalahan dalam pembentukan proposisi oleh LLM di file run_manual.py, perlu dijalankan loop
+
+5. cot_met_clutrr.py : Menjalankan pengambilan keputusan dan penambahan proposisi. Pertama-tama, untuk suatu pertanyaan, file cot_met_clutrr.py akan membaca solver_finished.csv untuk menentukan apakah kita perlu menjalankan loop untuk menjawab pertanyaan saat ini. Apabila query SATISFIABLE/UNSATISFIABLE maka tidak perlu dijalankan loop. Selebihnya, kita jalankan loop. Pertama-tama, kita gunakan LLM untuk pengambilan keputusan. Apabila skor confidence LLM kurang dari threshold yang telah ditetapkan, maka kita perlu menambahkan proposisi baru dan menjalankan SAT solver untuk pengambilan keputusan.
+
+Alur pengambilan keputusan adalah sebagai berikut: SAT solver -> LLM -> tambah propoisi -> SAT solver -> ...
+
+-----------------
+PROGRESS SAAT INI
+-----------------
+
+Saat ini, saya berhasil mengimplementasikan ulang kode dari paper ARGOS untuk dataset ExplainEthics. Didapat bahwa hasilnya kurang memuaskan karena justru metode dari paper ARGOS akurasinya lebih rendah dari metode chain-of-thought biasa. Hasil eksperimennya sudah saya lampirkan. Metrik pengukuran saya sesuaikan dengan paper ARGOS untuk menjamin kesamaan. Ada terdapat beberapa kecurigaan yang menyebabkan hal ini terjadi. Kecurigaan saya yaitu:
+1. Dataset ExplainEthics yang saya gunakan saya rancang agar SAT solver/LLM dapat menentukan apakah suatu label/query bernilai benar/tidak. Label yang ada sengaja dirancang sebagian agar berbeda dengan ground truth dan sebagian dirancang sesuai dengan ground truth. Akan tetapi, ARGOS tidak dirancang untuk mendeteksi apakah label yang diberikan adalah palsu atau bukan. ARGOS langsung memperlakukan label tersebut sebagai hipotesis yang valid dan membangun seluruh formula SAT di atasnya, sehingga ketika label adalah palsu, backbone loop justru memperkuat kesimpulan yang salah alih-alih mempertanyakannya.
+2. Boleh jadi, penggunaan SAT solver kurang cocok untuk dataset moral mengingat SAT solver hanya menentukan apakah suatu query/label benar atau salah sedangkan pada dataset moral jawaban bahwa suatu tindakan bersifat morally permissible sangat tergantung pada konteks dari kejadian suatu tindakan.
+3. Output LLM yang mengandalkan log-probability untuk menilai pertanyaan etika rentan terhadap position bias dan framing bias, sehingga skor yes/no yang dihasilkan tidak mencerminkan keyakinan model yang sebenarnya mengingat poin yang telah dijelaskan di nomor 3.
+4. Pengambilan keputusan dengan SAT/LLM tidak akurat karena LLM berhalusinasi ketika membuat proposisi baru. Hal ini mungkin disebabkan oleh parameter LLM yang terlalu kecil (3B saja). Tetapi, penyebab ini sepertinya perlu diperhatikan kembali mengingat LLM yang menggunakan COT dengan parameter yang sama justru menghasilkan hasil yang lebih baik.
+

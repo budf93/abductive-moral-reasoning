@@ -284,6 +284,8 @@ def predict_framework(args, llm):
     prompts_to_complete = []   
     for test_ex in test_data:
         test_part = task_helper.prompt_func(test_ex, [])
+        print(f"base manual prompt {base_manual_prompt}")
+        print(f"test part {test_part}")
         prompts_to_complete.append(
             [base_manual_prompt + task_helper.get_train_sep() + test_part]
         )

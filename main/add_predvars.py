@@ -31,7 +31,7 @@ newpath = path + '_new'
 c = '/home/XXXX/XXXX/fs_backup_feb13/LLM-project/dimacs_clutrr_core_csvs/solver_finished.csv'
 
 
-temp_outs_str = '/home/XXXX/XXXX/fs_backup_feb13/all_outs_cot_met_clutrr_rulethresh_03_cot_thresh_100_anneal_01,_dynamic_True,_sc5,llama_70B,_no_RULES_IN_PROMPT_fixed,_yes_separation,_always_YN_WITH_MAYBE,_og_prompt,_no_cot_gen,_augmented_extr,_expweight.pkl'
+temp_outs_str = '/home/XXXX/XXXX/fs_backup_feb13/all_outs_cot_met_clutrr_rulethresh_03__100_anneal_01,_dynamic_True,_sc5,llama_70B,_no_RULES_IN_PROMPT_fixed,_yes_separation,_always_YN_WITH_MAYBE,_og_prompt,_no_cot_gen,_augmented_extr,_expweight.pkl'
 temp_outs = pkl.load(open(temp_outs_str, 'rb'))
 
 

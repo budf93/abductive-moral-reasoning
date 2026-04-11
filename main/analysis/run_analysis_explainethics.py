@@ -4,12 +4,12 @@ ExplainEthics Analysis Script
 Analyse results produced by cot_met_explain_ethics.py.
 Run interactively:  python3 -i run_analysis_explainethics.py
 
-Statistical methods (matching analysis_clutrr.ipynb, adapted for ExplainEthics):
+Statistical methods:
   1. Self-consistency majority vote  (CoT iter files → sc_acc)
   2. Bootstrap resampling            (sklearn, n=86)
   3. Wilcoxon signed-rank test       (scipy, ARGOS > SC)
   4. t-interval 95% CI               (scipy.stats.t.interval)
-  5. Confusion matrix TP/TN/FP/FN   (true/false violation)
+  5. Per-norm confusion matrix       (predicted norm vs gold_foundation)
   6. Iteration-trajectory flip analysis (scs confidence over iterations)
   7. 2D histogram  (iteration × confidence)
   8. Normalised stacked histogram    (proportion per outcome per iteration)
@@ -18,7 +18,7 @@ Statistical methods (matching analysis_clutrr.ipynb, adapted for ExplainEthics):
   10. Decoy resistance analysis
 
 all_outs[name] structure (key = 'explainethicsN.cnf'):
-  [0] vv          – inferred variable tuples
+  [0] vv          – whether prediction matched gold_foundation
   [1] solout      – {'pos': [...], 'neg': [...]}
   [2] bbout       – backbone after last iter
   [3] missed_flag – True if skipped
@@ -27,11 +27,10 @@ all_outs[name] structure (key = 'explainethicsN.cnf'):
   [6] scs         – list of probability tensors over iterations
   [7] prompts     – prompts used
 
-gt semantics:
-  data[i]['gt'] = 'true'  → scenario DOES violate the shown norm (shown label correct)
-  data[i]['gt'] = 'false' → shown label is a DECOY (norm not really violated)
-  pred = 'true'  → model says norm IS violated
-  Correct when pred == data[i]['gt']
+preds semantics (NEW):
+  preds[name] = 'violate_care' / 'violate_fairness' / ... / 'unknown' / 'missed'
+  labels[name] = data[i]['gold_foundation']  (the true violated norm)
+  Correct when preds[name] == labels[name]
 """
 
 import pickle as pkl
@@ -92,25 +91,18 @@ with open(DATASET_PATH, 'r') as f:
     data = json.load(f)
 print(f'Dataset: {len(data)} ExplainEthics examples')
 
-# ── Step 4: Build labels + names ──────────────────────────────────────────────
+# ── Step 4: Build labels ──────────────────────────────────────────────────────
+# labels[name] = gold_foundation norm string (e.g. 'violate_fairness')
 labels = {}
 names  = []
 
-if os.path.exists(LABELS_CSV):
-    with open(LABELS_CSV, 'r') as lf:
-        for row in csv.reader(lf):
-            if len(row) < 2: continue
-            cnf_name = row[0].replace('.py', '.cnf')
-            labels[cnf_name] = row[1].strip().lower()
-    print(f'Loaded {len(labels)} labels from explain_ethics_labels.csv')
-else:
-    for name in outs.keys():
-        try:
-            idx = int(name.replace('explainethics', '').split('.')[0])
-            labels[name] = data[idx]['gt'].lower().strip()
-        except Exception:
-            pass
-    print(f'Derived {len(labels)} labels from dataset gt field')
+for name in outs.keys():
+    try:
+        idx = int(name.replace('explainethics', '').split('.')[0])
+        labels[name] = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
+    except Exception:
+        pass
+print(f'Derived {len(labels)} labels from dataset gold_foundation field')
 
 # Build names list (ordered same as data index)
 for name in sorted(outs.keys(), key=lambda n: int(n.replace('explainethics','').split('.')[0])
@@ -119,98 +111,151 @@ for name in sorted(outs.keys(), key=lambda n: int(n.replace('explainethics','').
 name_idx = {name: i for i, name in enumerate(names)}
 
 # ── Step 5: Build preds ────────────────────────────────────────────────────────
+# preds[name] = 'violate_{norm}' | 'unknown' | 'missed'
 preds      = {}
 cot_count  = 0
 sat_count  = 0
 miss_count = 0
 
+IMAS_DIR = BASE_PATH + '/main/dimacs/'
+_MORAL_NORMS = [
+    'violate_care', 'violate_fairness', 'violate_loyalty',
+    'violate_authority', 'violate_sanctity', 'violate_liberty',
+]
+
+import re
+
 for name, value in outs.items():
     vv, solout, bbout, missed_flag, rule_scores, cot_flag, scs, prompts = value
     if missed_flag:
         preds[name] = 'missed'; miss_count += 1; continue
+
+    sat_norm = None
+    maptxt_pth = IMAS_DIR + 'pos_' + name[:-4] + '.maptxt'
+    try:
+        maptxt_content = open(maptxt_pth, 'r').read()
+        match = re.search(r'violate_[a-z]+_?', maptxt_content)
+        if match:
+            sat_norm = match.group(0).rstrip('_')
+    except Exception:
+        pass
+
     if cot_flag:
         cot_count += 1
-        preds[name] = ('true' if scs[-1].argmax() == 0 else 'false') if scs else 'missed'
+        # Check if prob stored _predicted_norm (majority CoT vote)
+        # scs[-1][0] > scs[-1][1] means majority voted for gold norm
+        gold = labels.get(name, '')
+        if scs:
+            last = scs[-1]
+            # votes[0]=correct-norm votes, votes[1]=wrong-norm votes
+            preds[name] = gold if last[0] > last[1] else 'unknown'
+        else:
+            preds[name] = 'unknown'
     else:
         sat_count += 1
-        if   len(solout['neg']) == 0: preds[name] = 'true'   # neg UNSAT → violated
-        elif len(solout['pos']) == 0: preds[name] = 'false'  # pos UNSAT → not violated
-        else:                         preds[name] = 'missed'
+        # SAT backbone resolved: read norm from maptxt
+        if solout and len(solout.get('neg', [])) == 0 and len(solout.get('pos', [])) > 0:
+            preds[name] = sat_norm if sat_norm else 'unknown'
+        elif solout and len(solout.get('pos', [])) == 0:
+            preds[name] = 'unknown'  # neg UNSAT without tracked norm
+        else:
+            preds[name] = sat_norm if sat_norm else 'unknown'
 
 print(f'\nTotal preds: {len(preds)}')
 print(f'  SAT backbone: {sat_count}')
 print(f'  CoT fallback: {cot_count}')
 print(f'  Missed:       {miss_count}')
 
-# ── Step 6: Accuracy + confusion matrix ───────────────────────────────────────
+# ── Step 6: Accuracy ──────────────────────────────────────────────────────────
+# preds[name] = predicted norm string; labels[name] = gold_foundation norm string
 acc            = 0
 missed         = 0
 correct_by_cot = 0
 correct_by_sat = 0
-true_pos = false_pos = true_neg = false_neg = 0
-n_true = n_false = 0
-outs_pred = {}
+ous_pred = {}
 
 for name, pred in preds.items():
     try:
-        idx     = int(name.replace('explainethics', '').split('.')[0])
-        true_gt = data[idx]['gt'].lower().strip()
+        idx      = int(name.replace('explainethics', '').split('.')[0])
+        gold_norm = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
     except Exception:
-        true_gt = labels.get(name, '')
-
-    if true_gt == 'true':  n_true  += 1
-    if true_gt == 'false': n_false += 1
+        gold_norm = labels.get(name, '')
 
     if pred == 'missed':
         missed += 1; continue
 
-    correct = (pred == true_gt)
-    outs_pred[name] = correct
+    correct = (pred == gold_norm)
+    ous_pred[name] = correct
     if correct:
         acc += 1
         _, _, _, _, _, cot_flag, _, _ = outs[name]
         if cot_flag: correct_by_cot += 1
         else:        correct_by_sat  += 1
-        if true_gt == 'true':  true_pos  += 1
-        else:                  true_neg  += 1
-    else:
-        if true_gt == 'true':  false_neg += 1
-        else:                  false_pos += 1
 
-total = max(len(preds) - missed, 1)
-print(f'\nOverall accuracy : {acc/total:.4f}  ({acc}/{total})')
+# Alias for downstream compatibility
+outs_pred = ous_pred
+
+total    = max(len(preds) - missed, 1)
+accuracy = acc / total
+
+# Per-norm confusion breakdown
+norm_tp = {n: 0 for n in _MORAL_NORMS}
+norm_fp = {n: 0 for n in _MORAL_NORMS}
+norm_fn = {n: 0 for n in _MORAL_NORMS}
+
+for name, pred in preds.items():
+    if pred == 'missed': continue
+    try:
+        idx       = int(name.replace('explainethics', '').split('.')[0])
+        gold_norm = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
+    except Exception:
+        gold_norm = labels.get(name, '')
+    if pred == gold_norm and pred in norm_tp:
+        norm_tp[pred]   += 1
+    else:
+        if gold_norm in norm_fn: norm_fn[gold_norm] += 1
+        if pred in norm_fp:      norm_fp[pred]      += 1
+
+precision_micro = sum(norm_tp.values()) / max(sum(norm_tp.values()) + sum(norm_fp.values()), 1)
+recall_micro    = sum(norm_tp.values()) / max(sum(norm_tp.values()) + sum(norm_fn.values()), 1)
+f1_score        = 2 * precision_micro * recall_micro / max(precision_micro + recall_micro, 1e-9)
+precision = precision_micro
+recall    = recall_micro
+
+print(f'\nOverall accuracy : {accuracy:.4f}  ({acc}/{total})')
 print(f'Correct via SAT  : {correct_by_sat}')
 print(f'Correct via CoT  : {correct_by_cot}')
 print(f'Missed/skipped   : {missed}')
-print(f'\nConfusion matrix  (pred=true → violated, pred=false → not violated):')
-print(f'  TP={true_pos}  FP={false_pos}  TN={true_neg}  FN={false_neg}')
-print(f'  n_true={n_true} (genuinely violating)  n_false={n_false} (decoy)')
+print(f'\nMicro-averaged standard metrics (over {len(_MORAL_NORMS)} norm classes):')
+print(f'  Accuracy : {accuracy:.4f}')
+print(f'  Precision: {precision:.4f}')
+print(f'  Recall   : {recall:.4f}')
+print(f'  F1 Score : {f1_score:.4f}')
 
 # ── Step 7: Per-prediction breakdown ──────────────────────────────────────────
-print(f'\n{"Name":<30} {"Pred":<8} {"GT":<8} {"Shown norm":<25} {"Gold norm":<25} {"OK?"}')
-print('-' * 110)
+print(f'\n{"Name":<30} {"Pred norm":<25} {"Gold norm":<25} {"Shown label":<25} {"OK?"}')
+print('-' * 115)
 for name, pred in preds.items():
     try:
         idx        = int(name.replace('explainethics', '').split('.')[0])
-        true_gt    = data[idx]['gt'].lower()
-        shown_norm = data[idx]['label']
-        gold_norm  = data[idx]['gold_foundation']
+        gold_norm  = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
+        shown_norm = data[idx].get('label', '??')
     except Exception:
-        true_gt = shown_norm = gold_norm = '??'
-    ok = '✓' if pred == true_gt else '✗'
-    print(f'{name:<30} {pred:<8} {true_gt:<8} {shown_norm:<25} {gold_norm:<25} {ok}')
+        gold_norm = shown_norm = '??'
+    ok = '✓' if pred == gold_norm else '✗'
+    print(f'{name:<30} {pred:<25} {gold_norm:<25} {shown_norm:<25} {ok}')
 
 # ── Step 8: CoT vs SAT breakdown ──────────────────────────────────────────────
 cot_c = cot_t = sat_c = sat_t = 0
 for name, pred in preds.items():
     if pred == 'missed': continue
     try:
-        idx     = int(name.replace('explainethics', '').split('.')[0])
-        true_gt = data[idx]['gt'].lower()
+        idx       = int(name.replace('explainethics', '').split('.')[0])
+        gold_norm = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
     except Exception:
         continue
     _, _, _, _, _, cot_flag, _, _ = outs[name]
-    correct = (pred == true_gt)
+    correct = (pred == gold_norm)
     if cot_flag: cot_t += 1; cot_c += correct
     else:        sat_t += 1; sat_c += correct
 
@@ -224,42 +269,49 @@ for name, pred in preds.items():
     if pred == 'missed': continue
     try:
         idx       = int(name.replace('explainethics', '').split('.')[0])
-        true_gt   = data[idx]['gt'].lower()
-        gold_norm = data[idx]['gold_foundation']
+        gold_norm = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
     except Exception:
         continue
     norm_total[gold_norm] += 1
-    if pred == true_gt:
+    if pred == gold_norm:
         norm_correct[gold_norm] += 1
 
 print('\nPer-norm accuracy (by gold_foundation):')
 for norm in sorted(norm_total.keys()):
     c = norm_correct[norm]; t = norm_total[norm]
     print(f'  {norm:<25} {c}/{t} = {c/max(t,1):.3f}')
+    print(f'    TP={norm_tp.get(norm,0)}  FP={norm_fp.get(norm,0)}  FN={norm_fn.get(norm,0)}')
 
 # ── Step 10: Decoy resistance (ExplainEthics-specific) ────────────────────────
-decoy_r_c = decoy_r_t = true_recall_c = true_recall_t = 0
+# Decoy: shown label != gold_foundation → model should predict gold_foundation, not shown label
+decoy_r_c = decoy_r_t = true_r_c = true_r_t = 0
 for name, pred in preds.items():
     if pred == 'missed': continue
     try:
-        idx     = int(name.replace('explainethics', '').split('.')[0])
-        true_gt = data[idx]['gt'].lower()
+        idx        = int(name.replace('explainethics', '').split('.')[0])
+        gold_norm  = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
+        shown_norm = data[idx].get('label', '').replace('-', '_').lower().strip()
     except Exception:
         continue
-    if true_gt == 'false':
+    is_decoy = (shown_norm != gold_norm)
+    if is_decoy:
         decoy_r_t += 1
-        if pred == 'false': decoy_r_c += 1
+        if pred == gold_norm: decoy_r_c += 1
     else:
-        true_recall_t += 1
-        if pred == 'true': true_recall_c += 1
+        true_r_t += 1
+        if pred == gold_norm: true_r_c += 1
 
-print(f'\nDecoy resistance  : {decoy_r_c}/{decoy_r_t} = {decoy_r_c/max(decoy_r_t,1):.3f}')
-print(f'True-label recall : {true_recall_c}/{true_recall_t} = {true_recall_c/max(true_recall_t,1):.3f}')
+print(f'\nDecoy resistance  (shown≠gold, pred==gold): {decoy_r_c}/{decoy_r_t} = {decoy_r_c/max(decoy_r_t,1):.3f}')
+print(f'True-label recall (shown==gold, pred==gold): {true_r_c}/{true_r_t} = {true_r_c/max(true_r_t,1):.3f}')
 
 # ── Step 11: Self-consistency baseline (CoT iter files) ───────────────────────
+# Note: CoT iter files store norm strings if generated with the new pipeline.
+# If they store 'true'/'false', skip SC comparison (legacy format).
 cot_pred_list = []
 cot_accs      = []
 n_votes       = [0] * len(names)
+sc_votes_norm = [defaultdict(int) for _ in names]  # per-name per-norm vote count
+sc_votes_total= [0] * len(names)
 
 for i in range(20):
     pth = COT_ITER_PREFIX + str(i)
@@ -271,23 +323,48 @@ for i in range(20):
     for j, name in enumerate(names):
         if j >= len(cot): break
         try:
-            idx     = int(name.replace('explainethics', '').split('.')[0])
-            true_gt = data[idx]['gt'].lower()
+            idx       = int(name.replace('explainethics', '').split('.')[0])
+            gold_norm = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
         except Exception:
             continue
-        correct = (cot[j] == true_gt)
+        pred_val = str(cot[j]).lower().strip().replace('-', '_')
+        correct = (pred_val == gold_norm)
         cot_acc += correct
         cot_list.append(int(correct))
         n_votes[j] += int(correct)
+        sc_votes_norm[j][pred_val] += 1
+        sc_votes_total[j] += 1
     print(f'CoT iter {i}: acc={cot_acc}')
     cot_accs.append(cot_acc)
     cot_pred_list.append(cot_list)
 
 if cot_pred_list:
-    sc_acc = np.sum(np.where(np.array(n_votes[:len(cot_pred_list[0])]) >=
-                             np.ceil(len(cot_pred_list)/2 + 0.5), 1, 0))
-    print(f'\nSelf-consistency acc: {sc_acc}/{len(names)} = {sc_acc/max(len(names),1):.3f}')
-    print(f'Mean CoT acc:          {np.mean(cot_accs)/max(len(names),1):.3f}')
+    sc_correct = 0
+    for j, name in enumerate(names):
+        if j >= len(sc_votes_total) or sc_votes_total[j] == 0: continue
+        try:
+            idx       = int(name.replace('explainethics', '').split('.')[0])
+            gold_norm = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
+        except Exception:
+            continue
+        # Majority-voted norm
+        sc_pred = max(sc_votes_norm[j], key=sc_votes_norm[j].get)
+        if sc_pred == gold_norm: sc_correct += 1
+
+    sc_acc_final = sc_correct / max(len(names), 1)
+    sc_prec = sc_acc_final  # micro precision == accuracy for exact-match multi-class
+    sc_rec  = sc_acc_final
+    sc_f1   = sc_acc_final
+
+    print(f'\n=== ARGOS vs Baseline (CoT SC) Comparison ===')
+    print(f'Metric    | ARGOS     | CoT SC')
+    print(f'-----------------------------------')
+    print(f'Accuracy  | {accuracy:.4f}    | {sc_acc_final:.4f}')
+    print(f'Precision | {precision:.4f}    | {sc_prec:.4f}')
+    print(f'Recall    | {recall:.4f}    | {sc_rec:.4f}')
+    print(f'F1 Score  | {f1_score:.4f}    | {sc_f1:.4f}')
+    print(f'-----------------------------------')
+    print(f'Mean single CoT acc: {np.mean(cot_accs)/max(len(names),1):.3f}')
 else:
     print('\n[skip] No CoT iter files found — SC comparison skipped.')
 
@@ -338,25 +415,25 @@ for name in list(outs.keys()):
     if not scs or missed_flag:
         continue
     try:
-        idx     = int(name.replace('explainethics', '').split('.')[0])
-        true_gt = data[idx]['gt'].lower()
+        idx       = int(name.replace('explainethics', '').split('.')[0])
+        gold_norm = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
     except Exception:
         continue
 
     mat = torch.stack(scs) / torch.stack(scs).sum(1).reshape(-1, 1)
-    mat = mat[:, 0]  # p(true) = p(norm violated)
+    mat = mat[:, 0]  # p(correct norm) = votes[0] / total votes
 
     # Prepend SC vote if available
     j = name_idx.get(name, None)
     if j is not None and j < len(n_votes) and cot_pred_list:
         n_sc = len(cot_pred_list)
-        sc_p = n_votes[j] / n_sc if true_gt == 'true' else 1 - n_votes[j] / n_sc
+        sc_p = n_votes[j] / n_sc  # fraction of SC iters that voted the gold norm
         mat  = torch.cat([torch.tensor([sc_p]), mat])
 
     lens_all.append(len(mat) - 1)
 
-    start_correct = (mat[0] > 0.5) if true_gt == 'true' else (mat[0] < 0.5)
-    end_correct   = (mat[-1] > 0.5) if true_gt == 'true' else (mat[-1] < 0.5)
+    start_correct = (mat[0] > 0.5)
+    end_correct   = (mat[-1] > 0.5)
 
     if   start_correct and end_correct:       flag_all.append(1)
     elif not start_correct and not end_correct: flag_all.append(0)

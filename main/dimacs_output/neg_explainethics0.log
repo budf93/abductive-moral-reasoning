@@ -1,0 +1,226 @@
+c --- [ banner ] -------------------------------------------------------------
+c 
+c CaDiCaL Radically Simplified CDCL SAT Solver
+c Copyright (c) 2016-2023 A. Biere, M. Fleury, N. Froleyks
+c 
+c Version 1.7.0
+c g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0 -Wall -Wextra -O3 -DNDEBUG
+c Wed Mar 4 21:03:55 WIB 2026 Linux LAPTOP-BKMERSSI 6.6.87.2-microsoft-standard-WSL2 x86_64
+c 
+c --- [ parsing input ] ------------------------------------------------------
+c 
+c reading DIMACS file from '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_explainethics0.cnf'
+c opening file to read '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_explainethics0.cnf'
+c found 'p cnf 5 7' header
+c found falsified original clause
+c parsed 7 clauses in 0.00 seconds process time
+c closing file '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_explainethics0.cnf'
+c after reading 50 bytes 0.0 MB
+c 
+c --- [ options ] ------------------------------------------------------------
+c 
+c all options are set to their default value
+c 
+c --- [ solving ] ------------------------------------------------------------
+c 
+c time measured in process time since initialization
+c 
+c  seconds  reductions  redundant irredundant
+c         MB    restarts       trail    variables
+c          level   conflicts       glue     remaining
+c 
+c 0  0.00  4  0 0   0    0    0  0% 0    0   0  0%
+c 
+c --- [ result ] -------------------------------------------------------------
+c 
+s UNSATISFIABLE
+c 
+c --- [ run-time profiling ] -------------------------------------------------
+c 
+c process time taken by individual solving procedures
+c (percentage relative to process time for solving)
+c 
+c         0.00  186.39% parse
+c         0.00    0.00% search
+c         0.00    0.00% simplify
+c   =================================
+c         0.00    8.47% solve
+c 
+c last line shows process time for solving
+c (percentage relative to total process time)
+c 
+c --- [ statistics ] ---------------------------------------------------------
+c 
+c blocked:                       0         0.00 %  of irredundant clauses
+c   blockings:                   0         0.00    internal
+c   candidates:                  0         0.00    per blocking 
+c   blockres:                    0         0.00    per candidate
+c   pure:                        0         0.00 %  of all variables
+c   pureclauses:                 0         0.00    per pure literal
+c chronological:                 0         0.00 %  of conflicts
+c compacts:                      0         0.00    interval
+c conflicts:                     0         0.00    per second
+c   backtracked:                 0         0.00 %  of conflicts
+c conditioned:                   0         0.00 %  of irredundant clauses
+c   conditionings:               0         0.00    interval
+c   condcands:                   0         0.00    candidate clauses
+c   condassinit:                 0.0       0.00 %  initial assigned
+c   condcondinit:                0.0       0.00 %  initial condition
+c   condautinit:                 0.0       0.00 %  initial autarky
+c   condassrem:                  0.0       0.00 %  final assigned
+c   condcondrem:                 0.000     0.00 %  final conditional
+c   condautrem:                  0.000     0.00 %  final autarky
+c   condprops:                   0         0.00    per candidate
+c covered:                       0         0.00 %  of irredundant clauses
+c   coverings:                   0         0.00    interval
+c   asymmetric:                  0         0.00 %  of covered clauses
+c   blocked:                     0         0.00 %  of covered clauses
+c decisions:                     0         0.00    per second
+c   searched:                    0         0.00    per decision
+c eliminated:                    0         0.00 %  of all variables
+c   elimphases:                  0         0.00    interval
+c   elimrounds:                  0         0.00    per phase
+c   elimtried:                   0         0.00 %  eliminated
+c   elimgates:                   0         0.00 %  gates per tried
+c   elimequivs:                  0         0.00 %  equivalence gates
+c   elimands:                    0         0.00 %  and gates
+c   elimites:                    0         0.00 %  if-then-else gates
+c   elimxors:                    0         0.00 %  xor gates
+c   elimsubst:                   0         0.00 %  substituted
+c   elimres:                     0         0.00    per eliminated
+c   elimrestried:                0         0.00 %  per resolution
+c ext.prop. calls:               0         0.00 %  of queries
+c   propagating:                 0         0.00 %  per eprop-call
+c   explained:                   0         0.00 %  per eprop-call
+c   falsified:                   0         0.00 %  per eprop-call
+c ext.clause calls:              0         0.00 %  of queries
+c   learned:                     0         0.00 %  per called
+c   conflicting:                 0         0.00 %  per learned
+c   propagating:                 0         0.00 %  per learned
+c ext.final check:               0         0.00 %  of queries
+c fixed:                         5       100.00 %  of all variables
+c   failed:                      0         0.00 %  of all variables
+c   probefailed:                 0         0.00 %  per failed
+c   transredunits:               0         0.00 %  per failed
+c   probingphases:               0         0.00    interval
+c   probesuccess:                0         0.00 %  phases
+c   probingrounds:               0         0.00    per phase
+c   probed:                      0         0.00    per failed
+c   hbrs:                        0         0.00    per probed
+c   hbrsizes:                    0         0.00    per hbr
+c   hbreds:                      0         0.00 %  per hbr
+c   hbrsubs:                     0         0.00 %  per hbr
+c   units:                       0         0.00    interval
+c   binaries:                    0         0.00    interval
+c flushed:                       0         0.00 %  per conflict
+c   hyper:                       0         0.00 %  per conflict
+c   flushings:                   0         0.00    interval
+c instantiated:                  0         0.00 %  of tried
+c   instrounds:                  0         0.00 %  of elimrounds
+c learned:                       0         0.00 %  per conflict
+c   bumped:                      5         0.00    per learned
+c   recomputed:                  0         0.00 %  per learned
+c   promoted1:                   0         0.00 %  per learned
+c   promoted2:                   0         0.00 %  per learned
+c   improvedglue:                0         0.00 %  per learned
+c lucky:                         0         0.00 %  of tried
+c   constantzero                 0         0.00 %  of tried
+c   constantone                  0         0.00 %  of tried
+c   backwardone                  0         0.00 %  of tried
+c   backwardzero                 0         0.00 %  of tried
+c   forwardone                   0         0.00 %  of tried
+c   forwardzero                  0         0.00 %  of tried
+c   positivehorn                 0         0.00 %  of tried
+c   negativehorn                 0         0.00 %  of tried
+c   extendbytes:                 0         0.00    bytes and MB
+c learned_lits:                  0         0.00 %  learned literals
+c minimized:                     0         0.00 %  learned literals
+c shrunken:                      0         0.00 %  learned literals
+c minishrunken:                  0         0.00 %  learned literals
+c otfs:                          0         0.00 %  of conflict
+c   subsumed                     0         0.00 %  of conflict
+c   strengthened                 0         0.00 %  of conflict
+c propagations:                  5         0.03 M  per second
+c   coverprops:                  0         0.00 %  of propagations
+c   probeprops:                  0         0.00 %  of propagations
+c   searchprops:                 5       100.00 %  of propagations
+c   transredprops:               0         0.00 %  of propagations
+c   vivifyprops:                 0         0.00 %  of propagations
+c   walkprops:                   0         0.00 %  of propagations
+c reactivated:                   0         0.00 %  of all variables
+c reduced:                       0         0.00 %  per conflict
+c   reductions:                  0         0.00    interval
+c   collections:                 0         0.00    interval
+c rephased:                      0         0.00    interval
+c   rephasedbest:                0         0.00 %  rephased best
+c   rephasedflip:                0         0.00 %  rephased flipping
+c   rephasedinv:                 0         0.00 %  rephased inverted
+c   rephasedorig:                0         0.00 %  rephased original
+c   rephasedrand:                0         0.00 %  rephased random
+c   rephasedwalk:                0         0.00 %  rephased walk
+c rescored:                      0         0.00    interval
+c restarts:                      0         0.00    interval
+c   reused:                      0         0.00 %  per restart
+c   reusedlevels:                0         0.00 %  per restart levels
+c restored:                      0         0.00 %  per weakened
+c   restorations:                0         0.00 %  per extension
+c   literals:                    0         0.00    per restored clause
+c stabilizing:                   0         0.00 %  of conflicts
+c   restartstab:                 0         0.00 %  of all restarts
+c   reusedstab:                  0         0.00 %  per stable restarts
+c substituted:                   0         0.00 %  of all variables
+c   decompositions:              0         0.00    per phase
+c subsumed:                      0         0.00 %  of all clauses
+c   subsumephases:               0         0.00    interval
+c   subsumerounds:               0         0.00    per phase
+c   deduplicated:                0         0.00 %  per subsumed
+c   transreds:                   0         0.00    interval
+c   transitive:                  0         0.00 %  per subsumed
+c   subirr:                      0         0.00 %  of subsumed
+c   subred:                      0         0.00 %  of subsumed
+c   subtried:                    0         0.00    tried per subsumed
+c   subchecks:                   0         0.00    per tried
+c   subchecks2:                  0         0.00 %  per subcheck
+c   elimotfsub:                  0         0.00 %  of subsumed
+c   elimbwsub:                   0         0.00 %  of subsumed
+c   eagersub:                    0         0.00 %  of subsumed
+c   eagertried:                  0         0.00    tried per eagersub
+c strengthened:                  0         0.00 %  of all clauses
+c   elimotfstr:                  0         0.00 %  of strengthened
+c   elimbwstr:                   0         0.00 %  of strengthened
+c ternary:                       0         0.00 %  of resolved
+c   phases:                      0         0.00    interval
+c   htr3:                        0         0.00 %  ternary hyper ternres
+c   htr2:                        0         0.00 %  binary hyper ternres
+c vivified:                      0         0.00 %  of all clauses
+c   vivifications:               0         0.00    interval
+c   vivifychecks:                0         0.00 %  per conflict
+c   vivifysched:                 0         0.00 %  checks per scheduled
+c   vivifyunits:                 0         0.00 %  per vivify check
+c   vivifyinst:                  0         0.00 %  per vivify check
+c   vivifysubs:                  0         0.00 %  per subsumed
+c   vivifystrs:                  0         0.00 %  per strengthened
+c   vivifystrirr:                0         0.00 %  per vivifystrs
+c   vivifystred1:                0         0.00 %  per vivifystrs
+c   vivifystred2:                0         0.00 %  per vivifystrs
+c   vivifystred3:                0         0.00 %  per vivifystrs
+c   vivifydecs:                  0         0.00    per checks
+c   vivifyreused:                0         0.00 %  per decision
+c walked:                        0         0.00    interval
+c   flips:                       0         0.00    per walk
+c   broken:                      0         0.00    per flip
+c weakened:                      0         0.00    average size
+c   extensions:                  0         0.00    interval
+c   flipped:                     0         0.00    per weakened
+c 
+c seconds are measured in process time for solving
+c 
+c --- [ resources ] ----------------------------------------------------------
+c 
+c total process time since initialization:         0.00    seconds
+c total real time since initialization:            0.04    seconds
+c maximum resident set size of process:            3.50    MB
+c 
+c --- [ shutting down ] ------------------------------------------------------
+c 
+c exit 20

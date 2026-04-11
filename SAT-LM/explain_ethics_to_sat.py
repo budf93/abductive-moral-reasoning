@@ -19,7 +19,7 @@ satisfiability, and the results feed into cot_met_explain_ethics.py.
 Key differences from clutrr_to_sat.py
 --------------------------------------
 - Variables are propositional (Bool), not relational (R(A,B)==relation).
-- The query variable is the moral norm label (e.g. 'violate_care_').
+- The query variable is the gold_foundation norm (true label, e.g. 'violate_care_'), not the shown (potentially decoy) label.
 - No PeopleSort enum or relational function R() is needed.
 - The ExplainEthics dataset is loaded from hard_question.json.
 - Labels are written to explain_ethics_labels.csv instead of clutrr_new_labels.csv.
@@ -332,10 +332,11 @@ for file in tqdm(os.listdir(TMP_DIR)):
 
     prob = data[idx]
 
-    # The label field holds the predicted norm from the LLM's translation step.
-    # We append '_' to match the variable naming convention used in sympy symbol names.
-    query_var = prob['label'].replace('-', '_').strip()
-    gt        = prob.get('gt', 'true')  # 'true' or 'false' — whether the label is correct
+    # Use gold_foundation (the true norm) rather than label (which may be a decoy)
+    # to build the SAT formula. This ensures the polarity test encodes the
+    # correct hypothesis, not a planted wrong one.
+    query_var = prob['gold_foundation'].replace('-', '_').strip()
+    gt        = prob.get('gt', 'true')  # 'true' means gold_foundation IS violated
 
     print(f"[explain_ethics_to_sat] Processing {file}, query={query_var}, gt={gt}")
 

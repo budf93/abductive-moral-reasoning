@@ -212,4 +212,8 @@ r_test.json --first 3
         "arguments": "In the middle of the exam, to the bathroom, then, to talk about the exam, to finish the exam"       
     }
 ]
-(venv) fikribudianto@LAPTOP-BKMERSSI:/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data$
+
+
+- mungkin pas bikin prompting llm bias sendiri makanya bikin implikasi sendiri
+- apakah perlu ditambahkan == true di prompting?
+- jelasin setelah prompting itu ngapain 

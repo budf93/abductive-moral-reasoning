@@ -411,9 +411,13 @@ class ExplainEthicsTaskHelper(TaskHelper):
         # The prompt header mirrors the CLUTRR satlm style: docstring context + code scaffold
         header = (
             '"""\n'
-            f'Context: {ex["context"]}\n'
-            f'Explanation: {ex["explanation"]}\n'
+            f'{ex["context"]}\n'
+            'Question: Of these norm violations (violate_care, violate_fairness, violate_loyalty, violate_authority, violate_sanctity, violate_liberty), which one does it most violate?\n'
             '"""\n'
+        )
+        if "explanation" in ex and ex["explanation"]:
+            header += f'# explanation: {ex["explanation"]}\n'
+        header += (
             '# solution in Python:\n'
             'def solution():\n'
         )
@@ -438,9 +442,13 @@ class ExplainEthicsTaskHelper(TaskHelper):
             # Same header as satlm; the CoT paragraph is embedded inside the block
             header = (
                 '"""\n'
-                f'Context: {ex["context"]}\n'
-                f'Explanation: {ex["explanation"]}\n'
+                f'{ex["context"]}\n'
+                'Question: Of these norm violations (violate_care, violate_fairness, violate_loyalty, violate_authority, violate_sanctity, violate_liberty), which one does it most violate?\n'
                 '"""\n'
+            )
+            if "explanation" in ex and ex["explanation"]:
+                header += f'# explanation: {ex["explanation"]}\n'
+            header += (
                 '# Reasoning:\n'
                 '# solution in Python:\n'
                 'def solution():\n'
@@ -470,7 +478,12 @@ class ExplainEthicsTaskHelper(TaskHelper):
         def _fmt(ex, is_train):
             header = (
                 f'# Context: {ex["context"]}\n'
-                f'# Explanation: {ex["explanation"]}\n'
+            )
+            if "explanation" in ex and ex["explanation"]:
+                header += f'# Explanation: {ex["explanation"]}\n'
+            header += (
+                '# Question: Of these norm violations (violate_care, violate_fairness, violate_loyalty, violate_authority, violate_sanctity, violate_liberty), which one does it most violate?\n'
+                '# To answer this question, we write a program to answer the following subquestions:\n'
                 'def solution():\n'
             )
             if is_train and "output" in ex:
