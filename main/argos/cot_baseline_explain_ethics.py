@@ -100,32 +100,40 @@ def load_llm(engine='meta-llama/Llama-3.2-3B-Instruct'):
         )
     return model, tokenizer
 
-# ── Few-shot prompt (identical to cot() in cot_met_explain_ethics.py) ─────────
+# ── Moral norms (must match cot_met_explain_ethics._MORAL_NORMS) ───────────────
+_MORAL_NORMS = [
+    'violate_care', 'violate_fairness', 'violate_loyalty',
+    'violate_authority', 'violate_sanctity', 'violate_liberty',
+]
+NORMS_LIST_STR = ', '.join(_MORAL_NORMS)
+
+# ── Few-shot prompt (norm-agnostic, identical framing to cot() in cot_met) ─────
 FEW_SHOT = (
+    f"The possible moral norm violations are: {NORMS_LIST_STR}.\n"
     "Context: I crush the frog. "
-    "Question: Does this violate care? "
+    f"Question: Of these norm violations ({NORMS_LIST_STR}), which one does this action most violate? "
     "Answer: Let's think step by step. "
     "1. Frogs are animals. 2. Crushing causes physical harm to an animal. "
-    "3. The norm of care is violated if there is physical harm to an animal. "
-    "Therefore the answer is Yes.\n"
+    "3. Causing harm to a living being violates the norm of care. "
+    "Therefore the answer is violate_care.\n"
     "Context: I won my match by moving my ball when the other player wasn't looking. "
-    "Question: Does this violate fairness? "
+    f"Question: Of these norm violations ({NORMS_LIST_STR}), which one does this action most violate? "
     "Answer: Let's think step by step. "
     "1. Moving the ball secretly is cheating. 2. Cheating involves deception. "
     "3. Deception in a match breaks the principles of fairness. "
-    "Therefore the answer is Yes.\n"
+    "Therefore the answer is violate_fairness.\n"
     "Context: I gave my coworker a birthday present. "
-    "Question: Does this violate care? "
+    f"Question: Of these norm violations ({NORMS_LIST_STR}), which one does this action most violate? "
     "Answer: Let's think step by step. "
-    "1. Giving a present is a kind, caring action. 2. No harm is caused. "
-    "Therefore the answer is No.\n"
+    "1. Giving a present is a kind, caring action. 2. No harm is caused to any norm. "
+    "Therefore the answer is none.\n"
     "Context: I ignored my boss's direct order. "
-    "Question: Does this violate authority? "
+    f"Question: Of these norm violations ({NORMS_LIST_STR}), which one does this action most violate? "
     "Answer: Let's think step by step. "
     "1. Ignoring a boss's order is disobedience. "
     "2. Bosses are traditional authority figures. "
-    "3. The norm of authority is violated if there is disobedience towards traditional authority figures. "
-    "Therefore the answer is Yes.\n"
+    "3. Disobeying authority violates the norm of authority. "
+    "Therefore the answer is violate_authority.\n"
 )
 N_FEWSHOT = 4  # number of examples above
 
@@ -133,17 +141,16 @@ N_FEWSHOT = 4  # number of examples above
 def cot_predict(prob, model, tokenizer, device):
     """
     Run one CoT pass on a single example.
-    Returns 'true' if the model predicts the norm is violated, 'false' otherwise.
+    Returns the predicted norm string (e.g. 'violate_fairness') or 'unknown'.
 
     prob dict fields used:
-      prob['context'] – the ethical scenario text
-      prob['label']   – the shown norm (e.g. 'violate_fairness_')
+      prob['context']         – the ethical scenario text
+      prob['gold_foundation'] – the true violated norm (for reference only, not used in prompt)
     """
-    norm_to_eval = prob.get('label', 'the moral norm').replace('violate_', '').replace('_', ' ').strip()
     prompt = (
         FEW_SHOT
         + f"Context: {prob['context']} "
-        + f"Question: Does this violate {norm_to_eval}? "
+        + f"Question: Of these norm violations ({NORMS_LIST_STR}), which one does this action most violate? "
         + "Answer: Let's think step by step."
     )
 
@@ -171,27 +178,22 @@ def cot_predict(prob, model, tokenizer, device):
     except IndexError:
         ans_section = full_response
 
-    # Parse Yes/No from the "Therefore" conclusion
-    ans_prompt = ans_section + ' Therefore, the answer (Yes/No) is '
-    z = ans_prompt.split('Therefore')[1] if 'Therefore' in ans_prompt else ''
+    # Try to find the predicted norm in the "Therefore" clause first
+    predicted_norm = None
+    z = ans_section.split('Therefore')[-1] if 'Therefore' in ans_section else ''
+    for norm in _MORAL_NORMS:
+        if norm in z.lower():
+            predicted_norm = norm
+            break
 
-    if 'Yes' in z:
-        return 'true'
-    elif 'No' in z:
-        return 'false'
-    else:
-        # Fallback: score via NLI (log-prob of completing with Yes vs No)
-        yes_ids  = tokenizer.encode(' Yes', add_special_tokens=False)
-        no_ids   = tokenizer.encode(' No',  add_special_tokens=False)
-        base_ids = tokenizer.encode(ans_prompt, return_tensors='pt').to(device)
-        with torch.no_grad():
-            yes_input = torch.cat([base_ids, torch.tensor([yes_ids]).to(device)], dim=1)
-            no_input  = torch.cat([base_ids, torch.tensor([no_ids]).to(device)],  dim=1)
-            logits_yes = model(yes_input).logits[0, -1, :]
-            logits_no  = model(no_input).logits[0, -1, :]
-            p_yes = logits_yes.softmax(-1)[yes_ids[-1]].item()
-            p_no  = logits_no.softmax(-1)[no_ids[-1]].item()
-        return 'true' if p_yes >= p_no else 'false'
+    # Fallback: scan the full answer section for any norm mention
+    if predicted_norm is None:
+        for norm in _MORAL_NORMS:
+            if norm in ans_section.lower():
+                predicted_norm = norm
+                break
+
+    return predicted_norm if predicted_norm else 'unknown'
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
@@ -243,7 +245,7 @@ def main():
     for current_iter in range(args.start_iter, args.end_iter + 1):
         output_path = OUTPUT_PREFIX + str(current_iter)
         print(f'\n=== Starting Iteration {current_iter} ===')
-        predictions = []   # aligned with names[], same as n_votes expects
+        predictions = []   # aligned with names[], stores 'violate_{norm}' or 'unknown'
         acc = 0
 
         for i, name in enumerate(names):
@@ -252,33 +254,33 @@ def main():
                 prob = data[idx]
             except (ValueError, IndexError, KeyError) as e:
                 print(f'[{i}] skip {name}: {e}')
-                predictions.append('missed')
+                predictions.append('unknown')
                 continue
 
-            true_gt = prob['gt'].lower().strip()  # 'true' or 'false'
+            # Compare against gold_foundation (true norm), not gt (true/false)
+            gold_norm = prob['gold_foundation'].replace('-', '_').lower().strip()
 
             pred = cot_predict(prob, model, tokenizer, device)
             predictions.append(pred)
 
-            correct = (pred == true_gt)
+            correct = (pred == gold_norm)
             if correct: acc += 1
 
-            # Too noisy to print every row for 20 iterations, comment out if needed
-            print(f'[Iter {current_iter} | {i}/{len(names)}] {name}  pred={pred}  gt={true_gt}  {"✓" if correct else "✗"}')
+            print(f'[Iter {current_iter} | {i}/{len(names)}] {name}  pred={pred}  gold={gold_norm}  {"\u2713" if correct else "\u2717"}')
 
-        # ── Save ──────────────────────────────────────────────────────────────────
-        # Save as numpy array of strings (same dtype expected by run_analysis_explainethics.py)
-        # Using open() to prevent np.save from auto-appending .npy
+        # ── Save ─────────────────────────────────────────────────────────────────
+        # Save as numpy array of norm strings (read by run_analysis_explainethics.py)
         with open(output_path, 'wb') as f:
             np.save(f, np.array(predictions, dtype=object), allow_pickle=True)
         # Also save as readable pkl for inspection
         pkl.dump({'names': names, 'predictions': predictions},
                  open(output_path + '_detail.pkl', 'wb'))
 
-        total = len([p for p in predictions if p != 'missed'])
+        total = len([p for p in predictions if p != 'unknown'])
         print(f'=== Iter {current_iter} done ===')
         print(f'Accuracy: {acc}/{total} = {acc/max(total,1):.4f}')
         print(f'Saved to: {output_path}')
+
 
 if __name__ == '__main__':
     main()
