@@ -1125,9 +1125,9 @@ if __name__ == '__main__':
     # Initialize the LLM
     args = Struct(
         # engine='meta-llama/Llama-3.2-3B-Instruct',
-        engine='meta-llama/Llama-3.1-8B-Instruct'
         # engine='Qwen/Qwen2.5-3B-Instruct',
         # engine='Qwen/Qwen2.5-7B-Instruct',
+        engine='meta-llama/Llama-3.1-8B-Instruct',
         max_length=300,
         temperature=1,
     )
