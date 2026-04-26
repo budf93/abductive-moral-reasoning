@@ -440,12 +440,14 @@ for name in list(outs.keys()):
     elif not start_correct and end_correct:
         flag_all.append(2)
         for z in range(len(mat)):
-            if (mat[z] > 0.5 if true_gt == 'true' else mat[z] < 0.5):
+            # mat[z] = p(correct norm); good flip = model crosses into correct territory
+            if mat[z] > 0.5:
                 first_good_flip.append(z); break
     else:
         flag_all.append(3)
         for z in range(len(mat)):
-            if (mat[z] < 0.5 if true_gt == 'true' else mat[z] > 0.5):
+            # bad flip = model crosses out of correct territory
+            if mat[z] < 0.5:
                 first_bad_flip.append(z); break
 
     scs_all.append(mat.clone())

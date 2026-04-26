@@ -994,6 +994,20 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
         elif len(split) == 5:
             varname = '['+split[3] + '] is the ' + split[0] + '-' + split[1] + ' of [' + split[2] + ']'
         prob['jbprompt'].append(varname)
+
+    print(f"\n{'*'*50}")
+    print(f"ORIGINAL BACKBONE (Before any inference)")
+    print(f"{'*'*50}")
+    print("ORIGINAL BACKBONE (Positive):")
+    for b in pb:
+        if str(np.abs(b)) in mapping:
+            print(f"  + {mapping[str(np.abs(b))]}")
+    print("ORIGINAL BACKBONE (Negative):")
+    for b in nb:
+        if str(np.abs(b)) in mapping:
+            print(f"  - {mapping[str(np.abs(b))]}")
+    print(f"{'*'*50}\n")
+
     while True:
         loopcount += 1
         if loopcount > looplim:
@@ -1041,6 +1055,22 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
         jb = list(set(pb).intersection(set(nb)))
 
         ab = list(set(np.abs(pb)).union(set(np.abs(nb))))
+
+        print(f"\n{'='*40}")
+        print(f"ITERATION {loopcount} STATE")
+        print(f"{'='*40}")
+        print("OVERALL BACKBONE (Positive):")
+        for b in pb:
+            if str(np.abs(b)) in mapping:
+                print(f"  + {mapping[str(np.abs(b))]}")
+        print("OVERALL BACKBONE (Negative):")
+        for b in nb:
+            if str(np.abs(b)) in mapping:
+                print(f"  - {mapping[str(np.abs(b))]}")
+        print("\nADDED COMMONSENSE RULES SO FAR:")
+        for r in prob.get('newrules', []):
+            print(f"  * {r}")
+        print(f"{'='*40}\n")
         
         
            
@@ -1286,8 +1316,12 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                     prob['newrules'] = [varname]
                 else: prob['newrules'].append(varname)
                 
-                print(f"\\n[BACKBONE UPDATE] Inferred new variable: {nv}")
-                print(f"[BACKBONE UPDATE] Text: {varname}")
+                print(f"\n{'+'*40}")
+                print(f"NEW ADDED VARIABLE IN ITERATION {loopcount}")
+                print(f"{'+'*40}")
+                print(f"  + {rule}")
+                print(f"  + {varname} (ID: {nv})")
+                print(f"{'+'*40}\n")
                 # breakpoint()
                 # print('newrules')
                 # split = mapping[str(np.abs(nvi))].split('_')
@@ -1318,6 +1352,19 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                     print('decided with cot')
                     # print((cot_thresh-0.05*(len(prob['newrules'])/2-1))*ps.sum(), ps)
                     answs = [{'pos': [], 'neg': [0]}, {'pos': [0], 'neg': []}]
+
+                    print(f"\n{'='*40}")
+                    print("FINAL PREMISES (Backbone upon violation determination via CoT):")
+                    print("Positive:")
+                    for b in pb:
+                        if str(np.abs(b)) in mapping: print(f"  + {mapping[str(np.abs(b))]}")
+                    print("Negative:")
+                    for b in nb:
+                        if str(np.abs(b)) in mapping: print(f"  - {mapping[str(np.abs(b))]}")
+                    print("ADDED COMMONSENSE RULES:")
+                    for r in prob.get('newrules', []): print(f"  * {r}")
+                    print(f"{'='*40}\n")
+
                     return vv + ['By COT'], answs[ps.argmax()], bb, False, rule_scores, True, scs, prompts
                     sc_hist.append(int(ps.argmax()))
                 
@@ -1380,6 +1427,19 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
         if len(new_sols['pos']) == 0 or len(new_sols['neg']) == 0:
             # break
             print("both pos and neg are empty")
+
+            print(f"\n{'='*40}")
+            print("FINAL PREMISES (Backbone upon violation determination via SAT):")
+            print("Positive:")
+            for b in pb:
+                if str(np.abs(b)) in mapping: print(f"  + {mapping[str(np.abs(b))]}")
+            print("Negative:")
+            for b in nb:
+                if str(np.abs(b)) in mapping: print(f"  - {mapping[str(np.abs(b))]}")
+            print("ADDED COMMONSENSE RULES:")
+            for r in prob.get('newrules', []): print(f"  * {r}")
+            print(f"{'='*40}\n")
+
             return vv, new_sols, bb, False, rule_scores, False, scs, prompts
     # print('done')
     print('***END REACHED***')                        
@@ -1389,9 +1449,15 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
     scs.append(ps.clone())
     print('cot: ', ps)
     
-    print("\\n[FINAL BACKBONE]")
-    print(f"Positives ({len(bb['pos'])} items): {bb['pos']}")
-    print(f"Negatives ({len(bb['neg'])} items): {bb['neg']}")
+    print(f"\n{'='*40}")
+    print("FINAL PREMISES (Backbone upon end of loop via CoT):")
+    print("Positive:")
+    for b in bb['pos']:
+        if str(np.abs(b)) in mapping: print(f"  + {mapping[str(np.abs(b))]}")
+    print("Negative:")
+    for b in bb['neg']:
+        if str(np.abs(b)) in mapping: print(f"  - {mapping[str(np.abs(b))]}")
+    print(f"{'='*40}\n")
 
     # return ['True', 'False'][torch.argmax(ps)]
     answs = [{'pos': [], 'neg': [0]}, {'pos': [0], 'neg': []}]

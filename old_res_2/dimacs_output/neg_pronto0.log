@@ -9,13 +9,12 @@ c Wed Mar 4 21:03:55 WIB 2026 Linux LAPTOP-BKMERSSI 6.6.87.2-microsoft-standard-
 c 
 c --- [ parsing input ] ------------------------------------------------------
 c 
-c reading DIMACS file from '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_explainethics0.cnf'
-c opening file to read '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_explainethics0.cnf'
-c found 'p cnf 5 7' header
-c found falsified original clause
-c parsed 7 clauses in 0.00 seconds process time
-c closing file '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_explainethics0.cnf'
-c after reading 50 bytes 0.0 MB
+c reading DIMACS file from '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_pronto0.cnf'
+c opening file to read '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_pronto0.cnf'
+c found 'p cnf 5 5' header
+c parsed 5 clauses in 0.00 seconds process time
+c closing file '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_pronto0.cnf'
+c after reading 38 bytes 0.0 MB
 c 
 c --- [ options ] ------------------------------------------------------------
 c 
@@ -29,22 +28,26 @@ c  seconds  reductions  redundant irredundant
 c         MB    restarts       trail    variables
 c          level   conflicts       glue     remaining
 c 
-c 0  0.00  4  0 0   0    0    0  0% 0    0   0  0%
+c *  0.00  4  0 0   0    0    0  0% 0    2   3 60%
+c l  0.00  4  0 0   0    0    0  0% 0    2   3 60%
+c 1  0.00  4  0 0   0    0    0  0% 0    2   3 60%
 c 
 c --- [ result ] -------------------------------------------------------------
 c 
-s UNSATISFIABLE
+s SATISFIABLE
+v 1 2 -3 -4 -5 0
 c 
 c --- [ run-time profiling ] -------------------------------------------------
 c 
 c process time taken by individual solving procedures
 c (percentage relative to process time for solving)
 c 
-c         0.00  186.39% parse
-c         0.00    0.00% search
+c         0.00   95.30% parse
+c         0.00   14.10% search
+c         0.00   13.25% lucky
 c         0.00    0.00% simplify
 c   =================================
-c         0.00    8.47% solve
+c         0.00   20.10% solve
 c 
 c last line shows process time for solving
 c (percentage relative to total process time)
@@ -98,7 +101,7 @@ c   learned:                     0         0.00 %  per called
 c   conflicting:                 0         0.00 %  per learned
 c   propagating:                 0         0.00 %  per learned
 c ext.final check:               0         0.00 %  of queries
-c fixed:                         5       100.00 %  of all variables
+c fixed:                         2        40.00 %  of all variables
 c   failed:                      0         0.00 %  of all variables
 c   probefailed:                 0         0.00 %  per failed
 c   transredunits:               0         0.00 %  per failed
@@ -123,8 +126,8 @@ c   recomputed:                  0         0.00 %  per learned
 c   promoted1:                   0         0.00 %  per learned
 c   promoted2:                   0         0.00 %  per learned
 c   improvedglue:                0         0.00 %  per learned
-c lucky:                         0         0.00 %  of tried
-c   constantzero                 0         0.00 %  of tried
+c lucky:                         1       100.00 %  of tried
+c   constantzero                 1       100.00 %  of tried
 c   constantone                  0         0.00 %  of tried
 c   backwardone                  0         0.00 %  of tried
 c   backwardzero                 0         0.00 %  of tried
@@ -140,10 +143,10 @@ c minishrunken:                  0         0.00 %  learned literals
 c otfs:                          0         0.00 %  of conflict
 c   subsumed                     0         0.00 %  of conflict
 c   strengthened                 0         0.00 %  of conflict
-c propagations:                  5         0.03 M  per second
+c propagations:                  2         0.01 M  per second
 c   coverprops:                  0         0.00 %  of propagations
 c   probeprops:                  0         0.00 %  of propagations
-c   searchprops:                 5       100.00 %  of propagations
+c   searchprops:                 2       100.00 %  of propagations
 c   transredprops:               0         0.00 %  of propagations
 c   vivifyprops:                 0         0.00 %  of propagations
 c   walkprops:                   0         0.00 %  of propagations
@@ -210,7 +213,7 @@ c walked:                        0         0.00    interval
 c   flips:                       0         0.00    per walk
 c   broken:                      0         0.00    per flip
 c weakened:                      0         0.00    average size
-c   extensions:                  0         0.00    interval
+c   extensions:                  1         0.00    interval
 c   flipped:                     0         0.00    per weakened
 c 
 c seconds are measured in process time for solving
@@ -218,9 +221,9 @@ c
 c --- [ resources ] ----------------------------------------------------------
 c 
 c total process time since initialization:         0.00    seconds
-c total real time since initialization:            0.04    seconds
+c total real time since initialization:            0.03    seconds
 c maximum resident set size of process:            3.50    MB
 c 
 c --- [ shutting down ] ------------------------------------------------------
 c 
-c exit 20
+c exit 10

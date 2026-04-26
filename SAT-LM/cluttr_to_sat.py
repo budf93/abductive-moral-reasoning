@@ -156,6 +156,8 @@ import json
 import random
 from tqdm import tqdm
 for file in tqdm(os.listdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp')):
+    if 'clutrr' not in file:
+        continue
     skip_problem=False
 
 # if 1 > 0:

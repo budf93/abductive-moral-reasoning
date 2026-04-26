@@ -32,7 +32,7 @@ class TaskHelper:
             return ProofD5TaskHelper(style)
         elif taskname == "clutrr":
             return CLUTRRTaskHelper(style)
-        elif taskname == "proofd5":
+        elif taskname == "proofd5" or taskname == "pronto":
             return ProofD5TaskHelper(style)
         elif taskname == "arlsat":
             return ArLSATTaskHelper(style)
@@ -412,6 +412,7 @@ class ExplainEthicsTaskHelper(TaskHelper):
         header = (
             '"""\n'
             f'{ex["context"]}\n'
+            # f'Question: Does this violate {ex.get("label", "")}?\n'
             'Question: Of these norm violations (violate_care, violate_fairness, violate_loyalty, violate_authority, violate_sanctity, violate_liberty), which one does it most violate?\n'
             '"""\n'
         )
@@ -443,6 +444,7 @@ class ExplainEthicsTaskHelper(TaskHelper):
             header = (
                 '"""\n'
                 f'{ex["context"]}\n'
+                # f'Question: Does this violate {ex.get("label", "")}?\n'
                 'Question: Of these norm violations (violate_care, violate_fairness, violate_loyalty, violate_authority, violate_sanctity, violate_liberty), which one does it most violate?\n'
                 '"""\n'
             )
@@ -482,6 +484,7 @@ class ExplainEthicsTaskHelper(TaskHelper):
             if "explanation" in ex and ex["explanation"]:
                 header += f'# Explanation: {ex["explanation"]}\n'
             header += (
+                # f'# Question: Does this violate {ex.get("label", "")}?\n'
                 '# Question: Of these norm violations (violate_care, violate_fairness, violate_loyalty, violate_authority, violate_sanctity, violate_liberty), which one does it most violate?\n'
                 '# To answer this question, we write a program to answer the following subquestions:\n'
                 'def solution():\n'

@@ -1,9 +1,6 @@
-Selamat pagi Pak Ari,
-
-Saya ingin membahas mengenai pendekatan ARGOS untuk tugas akhir saya. Saya rasa, boleh jadi approach dari paper ARGOS mungkin kurang cocok untuk dataset ExplainEthics. 
-
-Pendekatan dari paper ARGOS bertujuan untuk menentukan apakah suatu query = Q benar atau salah dengan cara menambah premis baru sampai query tersebut menjadi benar atau salah. Karena ARGOS hanya menambah premis baru sampai ketahuan query benar atau salah, prediksi yang dihasilkan oleh ARGOS hanya terbatas pada Q atau not(Q) sehingga tidak bisa mengubah prediksi di tengah jalan. 
-
-Pada eksperimen awal, query Q merupakan pertanyaan yang bertujuan untuk bertanya apakah suatu violation telah dilakukan pada suatu konteks yang mana Q sendiri saya ambil dari dataset ExplainEthics. Lalu, saya coba menjawab query Q dengan memprediksi apakah Q atau not(Q) terpenuhi. Saat ini, saya mencoba agar query Q berbunyi "of these moral violations, which one does this action most violate?" lalu saya mencoba memprediksi jawaban dari query tersebut. Tetapi, pendekatan ini juga mungkin kurang cocok karena alasan yang sama seperti alasan di atas, yaitu kalau kita sudah generate SAT formula di awal untuk memprediksi jawaban dari query Q, maka kita tidak bisa mengubah prediksi di tengah jalan. Walaupun begitu, untuk sekarang saya tetap menjalankan eksperimen untuk pendekatan ini untuk memastikan apakah memang benar pendekatan ini masih kurang cocok untuk dataset ExplainEthics. 
-
-Sekian dari saya. Untuk saat ini, saya berencana untuk mencoba cara lain agar pendekatan ini berhasil untuk dataset ExplainEthics. Saya menerima saran Bapak apabila Bapak memiliki saran terkait pendekatan yang perlu saya ambil untuk tugas akhir. Terima kasih.
+- coba liat utuk setiap data point kapan dia lgsg solve sat, kapan dia ke llm, kapan dia generate new commonsense, hitung metric mana yang lgsg sat mana yg llm mana yg inconclusive dsb
+- buat rq1=Does augmenting propositions incrementally result in better accuracy of the generated answers compared to zero-shot prompting/chain-of-thought prompting? didetailin accuracy buat pure sat accuracy sat + llm dsb
+- di translation prompt coba antara 6 choice/pure context dan coba cek apakah lebih faithful, coba llm yg lebih gede  
+- di accuracynya dipilah2
+- cek premisnya jangan langsung menjembatani terus loncat ke violate_norm, as is aja, mesti step by step, faithful aja
+- coba cek dari p ^ c |- q, isi c nya apa aja

@@ -9,12 +9,12 @@ c Wed Mar 4 21:03:55 WIB 2026 Linux LAPTOP-BKMERSSI 6.6.87.2-microsoft-standard-
 c 
 c --- [ parsing input ] ------------------------------------------------------
 c 
-c reading DIMACS file from '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/pos_explainethics0.cnf'
-c opening file to read '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/pos_explainethics0.cnf'
-c found 'p cnf 5 7' header
-c parsed 7 clauses in 0.00 seconds process time
-c closing file '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/pos_explainethics0.cnf'
-c after reading 49 bytes 0.0 MB
+c reading DIMACS file from '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/pos_pronto0.cnf'
+c opening file to read '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/pos_pronto0.cnf'
+c found 'p cnf 5 5' header
+c parsed 5 clauses in 0.00 seconds process time
+c closing file '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/pos_pronto0.cnf'
+c after reading 39 bytes 0.0 MB
 c 
 c --- [ options ] ------------------------------------------------------------
 c 
@@ -28,26 +28,26 @@ c  seconds  reductions  redundant irredundant
 c         MB    restarts       trail    variables
 c          level   conflicts       glue     remaining
 c 
-c *  0.00  4  0 0   0    0    0  0% 0    0   0  0%
-c l  0.00  4  0 0   0    0    0  0% 0    0   0  0%
-c 1  0.00  4  0 0   0    0    0  0% 0    0   0  0%
+c *  0.00  4  0 0   0    0    0  0% 0    2   0  0%
+c l  0.00  4  0 0   0    0    0  0% 0    2   0  0%
+c 1  0.00  4  0 0   0    0    0  0% 0    2   0  0%
 c 
 c --- [ result ] -------------------------------------------------------------
 c 
 s SATISFIABLE
-v 1 2 3 4 5 0
+v 1 -2 -3 -4 -5 0
 c 
 c --- [ run-time profiling ] -------------------------------------------------
 c 
 c process time taken by individual solving procedures
 c (percentage relative to process time for solving)
 c 
-c         0.00  129.80% parse
-c         0.00   13.73% search
-c         0.00   12.55% lucky
+c         0.00  134.07% parse
+c         0.00   22.96% search
+c         0.00   20.74% lucky
 c         0.00    0.00% simplify
 c   =================================
-c         0.00   11.71% solve
+c         0.00   12.88% solve
 c 
 c last line shows process time for solving
 c (percentage relative to total process time)
@@ -143,7 +143,7 @@ c minishrunken:                  0         0.00 %  learned literals
 c otfs:                          0         0.00 %  of conflict
 c   subsumed                     0         0.00 %  of conflict
 c   strengthened                 0         0.00 %  of conflict
-c propagations:                  5         0.02 M  per second
+c propagations:                  5         0.04 M  per second
 c   coverprops:                  0         0.00 %  of propagations
 c   probeprops:                  0         0.00 %  of propagations
 c   searchprops:                 5       100.00 %  of propagations
@@ -221,7 +221,7 @@ c
 c --- [ resources ] ----------------------------------------------------------
 c 
 c total process time since initialization:         0.00    seconds
-c total real time since initialization:            0.04    seconds
+c total real time since initialization:            0.03    seconds
 c maximum resident set size of process:            3.50    MB
 c 
 c --- [ shutting down ] ------------------------------------------------------

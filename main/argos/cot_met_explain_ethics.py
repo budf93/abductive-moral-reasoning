@@ -543,23 +543,31 @@ def cot(prob, n=5):
     few_shot = (
         f"The possible moral norm violations are: {norms_list_str}.\n"
         "Context: I crush the frog. "
+        # f"Question: Does this violate violate_care? Of these norm violations, which one does this action most violate? "
+        # f"Question: Does this violate violate_care? "
         f"Question: Of these norm violations, which one does this action most violate? "
         "Answer: Let's think step by step. "
         "1. Frogs are animals. 2. Crushing causes physical harm to an animal. "
         "3. Causing harm to a living being violates the norm of care. "
         "Therefore the answer is violate_care.\n"
         "Context: I won my match by moving my ball when the other player wasn't looking. "
+        # f"Question: Does this violate violate_fairness? Of these norm violations, which one does this action most violate? "
+        # f"Question: Does this violate violate_fairness? "
         f"Question: Of these norm violations, which one does this action most violate? "
         "Answer: Let's think step by step. "
         "1. Moving the ball secretly is cheating. 2. Cheating involves deception. "
         "3. Deception in a match breaks the principles of fairness. "
         "Therefore the answer is violate_fairness.\n"
         "Context: I gave my coworker a birthday present. "
+        # f"Question: Does this violate none? Of these norm violations, which one does this action most violate? "
+        # f"Question: Does this violate none? "
         f"Question: Of these norm violations, which one does this action most violate? "
         "Answer: Let's think step by step. "
         "1. Giving a present is a kind, caring action. 2. No harm is caused to any norm. "
         "Therefore the answer is none.\n"
         "Context: I ignored my boss's direct order. "
+        # f"Question: Does this violate violate_authority? Of these norm violations, which one does this action most violate? "
+        # f"Question: Does this violate violate_authority? "
         f"Question: Of these norm violations, which one does this action most violate? "
         "Answer: Let's think step by step. "
         "1. Ignoring a boss's order is disobedience. "
@@ -574,6 +582,8 @@ def cot(prob, n=5):
     prompt = (
         few_shot
         + f"Context: {prob['context']} "
+        # + f"Question: Does this violate {prob.get('label', '')}? "
+        # + f"Question: Does this violate {prob.get('label', '')}? Of these norm violations ({norms_list_str}), which one does this action most violate? "
         + f"Question: Of these norm violations ({norms_list_str}), "
         + "which one does this action most violate? "
         + "Answer: Let's think step by step."
@@ -780,6 +790,19 @@ def next_var(
         else:
             prob['jbprompt'].append(f'{pred_name} is violated')
 
+    print(f"\n{'*'*50}")
+    print(f"ORIGINAL BACKBONE (Before any inference)")
+    print(f"{'*'*50}")
+    print("ORIGINAL BACKBONE (Positive):")
+    for b in pb:
+        if str(np.abs(b)) in mapping:
+            print(f"  + {mapping[str(np.abs(b))].strip('_')}")
+    print("ORIGINAL BACKBONE (Negative):")
+    for b in nb:
+        if str(np.abs(b)) in mapping:
+            print(f"  - {mapping[str(np.abs(b))].strip('_')}")
+    print(f"{'*'*50}\n")
+
     # ---------------------------------------------------------------------------
     # Main loop: iteratively refine backbone via LLM-generated implication rules
     # ---------------------------------------------------------------------------
@@ -822,6 +845,22 @@ def next_var(
         pb = bb['pos']
         jb = list(set(pb).intersection(set(nb)))
         ab = list(set(np.abs(pb)).union(set(np.abs(nb))))
+
+        print(f"\n{'='*40}")
+        print(f"ITERATION {loopcount} STATE")
+        print(f"{'='*40}")
+        print("OVERALL BACKBONE (Positive):")
+        for b in pb:
+            if str(np.abs(b)) in mapping:
+                print(f"  + {mapping[str(np.abs(b))].strip('_')}")
+        print("OVERALL BACKBONE (Negative):")
+        for b in nb:
+            if str(np.abs(b)) in mapping:
+                print(f"  - {mapping[str(np.abs(b))].strip('_')}")
+        print("\nADDED COMMONSENSE RULES SO FAR:")
+        for r in prob.get('newrules', []):
+            print(f"  * {r}")
+        print(f"{'='*40}\n")
 
         probs = torch.tensor([-10000, -100000])
         p1, p2 = -1, -1
@@ -910,8 +949,12 @@ def next_var(
         else:
             prob['newrules'].append(varname)
 
-        print(f'\n[BACKBONE UPDATE] Inferred new variable: {nv}')
-        print(f'[BACKBONE UPDATE] Text: {varname}')
+        print(f"\n{'+'*40}")
+        print(f"NEW ADDED VARIABLE IN ITERATION {loopcount}")
+        print(f"{'+'*40}")
+        print(f"  + {rule}")
+        print(f"  + {varname} (ID: {nv})")
+        print(f"{'+'*40}\n")
 
         # Re-run CoT with the updated rules included in the prompt
         cot_out = cot(prob)
@@ -925,6 +968,19 @@ def next_var(
         if ps_softmax.max() >= cot_thresh:
             print(f'[next_var] CoT confident enough at {ps_softmax.max()}, stopping')
             answs = [{'pos': [], 'neg': [0]}, {'pos': [0], 'neg': []}]
+            
+            print(f"\n{'='*40}")
+            print("FINAL PREMISES (Backbone upon violation determination):")
+            print("Positive:")
+            for b in pb:
+                if str(np.abs(b)) in mapping: print(f"  + {mapping[str(np.abs(b))].strip('_')}")
+            print("Negative:")
+            for b in nb:
+                if str(np.abs(b)) in mapping: print(f"  - {mapping[str(np.abs(b))].strip('_')}")
+            print("ADDED COMMONSENSE RULES:")
+            for r in prob.get('newrules', []): print(f"  * {r}")
+            print(f"{'='*40}\n")
+
             return vv + ['By COT'], answs[ps.argmax()], bb, False, rule_scores, True, scs, prompts
 # <<< [ExplainEthics Adaptation] END: next_var backbone-driven inference loop
 
@@ -965,6 +1021,7 @@ if __name__ == '__main__':
 
     # [ExplainEthics Adaptation] Load the SAT solver results CSV produced by parse_gen.py
     # (same format as for CLUTRR: columns are index, filename, pos_result, neg_result)
+    DIMACS_DIR = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/'
     c = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs_csvs/solver_finished.csv'
     c_file = open(c, 'r')
     cr = csv.reader(c_file)
@@ -1023,6 +1080,27 @@ if __name__ == '__main__':
             gold_norm = labels[row[1]]
             vv = (sat_norm == gold_norm)
             print(f"[main] {row[1]} pre-solved: norm='{sat_norm}' vs gold='{gold_norm}' → {'CORRECT' if vv else 'WRONG'}")
+            
+            p = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + row[1]
+            try:
+                bb = get_bb(p, seedrun=seedrun)
+                em = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_' + row[1][:-4] + '.maptxt'
+                maptxt = open(em, 'r').read()
+                maptxt = maptxt.replace(" ", " \"").replace(",", "\",").replace(":", "\":").replace("{", "{\"").replace("}", "\"}")
+                mapping = json.loads(maptxt)
+                
+                print(f"\n{'='*40}")
+                print("FINAL PREMISES (Backbone upon violation determination via SAT):")
+                print("Positive:")
+                for b in bb['pos']:
+                    if str(np.abs(b)) in mapping: print(f"  + {mapping[str(np.abs(b))].strip('_')}")
+                print("Negative:")
+                for b in bb['neg']:
+                    if str(np.abs(b)) in mapping: print(f"  - {mapping[str(np.abs(b))].strip('_')}")
+                print(f"{'='*40}\n")
+            except Exception as e:
+                print(f"[main] Could not print backbone for {row[1]}: {e}")
+
             all_outs[row[1]] = (vv, {'pos': ['dummy'], 'neg': []}, None, False, {}, False, [], [])
             continue  # SKIP adding to names so it doesn't run through the LLM loop!
 
@@ -1046,8 +1124,10 @@ if __name__ == '__main__':
 
     # Initialize the LLM
     args = Struct(
-        engine='meta-llama/Llama-3.2-3B-Instruct',
+        # engine='meta-llama/Llama-3.2-3B-Instruct',
+        engine='meta-llama/Llama-3.1-8B-Instruct'
         # engine='Qwen/Qwen2.5-3B-Instruct',
+        # engine='Qwen/Qwen2.5-7B-Instruct',
         max_length=300,
         temperature=1,
     )

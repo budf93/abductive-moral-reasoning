@@ -797,5 +797,7 @@ class ExplainEthicsEvaluator(TaskEvaluator):
 # <<< [ExplainEthics Adaptation] END: ExplainEthicsEvaluator
 
 def get_task_evaluator(taskname):
+    if taskname.lower() == "pronto":
+        taskname = "proofd5"
     return EVALUATOR_REGISTRY[taskname.lower()]
 

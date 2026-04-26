@@ -88,7 +88,7 @@ with no_ssl_verification():
     API_ERROR_IDENTIFIER = "OPENAI Error"
 # 1. Update the models list to include your local options
 models = ['gpt-3.5-turbo-instruct', 'code-davinci-002']
-local_models = ['HuggingFaceTB/SmolLM2-1.7B-Instruct', 'meta-llama/Llama-2-13b-chat-hf', 'Qwen/Qwen2.5-Coder-3B-Instruct']
+local_models = ['HuggingFaceTB/SmolLM2-1.7B-Instruct', 'meta-llama/Llama-2-13b-chat-hf', 'Qwen/Qwen2.5-Coder-3B-Instruct', 'Qwen/Qwen2.5-Coder-7B-Instruct']
 print('done api-utils')
 def register_query_args(parser):
     # parser.add_argument('--engine', default='gpt-3.5-turbo-instruct', choices=models)

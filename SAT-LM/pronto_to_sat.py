@@ -110,10 +110,12 @@ def to_dimacs_formula(sympy_cnf, dimacs_mapping=None):
 from sympy import *
 import os
 
-for file in os.listdir('/home/XXXX/SAT-LM/tmp_good_prontoqa/'):
+for file in os.listdir('/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp/'):
 # if 1 > 0:
+    if not file.startswith('pronto'):
+        continue
 
-    file = '/home/XXXX/SAT-LM/tmp_good_prontoqa/' + file
+    file = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp/' + file
     # file = '/home/XXXX/SAT-LM/tmp/94a88eb2cc77dbb6.py'
     lines = open(file, 'r').readlines()
 
@@ -128,7 +130,7 @@ for file in os.listdir('/home/XXXX/SAT-LM/tmp_good_prontoqa/'):
     vars_done = False
     start_premise=False
     for line in lines[2:]:
-        if "x = Const('x', ThingsSort)" in line: break
+        if "Const" in line or "precond = []" in line or "=" not in line: break
         split = line.split('=')
         # funcs.append(line.split(' =')[0])
         name = split[0].strip()
@@ -282,7 +284,7 @@ for file in os.listdir('/home/XXXX/SAT-LM/tmp_good_prontoqa/'):
         # print(line)
         # print('tmp:', tmp)
     final = []
-    breakpoint()
+    # breakpoint()
     # breakpoint()
     for line in sym_lines:
         # print(line)
@@ -351,10 +353,10 @@ for file in os.listdir('/home/XXXX/SAT-LM/tmp_good_prontoqa/'):
         # for clause in f_dimacs:
         #     print(clause)
         # print(f_dimacs)
-        dimacs = open('/home/XXXX/LLM-project/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.cnf', 'w')
+        dimacs = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.cnf', 'w')
         dimacs.write(str(f_dimacs))
         dimacs.close()
-        maptxt = open('/home/XXXX/LLM-project/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.maptxt', 'w')
+        maptxt = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.maptxt', 'w')
         import numpy as np
         # np.save(mapping, 
         # acs.mapping)
@@ -362,7 +364,7 @@ for file in os.listdir('/home/XXXX/SAT-LM/tmp_good_prontoqa/'):
         maptxt.close() 
         # breakpoint()
 
-        mapping = open('/home/XXXX/LLM-project/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.mapping', 'wb')
+        mapping = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + q + '_' + file.split('/')[-1][:-3] + '.mapping', 'wb')
         np.save(mapping, f_dimacs.mapping)
         mapping.close()
 

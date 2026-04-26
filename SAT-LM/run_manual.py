@@ -100,6 +100,7 @@ class LLM():
         # self.args['engine'] = 'meta-llama/Meta-Llama-3-70B'
         # self.args['engine'] = 'meta-llama/Llama-2-13b-chat-hf'
         # self.args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
+        # self.args['engine'] = 'Qwen/Qwen2.5-Coder-7B-Instruct'
         self.args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
         # model_args = {'max_length': 20000, 'hidden_size':20000}
         self.args = Struct(**self.args)
@@ -265,6 +266,8 @@ def manual_query_result_filename_func(args):
 
 def read_manual_prompt(task, prompt_id, style_template):
     # prompt_lines = read_jsonline(f'manual_prompts/{task}.jsonline')
+    if task == "pronto":
+        task = "prontoqa_proofd5"
     prompt_lines = read_jsonline('manual_prompts/' + str(task) + '.jsonline')
 
     d = dict([(x["id"], x) for x in prompt_lines])

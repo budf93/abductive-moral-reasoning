@@ -1,4 +1,4 @@
-﻿import os
+import os
 import shutil
 import numpy as np
 import time
@@ -17,7 +17,7 @@ USER_PATH = '/home/XXXX/XXXX/fs_backup_feb13/'
 os.environ["CURL_CA_BUNDLE"]=""
 os.environ["REQUESTS_CA_BUNDLE"]=""
 # os.environ['TRANSFORMERS_CACHE'] = USER_PATH + '/.cache/huggingface/hub'
-cache_dir = '/media/data1/XXXX/hub/'
+cache_dir = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/.cache/huggingface/hub'
 os.environ['TRANSFORMERS_CACHE'] = cache_dir
 os.environ['HF_HOME'] = cache_dir
 # os.environ['HF_HUB_OFFLINE'] ='1'
@@ -376,7 +376,7 @@ def get_sol(file, lim=10000, del_sols=None, seedrun=0):
             count += 1
             if count > lim:
                 break
-            os.system(USER_PATH + '/sat_gen/sat_tools/postprocess/cadical/build/cadical ' + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1]) + '> ' + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1])[:-4] + '.log')
+            os.system('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/cadical/build/cadical ' + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1]) + '> ' + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1])[:-4] + '.log')
             
             cf = open( '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1])[:-4] + '.log', 'r')
 
@@ -449,7 +449,7 @@ def get_bb(file, del_sols=None, seedrun=0):
                 cf.write(write_str)
                 cf.close()
         # print('running cadical')
-        os.system("timeout 5000 " + USER_PATH + "/LLM-project/cadiback/cadiback " + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1]) + '> '  + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/'+ str(file.split('/')[-1])[:-4] + ".bbone")
+        os.system("timeout 5000 /mnt/c/Tugas_Akhir/ARGOS_public_anon/main/cadiback/cadiback " + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1]) + '> '  + '/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/'+ str(file.split('/')[-1])[:-4] + ".bbone")
         #   
         bbone= open('/'.join(file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + str(file.split('/')[-1])[:-4] + ".bbone", 'r')
         lines = bbone.readlines()
@@ -677,10 +677,10 @@ def next_var(bb, file, thresh=2.0, dynamic=False, llm=None, lim=100, task='pront
     for f in files:
         for s in sfx:
             if 'pos' in f:
-                shutil.copy(f[:-3] + s, USER_PATH + '/LLM-project/workfiles' + str(seedrun) + '/' + 'pos_tmp.' + s)
+                shutil.copy(f[:-3] + s, '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) + '/' + 'pos_tmp.' + s)
             else:
-                shutil.copy(f[:-3] + s, USER_PATH + '/LLM-project/workfiles' + str(seedrun) + '/' + 'neg_tmp.' + s)
-    file = USER_PATH + '/LLM-project/workfiles' + str(seedrun) + '/' + 'tmp.cnf'
+                shutil.copy(f[:-3] + s, '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) + '/' + 'neg_tmp.' + s)
+    file = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) + '/' + 'tmp.cnf'
     
     
     
@@ -699,6 +699,16 @@ def next_var(bb, file, thresh=2.0, dynamic=False, llm=None, lim=100, task='pront
     # print(maptxt)
 
     mapping = json.loads(maptxt)
+
+    print(f"\n{'='*40}")
+    print("ORIGINAL BACKBONE:")
+    print("Positive:")
+    for b in bb['pos']:
+        if str(np.abs(b)) in mapping: print(f"  + {mapping[str(np.abs(b))].strip('_')}")
+    print("Negative:")
+    for b in bb['neg']:
+        if str(np.abs(b)) in mapping: print(f"  - {mapping[str(np.abs(b))].strip('_')}")
+    print(f"{'='*40}\n")
 
     prob['newrules'] = []
     # for j in jb:
@@ -1598,6 +1608,8 @@ def next_var(bb, file, thresh=2.0, dynamic=False, llm=None, lim=100, task='pront
                                             nv = int(key)
                                             newv = False
                                 mapping[str(nv)] = nv_mapping
+                                if newv:
+                                    print(f"\n--- ADDED NEW VARIABLE: {nv_mapping} (ID: {nv}) ---")
                                 # if '47' in mapping.keys():
                                 #     breakpoint()
 
@@ -1620,6 +1632,8 @@ def next_var(bb, file, thresh=2.0, dynamic=False, llm=None, lim=100, task='pront
                                             nvi = int(key)
                                             newvi = False
                                 mapping[str(nvi)] = nvi_mapping
+                                if newvi:
+                                    print(f"\n--- ADDED NEW VARIABLE: {nvi_mapping} (ID: {nvi}) ---")
                             
                             # if arity[rel] == 2:
                             #     nvi_mapping = rel + '__' + name2 + '__' + name1 + '__'
@@ -2175,6 +2189,15 @@ def next_var(bb, file, thresh=2.0, dynamic=False, llm=None, lim=100, task='pront
         return vv + ['By COT'], answs[ps.argmax()], bb, True, rule_scores, True, sc_scores
         # return vv + ['LIMIT EXCEEDED'], v, bb, True
     breakpoint()
+    print(f"\n{'='*40}")
+    print("FINAL PREMISES (Loop exhaust):")
+    print("Positive:")
+    for b in bb['pos']:
+        if str(np.abs(b)) in mapping: print(f"  + {mapping[str(np.abs(b))].strip('_')}")
+    print("Negative:")
+    for b in bb['neg']:
+        if str(np.abs(b)) in mapping: print(f"  - {mapping[str(np.abs(b))].strip('_')}")
+    print(f"{'='*40}\n")
     return vv, new_sols, bb, missed_flag, rule_scores, False, sc_scores
 if __name__ == '__main__':
     # noisy_data = ['clutrr33.cnf']
@@ -2187,8 +2210,10 @@ if __name__ == '__main__':
     # context_thresh=0.5
     # ruleethresh=0.4
     try:
-        os.mkdir('/home/XXXX/XXXX/fs_backup_feb13/LLM-project/tempfiles' + str(seedrun) + '/')
-        os.mkdir('/home/XXXX/XXXX/fs_backup_feb13/LLM-project/workfiles' + str(seedrun) + '/')
+        temp_dir = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/tempfiles' + str(seedrun) + '/'
+        work_dir = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/workfiles' + str(seedrun) + '/'
+        os.mkdir(temp_dir)
+        os.mkdir(work_dir)
     except:
         print('dir already exists')
     os.environ["CUDA_VISIBLE_DEVICES"] = str(seedrun.split('_')[1])
@@ -2197,10 +2222,10 @@ if __name__ == '__main__':
     # bad_data = ['proofd5153.cnf', 'proofd5227.cnf']
     bad_data = []
     mistr_data = []
-    c = USER_PATH + '/LLM-project/dimacs_pronto_csvs/solver_finished.csv'
+    c = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs_csvs/solver_finished.csv'
     import csv
     import json
-    dataset = USER_PATH + '/SAT-LM/data/pronto_test.json'
+    dataset = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data/pronto_test.json'
     with open(dataset, 'r') as df:
         data = json.loads(df.read())
     # breakpoint()
@@ -2214,16 +2239,16 @@ if __name__ == '__main__':
     labels = {}
     for row in cr:
         if row[2] == 'SAT' and row[3] == 'SAT':
-            cnf = open(USER_PATH + '/LLM-project/dimacs_pronto/neg_'+row[1]).readlines()[0].strip('\n')
+            cnf = open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_'+row[1]).readlines()[0].strip('\n')
             num_clause = int(cnf.split(' ')[-1])
             if row[1] in noisy_data or row[1] in mistr_data:
                 print('noisy or mistranslate')
                 continue
             if task=='pronto':
-                bb = get_bb(USER_PATH + '/LLM-project/dimacs_pronto/'+row[1], seedrun=seedrun)
+                bb = get_bb('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/'+row[1], seedrun=seedrun)
                 jb = set(bb['pos']).intersection(set(bb['neg']))
                 if len(jb) == 0:
-                    print("jb = 0", USER_PATH + '/SAT-LM/tmp/' + row[1][:-4] + '.py')
+                    print("jb = 0", '/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/tmp/' + row[1][:-4] + '.py')
                     continue
             # if num_clause > 500:
                 # continue
@@ -2231,7 +2256,33 @@ if __name__ == '__main__':
                 print('bad data')
                 continue
             names.append(row[1])
-            labels[row[1]] = data[int(row[1].split('proofd5')[1].split('.')[0])]['label']
+            labels[row[1]] = data[int(row[1].split('proofd5')[1].split('.')[0])]['label'].lower()
+        elif row[2] == 'UNSAT' or row[3] == 'UNSAT':
+            # Pre-solved by SAT
+            labels[row[1]] = data[int(row[1].split('proofd5')[1].split('.')[0])]['label'].lower()
+            if row[3] == 'UNSAT':
+                preds[row[1]] = 'true'
+            else:
+                preds[row[1]] = 'false'
+            
+            # Print backbone
+            bb = get_bb('/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/'+row[1], seedrun=seedrun)
+            em = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_' + row[1][:-4] + '.maptxt'
+            try:
+                maptxt = open(em, 'r').read()
+                maptxt = maptxt.replace(" ", " \"").replace(",", "\",").replace(":", "\":").replace("{", "{\"").replace("}", "\"}")
+                mapping = json.loads(maptxt)
+                print(f"\n{'='*40}")
+                print(f"FINAL PREMISES ({row[1]} pre-solved as {preds[row[1]]}):")
+                print("Positive:")
+                for b in bb['pos']:
+                    if str(np.abs(b)) in mapping: print(f"  + {mapping[str(np.abs(b))].strip('_')}")
+                print("Negative:")
+                for b in bb['neg']:
+                    if str(np.abs(b)) in mapping: print(f"  - {mapping[str(np.abs(b))].strip('_')}")
+                print(f"{'='*40}\n")
+            except Exception as e:
+                print(f"Could not print backbone for {row[1]}: {e}")
     #   
     preds = {}
     if task == 'clutrr':
@@ -2268,7 +2319,7 @@ if __name__ == '__main__':
         prob = data[int(name.split('proofd5')[1].split('.')[0])]
         start_time = time.time()
         print(name)
-        p = USER_PATH + '/LLM-project/dimacs_pronto/' + name
+        p = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/' + name
         # p = USER_PATH + '/LLM-project/tempfiles/dimacs_test.cnf'
         # sols = get_sol(p, lim=100)
         #   
