@@ -113,9 +113,14 @@ name_idx = {name: i for i, name in enumerate(names)}
 # ── Step 5: Build preds ────────────────────────────────────────────────────────
 # preds[name] = 'violate_{norm}' | 'unknown' | 'missed'
 preds      = {}
-cot_count  = 0
-sat_count  = 0
-miss_count = 0
+cot_count            = 0   # resolved by CoT fallback (cot_flag=True)
+presolve_count       = 0   # pre-solved by SAT before backbone loop (initial pos=SAT, neg=UNSAT)
+sat_added_premise_count = 0  # resolved by SAT backbone loop (premise was added)
+miss_count           = 0
+
+# Sentinel used by cot_met_explain_ethics.py for pre-solved entries (no LLM needed):
+# all_outs[row[1]] = (vv, {'pos': ['dummy'], 'neg': []}, None, False, {}, False, [], [])
+_PRESOLVE_SENTINEL = 'dummy'
 
 IMAS_DIR = BASE_PATH + '/main/dimacs/'
 _MORAL_NORMS = [
@@ -152,7 +157,19 @@ for name, value in outs.items():
         else:
             preds[name] = 'unknown'
     else:
-        sat_count += 1
+        # Distinguish pre-solved (sentinel) from backbone-loop resolved
+        is_presolve = (
+            solout is not None
+            and solout.get('pos') == [_PRESOLVE_SENTINEL]
+            and solout.get('neg') == []
+            and bbout is None
+            and not scs
+        )
+        if is_presolve:
+            presolve_count += 1
+        else:
+            sat_added_premise_count += 1
+
         # SAT backbone resolved: read norm from maptxt
         if solout and len(solout.get('neg', [])) == 0 and len(solout.get('pos', [])) > 0:
             preds[name] = sat_norm if sat_norm else 'unknown'
@@ -161,10 +178,15 @@ for name, value in outs.items():
         else:
             preds[name] = sat_norm if sat_norm else 'unknown'
 
+sat_count = presolve_count + sat_added_premise_count
+
 print(f'\nTotal preds: {len(preds)}')
-print(f'  SAT backbone: {sat_count}')
-print(f'  CoT fallback: {cot_count}')
-print(f'  Missed:       {miss_count}')
+print(f'  Pre-solved by SAT (initial UNSAT, no LLM needed) : {presolve_count}')
+print(f'  SAT backbone with added premise (backbone loop)  : {sat_added_premise_count}')
+print(f'  CoT fallback                                     : {cot_count}')
+print(f'  Missed                                           : {miss_count}')
+print(f'  [Total SAT-resolved = {sat_count}]')
+
 
 # ── Step 6: Accuracy ──────────────────────────────────────────────────────────
 # preds[name] = predicted norm string; labels[name] = gold_foundation norm string

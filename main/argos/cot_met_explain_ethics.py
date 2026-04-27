@@ -862,48 +862,70 @@ def next_var(
             print(f"  * {r}")
         print(f"{'='*40}\n")
 
-        probs = torch.tensor([-10000, -100000])
-        p1, p2 = -1, -1
-        breakflag = False
+        # [ExplainEthics Adaptation] APPROACH C: Backbone-to-Target Directed Search
+        # Instead of arbitrary pairs, we score all known facts against all undetermined norms
+        target_norms = []
+        for key, value in mapping.items():
+            norm_name = value.strip('_')
+            if norm_name in _MORAL_NORMS:
+                vid = int(key)
+                if vid not in pb and vid not in nb:
+                    target_norms.append((vid, norm_name))
+
+        best_score = -1.0
+        best_n2var = -1
+        best_n1var = -1
+        best_name2 = ""
+        best_name1 = ""
+        best_question_cot = ""
+
         good = False
 
-        # Select an (antecedent, consequent) candidate pair for the LLM to reason about.
-        # We iterate over the sorted name lists seeking a pair not yet in the backbone.
-        for p1 in range(len(uo)):
-            good = False
-            for p2 in range(len(do)):
-                # Skip pairs where both terms are already determined
-                name1 = uo[p1]
-                name2 = do[p2]
-                if name1 == name2:
-                    continue
+        # Score every fact in pb against every undetermined target norm
+        for b in pb:
+            if str(np.abs(b)) not in mapping:
+                continue
+            name2 = mapping[str(np.abs(b))].strip('_')
+            
+            # Don't ask if a norm implies a norm
+            if name2 in _MORAL_NORMS:
+                continue
 
-                # Build a question asking the LLM whether name2 implies name1 in the ethics sense
-                # [ExplainEthics Adaptation] Question format adapted from kinship to implication
+            for t_vid, t_name in target_norms:
+                name1 = t_name
+
+                # Build question
                 question_cot = (
                     f'In the context: "{prob["context"]}", '
-                    f'if [{name2}] is true, does [{name1}] also hold? '
+                    f'does [{name2}] logically imply [{name1}]? '
                     f'Answer "Yes" or "No": '
                 )
-
+                
                 yn_result = llm.yn([question_cot])
                 p_yes = yn_result[0]
-                p_no = yn_result[1]
+                
+                print(f'[next_var] Score {name2} → {name1}: {p_yes:.4f}')
+                
+                if p_yes > best_score:
+                    best_score = p_yes
+                    best_n2var = np.abs(b)
+                    best_n1var = t_vid
+                    best_name2 = name2
+                    best_name1 = name1
+                    best_question_cot = question_cot
 
-                print(f'[next_var] {name2} → {name1}? p_yes={p_yes}, p_no={p_no}')
-
-                if p_yes > thresh:
-                    good = True
-                    rel = name1  # the consequent predicate (rule conclusion)
-                    if not rel or len(rel) < 2:
-                        # Unexpected short/empty rel — inspect interactively
-                        print("breakpoint")
-                        # breakpoint()
-                    break
-                if p_no > thresh:
-                    pass  # no implication; try next pair
-            if good:
-                break
+        if best_score > thresh:
+            good = True
+            name2 = best_name2
+            rel = best_name1
+            question_cot = best_question_cot
+            
+            # Write the clause -n2var nv 0 to the files to force the SAT solver to update
+            tmpfiles = ['/'.join(file.split('/')[:-1]) + '/pos_' + file.split('/')[-1], '/'.join(file.split('/')[:-1]) + '/neg_' + file.split('/')[-1]]
+            for f in tmpfiles:
+                add_clause(f)
+                with open(f, 'a') as cf:
+                    cf.write(f'\n-{best_n2var} {best_n1var} 0')
 
         if not good:
             # No confident implication found: fall back to CoT
@@ -994,7 +1016,7 @@ if __name__ == '__main__':
     import random
 
     # Configuration string describing the current experiment setup (for logging)
-    config = "explain_ethics rulethresh=0.3, cot_thresh=1.0, dynamic=True, llama3B, no rules in prompt"
+    config = "explain_ethics rulethresh=0.3, cot_thresh=1.0, dynamic=True, llama8B, no rules in prompt"
 
     # [ExplainEthics Adaptation] Load the ExplainEthics dataset — path matches explain_ethics_to_sat.py
     dataset = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data/explainethics_test.json'
@@ -1014,6 +1036,10 @@ if __name__ == '__main__':
         os.mkdir(work_dir)
     except Exception:
         print('dir already exists')
+
+    # [ExplainEthics Adaptation] Directory to save final backbones for each data point
+    premises_dir = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/analysis/analysis_outputs/final_premises/'
+    os.makedirs(premises_dir, exist_ok=True)
 
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     task = 'explain_ethics'  # [ExplainEthics Adaptation] task name
@@ -1092,12 +1118,18 @@ if __name__ == '__main__':
                 print(f"\n{'='*40}")
                 print("FINAL PREMISES (Backbone upon violation determination via SAT):")
                 print("Positive:")
-                for b in bb['pos']:
-                    if str(np.abs(b)) in mapping: print(f"  + {mapping[str(np.abs(b))].strip('_')}")
+                pos_premises = [mapping[str(np.abs(b))].strip('_') for b in bb['pos'] if str(np.abs(b)) in mapping]
+                neg_premises = [mapping[str(np.abs(b))].strip('_') for b in bb['neg'] if str(np.abs(b)) in mapping]
+                for p_prem in pos_premises: print(f"  + {p_prem}")
                 print("Negative:")
-                for b in bb['neg']:
-                    if str(np.abs(b)) in mapping: print(f"  - {mapping[str(np.abs(b))].strip('_')}")
+                for n_prem in neg_premises: print(f"  - {n_prem}")
                 print(f"{'='*40}\n")
+                
+                with open(os.path.join(premises_dir, f"{row[1][:-4]}_premises.txt"), 'w') as f:
+                    f.write("Positive:\n")
+                    for p_prem in pos_premises: f.write(f"  + {p_prem}\n")
+                    f.write("\nNegative:\n")
+                    for n_prem in neg_premises: f.write(f"  - {n_prem}\n")
             except Exception as e:
                 print(f"[main] Could not print backbone for {row[1]}: {e}")
 
@@ -1200,6 +1232,25 @@ if __name__ == '__main__':
             cot_list.append(name)
         if missed_flag is not None:
             missed_list.append([name, vv])
+
+        # [ExplainEthics Adaptation] Save final premises to file
+        if bbout is not None:
+            try:
+                em = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_' + name[:-4] + '.maptxt'
+                maptxt = open(em, 'r').read()
+                maptxt = maptxt.replace(" ", " \"").replace(",", "\",").replace(":", "\":").replace("{", "{\"").replace("}", "\"}")
+                mapping = json.loads(maptxt)
+                
+                pos_premises = [mapping[str(np.abs(b))].strip('_') for b in bbout.get('pos', []) if str(np.abs(b)) in mapping]
+                neg_premises = [mapping[str(np.abs(b))].strip('_') for b in bbout.get('neg', []) if str(np.abs(b)) in mapping]
+                
+                with open(os.path.join(premises_dir, f"{name[:-4]}_premises.txt"), 'w') as f:
+                    f.write("Positive:\n")
+                    for p_prem in pos_premises: f.write(f"  + {p_prem}\n")
+                    f.write("\nNegative:\n")
+                    for n_prem in neg_premises: f.write(f"  - {n_prem}\n")
+            except Exception as e:
+                print(f"[main] Could not save backbone for {name}: {e}")
 
         # Determine which norm the ARGOS backbone / CoT inferred
         # scs is a list of vote tensors [votes_true, votes_false] from the CoT loop

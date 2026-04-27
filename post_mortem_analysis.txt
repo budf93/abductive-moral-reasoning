@@ -1,167 +1,82 @@
-(venv) fikribudianto@LAPTOP-BKMERSSI:/mnt/c/Tugas_Akhir/ARGOS_public_anon/main$ python3 argos/cot_met_clutrr.py 
-/mnt/c/Tugas_Akhir/ARGOS_public_anon/venv/lib/python3.10/site-packages/transformers/utils/hub.py:127: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
-  warnings.warn(
-dir already exists
-Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████| 2/2 [00:27<00:00, 13.83s/it]
-  0%|                                                                                               | 0/1 [00:00<?, ?it/s]rulethresh 03 cot_thresh 100 anneal 01, dynamic True, sc5,llama 8B, no RULES IN PROMPT fixed, yes separation, always YN WITH MAYBE, og prompt, no cot gen, augmented extr, expweight
-clutrr0.cnf
-Michael Emily Clarence
-grandfather_Michael_Clarence_ granddaughter_Clarence_Emily_
-grandfather_Michael_Clarence_ granddaughter_Clarence_Emily_
-/mnt/c/Tugas_Akhir/ARGOS_public_anon/venv/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:572: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
-  warnings.warn(
-We detected that you are passing `past_key_values` as a tuple and this is deprecated and will be removed in v4.43. Please use an appropriate `Cache` class (https://huggingface.co/docs/transformers/v4.41.3/en/internal/generation_utils#transformers.Cache)
-[KV-cache] ACTIVE — using tuple fast-path (prefix shared, ~4-5x faster)
-[6, "If Clarence is the grandfather of Michael and Emily is the granddaughter of Clarence then Emily is Michael's _____. Fill in the blank .\nAnswer:\nLets think step by step: \n1.", 'great-aunt_Michael_Emily_']
-[tensor([0.5000]), tensor([0.6859])]
-[]
-\n[BACKBONE UPDATE] Inferred new variable: 6
-[BACKBONE UPDATE] Text: [Emily] is the great-aunt of [Michael]
-[1,0]
-Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. [Nancy] is [Dale]'s sister. Question: Is [Nancy] [Dale]'s sister? Answer: Let's think step by step. 1. [Nancy] is [Dale]'s sister. 2. [Nancy] is [Dale]'s sister. 3. [Nancy] is [Dale]'s sister. Therefore, the answer to the question is Yes.     
-Therefore, the answer (True/False) is
-[1,0]
-Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. [Nancy] is [Dale]'s sister. Question: Is [Nancy] [Dale]'s sister? Answer: Let's think step by step. 1. [Nancy] is [Dale]'s sister. 2. [Nancy] is [Dale]'s sister. 3. [Nancy] is [Dale]'s sister. Therefore, the answer to the question is Yes.     
-Therefore, the answer (True/False) is
-[1,0]
-Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. [Nancy] is [Dale]'s sister. Question: Is [Nancy] [Dale]'s sister? Answer: Let's think step by step. 1. [Nancy] is [Dale]'s sister. 2. [Nancy] is [Dale]'s sister. 3. [Nancy] is [Dale]'s sister. Therefore, the answer to the question is Yes.     
-Therefore, the answer (True/False) is
-[1,0]
-Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. [Nancy] is [Dale]'s sister. Question: Is [Nancy] [Dale]'s sister? Answer: Let's think step by step. 1. [Nancy] is [Dale]'s sister. 2. [Nancy] is [Dale]'s sister. 3. [Nancy] is [Dale]'s sister. Therefore, the answer to the question is Yes.     
-Therefore, the answer (True/False) is
-[1,0]
-Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. [Nancy] is [Dale]'s sister. Question: Is [Nancy] [Dale]'s sister? Answer: Let's think step by step. 1. [Nancy] is [Dale]'s sister. 2. [Nancy] is [Dale]'s sister. 3. [Nancy] is [Dale]'s sister. Therefore, the answer to the question is Yes.     
-Therefore, the answer (True/False) is
-tensor(5.) tensor([5., 0.])
-false
-decided with cot
-label:  false
-pred: true
-100%|██████████████████████████████████████████████████████████████████████████████████████| 1/1 [07:16<00:00, 436.52s/it]
-true  false
-acc: 0.0
-missed: 0.0
-missed list: 1
-rulethresh 03 cot_thresh 100 anneal 01, dynamic True, sc5,llama 8B, no RULES IN PROMPT fixed, yes separation, always YN WITH MAYBE, og prompt, no cot gen, augmented extr, expweight
---Return--
-> /mnt/c/Tugas_Akhir/ARGOS_public_anon/main/argos/cot_met_clutrr.py(1560)<module>()->None
--> breakpoint()
-(Pdb) p prob['context']
-"[Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college."
-(Pdb) p prob['query']
-"('Clarence', 'Michael')"
-(Pdb) p prob['query']
-"('Clarence', 'Michael')"
-(Pdb) p prob['label']
-'father-in-law'
-(Pdb) p prob['gt']
-'false'
-(Pdb) p prob['question']
-"Is [Michael] [Clarence]'s father-in-law?"
-(Pdb) p preds
-{'clutrr0.cnf': 'true'}
-(Pdb) p labels
-{'clutrr0.cnf': ' false'}
-(Pdb) p acc
-0
-(Pdb) p counter
-1
-(Pdb) pp vv
-[6,
- 'If Clarence is the grandfather of Michael and Emily is the granddaughter of '
- "Clarence then Emily is Michael's _____. Fill in the blank .\n"
- 'Answer:\n'
- 'Lets think step by step: \n'
- '1.',
- 'great-aunt_Michael_Emily_',
- 'By COT']
-(Pdb) pp all_outs
-{'clutrr0.cnf': ([6,
-                  'If Clarence is the grandfather of Michael and Emily is the '
-                  "granddaughter of Clarence then Emily is Michael's _____. "
-                  'Fill in the blank .\n'
-                  'Answer:\n'
-                  'Lets think step by step: \n'
-                  '1.',
-                  'great-aunt_Michael_Emily_',
-                  'By COT'],
-                 {'neg': [0], 'pos': []},
-                 {'neg': [-1, 2, 3, 4, 5], 'pos': [1, 2, 3, 4, 5]},
-                 False,
-                 True,
-                 [tensor([5., 0.])],
-                 ['Facts: [Nancy] likes to cut the hair of her daughter '
-                  "[Heidi]. [Heidi]'s sister [Lorraine] went to beauty school "
-                  'and taught them all how to cut hair expertly. Question: Is '
-                  "[Lorraine] [Nancy]'s daughter? Answer: Let's think step by "
-                  "step. 1. [Lorraine] is [Heidi]'s sister. 2. [Heidi] is "
-                  "[Nancy]'s daughter. 3. [Lorraine] is [Nancy]'s daughter. "
-                  'Therefore, the answer to the question is Yes. \n'
-                  'Facts: [Dale] and his sister [Nancy] are decorating for a '
-                  "party. [Nancy]'s daughter [Louise] thinks the party will be "
-                  "fun. Question: Is [Louise] [Dales]'s sister? Answer: Let's "
-                  "think step by step. 1. [Louise] is [Nancy]'s daughter. 2. "
-                  "[Nancy] is [Dale]'s sister. 3. [Louise] is [Dale]'s niece. "
-                  'Therefore, the answer to the question is No. \n'
-                  'Facts: [Lillian] and her sister [Nancy] are the only '
-                  "children in their family. [Lillian]'s biggest "
-                  'accomplishment is raising her son [Douglas]. Question: Is '
-                  "[Douglas] [Nancy]'s nephew? Answer: Let's think step by "
-                  "step. 1. [Douglas] is [Lillian]'s son. 2. [Nancy] is "
-                  "[Lillian]'s sister. 3. [Douglas] is [Nancy]'s nephew. "
-                  'Therefore, the answer to the question is Yes. \n'
-                  'Facts: [Ashley] liked to go to the park with her '
-                  "granddaughter [Charlotte]. [Dale], [Charlotte]'s father, "
-                  'like to take her to the movies instead. Question: Is '
-                  "[Ashley] [Dale]'s aunt? Answer: Let's think step by step. "
-                  "1. [Ashley] is [Charlotte]'s grandmother. 2. [Charlotte] is "
-                  "[Dale]'s daughter. 3. [Ashley] is [Dale]'s mother. "
-                  'Therefore, the answer to the question is No. \n'
-                  "Facts: [Clarence]'s granddaughter, [Emily], was busy "
-                  'helping her brother, [Michael], move to college. Here are '
-                  "some additional facts we've found: [Emily] is the "
-                  'great-aunt of [Michael]. Question: Is [Michael] '
-                  "[Clarence]'s father-in-law? Answer: Let's think step by "
-                  'step.'])}
-(Pdb) p cot_flag
-True
-(Pdb) p scs
-[tensor([5., 0.])]
-(Pdb) pp solout
-{'neg': [0], 'pos': []}
-(Pdb) pp bbout
-{'neg': [-1, 2, 3, 4, 5], 'pos': [1, 2, 3, 4, 5]}
-(Pdb) pp bb
-{'neg': [-1, 2, 3, 4, 5], 'pos': [1, 2, 3, 4, 5]}
-(Pdb) pp mapping
-*** NameError: name 'mapping' is not defined
-(Pdb) for i, pr in enumerate(prompts): print(f"\n--- PROMPT {i} ---\n{pr}")
-
---- PROMPT 0 ---
-Facts: [Nancy] likes to cut the hair of her daughter [Heidi]. [Heidi]'s sister [Lorraine] went to beauty school and taught them all how to cut hair expertly. Question: Is [Lorraine] [Nancy]'s daughter? Answer: Let's think step by step. 1. [Lorraine] is [Heidi]'s sister. 2. [Heidi] is [Nancy]'s daughter. 3. [Lorraine] is [Nancy]'s daughter. Therefore, the answer to the question is Yes.
-Facts: [Dale] and his sister [Nancy] are decorating for a party. [Nancy]'s daughter [Louise] thinks the party will be fun. Question: Is [Louise] [Dales]'s sister? Answer: Let's think step by step. 1. [Louise] is [Nancy]'s daughter. 2. [Nancy] is [Dale]'s sister. 3. [Louise] is [Dale]'s niece. Therefore, the answer to the question is No.
-Facts: [Lillian] and her sister [Nancy] are the only children in their family. [Lillian]'s biggest accomplishment is raising her son [Douglas]. Question: Is [Douglas] [Nancy]'s nephew? Answer: Let's think step by step. 1. [Douglas] is [Lillian]'s son. 2. [Nancy] is [Lillian]'s sister. 3. [Douglas] is [Nancy]'s nephew. Therefore, the answer to the question is Yes. 
-Facts: [Ashley] liked to go to the park with her granddaughter [Charlotte]. [Dale], [Charlotte]'s father, like to take her to the movies instead. Question: Is [Ashley] [Dale]'s aunt? Answer: Let's think step by step. 1. [Ashley] is [Charlotte]'s grandmother. 2. [Charlotte] is [Dale]'s daughter. 3. [Ashley] is [Dale]'s mother. Therefore, the answer to the question is No.
-Facts: [Clarence]'s granddaughter, [Emily], was busy helping her brother, [Michael], move to college. Here are some additional facts we've found: [Emily] is the great-aunt of [Michael]. Question: Is [Michael] [Clarence]'s father-in-law? Answer: Let's think step by step.
-(Pdb) pp rule_scores
-{"If Clarence is the grandfather of Michael and Emily is the granddaughter of Clarence then Emily is Michael's great-aunt": [tensor([0.5000]),
-                                                                                                                          
-   tensor([0.6859])]}
-(Pdb) pp missed_list
-[['clutrr0.cnf',
-  [6,
-   'If Clarence is the grandfather of Michael and Emily is the granddaughter '
-   "of Clarence then Emily is Michael's _____. Fill in the blank .\n"
-   'Answer:\n'
-   'Lets think step by step: \n'
-   '1.',
-   'great-aunt_Michael_Emily_',
-   'By COT']]]
-(Pdb) pp times
-{'clutrr0.cnf': {'prep_time': 0.5633938312530518,
-                 'run_time': 435.9574077129364}}
-(Pdb)
-
-TODO:
-1. Understand everything so that i can prevent the same mistakes in the reimplementation
-2. When using LLM for coding, make sure that everything is commented line by line for better understanding
+7842.1s	6193	========================================
+7842.1s	6194	ITERATION 1 STATE
+7842.1s	6195	========================================
+7842.1s	6196	OVERALL BACKBONE (Positive):
+7842.1s	6197	  + could_not_drink_on_own
+7842.1s	6198	  + feeding_kitten_to_dog
+7842.1s	6199	  + violate_care
+7842.1s	6200	  + harm_to_animal
+7842.1s	6201	  + physical_harm_to_kitten
+7842.1s	6202	  + kitten_consumed_by_dog
+7842.1s	6203	OVERALL BACKBONE (Negative):
+7842.1s	6204	  - could_not_drink_on_own
+7842.1s	6205	  - feeding_kitten_to_dog
+7842.1s	6206	  - violate_care
+7842.1s	6207	  - harm_to_animal
+7842.1s	6208	  - physical_harm_to_kitten
+7842.1s	6209	  - kitten_consumed_by_dog
+7842.1s	6210	
+7842.1s	6211	ADDED COMMONSENSE RULES SO FAR:
+7842.1s	6212	========================================
+7842.1s	6213	
+7842.4s	6214	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7843.6s	6215	[next_var] could_not_drink_on_own → kitten_consumed_by_dog? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7844.0s	6216	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7845.2s	6217	[next_var] feeding_kitten_to_dog → kitten_consumed_by_dog? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7845.5s	6218	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7846.7s	6219	[next_var] violate_care → kitten_consumed_by_dog? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7847.1s	6220	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7848.3s	6221	[next_var] harm_to_animal → kitten_consumed_by_dog? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7848.7s	6222	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7849.9s	6223	[next_var] physical_harm_to_kitten → kitten_consumed_by_dog? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7850.2s	6224	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7851.4s	6225	[next_var] could_not_drink_on_own → physical_harm_to_kitten? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7851.8s	6226	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7853.0s	6227	[next_var] feeding_kitten_to_dog → physical_harm_to_kitten? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7853.4s	6228	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7854.6s	6229	[next_var] violate_care → physical_harm_to_kitten? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7854.9s	6230	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7856.1s	6231	[next_var] harm_to_animal → physical_harm_to_kitten? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7856.5s	6232	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7857.7s	6233	[next_var] kitten_consumed_by_dog → physical_harm_to_kitten? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7858.0s	6234	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7859.2s	6235	[next_var] could_not_drink_on_own → harm_to_animal? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7859.6s	6236	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7860.8s	6237	[next_var] feeding_kitten_to_dog → harm_to_animal? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7861.2s	6238	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7862.4s	6239	[next_var] violate_care → harm_to_animal? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7862.7s	6240	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7863.9s	6241	[next_var] physical_harm_to_kitten → harm_to_animal? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7864.3s	6242	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7865.5s	6243	[next_var] kitten_consumed_by_dog → harm_to_animal? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7865.8s	6244	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7867.1s	6245	[next_var] could_not_drink_on_own → violate_care? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7867.4s	6246	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7868.6s	6247	[next_var] feeding_kitten_to_dog → violate_care? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7869.0s	6248	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7870.2s	6249	[next_var] harm_to_animal → violate_care? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7870.5s	6250	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7871.7s	6251	[next_var] physical_harm_to_kitten → violate_care? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7872.2s	6252	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7873.3s	6253	[next_var] kitten_consumed_by_dog → violate_care? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7873.6s	6254	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7874.9s	6255	[next_var] could_not_drink_on_own → feeding_kitten_to_dog? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7875.2s	6256	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7876.4s	6257	[next_var] violate_care → feeding_kitten_to_dog? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7876.8s	6258	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7878.0s	6259	[next_var] harm_to_animal → feeding_kitten_to_dog? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7878.3s	6260	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7879.5s	6261	[next_var] physical_harm_to_kitten → feeding_kitten_to_dog? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7879.9s	6262	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7881.1s	6263	[next_var] kitten_consumed_by_dog → feeding_kitten_to_dog? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7881.5s	6264	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7882.7s	6265	[next_var] feeding_kitten_to_dog → could_not_drink_on_own? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7883.0s	6266	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7884.2s	6267	[next_var] violate_care → could_not_drink_on_own? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7884.6s	6268	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7885.8s	6269	[next_var] harm_to_animal → could_not_drink_on_own? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7886.2s	6270	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7887.4s	6271	[next_var] physical_harm_to_kitten → could_not_drink_on_own? p_yes=tensor([0.5000], dtype=torch.bfloat16), p_no=tensor([0.5000], dtype=torch.bfloat16)
+7887.7s	6272	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+7889.0s	6273	[next_var] kitten_consumed_by_dog → could_not_drink_on_own? p_yes=tensor([0.2695], dtype=torch.bfloat16), p_no=tensor([0.7305], dtype=torch.bfloat16)
+7889.0s	6274	[next_var] No confident rule found, using CoT
