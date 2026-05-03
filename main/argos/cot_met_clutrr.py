@@ -1034,7 +1034,7 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                 
                     phr = mapping[str(np.abs(b))]
                  
-                            
+
                     ppl = [phr.split('_')[-2], phr.split('_')[-3]]
                     for name in ppl:
                         if name not in names.keys():
@@ -1044,9 +1044,11 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
 
 
 
-
+        print(f"names {names}")
         uo = sorted(names, key=names.get)[::-1]
         do = sorted(names, key=names.get)
+        print(f"uo {uo}")
+        print(f"do {do}")
         #   
 
         bb = get_bb(file, seedrun=seedrun)
@@ -1103,6 +1105,7 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                 name3 = None
                 n1var = 0
                 n2var = 0
+                print(f"name 1 : {name1}  name 2 : {name2}")
                 for i in range(len(jb)):
                     b = mapping[str(np.abs(jb[i]))]
                     if name1 == b.split('_')[-3]:
@@ -1115,8 +1118,13 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                         #   
                         try:
                             if name2 in mapping[str(np.abs(jb[j]))] and name3 in mapping[str(np.abs(jb[j]))]:
+                                print("found")
+                                print(f"jb[i] : {jb[i]} mapping[str(np.abs(jb[i]))] : {mapping[str(np.abs(jb[i]))]}")
+                                print(f"jb[j] : {jb[j]} mapping[str(np.abs(jb[j]))] : {mapping[str(np.abs(jb[j]))]}")
+                                print(f"name 2 : {name2} name 3 : {name3}")
                                 n1var = jb[i]
                                 n2var = jb[j]
+                                print(n1var, n2var)
                                 breakflag=True
                                 break
                         except:
@@ -1166,12 +1174,13 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                     "If Joan is the daughter of Harry and Harry is the brother of Kevin then Kevin is Joan\'s  _____. Fill in the blank . Answer: \\box{ uncle }\n" + \
                     "If Robert is the father of Harriet and Samantha is the mother of Robert then Harriet is Samantha\'s  _____. Fill in the blank . Answer: \\box{ granddaughter }\n"
 
-
                 question = "If " + v1names[1] + " is the "  + v1rel +  " of " + v1names[0] + " and " \
                     + v2names[1] + " is the "+ v2rel + " of " + v2names[0]  + " then " + name2 + " is " + name1 + "\'s _____. Fill in the blank . Answer: \\box{ "
+                print(f"question {question}")
                 
                 question_cot = "If " + v1names[1] + " is the "  + v1rel +  " of " + v1names[0] + " and " \
                     + v2names[1] + " is the "+ v2rel + " of " + v2names[0]  + " then " + name2 + " is " + name1 + "\'s _____. Fill in the blank .\nAnswer:\nLets think step by step: \n1."
+                print(f"question_cot {question_cot}")
                 
                 # out = search_pattern(v1names, v1rel, v2names, v2rel, patterns)
                 out = None
@@ -1181,6 +1190,7 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                 else:
                     # completion=llm.complete(fewshot_cot+ question_cot, max_new = 100)[0]
                     completion=llm.complete(fewshot+ question, max_new = 100)[0]
+                    print(f"completion: {completion}")
 
                     calls += 1
                     if calls > call_lim:
@@ -1198,10 +1208,13 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                     # completion = llm.complete(completion + 'Therefore, the answer is \\box{ ')[0] 
                     try:   
                         rel = '_'.join(completion.split('box{')[n_fs+1].split('}')[0].lower().strip(' ').strip('.').strip(' ').strip('.').strip(' ').strip(' ').lower().split(' '))
+                        print(f"rel try {rel}")
                     except: 
                         completion = llm.complete(completion + 'Therefore, the answer to the question \"' + "If " + v1names[1] + " is the "  + v1rel +  " of " + v1names[0] + " and " \
                         + v2names[1] + " is the "+ v2rel + " of " + v2names[0]  + " then " + name2 + " is " + name1 + "\'s _____." + ' is \\box{ ')[0] 
+                        print(f"completion {completion}")
                         rel = '_'.join(completion.split('box{')[n_fs+1].split('}')[0].lower().strip(' ').strip('.').strip(' ').strip('.').strip(' ').strip(' ').lower().split(' '))
+                        print(f"rel except {rel}")
 
                 print(f"\n[3] LLM Interrogation:")
                 print(f"    - Fill-in-the-blank prompt sent: {question.strip()}")
@@ -1215,6 +1228,7 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
 
                 if nv_mapping in [mapping[str(np.abs(int(j)))]for j in jb]:
                     continue
+                print(f"rule 1217 {v1names[1]} {v1rel} {v1names[0]} and {v2names[1]} {v2rel} {v2names[0]} then {name2} is {name1} {rel}")
                 rule = "If " + v1names[1] + " is the "  + v1rel +  " of " + v1names[0] + " and " \
                         + v2names[1] + " is the "+ v2rel + " of " + v2names[0]  + " then " + name2 + " is " + name1 + "\'s " + rel
                 check, ab = rule_check(rule, prob=prob, llm=llm)
@@ -1292,6 +1306,7 @@ def next_var(bb, file, thresh=0.96 , dynamic=True, llm=None, lim=500, prob='', f
                 print(vv)
                 print(ab)
                 print(prob['newrules'])
+                print(f"rule 1295: {v1names[1]} {v1rel} {v1names[0]} and {v2names[1]} {v2rel} {v2names[0]} then {name2} is {name1} {rel}")
                 rule = "If [" + v1names[1] + "] is the "  + v1rel +  " of [" + v1names[0] + "] and [" \
                         + v2names[1] + "] is the "+ v2rel + " of [" + v2names[0]  + "] then [" + name2 + "] is [" + name1 + "]\'s " + rel
                 # if 'newrules' not in prob.keys():

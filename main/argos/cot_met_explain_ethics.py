@@ -436,6 +436,63 @@ def add_var(file):
 
 
 # ---------------------------------------------------------------------------
+# >>> [ExplainEthics Adaptation] BEGIN: rule_check
+# Gate that validates an inferred implication rule before it is written to
+# the SAT formula. Mirrors cot_met_pronto.rule_check() but uses ethics-
+# specific few-shot examples.
+# ---------------------------------------------------------------------------
+def rule_check(rule, contra_thresh=0, context_thresh=0, prob='', llm=None):
+    """
+    Returns (accepted: bool, scores: [contra_score, context_score]).
+
+    Two independent checks:
+      a) Non-contradiction: the rule must not be logically contradictory.
+      b) Contextual relevance: the rule must be relevant to the story context.
+    """
+    # --- (a) Non-contradiction check ---
+    contra_fs = (
+        'Does the following ethical rule seem contradictory?\n'
+        'Rule: tearing_down_decorations implies emotional_harm.\n'
+        'Answer: \\box{ No } this does not seem contradictory. '
+        'Tearing down something someone cared about causes emotional harm.\n'
+        'Does the following ethical rule seem contradictory?\n'
+        'Rule: helping_a_friend implies violate_loyalty.\n'
+        'Answer: \\box{ Yes } this seems contradictory. Helping a friend strengthens loyalty, not violates it.\n'
+    )
+    contra_prompt = (
+        contra_fs
+        + 'Does the following ethical rule seem contradictory?\n'
+        + 'Rule: ' + rule + '\n'
+        + 'Answer: \\box{ '
+    )
+    # yn returns [p_yes, p_no]; p_yes here = P("Yes, contradictory")
+    # We want P(NOT contradictory) = 1 - p_yes
+    a = 1 - llm.yn([contra_prompt])[0]
+
+    # --- (b) Contextual relevance check ---
+    context_str = prob.get('context', '') if isinstance(prob, dict) else str(prob)
+    context_prompt = (
+        'Here is the story context:\n'
+        + context_str + '\n'
+        + 'Does the following new ethical rule seem contextually relevant to this story?\n'
+        + 'Rule: ' + rule + '\n'
+        + 'Answer "Yes" or "No": '
+    )
+    b = llm.yn([context_prompt])[0]  # P("Yes, relevant")
+
+    if a < contra_thresh:
+        print(f'[rule_check] REJECTED by contradiction: {rule!r}  (score={a:.3f})')
+        return False, [a, b]
+    if b < context_thresh:
+        print(f'[rule_check] REJECTED by context:       {rule!r}  (score={b:.3f})')
+        return False, [a, b]
+
+    print(f'[rule_check] ACCEPTED: {rule!r}  (contra={a:.3f}, context={b:.3f})')
+    return True, [a, b]
+# <<< [ExplainEthics Adaptation] END: rule_check
+
+
+# ---------------------------------------------------------------------------
 # >>> [ExplainEthics Adaptation] BEGIN: get_bb (backbone extraction)
 # Backbone extraction — calls the CadiBack binary to find literals common to
 # all SAT solutions. Identical mechanics to cot_met_clutrr.py.
@@ -544,31 +601,31 @@ def cot(prob, n=5):
         f"The possible moral norm violations are: {norms_list_str}.\n"
         "Context: I crush the frog. "
         # f"Question: Does this violate violate_care? Of these norm violations, which one does this action most violate? "
-        # f"Question: Does this violate violate_care? "
-        f"Question: Of these norm violations, which one does this action most violate? "
+        f"Question: Does this violate violate_care? "
+        # f"Question: Of these norm violations, which one does this action most violate? "
         "Answer: Let's think step by step. "
         "1. Frogs are animals. 2. Crushing causes physical harm to an animal. "
         "3. Causing harm to a living being violates the norm of care. "
         "Therefore the answer is violate_care.\n"
         "Context: I won my match by moving my ball when the other player wasn't looking. "
         # f"Question: Does this violate violate_fairness? Of these norm violations, which one does this action most violate? "
-        # f"Question: Does this violate violate_fairness? "
-        f"Question: Of these norm violations, which one does this action most violate? "
+        f"Question: Does this violate violate_fairness? "
+        # f"Question: Of these norm violations, which one does this action most violate? "
         "Answer: Let's think step by step. "
         "1. Moving the ball secretly is cheating. 2. Cheating involves deception. "
         "3. Deception in a match breaks the principles of fairness. "
         "Therefore the answer is violate_fairness.\n"
         "Context: I gave my coworker a birthday present. "
         # f"Question: Does this violate none? Of these norm violations, which one does this action most violate? "
-        # f"Question: Does this violate none? "
-        f"Question: Of these norm violations, which one does this action most violate? "
+        f"Question: Does this violate none? "
+        # f"Question: Of these norm violations, which one does this action most violate? "
         "Answer: Let's think step by step. "
         "1. Giving a present is a kind, caring action. 2. No harm is caused to any norm. "
         "Therefore the answer is none.\n"
         "Context: I ignored my boss's direct order. "
         # f"Question: Does this violate violate_authority? Of these norm violations, which one does this action most violate? "
-        # f"Question: Does this violate violate_authority? "
-        f"Question: Of these norm violations, which one does this action most violate? "
+        f"Question: Does this violate violate_authority? "
+        # f"Question: Of these norm violations, which one does this action most violate? "
         "Answer: Let's think step by step. "
         "1. Ignoring a boss's order is disobedience. "
         "2. Bosses are traditional authority figures. "
@@ -582,10 +639,10 @@ def cot(prob, n=5):
     prompt = (
         few_shot
         + f"Context: {prob['context']} "
-        # + f"Question: Does this violate {prob.get('label', '')}? "
+        + f"Question: Does this violate {prob.get('label', '')}? "
         # + f"Question: Does this violate {prob.get('label', '')}? Of these norm violations ({norms_list_str}), which one does this action most violate? "
-        + f"Question: Of these norm violations ({norms_list_str}), "
-        + "which one does this action most violate? "
+        # + f"Question: Of these norm violations ({norms_list_str}), "
+        # + "which one does this action most violate? "
         + "Answer: Let's think step by step."
     )
     # <<< [ExplainEthics Adaptation] END: multi-class norm selection prompt
@@ -765,8 +822,12 @@ def next_var(
     nb = bb['neg']
     pb = bb['pos']
     jb = list(set(pb).intersection(set(nb)))  # joint backbone: known in both polarities
+    print(f"nb {nb}")
+    print(f"pb {pb}")
+    print(f"jb {jb}")
 
     ab = list(set(np.abs(pb)).union(set(np.abs(nb))))  # all backbone variable IDs
+    print(f"ab {ab}")
     for b in ab:
         phr = mapping[str(np.abs(b))]
         # [ExplainEthics Adaptation] Predicate names are like "deception_" — strip trailing underscore
@@ -863,69 +924,104 @@ def next_var(
         print(f"{'='*40}\n")
 
         # [ExplainEthics Adaptation] APPROACH C: Backbone-to-Target Directed Search
-        # Instead of arbitrary pairs, we score all known facts against all undetermined norms
+        # target_norms = moral norms whose abs variable ID appears in BOTH abs(pb) and abs(nb).
+        # - pb contains +vid  → pos formula forces the norm True
+        # - nb contains -vid  → neg formula forces the norm False
+        # Same absolute ID, opposite signs = contested, needs LLM resolution.
+        # jb (signed intersection) is always empty for such norms — we use abs intersection.
+        pb_abs = set(np.abs(pb))
+        nb_abs = set(np.abs(nb))
+        contested = pb_abs.intersection(nb_abs)
         target_norms = []
         for key, value in mapping.items():
             norm_name = value.strip('_')
             if norm_name in _MORAL_NORMS:
                 vid = int(key)
-                if vid not in pb and vid not in nb:
+                if vid in contested:       # pos says True, neg says False → underdetermined
                     target_norms.append((vid, norm_name))
+        print(f'[next_var] target_norms: {[n for _, n in target_norms]}')
 
         best_score = -1.0
         best_n2var = -1
+        best_n3var = -1
         best_n1var = -1
         best_name2 = ""
+        best_name3 = ""
         best_name1 = ""
         best_question_cot = ""
 
         good = False
 
-        # Score every fact in pb against every undetermined target norm
-        for b in pb:
-            if str(np.abs(b)) not in mapping:
-                continue
-            name2 = mapping[str(np.abs(b))].strip('_')
-            
-            # Don't ask if a norm implies a norm
-            if name2 in _MORAL_NORMS:
-                continue
+        # Score every pair of facts in pb against every undetermined target norm
+        for i in range(len(pb)):
+            b1 = pb[i]
+            if str(np.abs(b1)) not in mapping: print("i not in mapping"); continue
+            name2 = mapping[str(np.abs(b1))].strip('_')
+            print(f"name2 {name2}")
+            if name2 in _MORAL_NORMS: print("i in moral norms"); continue
+            for j in range(i + 1, len(pb)):
+                b2 = pb[j]
+                if str(np.abs(b2)) not in mapping: print("j not in mapping"); continue
+                name3 = mapping[str(np.abs(b2))].strip('_')
+                print(f"name3 {name3}")
+                if name3 in _MORAL_NORMS: print("j in moral norms"); continue
+                print(f"target_norms {target_norms}")
+                for t_vid, t_name in target_norms:
+                    print(f"for t_vid {t_vid}, t_name {t_name}")
+                    name1 = t_name
 
-            for t_vid, t_name in target_norms:
-                name1 = t_name
+                    # Build question
+                    question_cot = (
+                        f'In the context: "{prob["context"]}", '
+                        f'does [{name2}] and [{name3}] logically imply [{name1}]? '
+                        f'Answer "Yes" or "No": '
+                    )
+                    
+                    yn_result = llm.yn([question_cot])
+                    p_yes = yn_result[0].item()  # Convert to float to avoid Tensor format error
+                    
+                    print(f'[next_var] Score {name2} AND {name3} → {name1}: {p_yes:.4f}')
+                    print(f"p_yes {p_yes}, best score {best_score}")
 
-                # Build question
-                question_cot = (
-                    f'In the context: "{prob["context"]}", '
-                    f'does [{name2}] logically imply [{name1}]? '
-                    f'Answer "Yes" or "No": '
-                )
-                
-                yn_result = llm.yn([question_cot])
-                p_yes = yn_result[0]
-                
-                print(f'[next_var] Score {name2} → {name1}: {p_yes:.4f}')
-                
-                if p_yes > best_score:
-                    best_score = p_yes
-                    best_n2var = np.abs(b)
-                    best_n1var = t_vid
-                    best_name2 = name2
-                    best_name1 = name1
-                    best_question_cot = question_cot
+                    if p_yes > best_score:
+                        best_score = p_yes
+                        best_n2var = np.abs(b1)
+                        best_n3var = np.abs(b2)
+                        best_n1var = t_vid
+                        best_name2 = name2
+                        best_name3 = name3
+                        best_name1 = name1
+                        best_question_cot = question_cot
 
-        if best_score > thresh:
-            good = True
-            name2 = best_name2
-            rel = best_name1
-            question_cot = best_question_cot
-            
-            # Write the clause -n2var nv 0 to the files to force the SAT solver to update
-            tmpfiles = ['/'.join(file.split('/')[:-1]) + '/pos_' + file.split('/')[-1], '/'.join(file.split('/')[:-1]) + '/neg_' + file.split('/')[-1]]
-            for f in tmpfiles:
-                add_clause(f)
-                with open(f, 'a') as cf:
-                    cf.write(f'\n-{best_n2var} {best_n1var} 0')
+        if best_score > -1.0:
+            # Gate the best scoring rule through rule_check to determine acceptance
+            candidate_rule = f'If [{best_name2}] and [{best_name3}] then [{best_name1}]'
+            accepted, ab = rule_check(
+                candidate_rule,
+                contra_thresh=0,
+                context_thresh=0,
+                prob=prob,
+                llm=llm
+            )
+            rule_scores[candidate_rule] = ab
+
+            if accepted:
+                good = True
+                name2 = f"{best_name2} and {best_name3}"
+                rel = best_name1
+                question_cot = best_question_cot
+
+                # Write the clause -n2var -n3var n1var 0 (name2 AND name3 => name1) to the SAT files
+                tmpfiles = [
+                    '/'.join(file.split('/')[:-1]) + '/pos_' + file.split('/')[-1],
+                    '/'.join(file.split('/')[:-1]) + '/neg_' + file.split('/')[-1]
+                ]
+                for f in tmpfiles:
+                    add_clause(f)
+                    with open(f, 'a') as cf:
+                        cf.write(f'\n-{best_n2var} -{best_n3var} {best_n1var} 0')
+            else:
+                print(f'[next_var] Best rule rejected by rule_check, falling back to CoT')
 
         if not good:
             # No confident implication found: fall back to CoT
@@ -1156,10 +1252,10 @@ if __name__ == '__main__':
 
     # Initialize the LLM
     args = Struct(
-        # engine='meta-llama/Llama-3.2-3B-Instruct',
+        engine='meta-llama/Llama-3.2-3B-Instruct',
         # engine='Qwen/Qwen2.5-3B-Instruct',
         # engine='Qwen/Qwen2.5-7B-Instruct',
-        engine='meta-llama/Llama-3.1-8B-Instruct',
+        # engine='meta-llama/Llama-3.1-8B-Instruct',
         max_length=300,
         temperature=1,
     )
@@ -1194,10 +1290,11 @@ if __name__ == '__main__':
         # Ask which norm is most violated (norm-agnostic) rather than confirming
         # the shown (potentially decoy) label.
         norms_list_str = ", ".join(_MORAL_NORMS)
-        prob['question'] = (
-            f'Of these norm violations ({norms_list_str}), '
-            f'which one does the context "{prob["context"]}" most violate?'
-        )
+        prob['question'] = f'Does the context "{prob["context"]}" violate {prob.get("label", "")}?'
+        # prob['question'] = (
+        #     f'Of these norm violations ({norms_list_str}), '
+        #     f'which one does the context "{prob["context"]}" most violate?'
+        # )
 
         if not skip_pbar:
             pbar.set_description(f'Acc: {acc / max(counter, 1):.3f}, COT: {cot_acc}/{len(cot_list)}')
