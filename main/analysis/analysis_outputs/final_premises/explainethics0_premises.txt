@@ -1,0 +1,19 @@
+Positive:
+  + covering_up_truth (Original)
+  + spreading_fake_news (Original)
+  + violate_fairness (Original)
+  + cheating (Original)
+  + harm_reputation (Original)
+  + deception (Original)
+  + dishonest_behavior (Original)
+  + dishonesty (Original)
+
+Negative:
+  - covering_up_truth (Original)
+  - spreading_fake_news (Original)
+  - violate_fairness (Original)
+  - cheating (Original)
+  - harm_reputation (Original)
+  - deception (Original)
+  - dishonest_behavior (Original)
+  - dishonesty (Original)

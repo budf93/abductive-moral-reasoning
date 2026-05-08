@@ -5,4 +5,6 @@
 - cek premisnya jangan langsung menjembatani terus loncat ke violate_norm, as is aja, mesti step by step, faithful aja
 - coba cek dari p ^ c |- q, isi c nya apa aja
 - pelajarin b nya bener ga entitynya itu argumen
-- coba turunin threshold 
+- mainin threshold
+- mulai eksperimen dgn full dataset
+- generate semua l_right aja abis itu filter dgn mainin threshold

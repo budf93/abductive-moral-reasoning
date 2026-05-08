@@ -635,24 +635,31 @@ def cot(prob, n=5):
 
     n_fewshot = 4  # number of few-shot examples in the prompt above
 
-    # Build the prompt — no label anchoring; model picks from _MORAL_NORMS freely
+    # Build grounding string from backbone facts + inferred rules accumulated so far
+    backbone_facts = prob.get('jbprompt', [])
+    inferred_rules = prob.get('newrules', [])
+    grounding_str = ''
+    if backbone_facts:
+        grounding_str += 'Known facts: ' + '; '.join(backbone_facts) + '. '
+    if inferred_rules:
+        grounding_str += 'Inferred rules: ' + '; '.join(inferred_rules) + '. '
+
+    # Build the prompt — include backbone grounding before the question
     prompt = (
         few_shot
         + f"Context: {prob['context']} "
+        + (grounding_str if grounding_str else '')
         + f"Question: Does this violate {prob.get('label', '')}? "
-        # + f"Question: Does this violate {prob.get('label', '')}? Of these norm violations ({norms_list_str}), which one does this action most violate? "
-        # + f"Question: Of these norm violations ({norms_list_str}), "
-        # + "which one does this action most violate? "
         + "Answer: Let's think step by step."
     )
     # <<< [ExplainEthics Adaptation] END: multi-class norm selection prompt
-
+    print(f"label: {prob.get('label', '')}")
     ground_truth_label = prob.get('gold_foundation', '').lower().strip().replace('-', '_')
 
     votes = torch.tensor([0.0, 0.0])
     norm_vote_counts = {norm: 0.0 for norm in _MORAL_NORMS}  # track per-norm votes
     for i in range(n):
-        ans = llm.complete(prompt, max_new=1000, temp=1)[0]
+        ans = llm.complete(prompt, max_new=300, max_length=1024)[0]
         # Grab the reasoning section after the last "Context:" in the response
         # (to skip re-hash of the few-shot examples)
         try:
@@ -753,7 +760,7 @@ def rule_check(rule, contra_thresh=0.3, context_thresh=0.3, prob='', llm=None, a
 # ---------------------------------------------------------------------------
 def next_var(
     bb, file, thresh=0.96, dynamic=True, llm=None, lim=500, prob='',
-    fixed_iter=4, looplim=100, call_lim=100, cot_thresh=1.00,
+    fixed_iter=4, looplim=100, call_lim=100, cot_thresh=0.80, rulethresh=0.8,
     n_consec=5, weight=1, llmb=None,
     task='explain_ethics',           # [ExplainEthics Adaptation] task name changed
     missed=False,
@@ -812,6 +819,7 @@ def next_var(
     # Parse the mapping dict from the stringified Python dict format
     maptxt = (maptxt.replace(" ", " \"").replace(",", "\",").replace(":", "\":").replace("{", "{\"").replace("}", "\"}"))
     mapping = json.loads(maptxt)
+    prob['_final_mapping'] = mapping
 
     tick = 0
     set_vars = []
@@ -941,150 +949,29 @@ def next_var(
                     target_norms.append((vid, norm_name))
         print(f'[next_var] target_norms: {[n for _, n in target_norms]}')
 
-        best_score = -1.0
-        best_n2var = -1
-        best_n3var = -1
-        best_n1var = -1
-        best_name2 = ""
-        best_name3 = ""
-        best_name1 = ""
-        best_question_cot = ""
+        # 1. SAT EARLY EXIT CHECK
+        # If no moral norms are contested in the backbone, the SAT solver has conclusively
+        # proved or disproved all of them. We can exit immediately!
+        if len(target_norms) == 0:
+            print("[next_var] SAT fully resolved the target norms! Exiting loop.")
+            answs = {'pos': [1], 'neg': []}
+            return vv + ['By SAT'], answs, bb, False, rule_scores, False, scs, prompts
 
-        good = False
-
-        # Score every pair of facts in pb against every undetermined target norm
-        for i in range(len(pb)):
-            b1 = pb[i]
-            if str(np.abs(b1)) not in mapping: print("i not in mapping"); continue
-            name2 = mapping[str(np.abs(b1))].strip('_')
-            print(f"name2 {name2}")
-            if name2 in _MORAL_NORMS: print("i in moral norms"); continue
-            for j in range(i + 1, len(pb)):
-                b2 = pb[j]
-                if str(np.abs(b2)) not in mapping: print("j not in mapping"); continue
-                name3 = mapping[str(np.abs(b2))].strip('_')
-                print(f"name3 {name3}")
-                if name3 in _MORAL_NORMS: print("j in moral norms"); continue
-                print(f"target_norms {target_norms}")
-                for t_vid, t_name in target_norms:
-                    print(f"for t_vid {t_vid}, t_name {t_name}")
-                    name1 = t_name
-
-                    # Build question
-                    question_cot = (
-                        f'In the context: "{prob["context"]}", '
-                        f'does [{name2}] and [{name3}] logically imply [{name1}]? '
-                        f'Answer "Yes" or "No": '
-                    )
-                    
-                    yn_result = llm.yn([question_cot])
-                    p_yes = yn_result[0].item()  # Convert to float to avoid Tensor format error
-                    
-                    print(f'[next_var] Score {name2} AND {name3} → {name1}: {p_yes:.4f}')
-                    print(f"p_yes {p_yes}, best score {best_score}")
-
-                    if p_yes > best_score:
-                        best_score = p_yes
-                        best_n2var = np.abs(b1)
-                        best_n3var = np.abs(b2)
-                        best_n1var = t_vid
-                        best_name2 = name2
-                        best_name3 = name3
-                        best_name1 = name1
-                        best_question_cot = question_cot
-
-        if best_score > -1.0:
-            # Gate the best scoring rule through rule_check to determine acceptance
-            candidate_rule = f'If [{best_name2}] and [{best_name3}] then [{best_name1}]'
-            accepted, ab = rule_check(
-                candidate_rule,
-                contra_thresh=0,
-                context_thresh=0,
-                prob=prob,
-                llm=llm
-            )
-            rule_scores[candidate_rule] = ab
-
-            if accepted:
-                good = True
-                name2 = f"{best_name2} and {best_name3}"
-                rel = best_name1
-                question_cot = best_question_cot
-
-                # Write the clause -n2var -n3var n1var 0 (name2 AND name3 => name1) to the SAT files
-                tmpfiles = [
-                    '/'.join(file.split('/')[:-1]) + '/pos_' + file.split('/')[-1],
-                    '/'.join(file.split('/')[:-1]) + '/neg_' + file.split('/')[-1]
-                ]
-                for f in tmpfiles:
-                    add_clause(f)
-                    with open(f, 'a') as cf:
-                        cf.write(f'\n-{best_n2var} -{best_n3var} {best_n1var} 0')
-            else:
-                print(f'[next_var] Best rule rejected by rule_check, falling back to CoT')
-
-        if not good:
-            # No confident implication found: fall back to CoT
-            print('[next_var] No confident rule found, using CoT')
-            cot_out = cot(prob)
-            ps += cot_out[0]
-            prompts = cot_out[1]
-            scs.append(ps.clone())
-            answs = [{'pos': [], 'neg': [0]}, {'pos': [0], 'neg': []}]
-            return vv + ['By COT'], answs[ps.argmax()], bb, False, rule_scores, True, scs, prompts
-
-        # Convert the inferred implication rule to a DIMACS variable and clause.
-        # [ExplainEthics Adaptation] Variable name format: "{consequent_predicate}_"
-        nv_mapping = rel + '_'
-        newv = True
-        nv = np.max(list(map(int, list(mapping.keys())))) + 1
-        if nv_mapping in list(mapping.values()):
-            # Reuse existing variable ID if this predicate is already in the mapping
-            for key, value in mapping.items():
-                if value == nv_mapping:
-                    nv = int(key)
-                    newv = False
-        mapping[str(nv)] = nv_mapping
-        probs = torch.tensor([10000, 100000])
-
-        try:
-            vv += (nv, question_cot, mapping[str(np.abs(int(nv)))])
-        except Exception:
-            vv += (nv, '**COULD NOT ADD RULE')
-            print("**COULD NOT ADD RULE")
-            break
-
-        # [ExplainEthics Adaptation] Format the rule as a human-readable implication
-        rule = f'If [{name2}] then [{rel}] (ethics: implies({name2}, {rel}))'
-
-        # Human-readable variable name for prompting and logging
-        varname = f'{rel} is implied'
-        if nv < 0:
-            varname = f'{rel} is NOT implied'
-
-        if 'newrules' not in prob:
-            prob['newrules'] = [varname]
-        else:
-            prob['newrules'].append(varname)
-
-        print(f"\n{'+'*40}")
-        print(f"NEW ADDED VARIABLE IN ITERATION {loopcount}")
-        print(f"{'+'*40}")
-        print(f"  + {rule}")
-        print(f"  + {varname} (ID: {nv})")
-        print(f"{'+'*40}\n")
-
-        # Re-run CoT with the updated rules included in the prompt
+        # 2. LLM SOLVE (CoT CHECK)
+        # Attempt to solve using CoT with the current pool of injected rules
         cot_out = cot(prob)
         ps += cot_out[0]
         prompts = cot_out[1]
         scs.append(ps.clone())
-        print(f'[next_var] ps after update: {ps}')
+        print(f'[next_var] ps after CoT evaluation: {ps}')
 
-        # Check if the CoT confidence crosses the threshold to stop early
-        ps_softmax = ps.softmax(-1)
-        if ps_softmax.max() >= cot_thresh:
-            print(f'[next_var] CoT confident enough at {ps_softmax.max()}, stopping')
+        n_rules = len(prob.get('newrules', []))
+        # Annealing threshold: floor at 50%
+        annealed_thresh = max(0.5, cot_thresh - 0.1 * (n_rules - 1)) if n_rules > 0 else cot_thresh
+        print(f'[next_var] CoT annealed threshold: {annealed_thresh:.2f} (rule #{n_rules})')
+
+        if ps.sum() > 0 and torch.max(ps) >= annealed_thresh * ps.sum():
+            print(f'[next_var] CoT confident enough (max={torch.max(ps):.1f} >= {annealed_thresh:.2f}×sum={ps.sum():.1f}), stopping')
             answs = [{'pos': [], 'neg': [0]}, {'pos': [0], 'neg': []}]
             
             print(f"\n{'='*40}")
@@ -1100,6 +987,172 @@ def next_var(
             print(f"{'='*40}\n")
 
             return vv + ['By COT'], answs[ps.argmax()], bb, False, rule_scores, True, scs, prompts
+
+        # 3. FIND NEW COMMONSENSE
+        generated_candidates = []
+
+        # Ethics-specific few-shot examples for fill-in-the-blank completion
+        n_fs = 2
+        few_shot = (
+            'Fill in the blank: If someone is covering_up_truth and someone is spreading_fake_news '
+            'then the action involves ___. Answer: \\box{ deception }\n'
+            'Fill in the blank: If someone is cheating and someone is harm_reputation '
+            'then the action involves ___. Answer: \\box{ violate_fairness }\n'
+        )
+
+        for i in range(len(pb)):
+            b1 = pb[i]
+            if str(np.abs(b1)) not in mapping: continue
+            name2 = mapping[str(np.abs(b1))].strip('_')
+            if name2 in _MORAL_NORMS: continue
+
+            for j in range(i + 1, len(pb)):
+                b2 = pb[j]
+                if str(np.abs(b2)) not in mapping: continue
+                name3 = mapping[str(np.abs(b2))].strip('_')
+                if name3 in _MORAL_NORMS: continue
+
+                # Sign-aware predicate strings
+                pred2str = ('NOT_' + name2) if b1 < 0 else name2
+                pred3str = ('NOT_' + name3) if b2 < 0 else name3
+
+                question = (
+                    f'Fill in the blank: If someone is {pred2str} and someone is {pred3str} '
+                    f'then the action involves ___. Answer: \\box{{ '
+                )
+                print(f'[next_var] fill-in-blank: {pred2str} AND {pred3str} → ?')
+
+                completion = llm.complete(few_shot + question, max_new=25)[0]
+
+                try:
+                    rel = '_'.join(
+                        completion.split('box{')[1 + n_fs].split('}')[0]
+                        .lower().strip(' .\n').split()
+                    )
+                except Exception:
+                    continue
+
+                if not rel or '(' in rel or ')' in rel or '\\' in rel:
+                    continue
+
+                negative = 1
+                if rel.startswith('not_'):
+                    negative = -1
+                    rel = rel[4:]
+                elif rel.startswith('not '):
+                    negative = -1
+                    rel = rel[4:]
+
+                print(f'[next_var] fill-in-blank result: {pred2str} AND {pred3str} → '
+                      f'{"NOT " if negative < 0 else ""}{rel}')
+
+                # Map the predicted relation back to its variable ID
+                best_n1var = -1
+                nv_mapping = rel + '_'
+                for key, value in mapping.items():
+                    if value == nv_mapping or value.strip('_') == rel:
+                        best_n1var = int(key)
+                        break
+
+                # Skip if already logically forced in the SAT solver
+                clause_n1_signed = negative * best_n1var if best_n1var != -1 else 0
+                already_in_jb = (best_n1var != -1 and best_n1var in [np.abs(x) for x in jb])
+                already_in_pb = (clause_n1_signed != 0 and clause_n1_signed in pb)
+                if already_in_jb or already_in_pb:
+                    continue
+
+                rule_txt = f'If [{pred2str}] and [{pred3str}] then {"NOT " if negative < 0 else ""}[{rel}]'
+                
+                generated_candidates.append({
+                    'rel': rel,
+                    'negative': negative,
+                    'n2var': np.abs(b1),
+                    'n3var': np.abs(b2),
+                    'pred2str': pred2str,
+                    'pred3str': pred3str,
+                    'n1var': best_n1var,
+                    'rule_txt': rule_txt
+                })
+
+        # Filter candidates using rule_check
+        valid_rules = []
+        for cand in generated_candidates:
+            accepted, ab = rule_check(
+                cand['rule_txt'],
+                contra_thresh=rulethresh,
+                context_thresh=rulethresh,
+                prob=prob,
+                llm=llm
+            )
+            rule_scores[cand['rule_txt']] = ab
+            if accepted:
+                valid_rules.append(cand)
+
+        # 4. INJECT RULES (Enlarge pool C)
+        if valid_rules:
+            for cand in valid_rules:
+                rel = cand['rel']
+                negative = cand['negative']
+                best_n2var = cand['n2var']
+                best_n3var = cand['n3var']
+                best_n1var = cand['n1var']
+                best_name2 = cand['pred2str']
+                best_name3 = cand['pred3str']
+                question_cot = cand['rule_txt']
+
+                if best_n1var == -1:
+                    # Dynamically mint new variable
+                    best_n1var = np.max(list(map(int, list(mapping.keys())))) + 1
+                    mapping[str(best_n1var)] = rel + '_'
+                    new_var = True
+                else:
+                    new_var = False
+
+                # Write the clause: -A -B ±C 0
+                clause_n1 = negative * best_n1var
+                tmpfiles = [
+                    '/'.join(file.split('/')[:-1]) + '/pos_' + file.split('/')[-1],
+                    '/'.join(file.split('/')[:-1]) + '/neg_' + file.split('/')[-1]
+                ]
+                for f in tmpfiles:
+                    add_clause(f)
+                    if new_var:
+                        add_var(f)
+                    with open(f, 'a') as cf:
+                        cf.write(f'\n-{best_n2var} -{best_n3var} {clause_n1} 0')
+                
+                print(f'[next_var] rel "{rel}" added as variable {best_n1var}')
+
+                # Track injected rule
+                nv = best_n1var
+                try:
+                    vv += (nv, question_cot, mapping[str(np.abs(int(nv)))])
+                except Exception:
+                    vv += (nv, '**COULD NOT ADD RULE')
+                    print("**COULD NOT ADD RULE")
+                    continue
+
+                rule = f'If [{best_name2} and {best_name3}] then [{rel}] (ethics: implies({best_name2} and {best_name3}, {rel}))'
+                varname = f'{rel} is implied' if negative > 0 else f'{rel} is NOT implied'
+
+                if 'newrules' not in prob:
+                    prob['newrules'] = [varname]
+                else:
+                    prob['newrules'].append(varname)
+
+                print(f"\n{'+'*40}")
+                print(f"NEW ADDED VARIABLE IN ITERATION {loopcount}")
+                print(f"{'+'*40}")
+                print(f"  + {rule}")
+                print(f"  + {varname} (ID: {nv})")
+                print(f"{'+'*40}\n")
+            
+            # Loop restarts! Next iteration will run SAT, then CoT with these new rules.
+        else:
+            # We failed to find any new valid rules, return best CoT guess immediately.
+            print('[next_var] No valid rules found to inject! Falling back to best CoT guess.')
+            answs = [{'pos': [], 'neg': [0]}, {'pos': [0], 'neg': []}]
+            return vv + ['By COT'], answs[ps.argmax()], bb, False, rule_scores, True, scs, prompts
 # <<< [ExplainEthics Adaptation] END: next_var backbone-driven inference loop
 
 
@@ -1112,7 +1165,7 @@ if __name__ == '__main__':
     import random
 
     # Configuration string describing the current experiment setup (for logging)
-    config = "explain_ethics rulethresh=0.3, cot_thresh=1.0, dynamic=True, llama8B, no rules in prompt"
+    config = "explain_ethics rulethresh=0.3, cot_thresh=0.8 (annealing 0.1/rule), dynamic=True, llama8B, backbone-grounded CoT"
 
     # [ExplainEthics Adaptation] Load the ExplainEthics dataset — path matches explain_ethics_to_sat.py
     dataset = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data/explainethics_test.json'
@@ -1223,9 +1276,9 @@ if __name__ == '__main__':
                 
                 with open(os.path.join(premises_dir, f"{row[1][:-4]}_premises.txt"), 'w') as f:
                     f.write("Positive:\n")
-                    for p_prem in pos_premises: f.write(f"  + {p_prem}\n")
+                    for p_prem in pos_premises: f.write(f"  + {p_prem} (Original)\n")
                     f.write("\nNegative:\n")
-                    for n_prem in neg_premises: f.write(f"  - {n_prem}\n")
+                    for n_prem in neg_premises: f.write(f"  - {n_prem} (Original)\n")
             except Exception as e:
                 print(f"[main] Could not print backbone for {row[1]}: {e}")
 
@@ -1252,10 +1305,10 @@ if __name__ == '__main__':
 
     # Initialize the LLM
     args = Struct(
-        engine='meta-llama/Llama-3.2-3B-Instruct',
+        # engine='meta-llama/Llama-3.2-3B-Instruct',
         # engine='Qwen/Qwen2.5-3B-Instruct',
         # engine='Qwen/Qwen2.5-7B-Instruct',
-        # engine='meta-llama/Llama-3.1-8B-Instruct',
+        engine='meta-llama/Llama-3.1-8B-Instruct',
         max_length=300,
         temperature=1,
     )
@@ -1313,7 +1366,7 @@ if __name__ == '__main__':
 
         # Run the backbone-driven inference loop
         vv, solout, bbout, missed_flag, rule_scores, cot_flag, scs, prompts = next_var(
-            bb, p, llm=llm, task=task, missed=missed, prob=prob, seedrun=seedrun
+            bb, p, llm=llm, task=task, missed=missed, prob=prob, seedrun=seedrun, rulethresh=rulethresh
         )
         missed_flag = False
 
@@ -1333,19 +1386,28 @@ if __name__ == '__main__':
         # [ExplainEthics Adaptation] Save final premises to file
         if bbout is not None:
             try:
-                em = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/main/dimacs/neg_' + name[:-4] + '.maptxt'
                 maptxt = open(em, 'r').read()
                 maptxt = maptxt.replace(" ", " \"").replace(",", "\",").replace(":", "\":").replace("{", "{\"").replace("}", "\"}")
-                mapping = json.loads(maptxt)
                 
+                # Use the mapping from the reasoning loop if available, which contains newly generated variables.
+                # Otherwise, fall back to the one from disk.
+                mapping = prob.get('_final_mapping', json.loads(maptxt))
+                
+                orig_pos = set([mapping[str(np.abs(b))].strip('_') for b in bb.get('pos', []) if str(np.abs(b)) in mapping])
+                orig_neg = set([mapping[str(np.abs(b))].strip('_') for b in bb.get('neg', []) if str(np.abs(b)) in mapping])
+
                 pos_premises = [mapping[str(np.abs(b))].strip('_') for b in bbout.get('pos', []) if str(np.abs(b)) in mapping]
                 neg_premises = [mapping[str(np.abs(b))].strip('_') for b in bbout.get('neg', []) if str(np.abs(b)) in mapping]
                 
                 with open(os.path.join(premises_dir, f"{name[:-4]}_premises.txt"), 'w') as f:
                     f.write("Positive:\n")
-                    for p_prem in pos_premises: f.write(f"  + {p_prem}\n")
+                    for p_prem in pos_premises:
+                        source = "(Original)" if p_prem in orig_pos else "(Generated)"
+                        f.write(f"  + {p_prem} {source}\n")
                     f.write("\nNegative:\n")
-                    for n_prem in neg_premises: f.write(f"  - {n_prem}\n")
+                    for n_prem in neg_premises:
+                        source = "(Original)" if n_prem in orig_neg else "(Generated)"
+                        f.write(f"  - {n_prem} {source}\n")
             except Exception as e:
                 print(f"[main] Could not save backbone for {name}: {e}")
 
