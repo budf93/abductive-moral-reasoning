@@ -100,8 +100,8 @@ class LLM():
         # self.args['engine'] = 'meta-llama/Meta-Llama-3-70B'
         # self.args['engine'] = 'meta-llama/Llama-2-13b-chat-hf'
         # self.args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
-        # self.args['engine'] = 'Qwen/Qwen2.5-Coder-7B-Instruct'
-        self.args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
+        self.args['engine'] = 'Qwen/Qwen2.5-Coder-7B-Instruct'
+        # self.args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
         # model_args = {'max_length': 20000, 'hidden_size':20000}
         self.args = Struct(**self.args)
         with no_ssl_verification():
@@ -115,8 +115,8 @@ class LLM():
                 )
             print('l. 100')
             self.model = AutoModelForCausalLM.from_pretrained(
-                self.args.engine,
-                # 'Meta-Llama/Meta-Llama-3-70B', cache_dir = '/data/XXXX/hub/',
+                    self.args.engine,
+                    # 'Meta-Llama/Meta-Llama-3-70B', cache_dir = '/data/XXXX/hub/',
                     quantization_config=quant_config,
                     device_map='auto',
                     cache_dir = cache_dir,

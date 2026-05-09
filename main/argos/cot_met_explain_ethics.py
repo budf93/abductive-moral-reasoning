@@ -493,6 +493,96 @@ def rule_check(rule, contra_thresh=0, context_thresh=0, prob='', llm=None):
 
 
 # ---------------------------------------------------------------------------
+# get_sol — faithful copy from cot_met_clutrr.py.
+# Runs CaDiCaL on pos/neg CNF files and collects satisfying solutions.
+# Returns {'pos': [solutions], 'neg': [solutions]}.
+# An empty list for either polarity means that formula is UNSATISFIABLE,
+# which is exactly the paper's termination criterion:
+#   len(new_sols['pos']) == 0  →  pos formula UNSAT  →  (P∧C) ⊢ ¬Q
+#   len(new_sols['neg']) == 0  →  neg formula UNSAT  →  (P∧C) ⊢ Q
+# ---------------------------------------------------------------------------
+def get_sol(file, lim=10000, del_sols=None, seedrun=0):
+    solutions = {'pos': [], 'neg': []}
+    files = [
+        '/'.join(file.split('/')[:-1]) + '/pos_' + file.split('/')[-1],
+        '/'.join(file.split('/')[:-1]) + '/neg_' + file.split('/')[-1]
+    ]
+    for i in range(len(files)):
+        cur_file = files[i]
+        shutil.copy(
+            cur_file,
+            '/'.join(cur_file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + cur_file.split('/')[-1]
+        )
+        if del_sols is not None:
+            polarity = 'pos' if 'pos' in cur_file and 'neg' not in cur_file else 'neg'
+            ds = del_sols[polarity]
+            for sol in ds:
+                add_clause(
+                    '/'.join(cur_file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + cur_file.split('/')[-1]
+                )
+                cf = open(
+                    '/'.join(cur_file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + cur_file.split('/')[-1], 'a'
+                )
+                write_str = '\n'
+                for lit in sol:
+                    write_str += str(-lit) + ' '
+                cf.write(write_str)
+                cf.close()
+        count = 0
+        while True:
+            count += 1
+            if count > lim:
+                break
+            log_pth = (
+                '/'.join(cur_file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/'
+                + cur_file.split('/')[-1][:-4] + '.log'
+            )
+            print(f'[get_sol] Running CaDiCaL, log: {log_pth}')
+            os.system(
+                USER_PATH + '/sat_gen/sat_tools/postprocess/cadical/build/cadical '
+                + '/'.join(cur_file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/'
+                + cur_file.split('/')[-1] + '> ' + log_pth
+            )
+            cf = open(log_pth, 'r')
+            lines = cf.readlines()
+            el = lines[-1]
+            print(f'[get_sol] exit line: {el.strip()}')
+            try:
+                ec = el.split('exit ')[1].strip('\n')
+            except Exception:
+                print(f'[get_sol] Could not parse exit code from: {el!r}')
+                break
+            if ec == '20':
+                print('[get_sol] UNSATISFIABLE (exit 20)')
+                break
+            sl = lines[1:]
+            while not sl[0].startswith('s '):
+                sl = sl[1:]
+            sl = sl[1:]
+            solution = []
+            while sl[0].startswith('v '):
+                solution += list(map(int, sl[0].strip('\n').split(' ')[1:]))
+                sl = sl[1:]
+            if 'pos' in cur_file and 'neg' not in cur_file:
+                solutions['pos'].append(solution)
+            elif 'neg' in cur_file:
+                solutions['neg'].append(solution)
+            cf.close()
+            add_clause(
+                '/'.join(cur_file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + cur_file.split('/')[-1]
+            )
+            cf = open(
+                '/'.join(cur_file.split('/')[:-2]) + '/tempfiles' + str(seedrun) + '/' + cur_file.split('/')[-1], 'a'
+            )
+            write_str = '\n'
+            for lit in solution:
+                write_str += str(-lit) + ' '
+            cf.write(write_str)
+            cf.close()
+    return solutions
+
+
+# ---------------------------------------------------------------------------
 # >>> [ExplainEthics Adaptation] BEGIN: get_bb (backbone extraction)
 # Backbone extraction — calls the CadiBack binary to find literals common to
 # all SAT solutions. Identical mechanics to cot_met_clutrr.py.
@@ -760,7 +850,7 @@ def rule_check(rule, contra_thresh=0.3, context_thresh=0.3, prob='', llm=None, a
 # ---------------------------------------------------------------------------
 def next_var(
     bb, file, thresh=0.96, dynamic=True, llm=None, lim=500, prob='',
-    fixed_iter=4, looplim=100, call_lim=100, cot_thresh=0.80, rulethresh=0.8,
+    fixed_iter=4, looplim=100, call_lim=100, cot_thresh=0.80, rulethresh=0.3,
     n_consec=5, weight=1, llmb=None,
     task='explain_ethics',           # [ExplainEthics Adaptation] task name changed
     missed=False,
@@ -909,6 +999,7 @@ def next_var(
         uo = sorted(names, key=names.get)[::-1]  # most frequent first
         do = sorted(names, key=names.get)         # least frequent first
 
+        # Refresh backbone at start of each iteration (mirrors clutrr's per-iteration get_bb call)
         bb = get_bb(file, seedrun=seedrun)
         nb = bb['neg']
         pb = bb['pos']
@@ -931,31 +1022,32 @@ def next_var(
             print(f"  * {r}")
         print(f"{'='*40}\n")
 
-        # [ExplainEthics Adaptation] APPROACH C: Backbone-to-Target Directed Search
-        # target_norms = moral norms whose abs variable ID appears in BOTH abs(pb) and abs(nb).
-        # - pb contains +vid  → pos formula forces the norm True
-        # - nb contains -vid  → neg formula forces the norm False
-        # Same absolute ID, opposite signs = contested, needs LLM resolution.
-        # jb (signed intersection) is always empty for such norms — we use abs intersection.
-        pb_abs = set(np.abs(pb))
-        nb_abs = set(np.abs(nb))
-        contested = pb_abs.intersection(nb_abs)
-        target_norms = []
-        for key, value in mapping.items():
-            norm_name = value.strip('_')
-            if norm_name in _MORAL_NORMS:
-                vid = int(key)
-                if vid in contested:       # pos says True, neg says False → underdetermined
-                    target_norms.append((vid, norm_name))
-        print(f'[next_var] target_norms: {[n for _, n in target_norms]}')
-
-        # 1. SAT EARLY EXIT CHECK
-        # If no moral norms are contested in the backbone, the SAT solver has conclusively
-        # proved or disproved all of them. We can exit immediately!
-        if len(target_norms) == 0:
-            print("[next_var] SAT fully resolved the target norms! Exiting loop.")
-            answs = {'pos': [1], 'neg': []}
-            return vv + ['By SAT'], answs, bb, False, rule_scores, False, scs, prompts
+        # 1. SAT EARLY EXIT CHECK — faithful to cot_met_clutrr.py
+        # Run CaDiCaL on both pos/neg formulas.  If either returns no solutions
+        # (UNSAT), the query is conclusively proved or disproved:
+        #   new_sols['neg'] empty  →  neg formula UNSAT  →  (P∧C) ⊢ Q   (norm IS violated)
+        #   new_sols['pos'] empty  →  pos formula UNSAT  →  (P∧C) ⊢ ¬Q  (norm NOT violated)
+        # This is identical to clutrr's:
+        #   if len(new_sols['pos']) == 0 or len(new_sols['neg']) == 0: return
+        new_sols = get_sol(file, lim=100, seedrun=seedrun)
+        print(f'[next_var] get_sol result: pos={len(new_sols["pos"])} sols, neg={len(new_sols["neg"])} sols')
+        if len(new_sols['pos']) == 0 or len(new_sols['neg']) == 0:
+            print('[next_var] SAT conclusive — one polarity UNSAT. Exiting loop.')
+            print(f"\n{'='*40}")
+            print('FINAL PREMISES (Backbone upon violation determination via SAT):')
+            print('Positive:')
+            for b in pb:
+                if str(np.abs(b)) in mapping:
+                    print(f'  + {mapping[str(np.abs(b))].strip("_")}')
+            print('Negative:')
+            for b in nb:
+                if str(np.abs(b)) in mapping:
+                    print(f'  - {mapping[str(np.abs(b))].strip("_")}')
+            print('ADDED COMMONSENSE RULES:')
+            for r in prob.get('newrules', []):
+                print(f'  * {r}')
+            print(f"{'='*40}\n")
+            return vv + ['By SAT'], new_sols, bb, False, rule_scores, False, scs, prompts
 
         # 2. LLM SOLVE (CoT CHECK)
         # Attempt to solve using CoT with the current pool of injected rules
@@ -1366,7 +1458,7 @@ if __name__ == '__main__':
 
         # Run the backbone-driven inference loop
         vv, solout, bbout, missed_flag, rule_scores, cot_flag, scs, prompts = next_var(
-            bb, p, llm=llm, task=task, missed=missed, prob=prob, seedrun=seedrun, rulethresh=rulethresh
+            bb, p, llm=llm, task=task, missed=missed, prob=prob, seedrun=seedrun, rulethresh=0.5
         )
         missed_flag = False
 
@@ -1434,7 +1526,9 @@ if __name__ == '__main__':
                     # model disagrees — we don't know which norm it picked; best guess is 'unknown'
                     inferred_norm = 'unknown'
             elif not cot_flag and solout is not None:
-                # SAT backbone resolved it: read norm from maptxt
+                # SAT backbone resolved it via get_sol (faithful to cot_met_clutrr.py).
+                # new_sols['neg'] empty → neg formula UNSAT → (P∧C) ⊢ Q  → norm IS violated
+                # new_sols['pos'] empty → pos formula UNSAT → (P∧C) ⊢ ¬Q → norm NOT violated
                 sat_norm = None
                 import re
                 maptxt_pth = f'{DIMACS_DIR}pos_{name[:-4]}.maptxt'
@@ -1446,7 +1540,11 @@ if __name__ == '__main__':
                 except Exception:
                     pass
                 if len(solout.get('neg', [])) == 0 and len(solout.get('pos', [])) > 0:
+                    # neg UNSAT → query proved true → norm IS violated → prediction matches gold
                     inferred_norm = sat_norm if sat_norm else 'unknown'
+                elif len(solout.get('pos', [])) == 0 and len(solout.get('neg', [])) > 0:
+                    # pos UNSAT → query proved false → norm NOT violated → prediction is 'none'
+                    inferred_norm = 'none'
                 else:
                     inferred_norm = 'unknown'
 
@@ -1470,9 +1568,10 @@ if __name__ == '__main__':
         # Periodically save progress to avoid losing results on crash
         print(f"stepcount : {stepcount}")
         if stepcount % 1 == 0:
+            safe_config = config.replace(" ", "_").replace("/", "_")
             pkl.dump(
                 all_outs,
-                open(f'{USER_PATH}all_outs_cot_met_explain_ethics_{config.replace(" ", "_")}.pkl', 'wb')
+                open(f'{USER_PATH}all_outs_cot_met_explain_ethics_{safe_config}.pkl', 'wb')
             )
 
     # -----------------------------------------------------------------------
@@ -1480,9 +1579,10 @@ if __name__ == '__main__':
     # -----------------------------------------------------------------------
     
     # Save the PKL file explicitly after the loop runs (or doesn't run!) to guarantee creation.
+    safe_config = config.replace(" ", "_").replace("/", "_")
     pkl.dump(
         all_outs,
-        open(f'{USER_PATH}all_outs_cot_met_explain_ethics_{config.replace(" ", "_")}.pkl', 'wb')
+        open(f'{USER_PATH}all_outs_cot_met_explain_ethics_{safe_config}.pkl', 'wb')
     )
 
     acc = 0
