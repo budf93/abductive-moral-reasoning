@@ -690,32 +690,28 @@ def cot(prob, n=5):
     few_shot = (
         f"The possible moral norm violations are: {norms_list_str}.\n"
         "Context: I crush the frog. "
-        # f"Question: Does this violate violate_care? Of these norm violations, which one does this action most violate? "
-        f"Question: Does this violate violate_care? "
-        # f"Question: Of these norm violations, which one does this action most violate? "
+        f"Question: Of these norm violations, which one does this action most violate? "
+        # f"Question: Does this violate violate_care? "
         "Answer: Let's think step by step. "
         "1. Frogs are animals. 2. Crushing causes physical harm to an animal. "
         "3. Causing harm to a living being violates the norm of care. "
         "Therefore the answer is violate_care.\n"
         "Context: I won my match by moving my ball when the other player wasn't looking. "
-        # f"Question: Does this violate violate_fairness? Of these norm violations, which one does this action most violate? "
-        f"Question: Does this violate violate_fairness? "
-        # f"Question: Of these norm violations, which one does this action most violate? "
+        f"Question: Of these norm violations, which one does this action most violate? "
+        # f"Question: Does this violate violate_fairness? "
         "Answer: Let's think step by step. "
         "1. Moving the ball secretly is cheating. 2. Cheating involves deception. "
         "3. Deception in a match breaks the principles of fairness. "
         "Therefore the answer is violate_fairness.\n"
         "Context: I gave my coworker a birthday present. "
-        # f"Question: Does this violate none? Of these norm violations, which one does this action most violate? "
-        f"Question: Does this violate none? "
-        # f"Question: Of these norm violations, which one does this action most violate? "
+        f"Question: Of these norm violations, which one does this action most violate? "
+        # f"Question: Does this violate none? "
         "Answer: Let's think step by step. "
         "1. Giving a present is a kind, caring action. 2. No harm is caused to any norm. "
         "Therefore the answer is none.\n"
         "Context: I ignored my boss's direct order. "
-        # f"Question: Does this violate violate_authority? Of these norm violations, which one does this action most violate? "
-        f"Question: Does this violate violate_authority? "
-        # f"Question: Of these norm violations, which one does this action most violate? "
+        f"Question: Of these norm violations, which one does this action most violate? "
+        # f"Question: Does this violate violate_authority? "
         "Answer: Let's think step by step. "
         "1. Ignoring a boss's order is disobedience. "
         "2. Bosses are traditional authority figures. "
@@ -729,17 +725,30 @@ def cot(prob, n=5):
     backbone_facts = prob.get('jbprompt', [])
     inferred_rules = prob.get('newrules', [])
     grounding_str = ''
-    if backbone_facts:
-        grounding_str += 'Known facts: ' + '; '.join(backbone_facts) + '. '
-    if inferred_rules:
-        grounding_str += 'Inferred rules: ' + '; '.join(inferred_rules) + '. '
+    
+    # <<< ABLATION TOGGLE: Set to True to test Vanilla CoT >>>
+    # Ablation: Vanilla CoT vs Backbone-Grounded CoT — Run llm_solve on the same queries
+    # but without injecting any backbone facts into the prompt. 
+    # Compare accuracy against the full ARGOS fallback. 
+    # This isolates whether the accuracy gain comes from the backbone grounding
+    # or simply from the CoT prompting structure itself.
+    ABLATE_GROUNDING = False
+    
+    
+    if not ABLATE_GROUNDING:
+        if backbone_facts:
+            grounding_str += 'Known facts: ' + '; '.join(backbone_facts) + '. '
+        if inferred_rules:
+            grounding_str += 'Inferred rules: ' + '; '.join(inferred_rules) + '. '
 
-    # Build the prompt — include backbone grounding before the question
+    explanation_str = f"Explanation: {prob['explanation']} " if prob.get('explanation') else ""
     prompt = (
         few_shot
         + f"Context: {prob['context']} "
+        + explanation_str
         + (grounding_str if grounding_str else '')
-        + f"Question: Does this violate {prob.get('label', '')}? "
+        + "Question: Of these norm violations, which one does this action most violate? "
+        # + f"Question: Does this violate {prob.get('label', '')}? "
         + "Answer: Let's think step by step."
     )
     # <<< [ExplainEthics Adaptation] END: multi-class norm selection prompt
@@ -1084,12 +1093,32 @@ def next_var(
         generated_candidates = []
 
         # Ethics-specific few-shot examples for fill-in-the-blank completion
-        n_fs = 2
+        n_fs = 12
         few_shot = (
-            'Fill in the blank: If someone is covering_up_truth and someone is spreading_fake_news '
-            'then the action involves ___. Answer: \\box{ deception }\n'
-            'Fill in the blank: If someone is cheating and someone is harm_reputation '
+            'Fill in the blank: If someone is hitting_someone and someone is causing_pain '
+            'then the action involves ___. Answer: \\box{ physical_harm }\n'
+            'Fill in the blank: If someone is cutting_in_line and someone is taking_more_than_share '
+            'then the action involves ___. Answer: \\box{ unfair_advantage }\n'
+            'Fill in the blank: If someone is sharing_company_secrets and someone is helping_competitor '
+            'then the action involves ___. Answer: \\box{ betrayal }\n'
+            'Fill in the blank: If someone is ignoring_boss_order and someone is breaking_rules '
+            'then the action involves ___. Answer: \\box{ insubordination }\n'
+            'Fill in the blank: If someone is spitting_on_grave and someone is defiling_monument '
+            'then the action involves ___. Answer: \\box{ disrespect }\n'
+            'Fill in the blank: If someone is forcing_someone_to_work and someone is restricting_freedom '
+            'then the action involves ___. Answer: \\box{ oppression }\n'
+            'Fill in the blank: If someone is causing_physical_harm and someone is harming_others '
+            'then the action involves ___. Answer: \\box{ violate_care }\n'
+            'Fill in the blank: If someone is taking_unfair_advantage and someone is cheating '
             'then the action involves ___. Answer: \\box{ violate_fairness }\n'
+            'Fill in the blank: If someone is committing_betrayal and someone is breaking_trust '
+            'then the action involves ___. Answer: \\box{ violate_loyalty }\n'
+            'Fill in the blank: If someone is demonstrating_insubordination and someone is rebelling '
+            'then the action involves ___. Answer: \\box{ violate_authority }\n'
+            'Fill in the blank: If someone is showing_disrespect and someone is defiling_sacred_things '
+            'then the action involves ___. Answer: \\box{ violate_sanctity }\n'
+            'Fill in the blank: If someone is committing_oppression and someone is violating_rights '
+            'then the action involves ___. Answer: \\box{ violate_liberty }\n'
         )
 
         for i in range(len(pb)):
@@ -1257,7 +1286,7 @@ if __name__ == '__main__':
     import random
 
     # Configuration string describing the current experiment setup (for logging)
-    config = "explain_ethics rulethresh=0.3, cot_thresh=0.8 (annealing 0.1/rule), dynamic=True, llama8B, backbone-grounded CoT"
+    config = "explain_ethics rulethresh=0.3, cot_thresh=1.3 (annealing 0.1/rule), dynamic=True, qwen7B, backbone-grounded_CoT"
 
     # [ExplainEthics Adaptation] Load the ExplainEthics dataset — path matches explain_ethics_to_sat.py
     dataset = '/mnt/c/Tugas_Akhir/ARGOS_public_anon/SAT-LM/data/explainethics_test.json'
@@ -1435,11 +1464,11 @@ if __name__ == '__main__':
         # Ask which norm is most violated (norm-agnostic) rather than confirming
         # the shown (potentially decoy) label.
         norms_list_str = ", ".join(_MORAL_NORMS)
-        prob['question'] = f'Does the context "{prob["context"]}" violate {prob.get("label", "")}?'
-        # prob['question'] = (
-        #     f'Of these norm violations ({norms_list_str}), '
-        #     f'which one does the context "{prob["context"]}" most violate?'
-        # )
+        # prob['question'] = f'Does the context "{prob["context"]}" violate {prob.get("label", "")}?'
+        prob['question'] = (
+            f'Of these norm violations ({norms_list_str}), '
+            f'which one does the context "{prob["context"]}" most violate?'
+        )
 
         if not skip_pbar:
             pbar.set_description(f'Acc: {acc / max(counter, 1):.3f}, COT: {cot_acc}/{len(cot_list)}')
@@ -1458,7 +1487,7 @@ if __name__ == '__main__':
 
         # Run the backbone-driven inference loop
         vv, solout, bbout, missed_flag, rule_scores, cot_flag, scs, prompts = next_var(
-            bb, p, llm=llm, task=task, missed=missed, prob=prob, seedrun=seedrun, rulethresh=0.5
+            bb, p, llm=llm, task=task, missed=missed, prob=prob, seedrun=seedrun, rulethresh=0.3, cot_thresh=1.3
         )
         missed_flag = False
 

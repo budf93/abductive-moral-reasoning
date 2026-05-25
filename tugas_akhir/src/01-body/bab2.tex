@@ -1,0 +1,77 @@
+%-----------------------------------------------------------------------------%
+\chapter{\babDua}
+\label{bab:2}
+%-----------------------------------------------------------------------------%
+
+To understand the issues being addressed in this thesis, we must first establish its theoretical foundations. This chapter explains the principles that serve as the theoretical foundations for subsequent chapters.
+
+
+%-----------------------------------------------------------------------------%
+\section{Propositional Logic}
+\label{sec:propositionalLogic}
+%-----------------------------------------------------------------------------%
+Propositional logic is an area of logic that deals with propositions, which are statements that can be evaluated as either true or false. In this formal system, facts are expressed as atomic propositions (variables) that are combined using logical connectives such as negation ($\neg$), conjunction ($\land$), disjunction ($\lor$), and implication ($\rightarrow$). 
+
+A fundamental concept in propositional logic is Conjunctive Normal Form (CNF). A formula is in CNF if it is a conjunction of clauses, where each clause is a disjunction of literals (a variable or its negation). The Boolean Satisfiability Problem (SAT) is the computational problem of determining whether there exists a truth assignment for the variables in a propositional formula that makes the entire formula true. In the context of this research, propositional logic serves as the formal language in which moral norms and scenarios are encoded.
+
+%-----------------------------------------------------------------------------%
+\section{First-Order Logic and Abductive Reasoning}
+\label{sec:firstOrderLogic}
+%-----------------------------------------------------------------------------%
+First-Order Logic (FOL) extends propositional logic by introducing predicates, functions, and quantifiers, namely the universal quantifier ($\forall$) and the existential quantifier ($\exists$). This allows for expressing statements about objects and their relationships across a domain of discourse, making it significantly more expressive than propositional logic.
+
+Logical reasoning can be broadly categorized into deduction, induction, and abduction. While deductive reasoning derives specific, guaranteed conclusions from general premises ($P \rightarrow Q$ and $P$ entails $Q$), abductive reasoning operates in reverse. Abduction is defined as inference to the best explanation. Given an observation $O$ and background knowledge $K$, abduction seeks to find a plausible hypothesis $H$ such that $K \land H \vdash O$. In neurosymbolic systems, abductive reasoning forms the logical basis for generating new premises or rules to bridge reasoning gaps in a knowledge base.
+
+
+%-----------------------------------------------------------------------------%
+\section{Large Language Models}
+\label{sec:largeLanguageModels}
+%-----------------------------------------------------------------------------%
+Large Language Models (LLMs) are deep neural networks, predominantly based on the Transformer architecture, trained on vast corpora of text data to predict the likelihood of a sequence of tokens. Modern LLMs are highly proficient at in-context learning, where the model can adapt to a specific task by recognizing patterns from a few examples provided directly in its input prompt, known as few-shot prompting.
+
+To improve the performance of LLMs on complex reasoning tasks, researchers developed Chain-of-Thought (CoT) prompting. CoT explicitly prompts the model to generate a sequence of intermediate reasoning steps before outputting the final answer. This technique is often combined with self-consistency sampling, wherein multiple CoT reasoning paths are sampled independently, and the most frequent final conclusion is selected via majority vote. These neural components drive the premise generation and fallback classification in modern neurosymbolic pipelines.
+
+
+%-----------------------------------------------------------------------------%
+\section{SAT Solvers}
+\label{sec:satSolvers}
+%-----------------------------------------------------------------------------%
+A SAT solver is an algorithmic tool designed to solve the Boolean Satisfiability Problem, typically operating on CNF formulas. Modern state-of-the-art SAT solvers, such as CaDiCaL, utilize Conflict-Driven Clause Learning (CDCL), an algorithm that improves upon traditional backtracking by learning from conflicts to prune the search space efficiently. 
+
+In formal verification, SAT solvers are often used to prove entailment via refutation. To prove that a set of premises $P$ entails a query $Q$ ($P \vdash Q$), the solver checks the satisfiability of the negated query combined with the premises ($P \land \neg Q$). If the solver determines the formula is unsatisfiable (UNSAT), the entailment is formally proven. Furthermore, SAT solvers can extract the \textit{backbone} of a formula, which is defined as the set of literals that evaluate to true in every possible satisfying assignment of the formula.
+
+
+%-----------------------------------------------------------------------------%
+\section{Moral Reasoning and the ExplainEthics Dataset}
+\label{sec:moralReasoning}
+%-----------------------------------------------------------------------------%
+Moral reasoning in artificial intelligence often relies on Moral Foundations Theory (MFT). MFT proposes that human moral judgments are built upon several innate psychological foundations, typically categorized as Care/Harm, Fairness/Cheating, Loyalty/Betrayal, Authority/Subversion, Sanctity/Degradation, and Liberty/Oppression. 
+
+To evaluate an AI's ability to navigate these concepts, the ExplainEthics dataset was developed. ExplainEthics provides complex textual scenarios involving moral dilemmas. Each instance contains a context, a \textit{gold foundation} (the true underlying norm that was violated), and explanation fields detailing the reasoning behind the violation. This dataset is designed to test a model's ability to perform deep moral reasoning across varied and nuanced situations.
+
+
+%-----------------------------------------------------------------------------%
+\section{Abductive Reasoning with Generalization Over Symbolics (ARGOS)}
+\label{sec:argos}
+%-----------------------------------------------------------------------------%
+% Cover Algorithm 1 from the paper:
+%   1. Encode problem as SAT (pos/neg CNF polarity).
+%   2. Extract backbone (get_bb) → contested literals.
+%   3. Run get_sol (UNSAT check) → if conclusive, exit.
+%   4. Run CoT (self-consistency) → if confident, exit.
+%   5. Abduct new commonsense clause → inject into CNF → repeat.
+% Describe CLUTRR and ProntoQA as the original task domains.
+% Briefly contrast with the ExplainEthics adaptation studied in this thesis.
+
+
+%-----------------------------------------------------------------------------%
+\section{Theory Linkage}
+\label{sec:keterkaitan}
+%-----------------------------------------------------------------------------%
+% Connect all theories above back to the three research questions:
+% RQ1 (Domain Gap): propositional logic + moral reasoning theory explains
+%   why ExplainEthics CNFs are structurally different from CLUTRR.
+% RQ2 (Pipeline Bottleneck): abductive reasoning + LLM theory explains
+%   where the fill-in-the-blank generation fails.
+% RQ3 (CoT Compensation): LLM self-consistency + backbone grounding
+%   explains why accuracy still improves despite SAT failure.

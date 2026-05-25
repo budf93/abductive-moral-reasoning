@@ -1,0 +1,67 @@
+%
+% Halaman Judul Laporan
+%
+% @author  unknown
+% @version 2.2.0
+% @edit by Andreas Febrian, Ichlasul Affan
+%
+
+\begin{titlepage}
+	\begin{singlespace*}
+	    \begin{center}
+	    	\begin{figure}
+	            \begin{center}
+	                \includegraphics[width=2.5cm]{assets/pics/makara_kuning.png}
+	            \end{center}
+	        \end{figure}
+	        \vspace*{-0.25cm}
+	        \large
+	        \bo{
+	        	UNIVERSITAS INDONESIA\\
+	        }
+	
+	        \vspace*{1.0cm}
+	        % judul thesis harus dalam 14pt Times New Roman
+	        \large
+	        \bo{\Judul} \\[1.0cm]
+	
+	        \vspace*{2.5 cm}
+	        % harus dalam 14pt Times New Roman
+	        \large
+	        \bo{\Type} \\[0.5cm]
+	        % keterangan prasyarat
+	        \normalsize
+	        Diajukan sebagai salah satu syarat untuk memperoleh gelar \\
+	        \gelar\\
+	
+			% Sesuaikan spacing agar semua informasi muat dalam satu halaman 
+	        \vspace*{4 cm}
+	        
+	        % penulis dan npm
+	        \large
+	        \ifx\blank\npmDua
+		        \bo{\PenulisSatu} \\
+		        \bo{\npmSatu} \\
+		    \else
+		    	\bo{\PenulisSatu~/ \npmSatu~/ \ProgramSatu}\\
+		    	\bo{\PenulisDua~/ \npmDua~/ \ProgramDua}\\
+		    \fi
+		    \ifx\blank\npmTiga\else
+			    \bo{\PenulisTiga~/ \npmTiga~/ \ProgramTiga}\\
+		    \fi
+		    
+			% Sesuaikan spacing agar semua informasi muat dalam satu halaman 
+	        \vspace*{4.75 cm}
+	
+	        % informasi mengenai fakultas dan program studi
+	        \large
+	        \bo{
+	        	FAKULTAS \Fakultas\\
+	        	PROGRAM STUDI \ProgramSatu \\
+	        	DEPOK \\
+	        	\bulanTahun
+	        }
+	        \normalsize
+	    \end{center}
+	\end{singlespace*}
+\end{titlepage}

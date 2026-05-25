@@ -484,10 +484,10 @@ if scs_all:
     fig1, ax1 = plt.subplots(figsize=(10, 5))
     for i in range(len(scs_all)):
         ax1.plot(scs_all[i].numpy(), c=cs[int(flag_all[i])], alpha=0.4)
-    ax1.plot([1.0 - k*0.1 for k in range(6)], '--', c='black')
-    ax1.plot([0.0 + k*0.1 for k in range(6)], '--', c='black')
-    ax1.set_title(f'p(norm violated) confidence over iterations (n={len(scs_all)})')
-    ax1.set_xlabel('Iteration'); ax1.set_ylabel('p(True/Violated)')
+    ax1.axhline(y=0.5, linestyle='--', c='black', linewidth=1.2, label='Decision boundary (0.5)')
+    ax1.set_title(f'p(correct norm) confidence over iterations (n={len(scs_all)})')
+    ax1.set_xlabel('Iteration'); ax1.set_ylabel('p(correct norm)')
+    ax1.set_ylim(-0.05, 1.05)
     patches = [mpatches.Patch(color=cs[int(fi)], label=f'{plot_labels[int(fi)]} (n={fc})')
                for fi, fc in zip(flag_counts[0], flag_counts[1])]
     ax1.legend(handles=patches)
@@ -535,7 +535,7 @@ if scs_all:
     ax5.set_xticks(bins[:-1])
     for sp in ['top', 'right', 'left']: ax5.spines[sp].set_visible(False)
     ax5.set_yticks([])
-    ____, totalcounts = np.unique(totals, return_counts=True)
+    _unique_totals, _total_counts = np.unique(totals, return_counts=True)
     ax_top = fig5.add_axes([0.125, 0.85, 0.775, 0.2])
     ax_top.hist(totals, bins=bins, alpha=0.6)
     ax_top.set_ylabel('Total count')
@@ -575,9 +575,9 @@ if scs_all:
             ax6.bar3d(xpos_m[j], ypos_m[j], cumhist, 0.5, 10, dz,
                       zorder=0, color=cs[i], lightsource=LightSource(azdeg=190))
             cumhist += dz
-    ax6.set_xlabel('Iteration Number'); ax6.set_ylabel('confidence')
+    ax6.set_xlabel('Iteration Number'); ax6.set_ylabel('Confidence')
     ax6.set_title('Histogram of Confidences as ARGOS Iterates (ExplainEthics)')
-    ax6.set_yticklabels([f'{i}%' for i in [-100,-60,-20,20,60,100]])
+    ax6.set_yticklabels([f'{int(i*100)}%' for i in yedges])
     ax6.set_ylim(0, 101)
     patches = [mpatches.Patch(color=cs[i], label=plot_labels[i]) for i in range(4)]
     ax6.legend(handles=patches, bbox_to_anchor=(1.3, 1))
@@ -585,6 +585,7 @@ if scs_all:
     plt.show()
 
 # ── Step 18: Summary bar chart ────────────────────────────────────────────────
+# 'total' already excludes missed (= len(preds) - missed), so incorrect = total - acc
 categories  = ['Correct (SAT)', 'Correct (CoT)', 'Incorrect', 'Missed']
 bar_values  = [correct_by_sat, correct_by_cot, total - acc, missed]
 bar_colors  = ['#2ecc71', '#27ae60', '#e74c3c', '#95a5a6']
@@ -599,5 +600,45 @@ ax7.set_ylabel('Count')
 fig7.tight_layout()
 fig7.savefig(ANALYSIS_OUT_DIR + '/explainethics_results.png', dpi=150)
 plt.show()
+
+# ── Step 19: Resolution pathway pie chart ─────────────────────────────────────
+pie_labels = ['Pre-solved by SAT', 'SAT backbone (loop)', 'CoT fallback', 'Missed']
+pie_values = [presolve_count, sat_added_premise_count, cot_count, miss_count]
+pie_colors = ['#3498db', '#2980b9', '#e67e22', '#95a5a6']
+pie_values_nonzero = [(v, l, c) for v, l, c in zip(pie_values, pie_labels, pie_colors) if v > 0]
+if pie_values_nonzero:
+    pv, pl, pc = zip(*pie_values_nonzero)
+    fig8, ax8 = plt.subplots(figsize=(7, 5))
+    wedges, texts, autotexts = ax8.pie(
+        pv, labels=pl, colors=pc, autopct='%1.1f%%',
+        startangle=140, pctdistance=0.8
+    )
+    for t in autotexts: t.set_fontsize(9)
+    ax8.set_title('Resolution Pathway Distribution (ExplainEthics)')
+    fig8.savefig(ANALYSIS_OUT_DIR + '/explainethics_resolution_pie.png', dpi=150, bbox_inches='tight')
+    plt.show()
+
+# ── Step 20: Per-norm accuracy bar chart ──────────────────────────────────────
+norm_acc_labels = sorted(norm_total.keys())
+norm_acc_vals   = [norm_correct[n] / max(norm_total[n], 1) for n in norm_acc_labels]
+norm_acc_totals = [norm_total[n] for n in norm_acc_labels]
+
+if norm_acc_labels:
+    fig9, ax9 = plt.subplots(figsize=(10, 5))
+    x_pos = np.arange(len(norm_acc_labels))
+    bar9  = ax9.bar(x_pos, norm_acc_vals, color='#3498db', edgecolor='white', linewidth=1.2)
+    for bar, val, tot in zip(bar9, norm_acc_vals, norm_acc_totals):
+        ax9.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
+                 f'{val:.2f}\n(n={tot})', ha='center', va='bottom', fontsize=8)
+    ax9.set_xticks(x_pos)
+    ax9.set_xticklabels([l.replace('violate_', '') for l in norm_acc_labels], rotation=15, ha='right')
+    ax9.set_ylim(0, 1.15)
+    ax9.set_ylabel('Accuracy')
+    ax9.set_title('Per-Norm Accuracy (by gold_foundation)')
+    ax9.axhline(y=accuracy, linestyle='--', color='red', linewidth=1.0, label=f'Overall acc ({accuracy:.3f})')
+    ax9.legend()
+    fig9.tight_layout()
+    fig9.savefig(ANALYSIS_OUT_DIR + '/explainethics_per_norm_acc.png', dpi=150, bbox_inches='tight')
+    plt.show()
 
 print('\n[Done] Available: preds, labels, outs, data, names, scs_all, flag_all, bs_outs_acc')

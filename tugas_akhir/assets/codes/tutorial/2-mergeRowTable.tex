@@ -1,0 +1,25 @@
+\begin{table}
+	\centering
+	\captionsource{Tabel dengan sel yang melebar ke lebih dari satu baris}{\url{https://en.wikibooks.org/wiki/LaTeX/Tables}, dengan modifikasi.}
+	\label{tab:columnSpanning}
+	\begin{tabular}{|l|c|l|} % border vertikal ditandai dengan |
+        % Baris 1
+		\hline % buat garis horizontal dari kolom pertama ke kolom terakhir
+		Percobaan & Iterasi & Waktu \\
+        % Baris 2
+		\hline
+		Pertama & 1 & 0.1 sec \\ \hline
+        % Baris 3 (kolom 1 melebar 2 baris)
+		\multirow{2}{*}{Kedua} & 1 & 0.1 sec \\
+        % Baris 4 (kolom 1 dikosongkan karena sudah ditimpa)
+		& 3 & 0.15 sec \\
+        % Baris 5 (kolom 1 melebar 3 baris)
+		\hline
+		\multirow{3}{*}{Ketiga} & 1 & 0.09 sec \\
+        % Baris 6 (kolom 1 dikosongkan karena sudah ditimpa)
+		& 2 & 0.16 sec \\
+        % Baris 7 (kolom 1 dikosongkan karena sudah ditimpa)
+		& 3 & 0.21 sec \\
+		\hline
+	\end{tabular}
+\end{table}

@@ -1,0 +1,77 @@
+%-----------------------------------------------------------------------------%
+\chapter{\babSatu}
+\label{bab:1}
+%-----------------------------------------------------------------------------%
+In this chapter, we will introduce the background that we will discuss in this thesis.
+
+%-----------------------------------------------------------------------------%
+\section{Background}
+\label{sec:latarBelakang}
+%-----------------------------------------------------------------------------%
+A language model is a type of model that predicts sequences in natural language. We call a language model that is trained on a vast amount of data a large language model. Large language models (LLM) are useful for tasks such as natural language generation or machine translation. Currently, LLMs are widely used in day-to-day applications such as coding and solving mathematics problems.
+
+In recent years, large language models have gained popularity due to their effectiveness in solving complex reasoning problems. This is due to the emergence of "Chain-of-Thought" (CoT) prompting, which allows models to decompose multi-step problems into intermediate logical segments. By scaling parameters and training data, these models have developed "emergent abilities" that enable them to simulate deductive paths, mimicking human-like deliberation rather than simply mapping inputs to direct outputs.
+
+However, despite its effectiveness in solving reasoning problems, large language models often hallucinate in their reasoning. This is due to the probabilistic nature of their architecture. LLMs predict the "most likely" next token based on statistical patterns rather than a grounded understanding of formal logic or objective truth. Consequently, a single minor error in an early reasoning step can propagate through the sequence---a phenomenon known as "cascading failure"---leading the model to confidently assert logically impossible or factually incorrect conclusions.
+
+In order to solve this problem, researchers came up with the idea of Neurosymbolic AI that integrates the flexibility of LLMs with the preciseness of symbolic solvers by incorporating LLMs with a logic solver to improve its reasoning abilities. This was done by translating problems in natural language into symbolic language. One of the papers that popularized this approach was LINC.
+
+One of the promising areas that neurosymbolic AI might be able to help with is moral reasoning. This is because in a given moral situation, we need to be able to trace back the reasoning of a given decision since a moral decision is highly dependent on a given context.
+
+%-----------------------------------------------------------------------------%
+\section{Problem Statement}
+\label{sec:masalah}
+%-----------------------------------------------------------------------------%
+Although neurosymbolic AI has shown promise in deductive and relational reasoning tasks (e.g., CLUTRR, ProntoQA), applying these rigid symbolic solvers to the nuanced and open-textured domain of moral reasoning introduces new challenges. LLMs can generate commonsense premises, but it is not clear whether these abducted premises are structurally sufficient to achieve formal entailment in a SAT solver. 
+
+%-----------------------------------------------------------------------------%
+\subsection{Research Questions}
+\label{sec:definisiMasalah}
+%-----------------------------------------------------------------------------%
+In this thesis, we would like to answer these three questions:
+\begin{enumerate}
+	\item RQ1: How do the logical structures required for moral reasoning differ from those in deductive relational tasks, and why do these differences inherently resist formal SAT-based entailment?
+	\item RQ2: What specific bottlenecks during LLM-driven premise abduction and rule validation prevent generated clauses from successfully narrowing the backbone to reach SAT-based entailment?
+	\item RQ3: In the absence of formal SAT entailment, what specific mechanisms within the backbone-grounded Chain-of-Thought fallback account for the observed improvements in moral classification accuracy?
+\end{enumerate}
+
+%-----------------------------------------------------------------------------%
+\subsection{Scope and Limitations}
+\label{sec:batasanMasalah}
+%-----------------------------------------------------------------------------%
+This research is bounded by the following assumptions and limitations:
+\begin{enumerate}
+	\item The experiment is conducted exclusively on the ExplainEthics dataset.
+	\item The LLMs used for premise generation and the CoT fallback are limited to specific sizes (e.g., Llama-3.1-8B-Instruct) due to computational constraints.
+\end{enumerate}
+
+%-----------------------------------------------------------------------------%
+\section{Research Purpose}
+\label{sec:tujuan}
+%-----------------------------------------------------------------------------%
+The primary objectives of this research are:
+\begin{enumerate}
+	\item To empirically evaluate the efficacy of the ARGOS neurosymbolic pipeline on the ExplainEthics dataset.
+	\item To identify the domain gaps and pipeline bottlenecks that prevent formal SAT entailment in moral reasoning tasks.
+	\item To understand how partial symbolic grounding (backbone facts) influences the success of the neural Chain-of-Thought fallback.
+\end{enumerate}
+
+%-----------------------------------------------------------------------------%
+\section{Thesis Organization}
+\label{sec:sistematikaPenulisan}
+%-----------------------------------------------------------------------------%
+The organization of this thesis is as follows:
+\begin{itemize}
+	\item Chapter 1 \babSatu \\
+	    This chapter covers the background, problem statement, research questions, scope, and purpose of the study.
+	\item Chapter 2 \babDua \\
+	    This chapter discusses the theoretical foundations of propositional logic, large language models, SAT solvers, and the ARGOS pipeline.
+	\item Chapter 3 \babTiga \\
+	    This chapter describes the research methodology, including the experimental design, dataset formulation, baseline models, and evaluation metrics.
+	\item Chapter 4 \babEmpat \\
+	    This chapter presents the experimental setup and the quantitative results obtained from running the pipeline.
+	\item Chapter 5 \babLima \\
+	    This chapter provides an in-depth analysis and discussion of the results with respect to the three research questions.
+	\item Chapter 6 \kesimpulan \\
+	    This chapter concludes the thesis and offers suggestions for future research.
+\end{itemize}

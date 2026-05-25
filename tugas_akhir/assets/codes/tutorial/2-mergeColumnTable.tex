@@ -1,0 +1,21 @@
+\begin{table}
+	\centering
+	\captionsource{Tabel dengan sel yang melebar ke lebih dari satu kolom}{\url{https://en.wikibooks.org/wiki/LaTeX/Tables}, dengan modifikasi.}
+	\label{tab:rowSpanning}
+	\begin{tabular}{|l|l|*{6}{c|}}
+		% Baris 1
+		\hline % buat garis horizontal dari kolom pertama ke kolom terakhir
+		No & Name & \multicolumn{3}{|c|}{Week 1} & \multicolumn{3}{|c|}{Week 2} \\
+		% Baris 2
+		\cline{3-8} % buat garis horizontal dari kolom 3 sampai 8
+		& & A & B & C & A & B & C\\
+		% Baris 3
+		\hline
+		1 & Lala & 1 & 2 & 3 & 4 & 5 & 6\\
+		% Baris 4
+		2 & Lili & 1 & 2 & 3 & 4 & 5 & 6\\
+		% Baris 5
+		3 & Lulu & 1 & 2 & 3 & 4 & 5 & 6\\
+		\hline
+	\end{tabular}
+\end{table}

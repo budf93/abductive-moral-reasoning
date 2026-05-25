@@ -1,0 +1,27 @@
+\begin{table}
+	\centering
+	\captionsource{Tabel dengan sel yang melebar ke lebih dari satu kolom dan baris}{\url{https://en.wikibooks.org/wiki/LaTeX/Tables}, dengan modifikasi.}
+	\label{tab:mixSpanning}
+	\begin{tabular}{|cc|c|c|c|c|} % border vertikal ditandai dengan |, semua kolom rata tengah.
+        % 2-row 2-col span (rata tengah), dan 4-col span (rata tengah)
+		\hline % buat garis horizontal dari kolom pertama ke kolom terakhir
+		\multicolumn{2}{|c|}{\multirow{2}{*}{Element}} & \multicolumn{4}{c|}{Title} \\
+        % kelanjutan border untuk 2-row 2-col span, dan 4 kolom biasa
+        \cline{3-6} % buat garis horizontal dari kolom 3 sampai 6
+		\multicolumn{2}{|c|}{} & A & B & C & D \\
+        % 2-row span (rata kiri), dan 5 kolom biasa
+        \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{Type}} & X & 1 & 2 & 3 & 4 \\
+        % kelanjutan border untuk 2-row span, dan 5 kolom biasa
+        \cline{2-6}
+		\multicolumn{1}{|l|}{} & Y & 0.5 & 1.0 & 1.5 & 2.0 \\
+        % kelanjutan bordering untuk 2-row span, dan 5 kolom biasa
+        % 2-row span (rata kiri), dan 5 kolom biasa
+        \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{Resource}} & I & 10 & 20 & 30 & 40\\
+        % kelanjutan border untuk 2-row span, dan 5 kolom biasa
+        \cline{2-6}
+		\multicolumn{1}{|l|}{} & J & 5 & 10 & 15 & 20 \\
+        \hline
+	\end{tabular}
+\end{table}

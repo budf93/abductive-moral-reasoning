@@ -1,0 +1,11 @@
+Positive:
+  + shooting_hole_in_man_ear (Original)
+  + violate_care (Original)
+  + harm_to_human (Original)
+  + physical_harm (Original)
+
+Negative:
+  - shooting_hole_in_man_ear (Original)
+  - violate_care (Original)
+  - harm_to_human (Original)
+  - physical_harm (Original)

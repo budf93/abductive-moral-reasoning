@@ -1,0 +1,198 @@
+%-----------------------------------------------------------------------------%
+\chapter{\babEmpat}
+\label{bab:4}
+%-----------------------------------------------------------------------------%
+
+In this chapter, we present the results from our experiments.
+
+
+%-----------------------------------------------------------------------------%
+\section{Experimental Setup}
+\label{sec:experimentalSetup}
+%-----------------------------------------------------------------------------%
+
+In this section, we will discuss the setup in which our experiment is conducted.
+
+%-----------------------------------------------------------------------------%
+\subsection{Dataset}
+\label{sec:dataset-experiment}
+%-----------------------------------------------------------------------------%
+In this experiment, we utilize the ExplainEthics dataset developed by Quan et al. which is built upon the ETHICS dataset developed by Hendrycks et al.
+
+
+%-----------------------------------------------------------------------------%
+\subsection{Models}
+\label{sec:models}
+%-----------------------------------------------------------------------------%
+% Llama-3.1-8B-Instruct, Qwen-7B, etc.
+In our experiment, we utilize Llama-3.1-8B-Instruct model for rule generation and commonsense scoring. For translating the query and initial explanation from natural language to SAT-LM, we utilize Qwen/Qwen2.5-Coder-7B-Instruct model. 
+
+
+%-----------------------------------------------------------------------------%
+\subsection{SAT solvers}
+\label{sec:satSolvers}
+%-----------------------------------------------------------------------------%
+In our experiment, we utilize CaDiCal for... and CadiBack for extracting our backbones.
+
+
+%-----------------------------------------------------------------------------%
+\subsection{Baselines}
+\label{sec:baselines}
+%-----------------------------------------------------------------------------%
+To compare the improvement of our approach, we use chain-of-thought apporach as our baseline since chain-of-thought approach are currently the most commonly used method to simulate human reasoning.
+
+
+
+%-----------------------------------------------------------------------------%
+\subsection{ARGOS Pipeline Configuration}
+\label{sec:argosConfig}
+%-----------------------------------------------------------------------------%
+% - rule_thresh=0.3, cot_thresh=0.8, annealing schedule
+% - Number of SC samples per iteration (n=5)
+We test commonsense threshold $\tau \in \{0.3, 0.5, 0.8\}$ in order to test which threshold is best in filtering premises that does not make sense. We will also test $\tau = 1.3$ in order to analyze what happens if we let the SAT solver attempt to answer the query independently without the help from the LLM. 
+
+
+%-----------------------------------------------------------------------------%
+\section{Overall Accuracy Results}
+\label{sec:overallAccuracy}
+%-----------------------------------------------------------------------------%
+% → answers RQ3
+
+
+%-----------------------------------------------------------------------------%
+\subsection{ARGOS vs CoT Baseline}
+\label{sec:argosVsBaselines}
+%-----------------------------------------------------------------------------%
+
+\begin{table}[ht]
+    \centering
+    \caption{Overall performance comparison of ARGOS across different rule thresholds ($\tau_{rule}$) against the CoT Baseline}
+    \label{tab:overall_results}
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Model Configuration} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 Score} \\
+        \midrule
+        CoT Baseline (SC) & 0.278 & 0.278 & 0.278 & 0.278 \\
+        ARGOS ($\tau_{rule}=0.8$) & 0.609 & 1.000 & 0.609 & 0.757 \\
+        ARGOS ($\tau_{rule}=0.5$) & 0.652 & 0.957 & 0.652 & 0.776 \\
+        ARGOS ($\tau_{rule}=0.3$) & 0.652 & 0.957 & 0.652 & 0.776 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Table~\ref{tab:overall_results} shows the performance of the ARGOS pipeline and the baseline Chain-of-Thought (CoT) prompting. The baseline model achieves an average accuracy of 27.8\% using self-consistency. The ARGOS neurosymbolic pipeline achieves up to 65.2\% accuracy.
+
+The pipeline was evaluated across three rule confidence thresholds ($\tau_{rule} \in \{0.3, 0.5, 0.8\}$). At a threshold of 0.8, the overall accuracy is 60.9\%. At thresholds of 0.5 and 0.3, the overall accuracy is 65.2\%. Note that in multi-class scenarios under micro-averaging, the precision, recall, and F1 metrics for the CoT baseline are identical to its accuracy.
+
+%-----------------------------------------------------------------------------%
+\subsection{Per-Norm Accuracy Breakdown}
+\label{sec:perNormAccuracy}
+%-----------------------------------------------------------------------------%
+Figure~\ref{fig:per_norm_acc} shows the accuracy breakdown per gold standard norm for the $\tau_{rule}=0.5$ configuration.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/explainethics_per_norm_acc.png}
+    \caption{Per-norm accuracy of ARGOS ($\tau_{rule}=0.5$) on the ExplainEthics dataset.}
+    \label{fig:per_norm_acc}
+\end{figure}
+
+The accuracy on the \textit{Liberty} and \textit{Sanctity} norms is 100\% and 78.9\% respectively. The accuracy on the \textit{Care} norm is 52.8\%. The accuracy on the \textit{Authority} and \textit{Fairness} norms is 68.0\% and 72.2\%, respectively.
+
+
+
+
+
+%-----------------------------------------------------------------------------%
+\section{SAT Solver Utilization}
+\label{sec:satSolverUtilization}
+%-----------------------------------------------------------------------------%
+% → answers RQ2
+
+
+%-----------------------------------------------------------------------------%
+\subsection{Resolution Pathway Distribution}
+\label{sec:resolutionPathway}
+%-----------------------------------------------------------------------------%
+The queries are classified into four resolution pathways: pre-solved by SAT, resolved by the backbone loop, resolved by the neural CoT fallback, or missed.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{assets/explainethics_resolution_pie.png}
+    \caption{Distribution of resolution pathways for ARGOS ($\tau_{rule}=0.5$).}
+    \label{fig:resolution_pie}
+\end{figure}
+
+Figure~\ref{fig:resolution_pie} shows this distribution. Out of 138 total queries, 10 were resolved via SAT-based formal entailment (7.2\%), all of which were pre-solved by the initial CNF. The remaining 128 queries (92.8\%) exited the backbone loop and were resolved by the neural Chain-of-Thought fallback. 
+
+
+
+%-----------------------------------------------------------------------------%
+\subsection{Rule Injection Statistics and Trajectories}
+\label{sec:ruleInjection}
+%-----------------------------------------------------------------------------%
+The pipeline iteratively generates commonsense premises, filters them using the \texttt{rule\_check} gate, and injects the valid ones into the SAT solver.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/explainethics_trajectories.pdf}
+    \caption{Rule injection trajectories showing CoT confidence scores over time.}
+    \label{fig:trajectories}
+\end{figure}
+
+Figure~\ref{fig:trajectories} illustrates the trajectories of the LLM's confidence scores over successive iterations of rule injection.
+
+%-----------------------------------------------------------------------------%
+\subsection{Backbone Convergence Analysis}
+\label{sec:backboneConvergence}
+%-----------------------------------------------------------------------------%
+Out of the 10 queries that were formally resolved by SAT, the accuracy was 0\% (0/10). The other 128 queries did not reach UNSAT.
+
+%-----------------------------------------------------------------------------%
+\section{Comparison with CLUTRR and ProntoQA}
+\label{sec:comparisonWithClutrrAndPronto}
+%-----------------------------------------------------------------------------%
+% → answers RQ1
+
+
+%-----------------------------------------------------------------------------%
+\subsection{Entailment Success Rate}
+\label{sec:entailmentSuccessRate}
+%-----------------------------------------------------------------------------%
+% % of datapoints where SAT solver achieved UNSAT (= formal proof)
+% across the three datasets
+
+%-----------------------------------------------------------------------------%
+\section{Ablation Study: Disabling Early CoT Exit}
+\label{sec:ablationStudy}
+%-----------------------------------------------------------------------------%
+To analyze the impact of the neural fallback threshold, an ablation study was conducted using a configuration of $\tau_{cot} = 1.3$. We sample from 20 data points in this ablation study. Because the confidence score of the language model can never exceed 1.0, this setting effectively disables the early CoT exit mechanism, forcing the pipeline to exhaust all abductive premise generation iterations. On this ablation subset, the pipeline achieved an overall accuracy of 88.9\%.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{assets/ablation_1.3/explainethics_resolution_pie.png}
+    \caption{Distribution of resolution pathways with early CoT exit disabled ($\tau_{cot}=1.3$).}
+    \label{fig:ablation_resolution_pie}
+\end{figure}
+
+Figure~\ref{fig:ablation_resolution_pie} shows the resolution pathway distribution for this ablation configuration. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/ablation_1.3/explainethics_trajectories.pdf}
+    \caption{Rule injection trajectories without early CoT exit ($\tau_{cot}=1.3$).}
+    \label{fig:ablation_trajectories}
+\end{figure}
+
+Figure~\ref{fig:ablation_trajectories} illustrates the trajectories of the LLM's confidence scores over successive iterations of rule injection when the early exit threshold is unattainable.
+
+Figure~\ref{fig:ablation_per_norm_acc} shows the accuracy breakdown per norm for the ablation study. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/ablation_1.3/explainethics_per_norm_acc.png}
+    \caption{Per-norm accuracy of the ablation study ($\tau_{cot}=1.3$).}
+    \label{fig:ablation_per_norm_acc}
+\end{figure}
+
+The pipeline achieved 100\% accuracy on the \textit{Authority}, \textit{Fairness}, and \textit{Sanctity} norms, while the accuracy on the \textit{Care} norm was 77.8\%.

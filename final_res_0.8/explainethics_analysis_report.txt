@@ -1,0 +1,213 @@
+Available ExplainEthics pkl files:
+  /mnt/c/Tugas_Akhir/ARGOS_public_anon/all_outs_cot_met_explain_ethics_explain_ethics_rulethresh=0.8,_cot_thresh=0.8_(annealing_0.1_rule),_dynamic=True,_llama8B,_backbone-grounded_CoT.pkl
+
+Loaded 138 examples from all_outs_cot_met_explain_ethics_explain_ethics_rulethresh=0.8,_cot_thresh=0.8_(annealing_0.1_rule),_dynamic=True,_llama8B,_backbone-grounded_CoT.pkl
+Dataset: 145 ExplainEthics examples
+Derived 138 labels from dataset gold_foundation field
+
+Total preds: 138
+  Pre-solved by SAT (initial UNSAT, no LLM needed) : 10
+  SAT backbone with added premise (backbone loop)  : 0
+  CoT fallback                                     : 128
+  Missed                                           : 0
+  [Total SAT-resolved = 10]
+
+Overall accuracy : 0.6087  (84/138)
+Correct via SAT  : 0
+Correct via CoT  : 84
+Missed/skipped   : 0
+
+Micro-averaged standard metrics (over 6 norm classes):
+  Accuracy : 0.6087
+  Precision: 1.0000
+  Recall   : 0.6087
+  F1 Score : 0.7568
+
+Name                           Pred norm                 Gold norm                 Shown label               OK?
+-------------------------------------------------------------------------------------------------------------------
+explainethics69.cnf            unknown                   violate_sanctity          violate_care              ✗
+explainethics7.cnf             unknown                   violate_care              violate_loyalty           ✗
+explainethics132.cnf           unknown                   violate_care              violate_fairness          ✗
+explainethics43.cnf            unknown                   violate_sanctity          violate_sanctity          ✗
+explainethics91.cnf            unknown                   violate_sanctity          violate_authority         ✗
+explainethics86.cnf            unknown                   violate_fairness          violate_fairness          ✗
+explainethics51.cnf            unknown                   violate_care              violate_care              ✗
+explainethics125.cnf           unknown                   violate_care              violate_care              ✗
+explainethics56.cnf            unknown                   violate_sanctity          violate_sanctity          ✗
+explainethics134.cnf           unknown                   violate_sanctity          violate_loyalty           ✗
+explainethics89.cnf            unknown                   violate_care              violate_liberty           ✗
+explainethics90.cnf            violate_sanctity          violate_sanctity          violate_sanctity          ✓
+explainethics130.cnf           unknown                   violate_care              violate_care              ✗
+explainethics62.cnf            violate_sanctity          violate_sanctity          violate_liberty           ✓
+explainethics22.cnf            violate_care              violate_care              violate_care              ✓
+explainethics13.cnf            violate_sanctity          violate_sanctity          violate_sanctity          ✓
+explainethics32.cnf            unknown                   violate_care              violate_authority         ✗
+explainethics59.cnf            violate_care              violate_care              violate_authority         ✓
+explainethics55.cnf            unknown                   violate_care              violate_care              ✗
+explainethics3.cnf             unknown                   violate_authority         violate_care              ✗
+explainethics107.cnf           unknown                   violate_authority         violate_authority         ✗
+explainethics115.cnf           violate_care              violate_care              violate_care              ✓
+explainethics84.cnf            violate_care              violate_care              violate_loyalty           ✓
+explainethics113.cnf           unknown                   violate_authority         violate_authority         ✗
+explainethics61.cnf            violate_care              violate_care              violate_care              ✓
+explainethics81.cnf            violate_authority         violate_authority         violate_authority         ✓
+explainethics36.cnf            unknown                   violate_care              violate_care              ✗
+explainethics102.cnf           unknown                   violate_authority         violate_authority         ✗
+explainethics75.cnf            violate_care              violate_care              violate_care              ✓
+explainethics128.cnf           unknown                   violate_care              violate_authority         ✗
+explainethics47.cnf            violate_care              violate_care              violate_care              ✓
+explainethics129.cnf           violate_fairness          violate_fairness          violate_fairness          ✓
+explainethics80.cnf            violate_authority         violate_authority         violate_sanctity          ✓
+explainethics138.cnf           unknown                   violate_care              violate_care              ✗
+explainethics71.cnf            unknown                   violate_authority         violate_fairness          ✗
+explainethics112.cnf           violate_care              violate_care              violate_liberty           ✓
+explainethics44.cnf            violate_fairness          violate_fairness          violate_fairness          ✓
+explainethics123.cnf           violate_authority         violate_authority         violate_liberty           ✓
+explainethics137.cnf           violate_authority         violate_authority         violate_authority         ✓
+explainethics144.cnf           unknown                   violate_care              violate_fairness          ✗
+explainethics1.cnf             unknown                   violate_care              violate_fairness          ✗
+explainethics64.cnf            violate_sanctity          violate_sanctity          violate_care              ✓
+explainethics114.cnf           unknown                   violate_care              violate_liberty           ✗
+explainethics143.cnf           violate_authority         violate_authority         violate_authority         ✓
+explainethics135.cnf           unknown                   violate_care              violate_care              ✗
+explainethics46.cnf            violate_care              violate_care              violate_liberty           ✓
+explainethics140.cnf           unknown                   violate_care              violate_authority         ✗
+explainethics25.cnf            violate_sanctity          violate_sanctity          violate_sanctity          ✓
+explainethics33.cnf            unknown                   violate_care              violate_care              ✗
+explainethics2.cnf             violate_fairness          violate_fairness          violate_care              ✓
+explainethics29.cnf            violate_care              violate_care              violate_care              ✓
+explainethics133.cnf           violate_authority         violate_authority         violate_authority         ✓
+explainethics26.cnf            violate_liberty           violate_liberty           violate_liberty           ✓
+explainethics48.cnf            violate_fairness          violate_fairness          violate_fairness          ✓
+explainethics108.cnf           violate_sanctity          violate_sanctity          violate_loyalty           ✓
+explainethics20.cnf            violate_sanctity          violate_sanctity          violate_fairness          ✓
+explainethics142.cnf           violate_care              violate_care              violate_loyalty           ✓
+explainethics79.cnf            violate_care              violate_care              violate_care              ✓
+explainethics35.cnf            violate_care              violate_care              violate_care              ✓
+explainethics85.cnf            violate_care              violate_care              violate_care              ✓
+explainethics10.cnf            unknown                   violate_care              violate_liberty           ✗
+explainethics139.cnf           violate_loyalty           violate_loyalty           violate_fairness          ✓
+explainethics83.cnf            unknown                   violate_care              violate_care              ✗
+explainethics65.cnf            violate_care              violate_care              violate_authority         ✓
+explainethics92.cnf            unknown                   violate_fairness          violate_liberty           ✗
+explainethics124.cnf           violate_authority         violate_authority         violate_loyalty           ✓
+explainethics34.cnf            violate_care              violate_care              violate_loyalty           ✓
+explainethics126.cnf           violate_fairness          violate_fairness          violate_authority         ✓
+explainethics40.cnf            violate_care              violate_care              violate_liberty           ✓
+explainethics23.cnf            violate_care              violate_care              violate_fairness          ✓
+explainethics37.cnf            violate_care              violate_care              violate_care              ✓
+explainethics103.cnf           violate_authority         violate_authority         violate_liberty           ✓
+explainethics19.cnf            violate_care              violate_care              violate_loyalty           ✓
+explainethics60.cnf            violate_care              violate_care              violate_fairness          ✓
+explainethics131.cnf           unknown                   violate_care              violate_care              ✗
+explainethics141.cnf           unknown                   violate_loyalty           violate_loyalty           ✗
+explainethics127.cnf           violate_sanctity          violate_sanctity          violate_care              ✓
+explainethics58.cnf            violate_sanctity          violate_sanctity          violate_fairness          ✓
+explainethics99.cnf            violate_care              violate_care              violate_loyalty           ✓
+explainethics97.cnf            violate_care              violate_care              violate_care              ✓
+explainethics49.cnf            unknown                   violate_care              violate_loyalty           ✗
+explainethics88.cnf            unknown                   violate_fairness          violate_fairness          ✗
+explainethics41.cnf            violate_sanctity          violate_sanctity          violate_fairness          ✓
+explainethics87.cnf            violate_fairness          violate_fairness          violate_liberty           ✓
+explainethics11.cnf            violate_care              violate_care              violate_care              ✓
+explainethics9.cnf             violate_fairness          violate_fairness          violate_loyalty           ✓
+explainethics93.cnf            unknown                   violate_care              violate_care              ✗
+explainethics68.cnf            violate_care              violate_care              violate_sanctity          ✓
+explainethics94.cnf            violate_fairness          violate_fairness          violate_care              ✓
+explainethics27.cnf            unknown                   violate_care              violate_liberty           ✗
+explainethics100.cnf           violate_care              violate_care              violate_authority         ✓
+explainethics24.cnf            violate_sanctity          violate_sanctity          violate_authority         ✓
+explainethics96.cnf            unknown                   violate_care              violate_liberty           ✗
+explainethics4.cnf             violate_fairness          violate_fairness          violate_fairness          ✓
+explainethics119.cnf           violate_care              violate_care              violate_care              ✓
+explainethics118.cnf           unknown                   violate_care              violate_care              ✗
+explainethics104.cnf           violate_fairness          violate_fairness          violate_care              ✓
+explainethics120.cnf           unknown                   violate_fairness          violate_fairness          ✗
+explainethics66.cnf            unknown                   violate_care              violate_fairness          ✗
+explainethics77.cnf            violate_fairness          violate_fairness          violate_fairness          ✓
+explainethics106.cnf           unknown                   violate_care              violate_sanctity          ✗
+explainethics8.cnf             violate_authority         violate_authority         violate_authority         ✓
+explainethics54.cnf            violate_care              violate_care              violate_authority         ✓
+explainethics78.cnf            violate_care              violate_care              violate_authority         ✓
+explainethics95.cnf            unknown                   violate_authority         violate_authority         ✗
+explainethics105.cnf           unknown                   violate_care              violate_liberty           ✗
+explainethics63.cnf            violate_authority         violate_authority         violate_care              ✓
+explainethics6.cnf             unknown                   violate_care              violate_care              ✗
+explainethics67.cnf            unknown                   violate_care              violate_care              ✗
+explainethics16.cnf            violate_care              violate_care              violate_care              ✓
+explainethics42.cnf            unknown                   violate_care              violate_care              ✗
+explainethics57.cnf            unknown                   violate_authority         violate_authority         ✗
+explainethics45.cnf            unknown                   violate_care              violate_care              ✗
+explainethics116.cnf           violate_authority         violate_authority         violate_authority         ✓
+explainethics98.cnf            unknown                   violate_care              violate_care              ✗
+explainethics28.cnf            unknown                   violate_fairness          violate_loyalty           ✗
+explainethics12.cnf            violate_care              violate_care              violate_authority         ✓
+explainethics50.cnf            violate_care              violate_care              violate_care              ✓
+explainethics117.cnf           violate_care              violate_care              violate_liberty           ✓
+explainethics52.cnf            violate_care              violate_care              violate_authority         ✓
+explainethics53.cnf            violate_authority         violate_authority         violate_liberty           ✓
+explainethics5.cnf             violate_sanctity          violate_sanctity          violate_loyalty           ✓
+explainethics111.cnf           unknown                   violate_authority         violate_care              ✗
+explainethics109.cnf           violate_fairness          violate_fairness          violate_fairness          ✓
+explainethics74.cnf            violate_liberty           violate_liberty           violate_liberty           ✓
+explainethics76.cnf            violate_authority         violate_authority         violate_liberty           ✓
+explainethics82.cnf            violate_authority         violate_authority         violate_liberty           ✓
+explainethics15.cnf            violate_care              violate_care              violate_sanctity          ✓
+explainethics101.cnf           violate_care              violate_care              violate_care              ✓
+explainethics17.cnf            violate_authority         violate_authority         violate_fairness          ✓
+explainethics30.cnf            unknown                   violate_sanctity          violate_authority         ✗
+explainethics136.cnf           unknown                   violate_care              violate_sanctity          ✗
+explainethics21.cnf            violate_authority         violate_authority         violate_loyalty           ✓
+explainethics14.cnf            violate_authority         violate_authority         violate_authority         ✓
+explainethics122.cnf           violate_care              violate_care              violate_authority         ✓
+explainethics70.cnf            violate_care              violate_care              violate_care              ✓
+explainethics110.cnf           violate_sanctity          violate_sanctity          violate_sanctity          ✓
+explainethics72.cnf            violate_fairness          violate_fairness          violate_fairness          ✓
+
+SAT backbone accuracy: 0/10 = 0.000
+CoT fallback accuracy: 84/128 = 0.656
+
+Per-norm accuracy (by gold_foundation):
+  violate_authority         17/25 = 0.680
+    TP=17  FP=0  FN=8
+  violate_care              38/72 = 0.528
+    TP=38  FP=0  FN=34
+  violate_fairness          13/18 = 0.722
+    TP=13  FP=0  FN=5
+  violate_liberty           2/2 = 1.000
+    TP=2  FP=0  FN=0
+  violate_loyalty           1/2 = 0.500
+    TP=1  FP=0  FN=1
+  violate_sanctity          13/19 = 0.684
+    TP=13  FP=0  FN=6
+
+Decoy resistance  (shown≠gold, pred==gold): 47/73 = 0.644
+True-label recall (shown==gold, pred==gold): 37/65 = 0.569
+CoT iter 0: acc=38
+CoT iter 1: acc=38
+CoT iter 2: acc=38
+CoT iter 3: acc=38
+
+=== ARGOS vs Baseline (CoT SC) Comparison ===
+Metric    | ARGOS     | CoT SC
+-----------------------------------
+Accuracy  | 0.6087    | 0.2754
+Precision | 1.0000    | 0.2754
+Recall    | 0.6087    | 0.2754
+F1 Score  | 0.7568    | 0.2754
+-----------------------------------
+Mean single CoT acc: 0.275
+
+Bootstrap ARGOS mean acc : 0.6063
+Bootstrap SC mean acc    : 0.2751
+
+Wilcoxon signed-rank (ARGOS > SC): stat=9591.0000  p=0.0000   SIGNIFICANT (α=0.05)
+95% CI on ARGOS accuracy: (0.5972, 0.6154)
+
+Trajectory flags:
+  unflipped-wrong: 34
+  unflipped-correct: 22
+  flipped correct: 62
+  flipped incorrect: 10
+
+[Done] Available: preds, labels, outs, data, names, scs_all, flag_all, bs_outs_acc

@@ -1,0 +1,65 @@
+%-----------------------------------------------------------------------------%
+\chapter{\babTiga}
+\label{bab:3}
+%-----------------------------------------------------------------------------%
+
+In this chapter, we describe the methodology used in this research, including the research design, dataset, algorithm adaptation, and evaluation metrics.
+
+
+%-----------------------------------------------------------------------------%
+\section{Research Design}
+\label{sec:researchDesign}
+%-----------------------------------------------------------------------------%
+% Describe the overall research approach:
+% - Comparative experiment: ARGOS (neurosymbolic) vs CoT Baseline vs SAT-LM.
+% - Goal: evaluate whether SAT-based formal entailment can be achieved on
+%   moral reasoning, and identify why it fails or succeeds.
+% - Quantitative evaluation on the ExplainEthics test split.
+
+
+%-----------------------------------------------------------------------------%
+\section{Dataset}
+\label{sec:dataset}
+%-----------------------------------------------------------------------------%
+% Describe ExplainEthics in detail:
+% - Number of examples per split (train/dev/test).
+% - Distribution across the 6 moral norm classes.
+
+% - Fields used: context, label, gold_foundation, explanation.
+% - How the dataset was encoded into CNF (explain_ethics_to_sat.py):
+%     variables: action predicates + violate_X norm literal.
+%     pos CNF: action ∧ violate_X (hypothesis: norm IS violated).
+%     neg CNF: action ∧ ¬violate_X (hypothesis: norm is NOT violated).
+
+
+%-----------------------------------------------------------------------------%
+\section{Algorithm}
+\label{sec:algorithm}
+%-----------------------------------------------------------------------------%
+
+
+%-----------------------------------------------------------------------------%
+\subsection{ARGOS Pipeline Adaptation for ExplainEthics}
+\label{sec:argosAdaptation}
+%-----------------------------------------------------------------------------%
+% Describe changes made from the original CLUTRR/ProntoQA ARGOS to ExplainEthics:
+%   1. SAT entailment check: pos UNSAT → norm IS violated; neg UNSAT → norm NOT violated.
+%   2. CoT prompt: multi-class "which norm does this most violate?" (not binary yes/no).
+%   3. Fill-in-the-blank abduction: 12-example few-shot prompt with intermediate concepts.
+%   4. rule_check: contradiction gate (1 - p_yes_contradictory) + context relevance gate.
+%   5. Annealing threshold: cot_thresh starts at 0.8, decreases by 0.1 per injected rule.
+% Include Algorithm 1 pseudocode or a flow diagram.
+
+Since there are some important differences between the original datasets for which ARGOS is designed, we decided to make slight adjustments to the original ARGOS algorithm. Particularly, we adjust the rule generation step from building rules from choosing literals that shares the most entities with other in the backbone to iterating all possible pairs of $L_{1}$ and $L_{2}$ in order to generate $L_{\text{right}}$. Then, for all $L_{\text{right}}$ that is generated, we filter them based on whether $L_{\text{right}}$ is likely to be commonsense and on whether $L_{\text{right}}$ is relevant to our given context by setting a threshold $\tau$ (we test $\tau \in \{0.3, 0.5, 0.8\}$). Hence, our algorithm is described as follows:
+
+
+%-----------------------------------------------------------------------------%
+\section{Evaluation Metrics}
+\label{sec:evaluationMetrics}
+%-----------------------------------------------------------------------------%
+% Define metrics used in Chapter~\ref{bab:4}:
+%   - Overall accuracy: correct / (total - missed).
+%   - Micro-averaged precision, recall, F1 over 6 norm classes.
+
+%   - SAT utilization rate: fraction resolved by SAT vs CoT vs missed.
+%   - Bootstrap 95% CI and Wilcoxon signed-rank test vs baseline.

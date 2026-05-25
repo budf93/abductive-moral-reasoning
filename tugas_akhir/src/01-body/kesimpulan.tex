@@ -1,0 +1,46 @@
+%---------------------------------------------------------------
+\chapter{\kesimpulan}
+\label{bab:6}
+%---------------------------------------------------------------
+
+In this chapter, we present the conclusions drawn from our research and recommendations for future work.
+
+
+%---------------------------------------------------------------
+\section{Conclusion}
+\label{sec:kesimpulan}
+%---------------------------------------------------------------
+% Summarize answers to the three research questions:
+
+% RQ1 (Domain Gap):
+% Moral reasoning CNFs are structurally underconstrained compared to CLUTRR/ProntoQA:
+% few variables, abstract predicate semantics, and the open-textured nature of moral
+% norms prevent the backbone from narrowing sufficiently for formal entailment.
+
+% RQ2 (Pipeline Bottleneck):
+% LLM-generated clauses fail to achieve SAT-based entailment due to three bottlenecks:
+% (1) prompt bias toward known norm strings rather than bridging concepts,
+% (2) generated predicates that do not map to existing SAT variables, and
+% (3) the CoT confidence threshold firing before rule injection has a meaningful effect.
+
+% RQ3 (CoT Compensation):
+% Despite SAT failure, backbone-grounded CoT still outperforms the vanilla baseline.
+% The backbone facts and the dataset's explanation field provide sufficient grounding
+% for the LLM to improve moral norm classification accuracy.
+
+
+%---------------------------------------------------------------
+\section{Future Work}
+\label{sec:saran}
+%---------------------------------------------------------------
+% Suggestions for future research:
+% 1. Richer CNF encodings: include more fine-grained moral predicates to give
+%    the backbone more room to narrow toward entailment.
+% 2. Structured abduction: instead of fill-in-the-blank, use a dedicated
+%    retrieval step to find known moral rules from a curated knowledge base.
+% 3. Larger and more capable LLMs: test whether a larger model reduces
+%    the prompt bias and variable grounding failure rates.
+% 4. Extending to other moral datasets: e.g., ETHICS, MoralStories, or Delphi,
+%    to test generalizability of the domain gap finding.
+% 5. Dynamic CoT threshold scheduling: explore adaptive γ annealing strategies
+%    that give rule injection more iterations before falling back to CoT.

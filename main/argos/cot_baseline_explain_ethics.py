@@ -155,9 +155,11 @@ def cot_predict(prob, model, tokenizer, device):
       prob['context']         – the ethical scenario text
       prob['gold_foundation'] – the true violated norm (for reference only, not used in prompt)
     """
+    explanation_str = f"Explanation: {prob['explanation']} " if prob.get('explanation') else ""
     prompt = (
         FEW_SHOT
         + f"Context: {prob['context']} "
+        + explanation_str
         # + f"Question: Does this violate {prob['label']}? "
         # + f"Question: Does this violate {prob['label']}? Of these norm violations ({NORMS_LIST_STR}), which one does this action most violate? "
         + f"Question: Of these norm violations ({NORMS_LIST_STR}), which one does this action most violate? "

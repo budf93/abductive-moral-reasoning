@@ -1,0 +1,91 @@
+%
+% @author  Andre Tampubolon, Andreas Febrian
+% @version 2.2.0
+% @edit by Muhammad Aulia Adil Murtito, Ichlasul Affan
+%
+
+\chapter*{\uppercase{Halaman Pernyataan Persetujuan Publikasi\\Tugas Akhir untuk Kepentingan Akademis}}
+\vspace*{-1cm}
+\par\noindent\rule{\textwidth}{3pt}
+\vspace*{1cm}
+\noindent
+Sebagai sivitas akademik Universitas Indonesia,~\ifx\blank\npmDua{saya}\else{kami}\fi~yang bertanda
+tangan di bawah ini:
+
+\vspace*{0.2cm}
+
+\pagestyle{onlypage}
+
+\begin{tabular}{p{4.2cm} l p{6.5cm}}
+	Nama&: & \penulisSatu
+		\ifx\blank\npmDua\else{~/~\penulisDua}\fi
+		\ifx\blank\npmTiga\else{~/~\penulisTiga}\fi \\
+	NPM&: & \npmSatu
+		\ifx\blank\npmDua\else{~/~\npmDua}\fi
+		\ifx\blank\npmTiga\else{~/~\npmTiga}\fi \\
+	Program Studi&: & \programSatu
+		\ifx\blank\npmDua\else{~/~\programDua}\fi
+		\ifx\blank\npmTiga\else{~/~\programTiga}\fi \\
+	Jenis Karya & : & \type \\
+\end{tabular}
+
+\vspace*{0.2cm}
+
+\noindent demi pengembangan ilmu pengetahuan, menyetujui untuk memberikan
+kepada Universitas Indonesia \bo{Hak Bebas Royalti Noneksklusif
+(\textit{Non-exclusive Royalty Free Right})} atas karya ilmiah~\ifx\blank\npmDua{saya}\else{kami}\fi~yang berjudul:
+\begin{center}
+	\judul
+\end{center}
+beserta perangkat yang ada (jika diperlukan). Dengan Hak Bebas Royalti
+Noneksklusif ini Universitas Indonesia berhak menyimpan,
+mengalihmedia/formatkan, mengelola dalam bentuk pangkalan data
+(\textit{database}), merawat, dan memublikasikan tugas akhir~\ifx\blank\npmDua{saya}\else{kami}\fi~selama
+tetap mencantumkan nama~\ifx\blank\npmDua{saya}\else{kami}\fi~sebagai penulis/pencipta dan sebagai
+pemilik Hak Cipta.
+
+\noindent Demikian pernyataan ini~\ifx\blank\npmDua{saya}\else{kami}\fi~buat dengan sebenarnya.
+
+% Untuk input gambar tanda tangan, silahkan sesuaikan xshift, yshift, dan width dengan gambar tanda tangan Anda
+%\begin{tikzpicture}[remember picture,overlay,shift={(current page.north east)}]
+%\node[anchor=north east,xshift=-9cm,yshift=-23.5cm]{\includegraphics[width=3cm]{assets/pics/tanda_tangan_wikipedia.png}};
+%\end{tikzpicture}
+
+
+\begin{center}
+	\vspace*{0.8cm}
+	\begin{tabular}{lll}
+		Dibuat di&: & Depok \\
+		Pada tanggal&: & \tanggalSiapSidang \\
+	\end{tabular}\\
+
+	\vspace*{0.2cm}
+	Yang menyatakan \\
+	\ifx\blank\npmDua
+		\vspace*{2cm}
+		(\penulisSatu) \\
+	\else
+		\ifx\blank\npmTiga
+			\begin{multicols}{2}
+				\vspace*{0.5cm}
+				(\penulisSatu) \\
+
+				\vspace*{0.5cm}
+				(\penulisDua) \\
+			\end{multicols}
+		\else
+			\begin{multicols}{3}
+				\vspace*{0.5cm}
+				(\penulisSatu) \\
+
+				\vspace*{0.5cm}
+				(\penulisDua) \\
+
+				\vspace*{0.5cm}
+				(\penulisTiga) \\
+			\end{multicols}
+		\fi
+	\fi
+\end{center}
+
+\newpage

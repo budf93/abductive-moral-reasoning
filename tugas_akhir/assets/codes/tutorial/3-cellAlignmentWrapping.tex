@@ -1,0 +1,41 @@
+\begin{longtable}{|p{0.14\textwidth}|p{0.26\textwidth}|p{0.25\textwidth}|p{0.25\textwidth}|}
+	\caption{Contoh Tabel: Perbandingan metode pemodelan \f{access control}}
+	\label{tab:cellAlignmentWrapping} \\
+	\hline
+	\multicolumn{1}{|C{0.14\textwidth}|}{\bo{Kategori}}
+	&
+	\multicolumn{1}{C{0.26\textwidth}|}{\bo{Model A}}
+	&
+	\multicolumn{1}{C{0.25\textwidth}|}{\bo{Model B}}
+	&
+	\multicolumn{1}{C{0.25\textwidth}|}{\bo{Model C}} \\
+	\hline
+	\endfirsthead % batas akhir header yang akan muncul di halaman pertama
+	\caption[]{Contoh Tabel: Perbandingan metode pemodelan \f{access control} (sambungan)} \\
+	\hline
+	\multicolumn{1}{|C{0.14\textwidth}|}{\bo{Kategori}}
+	&
+	\multicolumn{1}{C{0.26\textwidth}|}{\bo{Model A}}
+	&
+	\multicolumn{1}{C{0.25\textwidth}|}{\bo{Model B}}
+	&
+	\multicolumn{1}{C{0.25\textwidth}|}{\bo{Model C}} \\
+	\hline
+	\endhead
+
+	Latar \newline~belakang &
+	Memodelkan struktur RBAC dalam perangkat lunak &
+	Ekstensi dari RBAC sehingga bisa mendukung \f{constraint} berdasarkan properti subjek, objek, dan lingkungan &
+	Memodelkan seluruh aspek keamanan dari sebuah \f{secure system} \\
+	\hline
+	Cakupan &
+	Struktur eksplisit &
+	Struktur eksplisit dengan \f{usage awareneess} &
+	Aspek-aspek keamanan generik dengan detil struktur bersifat implisit \\
+	\hline
+	Format \newline\f{diagram} &
+	\f{Class diagram} &
+	\f{Use case diagram} dan \f{sequence diagram} &
+	RBAC pada \f{activity diagram} \\
+	\hline
+\end{longtable}

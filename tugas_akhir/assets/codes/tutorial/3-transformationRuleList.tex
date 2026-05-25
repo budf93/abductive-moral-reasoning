@@ -1,0 +1,46 @@
+% nama jenis objek
+\newcommand{\transformationrule}{Aturan Transformasi}
+\newcommand{\listoftransformationrulename}{Daftar \transformationrule}
+% mendefinisikan daftar isi suatu jenis objek
+\newlistof{transformationrule}{lotr}{\listoftransformationrulename}
+% mengatur penomoran suatu jenis objek
+\counterwithin{transformationrule}{chapter}
+
+\newcommand{\captiontransformationrule}[1]
+{
+    % increment nomor caption
+    \refstepcounter{transformationrule}
+    % tambah caption
+    \caption*{\textbf{\transformationrule~\thetransformationrule:}~#1}
+    % tambah caption ke daftar isi
+    \addcontentsline{lotr}{transformationrule}
+    {\protect\numberline{\thetransformationrule}{\ignorespaces #1}}\par
+}
+
+\newcommand*{\captiontransformationrulecont}[2]{
+    % tambah caption sambungan
+    \caption*{\textbf{\transformationrule~\thetransformationrule:}~#1 (sambungan)}
+}
+
+\newcommand{\captionsourcetransformationrule}[2]
+{
+    % increment nomor caption
+    \refstepcounter{transformationrule}
+    % tambah caption dengan sumber
+    \caption*{\textbf{\transformationrule~\thetransformationrule:}~#1\par
+        \footnotesize\textbf{Sumber:} #2\par}
+    % tambah caption ke daftar isi
+    \addcontentsline{lotr}{ transformationrule}
+    {\protect\numberline{\thetransformationrule}{\ignorespaces #1}}\par
+}
+
+\newcommand*{\captionsourcetransformationrulecont}[2]{
+    % tambah caption sambungan dengan sumber
+    \caption*{\textbf{\transformationrule~\thetransformationrule:}~#1 (sambungan)\par
+        \footnotesize\textbf{Sumber:} #2\par}
+}
+
+\renewcommand\cfttransformationruleindent{0pt}
+\renewcommand\cfttransformationrulenumwidth{50pt} % sesuaikan lebar ini agar penomoran tidak menimpa judul konten
+\renewcommand\cfttransformationruleaftersnum{.}
+\renewcommand\cfttransformationrulepresnum{\transformationrule~}

@@ -1,0 +1,27 @@
+%
+% @author  Andreas Febrian
+% @version 2.2.1
+% @edit by Ichlasul Affan
+%
+% Mendaftar seluruh istilah yang mungkin akan perlu dijadikan
+% italic atau bold pada setiap kemunculannya dalam dokumen.
+%
+% v2.2.1 - support untuk Glossary (daftar istilah)
+%
+
+% Istilah/alias yang tidak perlu dimasukkan ke dalam Glossary/Daftar Istiilah
+\var{\license}{\f{Creative Common License 1.0 Generic}}
+\var{\bslash}{$\setminus$}
+
+
+\makeglossaries
+
+% Contoh istilah
+\newglossaryentry{latex}
+{
+	name=\LaTeX,
+	description={Sebuah \f{mark up language} yang didesain khusus untuk karya tulis ilmiah}
+}
+
+% Contoh Akronim
+\newacronym{pdf}{PDF}{\f{Portable Document Format}}

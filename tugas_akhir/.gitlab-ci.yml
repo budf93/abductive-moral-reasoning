@@ -1,0 +1,17 @@
+---
+default:
+  image: docker.io/texlive/texlive:latest
+  before_script:
+    - latex --version
+    - latexmk --version
+
+stages:
+  - Build
+
+Generate PDF:
+  stage: Build
+  script:
+    - latexmk -bibtex -output-format=pdf -pdf -time thesis.tex
+  artifacts:
+    paths:
+      - thesis.pdf

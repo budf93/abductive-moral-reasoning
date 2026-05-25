@@ -1,0 +1,91 @@
+6198.8s	19052	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_explainethics36.bbone
+6198.8s	19053	running cadiback for explain_ethics backbone extraction
+6198.8s	19054	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_explainethics36.bbone
+6198.8s	19055	running cadiback for explain_ethics backbone extraction
+6198.8s	19056	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+6198.8s	19057	running cadiback for explain_ethics backbone extraction
+6198.8s	19058	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+6198.8s	19059	nb [1, -2, 3, 4]
+6198.8s	19060	pb [1, 2, 3, 4]
+6198.8s	19061	jb [1, 3, 4]
+6198.8s	19062	ab [np.int64(1), np.int64(2), np.int64(3), np.int64(4)]
+6198.8s	19063	
+6198.8s	19064	**************************************************
+6198.8s	19065	ORIGINAL BACKBONE (Before any inference)
+6198.8s	19066	**************************************************
+6198.8s	19067	ORIGINAL BACKBONE (Positive):
+6198.8s	19068	  + shooting_hole_in_man_ear
+6198.8s	19069	  + violate_care
+6198.8s	19070	  + harm_to_human
+6198.8s	19071	  + physical_harm
+6198.8s	19072	ORIGINAL BACKBONE (Negative):
+6198.8s	19073	  - shooting_hole_in_man_ear
+6198.8s	19074	  - violate_care
+6198.8s	19075	  - harm_to_human
+6198.8s	19076	  - physical_harm
+6198.8s	19077	**************************************************
+6198.8s	19078	
+6198.8s	19079	running cadiback for explain_ethics backbone extraction
+6198.8s	19080	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+6198.8s	19081	running cadiback for explain_ethics backbone extraction
+6198.8s	19082	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+6198.8s	19083	
+6198.8s	19084	========================================
+6198.8s	19085	ITERATION 1 STATE
+6198.8s	19086	========================================
+6198.8s	19087	OVERALL BACKBONE (Positive):
+6198.8s	19088	  + shooting_hole_in_man_ear
+6198.8s	19089	  + violate_care
+6198.8s	19090	  + harm_to_human
+6198.8s	19091	  + physical_harm
+6198.8s	19092	OVERALL BACKBONE (Negative):
+6198.8s	19093	  - shooting_hole_in_man_ear
+6198.8s	19094	  - violate_care
+6198.8s	19095	  - harm_to_human
+6198.8s	19096	  - physical_harm
+6198.8s	19097	
+6198.8s	19098	ADDED COMMONSENSE RULES SO FAR:
+6198.8s	19099	========================================
+6198.8s	19100	
+6198.8s	19101	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+6198.8s	19102	[get_sol] exit line: c exit 10
+6198.8s	19103	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+6198.8s	19104	[get_sol] exit line: c exit 20
+6198.8s	19105	[get_sol] UNSATISFIABLE (exit 20)
+6198.8s	19106	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+6198.8s	19107	[get_sol] exit line: c exit 10
+6198.8s	19108	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+6198.8s	19109	[get_sol] exit line: c exit 20
+6198.8s	19110	[get_sol] UNSATISFIABLE (exit 20)
+6198.8s	19111	[next_var] get_sol result: pos=1 sols, neg=1 sols
+6198.8s	19112	label: violate_care
+6225.9s	19113	[cot] predicted violate_sanctity vs gold violate_care → MISMATCH (false)
+6253.2s	19114	[cot] predicted violate_sanctity vs gold violate_care → MISMATCH (false)
+6280.3s	19115	[cot] predicted violate_sanctity vs gold violate_care → MISMATCH (false)
+6307.5s	19116	[cot] predicted violate_sanctity vs gold violate_care → MISMATCH (false)
+6334.6s	19117	[cot] predicted violate_sanctity vs gold violate_care → MISMATCH (false)
+6334.6s	19118	[cot] majority norm vote: violate_sanctity (counts={'violate_care': 0.0, 'violate_fairness': 0.0, 'violate_loyalty': 0.0, 'violate_authority': 0.0, 'violate_sanctity': 5.0, 'violate_liberty': 0.0})
+6334.6s	19119	[next_var] ps after CoT evaluation: tensor([0., 5.])
+6334.6s	19120	[next_var] CoT annealed threshold: 0.80 (rule #0)
+6334.6s	19121	[next_var] CoT confident enough (max=5.0 >= 0.80×sum=5.0), stopping
+6334.6s	19122	
+6334.6s	19123	========================================
+6334.6s	19124	FINAL PREMISES (Backbone upon violation determination):
+6334.6s	19125	Positive:
+6334.6s	19126	  + shooting_hole_in_man_ear
+6334.6s	19127	  + violate_care
+6334.6s	19128	  + harm_to_human
+6334.6s	19129	  + physical_harm
+6334.6s	19130	Negative:
+6334.6s	19131	  - shooting_hole_in_man_ear
+6334.6s	19132	  - violate_care
+6334.6s	19133	  - harm_to_human
+6334.6s	19134	  - physical_harm
+6334.6s	19135	ADDED COMMONSENSE RULES:
+6334.6s	19136	========================================
+6334.6s	19137	
+6334.6s	19138	gold_foundation: true
+6334.6s	19139	pred norm:       violate_sanctity
+6334.6s	19140	stepcount : 12
+6334.6s	19141	
+Acc: 0.364, COT: 4/11:   9%|█▌              | 12/128 [36:09<4:59:21, 154.84s/it]explain_ethics rulethresh=0.3, cot_thresh=0.8 (annealing 0.1/rule), dynamic=True, llama8B, backbone-grounded CoT

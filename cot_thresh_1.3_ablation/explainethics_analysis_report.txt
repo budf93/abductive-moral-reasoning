@@ -1,0 +1,88 @@
+Available ExplainEthics pkl files:
+  /mnt/c/Tugas_Akhir/ARGOS_public_anon/all_outs_cot_met_explain_ethics_explain_ethics_rulethresh=0.3,_cot_thresh=1.3_(annealing_0.1_rule),_dynamic=True,_llama8B,_backbone-grounded_CoT.pkl
+
+Loaded 18 examples from all_outs_cot_met_explain_ethics_explain_ethics_rulethresh=0.3,_cot_thresh=1.3_(annealing_0.1_rule),_dynamic=True,_llama8B,_backbone-grounded_CoT.pkl
+Dataset: 145 ExplainEthics examples
+Derived 18 labels from dataset gold_foundation field
+
+Total preds: 18
+  Pre-solved by SAT (initial UNSAT, no LLM needed) : 1
+  SAT backbone with added premise (backbone loop)  : 0
+  CoT fallback                                     : 17
+  Missed                                           : 0
+  [Total SAT-resolved = 1]
+
+Overall accuracy : 0.8889  (16/18)
+Correct via SAT  : 0
+Correct via CoT  : 16
+Missed/skipped   : 0
+
+Micro-averaged standard metrics (over 6 norm classes):
+  Accuracy : 0.8889
+  Precision: 1.0000
+  Recall   : 0.8889
+  F1 Score : 0.9412
+
+Name                           Pred norm                 Gold norm                 Shown label               OK?
+-------------------------------------------------------------------------------------------------------------------
+explainethics7.cnf             unknown                   violate_care              violate_loyalty           ✗
+explainethics13.cnf            violate_sanctity          violate_sanctity          violate_sanctity          ✓
+explainethics10.cnf            violate_care              violate_care              violate_liberty           ✓
+explainethics15.cnf            violate_care              violate_care              violate_sanctity          ✓
+explainethics11.cnf            violate_care              violate_care              violate_care              ✓
+explainethics12.cnf            violate_care              violate_care              violate_authority         ✓
+explainethics6.cnf             violate_care              violate_care              violate_care              ✓
+explainethics4.cnf             violate_fairness          violate_fairness          violate_fairness          ✓
+explainethics14.cnf            violate_authority         violate_authority         violate_authority         ✓
+explainethics5.cnf             violate_sanctity          violate_sanctity          violate_loyalty           ✓
+explainethics9.cnf             violate_fairness          violate_fairness          violate_loyalty           ✓
+explainethics2.cnf             violate_fairness          violate_fairness          violate_care              ✓
+explainethics1.cnf             violate_care              violate_care              violate_fairness          ✓
+explainethics17.cnf            violate_authority         violate_authority         violate_fairness          ✓
+explainethics3.cnf             violate_authority         violate_authority         violate_care              ✓
+explainethics8.cnf             violate_authority         violate_authority         violate_authority         ✓
+explainethics19.cnf            unknown                   violate_care              violate_loyalty           ✗
+explainethics16.cnf            violate_care              violate_care              violate_care              ✓
+
+SAT backbone accuracy: 0/1 = 0.000
+CoT fallback accuracy: 16/17 = 0.941
+
+Per-norm accuracy (by gold_foundation):
+  violate_authority         4/4 = 1.000
+    TP=4  FP=0  FN=0
+  violate_care              7/9 = 0.778
+    TP=7  FP=0  FN=2
+  violate_fairness          3/3 = 1.000
+    TP=3  FP=0  FN=0
+  violate_sanctity          2/2 = 1.000
+    TP=2  FP=0  FN=0
+
+Decoy resistance  (shown≠gold, pred==gold): 9/11 = 0.818
+True-label recall (shown==gold, pred==gold): 7/7 = 1.000
+CoT iter 0: acc=6
+CoT iter 1: acc=6
+CoT iter 2: acc=6
+CoT iter 3: acc=6
+
+=== ARGOS vs Baseline (CoT SC) Comparison ===
+Metric    | ARGOS     | CoT SC
+-----------------------------------
+Accuracy  | 0.8889    | 0.3333
+Precision | 1.0000    | 0.3333
+Recall    | 0.8889    | 0.3333
+F1 Score  | 0.9412    | 0.3333
+-----------------------------------
+Mean single CoT acc: 0.333
+
+Bootstrap ARGOS mean acc : 0.8827
+Bootstrap SC mean acc    : 0.3272
+
+Wilcoxon signed-rank (ARGOS > SC): stat=171.0000  p=0.0001   SIGNIFICANT (α=0.05)
+95% CI on ARGOS accuracy: (0.8545, 0.9110)
+
+Trajectory flags:
+  unflipped-correct: 4
+  flipped correct: 12
+  flipped incorrect: 1
+
+[Done] Available: preds, labels, outs, data, names, scs_all, flag_all, bs_outs_acc
