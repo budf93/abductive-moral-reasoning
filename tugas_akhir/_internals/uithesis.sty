@@ -418,10 +418,22 @@
 \AtBeginDocument{
 	\renewcommand{\refname}{\bibname}
 	\renewcommand{\BBAA}{\&}
-	\renewcommand{\BBAB}{dan}
-	\renewcommand{\BRetrievedFrom}{Diakses dari }
-	\renewcommand{\BRetrieved}[1]{Diakses pada tanggal {#1}, dari\ }
+	\renewcommand{\BBAB}{and}
+	\renewcommand{\BRetrievedFrom}{Retrieved from }
+	\renewcommand{\BRetrieved}[1]{Retrieved {#1}, from\ }
 }
+
+% Force "et al." for works with 3 or more authors on ALL citations.
+% The apacite .bst generates \bibitem entries with \citeauthoryear{FULL}{SHORT}{YEAR}.
+% By default natbib uses FULL on first cite and SHORT on subsequent cites.
+% We redefine \citeauthoryear to always use the SHORT (second) argument,
+% which already contains "et al." for 3+ authors.
+\makeatletter
+\AtBeginDocument{%
+  \let\orig@citeauthoryear\citeauthoryear
+  \renewcommand{\citeauthoryear}[3]{\orig@citeauthoryear{#2}{#2}{#3}}%
+}
+\makeatother
 
 %-----------------------------------------------------------------------------%
 % Perintah Baru

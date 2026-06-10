@@ -250,7 +250,7 @@ To ensure quality, the generated $L_{\text{right}}$ candidate must pass two inde
 
 The functions $\texttt{llm\_commonsense\_score}$ and $\texttt{llm\_relevance\_score}$ are computed by prompting the LLM to evaluate whether a newly generated rule is a universally valid commonsense principle and whether it is contextually relevant to the specific scenario. Instead of relying on a deterministic boolean output, we evaluate the full probability of the model generating an affirmative versus a negative response. We record the logits of the tokens ``Yes'' and ``No'' following the text, and calculate $P(\text{Yes}) = \exp(\text{logit}_{\text{Yes}})/(\exp(\text{logit}_{\text{Yes}}) + \exp(\text{logit}_{\text{No}}))$ as relevance score. Similiarly, we also calculate $P(\text{Yes}) = \exp(\text{logit}_{\text{Yes}})/(\exp(\text{logit}_{\text{Yes}}) + \exp(\text{logit}_{\text{No}}))$ as commonsense score. Furthermore, we adapt the original ARGOS scoring prompt structure to handle the domain shift from deductive kinship graphs (CLUTRR) to subjective moral scenarios (ExplainEthics). First, for the $\texttt{llm\_commonsense\_score}$, the original pipeline utilizes few-shot examples based on familial relations to determine if a rule ``seems true.'' We adapt this by replacing the kinship examples with ethical scenarios and prompting the language model to evaluate if the rule ``seems morally true.'' Second, for the $\texttt{llm\_relevance\_score}$, while the original ARGOS prepends only the base scenario context to the prompt, our adaptation injects an additional \texttt{explanation} field provided by the ExplainEthics dataset. This explanation acts as supplementary information, providing deeper context to ensure the relevance check is strictly grounded in the specific moral dilemma.
 
-Specifically, the $\texttt{llm\_commonsense\_score}$ utilizes a few-shot prompt to determine if the generated rule is logically and morally plausible:
+Specifically, the $\texttt{llm\_commonsense\_score}$ utilizes a few-shot prompt to determine if the generated rule is logically and morally plausible (the full prompt template is provided in Appendix~\ref{appendix:prompts}):
 \begin{verbatim}
 Does the following rule seem morally true?
 Rule: If someone physically harms an animal then the norm of care 
@@ -264,7 +264,7 @@ Rule: [candidate_rule]
 Answer: \box{ 
 \end{verbatim}
 
-The $\texttt{llm\_relevance\_score}$ utilizes a zero-shot prompt grounded in the provided scenario and its ethical explanation:
+The $\texttt{llm\_relevance\_score}$ utilizes a zero-shot prompt grounded in the provided scenario and its ethical explanation (see Appendix~\ref{appendix:prompts} for the exact template):
 \begin{verbatim}
 Here are some facts:
 [context_string]
