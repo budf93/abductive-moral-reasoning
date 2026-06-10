@@ -238,17 +238,29 @@ for name, pred in preds.items():
         if gold_norm in norm_fn: norm_fn[gold_norm] += 1
         if pred in norm_fp:      norm_fp[pred]      += 1
 
-precision_micro = sum(norm_tp.values()) / max(sum(norm_tp.values()) + sum(norm_fp.values()), 1)
-recall_micro    = sum(norm_tp.values()) / max(sum(norm_tp.values()) + sum(norm_fn.values()), 1)
-f1_score        = 2 * precision_micro * recall_micro / max(precision_micro + recall_micro, 1e-9)
-precision = precision_micro
-recall    = recall_micro
+macro_precisions = []
+macro_recalls = []
+macro_f1s = []
+for n in _MORAL_NORMS:
+    tp = norm_tp[n]
+    fp = norm_fp[n]
+    fn = norm_fn[n]
+    p = tp / max(tp + fp, 1)
+    r = tp / max(tp + fn, 1)
+    f = 2 * p * r / max(p + r, 1e-9)
+    macro_precisions.append(p)
+    macro_recalls.append(r)
+    macro_f1s.append(f)
+
+precision = sum(macro_precisions) / len(_MORAL_NORMS)
+recall    = sum(macro_recalls) / len(_MORAL_NORMS)
+f1_score  = sum(macro_f1s) / len(_MORAL_NORMS)
 
 print(f'\nOverall accuracy : {accuracy:.4f}  ({acc}/{total})')
 print(f'Correct via SAT  : {correct_by_sat}')
 print(f'Correct via CoT  : {correct_by_cot}')
 print(f'Missed/skipped   : {missed}')
-print(f'\nMicro-averaged standard metrics (over {len(_MORAL_NORMS)} norm classes):')
+print(f'\nMacro-averaged standard metrics (over {len(_MORAL_NORMS)} norm classes):')
 print(f'  Accuracy : {accuracy:.4f}')
 print(f'  Precision: {precision:.4f}')
 print(f'  Recall   : {recall:.4f}')
@@ -374,9 +386,35 @@ if cot_pred_list:
         if sc_pred == gold_norm: sc_correct += 1
 
     sc_acc_final = sc_correct / max(len(names), 1)
-    sc_prec = sc_acc_final  # micro precision == accuracy for exact-match multi-class
-    sc_rec  = sc_acc_final
-    sc_f1   = sc_acc_final
+
+    # Compute per-norm macro precision/recall/F1 for SC baseline
+    sc_norm_tp = {n: 0 for n in _MORAL_NORMS}
+    sc_norm_fp = {n: 0 for n in _MORAL_NORMS}
+    sc_norm_fn = {n: 0 for n in _MORAL_NORMS}
+    for j, name in enumerate(names):
+        if j >= len(sc_votes_total) or sc_votes_total[j] == 0: continue
+        try:
+            idx       = int(name.replace('explainethics', '').split('.')[0])
+            gold_norm = data[idx]['gold_foundation'].replace('-', '_').lower().strip()
+        except Exception:
+            continue
+        sc_pred = max(sc_votes_norm[j], key=sc_votes_norm[j].get)
+        if sc_pred == gold_norm and sc_pred in sc_norm_tp:
+            sc_norm_tp[sc_pred] += 1
+        else:
+            if gold_norm in sc_norm_fn: sc_norm_fn[gold_norm] += 1
+            if sc_pred in sc_norm_fp:   sc_norm_fp[sc_pred]   += 1
+
+    sc_macro_precs, sc_macro_recs, sc_macro_f1s = [], [], []
+    for n in _MORAL_NORMS:
+        tp = sc_norm_tp[n]; fp = sc_norm_fp[n]; fn = sc_norm_fn[n]
+        p = tp / max(tp + fp, 1)
+        r = tp / max(tp + fn, 1)
+        f = 2 * p * r / max(p + r, 1e-9)
+        sc_macro_precs.append(p); sc_macro_recs.append(r); sc_macro_f1s.append(f)
+    sc_prec = sum(sc_macro_precs) / len(_MORAL_NORMS)
+    sc_rec  = sum(sc_macro_recs)  / len(_MORAL_NORMS)
+    sc_f1   = sum(sc_macro_f1s)   / len(_MORAL_NORMS)
 
     print(f'\n=== ARGOS vs Baseline (CoT SC) Comparison ===')
     print(f'Metric    | ARGOS     | CoT SC')

@@ -111,6 +111,7 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 \usetikzlibrary{chains}
+\usetikzlibrary{shapes.geometric, arrows.meta}
 
 % Membuat seluruh tulisan menjadi Times New Roman.
 \usepackage{pslatex}
@@ -145,11 +146,15 @@
 \strictpagecheck
 \usepackage{everyshi}
 
+% Algorithm support
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
 % Format sitasi, uncomment salah satu jenis untuk menggunakan jenis tersebut.
 % Anda bisa menambahkan dukungan untuk format sitasi lainnya jika diperlukan.
 %% APA (sitasi dalam dan luar paragraf).
 \usepackage[natbibapa]{apacite}
-\bibliographystyle{apalike}
+\bibliographystyle{apacite}
 %% IEEE
 % \usepackage{natbib}
 % \bibliographystyle{IEEEtran}
@@ -386,26 +391,26 @@
 %-----------------------------------------------------------------------------%
 % Beberapa istilah yang tepat untuk digunakan dalam laporan.
 \AtBeginDocument{
-	\renewcommand{\bibname}{Daftar Referensi}
-	\renewcommand{\contentsname}{Daftar Isi}
-	\renewcommand{\listfigurename}{Daftar Gambar}
-	\renewcommand{\listtablename}{Daftar Tabel}
-	\renewcommand{\lstlistlistingname}{Daftar Kode Program}
-	\renewcommand{\glossaryname}{Daftar Istilah}
+	\renewcommand{\bibname}{References}
+	\renewcommand{\contentsname}{Table of Contents}
+	\renewcommand{\listfigurename}{List of Figures}
+	\renewcommand{\listtablename}{List of Tables}
+	\renewcommand{\lstlistlistingname}{List of Source Codes}
+	\renewcommand{\glossaryname}{Glossary}
 }
 
 \renewcommand{\chaptername}{CHAPTER}
-\renewcommand{\figurename}{\bo{Gambar}}
-\renewcommand{\tablename}{\bo{Tabel}}
-\renewcommand{\lstlistingname}{\bo{Kode}}
+\renewcommand{\figurename}{\bo{Figure}}
+\renewcommand{\tablename}{\bo{Table}}
+\renewcommand{\lstlistingname}{\bo{Code}}
 
-\newcommand{\bab}{Bab}
-\newcommand{\sect}{Subbab}
-\newcommand{\pic}{Gambar}
-\newcommand{\tab}{Tabel}
-\newcommand{\equ}{Persamaan}
-\newcommand{\lst}{Kode}
-\newcommand{\apdx}{Lampiran}
+\newcommand{\bab}{Chapter}
+\newcommand{\sect}{Section}
+\newcommand{\pic}{Figure}
+\newcommand{\tab}{Table}
+\newcommand{\equ}{Equation}
+\newcommand{\lst}{Code}
+\newcommand{\apdx}{Appendix}
 
 
 % Konfigurasi khusus sitasi APA (hapus jika Anda menggunakan format sitasi
@@ -513,21 +518,11 @@
 \newcommand{\clearchapter}{
 	\setfirstheaderfooter
 	\clearpage
-	\ifodd\thechapterpagecount
-		\null
-		\thispagestyle{empty}
-		\addtocounter{page}{-1}
-		\newpage
-	\fi
 	\setoddevenheader
 	\setoddevenfooter
 }
 \newcommand{\forceclearchapter}{
 	\clearpage
-	\null
-	\thispagestyle{empty}
-	\addtocounter{page}{-1}
-	\newpage
 }
 
 % Alias untuk mengatur ulang konfigurasi footer setiap awal bab
@@ -586,7 +581,7 @@
 %
 % Daftar Equation (Persamaan Matematis)
 %
-\newcommand{\listofequname}{Daftar \equ}
+\newcommand{\listofequname}{List of Equations}
 \newlistof{equ}{loe}{\listofequname}
 \newcommand{\addequtotoc}[2]{
 	\addcontentsline{loe}{equ}
@@ -668,7 +663,7 @@
 %
 % Daftar Lampiran
 %
-\newcommand{\listofappendixname}{Daftar \apdx}
+\newcommand{\listofappendixname}{List of Appendices}
 \newlistof{appendix}{lox}{\listofappendixname}
 \newcommand{\addappendix}[1]
 {

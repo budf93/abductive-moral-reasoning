@@ -1545,7 +1545,8 @@ if __name__ == '__main__':
     args = {'train_file_path': './example_data', 'test_file_path': './example_data', 'save_path': './../SFT_train_res', 'engine': 'meta-llama/Llama-2-13b-chat-hf', 
         'n_rows': 20, 'max_length': 300,'temperature': 1, 'lr': 5e-05, 'weight_decay': 0.0, 'epochs': 10, 'max_grad_norm': 1.0, 'batch_size': 2, 'save_strategy': 'no', 'use_lora': True}
     # args['engine'] = 'meta-llama/Meta-Llama-3-8B-Instruct'
-    args['engine'] = 'meta-llama/Llama-3.2-3B-Instruct'
+    # args['engine'] = 'meta-llama/Llama-3.2-3B-Instruct'
+    args['engine'] = 'meta-llama/Llama-3.1-8B-Instruct'
     # args['engine'] = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'
     # args['engine'] = 'Qwen/Qwen2.5-Coder-3B-Instruct'
     args = Struct(**args)
@@ -1680,7 +1681,7 @@ if __name__ == '__main__':
         else:
             counter += 1
         print(f"stepcount : {stepcount}")
-        if stepcount%25 == 0:
+        if stepcount%1 == 0:
             pkl.dump(all_outs, open('/mnt/c/Tugas_Akhir/ARGOS_public_anon/all_outs_cot_met_clutrr_' + config.replace(' ', '_') + '.pkl', 'wb'))
         
 
@@ -1700,4 +1701,4 @@ if __name__ == '__main__':
     #     print(data[int(miss.split('clutrr')[1].split('.cnf')[0])]['missing'])
     # print('rulethresh 05 cot_thresh 0.79, sc5 llama 3B, no jb prompt, fixed prmopt, no rules in prompt, yes solver')
     print(config)
-    breakpoint()
+    # breakpoint()

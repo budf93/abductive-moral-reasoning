@@ -21,7 +21,7 @@
 		Writer 3 / Study Program&: & \penulisTiga~/ \studyProgramTiga\\
 	\fi
 	Title&: & \judulInggris \\
-	Counselor&: & \pembimbingSatu \\
+	Supervisor&: & \pembimbingSatu \\
 	\ifx\blank\pembimbingDua
 	\else
 		\ &\ & \pembimbingDua \\
@@ -34,11 +34,11 @@
 
 \vspace*{0.5cm}
 
-\noindent Abstract content. \\
+\noindent In recent years, large language models (LLMs) have advanced rapidly in reasoning and language comprehension capabilities. However, LLMs have limitations in transparently explaining their reasoning process. This becomes problematic in domains that require reasoning clarity, such as moral reasoning. One approach to address this problem is neurosymbolic AI, specifically abductive inference as presented by Abductive Reasoning with Generalization Over Symbolics (ARGOS), which iteratively generates new commonsense premises via an LLM and injects them into a SAT solver to formally prove a conclusion. This thesis investigates two research questions: (1) how ARGOS is adapted for moral reasoning, and (2) how it performs compared to a baseline Chain-of-Thought (CoT) method on the ExplainEthics dataset. Two main adaptations were made: the natural language translation was changed from first-order logic to propositional logic because the ExplainEthics dataset lacks explicit quantification, and the commonsense clause generation procedure was changed to pair every combination of literals since there are no entities to constrain the search space. Experimental results show that ARGOS achieves an accuracy of 65.2\% on 138 queries, far surpassing the CoT baseline which only achieves 27.8\%. Nevertheless, the use of propositional logic drastically expands the search space, making it difficult for the LLM to generate clauses that converge toward the target query, causing the SAT solver to be unable to determine whether the target query is true or not. Furthermore, the LLM also has varying commonsense understanding that can produce different clauses even when the same information is provided, which also causes difficulty in generating conclusions that converges toward the target query.
 
 \vspace*{0.2cm}
 
-\noindent Key words: \\ Keyword one, keyword two \\
+\noindent Key words: \\ moral reasoning, abductive inference, neurosymbolic AI, large language model, SAT solver, propositional logic \\
 
 \setstretch{1.4}
 \newpage

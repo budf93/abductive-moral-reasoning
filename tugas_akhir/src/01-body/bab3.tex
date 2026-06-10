@@ -3,7 +3,7 @@
 \label{bab:3}
 %-----------------------------------------------------------------------------%
 
-In this chapter, we describe the methodology used in this research, including the research design, dataset, algorithm adaptation, and evaluation metrics.
+In this chapter, we describe the methodology used in this research, including the research design, algorithm adaptation, and evaluation metrics.
 
 
 %-----------------------------------------------------------------------------%
@@ -14,52 +14,305 @@ In this chapter, we describe the methodology used in this research, including th
 % - Comparative experiment: ARGOS (neurosymbolic) vs CoT Baseline vs SAT-LM.
 % - Goal: evaluate whether SAT-based formal entailment can be achieved on
 %   moral reasoning, and identify why it fails or succeeds.
-% - Quantitative evaluation on the ExplainEthics test split.
 
+
+Our research is divided to multiple stages. Each stage is described as illustrated in Figure~\ref{fig:experimentDesign}. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=10cm]{assets/pics/rancangan_penelitian.png}
+    \caption{Experiment Design}
+    \label{fig:experimentDesign}
+\end{figure}
 
 %-----------------------------------------------------------------------------%
-\section{Dataset}
-\label{sec:dataset}
+
+The research begins with a literature review to identify relevant prior work. Following research question formulation, a suitable dataset is selected. Experiments are then conducted under various conditions and configurations, followed by an evaluation of the results. If the data proves insufficient, the experimental and literature review phases are iteratively repeated until a conclusion is reached. 
+
 %-----------------------------------------------------------------------------%
-% Describe ExplainEthics in detail:
-% - Number of examples per split (train/dev/test).
-% - Distribution across the 6 moral norm classes.
+\section{The Neurosymbolic Pipeline}
+\label{sec:neurosymbolicPipeline}
+%-----------------------------------------------------------------------------%
 
-% - Fields used: context, label, gold_foundation, explanation.
-% - How the dataset was encoded into CNF (explain_ethics_to_sat.py):
-%     variables: action predicates + violate_X norm literal.
-%     pos CNF: action ∧ violate_X (hypothesis: norm IS violated).
-%     neg CNF: action ∧ ¬violate_X (hypothesis: norm is NOT violated).
+%-----------------------------------------------------------------------------%
+\subsection{The Original ARGOS Framework}
+\label{subsec:originalArgos}
+%-----------------------------------------------------------------------------%
+The ARGOS (Abductive Reasoning with Generalization Over Symbolics) framework, originally proposed by \citet{cotnareanu2026balanced}, was designed to bridge the gap between large language models and rigid symbolic logic solvers. Traditional neurosymbolic solvers assume that all necessary premises are provided in the natural language text. When applied to real-world datasets like CLUTRR or FOLIO, where commonsense facts are often left unstated, these solvers inevitably fail. 
 
+To address this, the original ARGOS framework introduces an iterative abductive generation loop. The framework first uses Declarative Prompting to translate the natural language problem into First-Order Logic (FOL). It then passes this formal logic to a SAT solver. If the solver cannot deduce the answer, ARGOS falls back to a neural Chain-of-Thought (CoT) self-consistency check. If the LLM is confident, it exits early; if not, it triggers the abductive loop. 
+
+In this loop, the framework extracts the logical ``backbone'' (the set of currently proven facts) from the SAT solver. It selects pairs of literals from this backbone that share explicit entities and prompts an LLM to generate a new missing rule that connects them. The generated rule is then scored for general commonsense validity and contextual relevance using the LLM. If the rule passes a given threshold $\tau$, it is injected back into the logic pool, and the SAT solver attempts to solve the problem again. This cycle repeats until formal entailment is reached or the generation fails due to rule not passing the threshold $\tau$, If the generation fails, we return the best guess by the LLM.
+
+%-----------------------------------------------------------------------------%
+\subsection{The Adapted ARGOS Pipeline for Moral Reasoning}
+\label{subsec:adaptedArgos}
+%-----------------------------------------------------------------------------%
+The core of the experimental phase in this research involves adapting the original ARGOS pipeline to the subjective and ambiguous domain of moral reasoning. Evaluating ARGOS on the ExplainEthics dataset \citep{quan2024enhancing} necessitates several fundamental structural adaptations. 
+
+First, unlike datasets such as CLUTRR which rely on structured entity relationships easily modeled in First-Order Logic, human moral norms are difficult to logically quantify as the scenarios lack explicit entities or variables (e.g., $x$ and $y$ in a relation $P(x,y)$). Therefore, this research transitions the underlying logic representation from First-Order Logic to Propositional Logic. Second, because propositional logic lacks explicit entities, the original method of restricting the search space by selecting literals that share entities is no longer viable. The rule generation step is thus adapted to exhaustively pair highly-scored backbone literals to generate new clauses.
+
+The end-to-end architecture of this adapted pipeline is illustrated in Figure~\ref{fig:argosPipeline}.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tikzpicture}[
+        node distance=1.2cm and 1.5cm,
+        box/.style={rectangle, draw, rounded corners, minimum width=3.5cm, minimum height=1cm, text centered, text width=4cm, fill=blue!5},
+        io/.style={rectangle, draw, rounded corners, minimum width=3.5cm, minimum height=1cm, text centered, text width=4cm, fill=orange!10},
+        decision/.style={diamond, draw, text centered, text width=2cm, fill=green!5, inner sep=0pt},
+        arrow/.style={thick, ->, >=stealth}
+        ]
+        
+        % Main Vertical Column
+        \node (input) [io] {Natural Language Query \\ \small{(ExplainEthics Scenario)}};
+        \node (encode) [box, below=of input] {1. Declarative Prompting \\ \small{(LLM to Z3 Logic)}};
+        \node (formalize) [box, below=of encode] {2. SAT Formalization \\ \small{(to DIMACS CNF Formula)}};
+        \node (sat) [box, below=of formalize] {3. Symbolic Solver \\ \small{(CaDiCaL SAT Solver)}};
+        \node (sat_solved) [decision, below=of sat] {SAT Solved?};
+        
+        % Output node far below
+        \node (output) [io, below=of sat_solved, yshift=-5cm] {Final Output \\ \small{(Norm Violation Prediction)}};
+        
+        % Right column
+        \node (cot_check) [box, right=of sat_solved, xshift=2cm] {4. LLM Fallback \\ \small{K-shot      Self-Consistency CoT}};
+        \node (cot_confident) [decision, below=of cot_check] {Conf $>$ $\gamma$?};
+        \node (generate_rule) [box, below=of cot_confident] {5. Abductive Loop \\ \small{Generate missing rule \& filter}};
+        \node (rule_fail) [decision, right=of generate_rule, xshift=0.5cm] {Generation Failed?};
+        
+        % Arrows
+        \draw [arrow] (input) -- (encode);
+        \draw [arrow] (encode) -- (formalize);
+        \draw [arrow] (formalize) -- (sat);
+        \draw [arrow] (sat) -- (sat_solved);
+        
+        \draw [arrow] (sat_solved) -- node[anchor=east] {Yes} (output);
+        \draw [arrow] (sat_solved) -- node[anchor=south] {No} (cot_check);
+        
+        \draw [arrow] (cot_check) -- (cot_confident);
+        
+        % If confident -> early exit
+        \draw [arrow] (cot_confident.west) -| node[anchor=south east, near start] {Yes (Early Exit)} ([xshift=1cm]output.north);
+        
+        % If not confident -> generate rule
+        \draw [arrow] (cot_confident) -- node[anchor=east] {No} (generate_rule);
+        
+        \draw [arrow] (generate_rule) -- (rule_fail);
+        
+        % If rule generation fails -> best guess -> output
+        \draw [arrow] (rule_fail.south) |- node[anchor=north west] {Yes (LLM k-shot SC Best Guess)} (output.east);
+        
+        % If rule generation succeeds -> loop back to SAT
+        \draw [arrow] (rule_fail.north) |- node[anchor=south west, near end] {No (Inject New Clauses)} (sat.east);
+        
+    \end{tikzpicture}
+    }
+    \captionsetup{justification=raggedright,singlelinecheck=false}
+    \caption{The adapted ARGOS pipeline architecture detailing the algorithmic control flow. Natural language inputs are encoded and evaluated by the SAT solver. If unresolved, the system falls back to a grounded chain-of-thought check. If the LLM lacks confidence, it attempts to generate new commonsense rules to bridge reasoning gaps. Successful rules are injected back into the SAT formula, whereas generation failures force an immediate prediction based on the best LLM guess.}
+    \label{fig:argosPipeline}
+\end{figure}
+
+%-----------------------------------------------------------------------------%
+\subsection{Pipeline Execution Example}
+\label{subsec:executionExample}
+%-----------------------------------------------------------------------------%
+To illustrate the complete logic translation process utilized in the adapted pipeline, consider the following natural language datapoint and its accompanying rationale from the ExplainEthics dataset:
+
+\begin{quote}
+\textbf{Context:} \textit{During gun practice I shot a hole in the man's ear.} \\
+\textbf{Explanation:} \textit{This action is harmful and can cause emotional distress to the individual. Shooting a hole in a man's ear causes physical harm to a human. There is a physical harm made to a human.} \\
+\textbf{Query:} \textit{Does this violate care?}
+\end{quote}
+
+The first step in the ARGOS pipeline relies on Declarative Prompting to parse both the context and the explanation into atomic logical predicates and relationships. The language model extracts the explicitly stated facts and outputs a simplified pseudo-code representation:
+
+\begin{verbatim}
+action(I, shooting_hole_in_man_ear) = True
+implies(shooting_hole_in_man_ear, physical_harm) = True
+implies(physical_harm, harm_to_human) = True
+return violate_care(I)
+\end{verbatim}
+
+Because the ExplainEthics dataset evaluates subjective abstractions rather than entity relations, the intermediate representation translates these atomic statements directly into Propositional Logic variables via the \href{https://z3prover.github.io/api/html/namespacez3py.html}{Z3 Theorem Prover Python API}:
+
+\begin{verbatim}
+from z3 import *
+# Declare one Z3 Bool variable per unique logical predicate
+harm_to_human = Bool('harm_to_human')
+physical_harm = Bool('physical_harm')
+shooting_hole_in_man_ear = Bool('shooting_hole_in_man_ear')
+violate_care = Bool('violate_care')
+
+s = Solver()
+# Add each implies() line as a Z3 Implies() constraint
+s.add(Implies(shooting_hole_in_man_ear, physical_harm))
+s.add(Implies(physical_harm, harm_to_human))
+# Assert known action facts as True
+s.add(shooting_hole_in_man_ear)
+
+# Query: check if violate_care is satisfiable (can be True)
+result = s.check(violate_care)
+if result == sat:
+    print('violate_care')
+elif result == unsat:
+    print('UNSAT')
+else:
+    print('UNKNOWN')
+\end{verbatim}
+
+Finally, to be evaluated by the CaDiCaL SAT solver, these Z3 constraints are serialized into the standard DIMACS CNF (Conjunctive Normal Form) format. In DIMACS, each boolean variable is mapped to an integer, in this instance: $1 = \texttt{shooting\_hole\_in\_man\_ear}$, $2 = \texttt{violate\_care}$, $3 = \texttt{harm\_to\_human}$, and $4 = \texttt{physical\_harm}$.
+
+To rigorously prove entailment, the SAT solver performs a satisfiability check on two distinct formulas: a positive check (to prove $Q$) and a negative check (to prove $\neg Q$). An implication $A \rightarrow B$ is rewritten as its logical equivalent $\neg A \lor B$. The SAT solver checks if the premises combined with the negation of the target can be satisfied. The resulting DIMACS files passed to the solver look like this:
+
+\textbf{Positive Query Check (Can we prove $Q$?):}
+\begin{verbatim}
+p cnf 4 4
+1 0
+2 0
+3 -4 0
+4 -1 0
+\end{verbatim}
+
+\textbf{Negative Query Check (Can we prove $\neg Q$?):}
+\begin{verbatim}
+p cnf 4 4
+1 0
+-2 0
+3 -4 0
+4 -1 0
+\end{verbatim}
+
+If the negative formula evaluates to unsatisfiable (\texttt{UNSAT}), it formally proves that the norm \textit{was} violated. Conversely, if the positive formula evaluates to \texttt{UNSAT}, it proves the norm was \textit{not} violated. If both are \texttt{SAT}, the solver cannot deduce the answer and the query enters the abductive generation loop.
 
 %-----------------------------------------------------------------------------%
 \section{Algorithm}
 \label{sec:algorithm}
 %-----------------------------------------------------------------------------%
 
+The core reasoning process of the adapted ARGOS pipeline, corresponding to the architectural flow in Figure~\ref{fig:argosPipeline}, is formally detailed in Algorithm~\ref{alg:argos}. The algorithm iteratively attempts to prove a target query $Q$ given a set of initial premises $\mathcal{P}$. It maintains a growing set of commonsense rules $\mathcal{C}$, which is initially empty. In each iteration, it first calls the SAT solver to formally check whether $Q$ or its negation $\neg Q$ can be entailed. If the solver cannot find a proof, the system falls back to a neural Chain-of-Thought (CoT) mechanism (\texttt{llm\_solve}). If the language model's confidence exceeds a dynamically decreasing threshold $\gamma$, it accepts the neural answer. Otherwise, it triggers the abductive generation step to search for new valid commonsense rules. If new rules are found, they are conjoined to $\mathcal{C}$, the confidence threshold $\gamma$ is decayed by $\alpha$, and the loop repeats. If no valid rules can be generated, it terminates and returns the current best guess from the language model.
 
-%-----------------------------------------------------------------------------%
-\subsection{ARGOS Pipeline Adaptation for ExplainEthics}
-\label{sec:argosAdaptation}
-%-----------------------------------------------------------------------------%
-% Describe changes made from the original CLUTRR/ProntoQA ARGOS to ExplainEthics:
-%   1. SAT entailment check: pos UNSAT → norm IS violated; neg UNSAT → norm NOT violated.
-%   2. CoT prompt: multi-class "which norm does this most violate?" (not binary yes/no).
-%   3. Fill-in-the-blank abduction: 12-example few-shot prompt with intermediate concepts.
-%   4. rule_check: contradiction gate (1 - p_yes_contradictory) + context relevance gate.
-%   5. Annealing threshold: cot_thresh starts at 0.8, decreases by 0.1 per injected rule.
-% Include Algorithm 1 pseudocode or a flow diagram.
+\begin{algorithm}[H]
+\caption{ARGOS}\label{alg:argos}
+\textbf{Require:} premises $\mathcal{P}$, query $Q$, SC sample-count $k$, scoring threshold $\tau \in (0, 1]$, self-consistency threshold $\gamma \in (0, 1]$ and decay $\alpha \in (0, 1]$
+\begin{algorithmic}[1]
+\State commonsense set $\mathcal{C} \leftarrow \{\}$
+\While{$\gamma > 0$}
+    \State \textit{// Attempt solving with the SAT solver}
+    \State sat\_conclusion, backbone $\mathcal{B} \leftarrow \text{sat\_solve}(\mathcal{P} \land \mathcal{C} \vdash Q, \neg Q)$
+    \If{sat\_conclusion is $(\mathcal{P} \land \mathcal{C}) \vdash Q$ or $(\mathcal{P} \land \mathcal{C}) \vdash \neg Q$}
+        \State \textbf{return} $\mathcal{C}$, sat\_conclusion
+    \EndIf
+    \State \textit{// Else attempt solving with the LLM ($k$-shot self-consistency)}
+    \State llm\_conclusion, llm\_confidence $\leftarrow \text{llm\_solve}(\mathcal{P} \land \mathcal{C} \vdash Q, \neg Q)$
+    \If{llm\_confidence $> \gamma$}
+        \State \textbf{return} $\mathcal{C}$, llm\_conclusion
+    \EndIf
+    \State \textit{// Else find a new commonsense proposition to add to the pool}
+    \State $\text{valid\_rules} \leftarrow \text{find\_new\_commonsense}(\mathcal{P}, \mathcal{C}, \mathcal{B}, \tau)$
+    \If{$\text{valid\_rules}$ is not $\emptyset$}
+        \State \textit{// New commonsense has been found, we try again with an enlarged $\mathcal{C}$ and smaller $\gamma$}
+        \State $\mathcal{C} \leftarrow \mathcal{C} \land \text{valid\_rules}$
+        \State $\gamma \leftarrow \gamma - \alpha$
+    \Else
+        \State \textit{// We failed, return best guess}
+        \State \textbf{return} $\mathcal{C}$, llm\_conclusion
+    \EndIf
+\EndWhile
+\State \textit{// We ran out of time, return best guess}
+\State \textbf{return} $\mathcal{C}$, llm\_conclusion
+\end{algorithmic}
+\end{algorithm}
 
-Since there are some important differences between the original datasets for which ARGOS is designed, we decided to make slight adjustments to the original ARGOS algorithm. Particularly, we adjust the rule generation step from building rules from choosing literals that shares the most entities with other in the backbone to iterating all possible pairs of $L_{1}$ and $L_{2}$ in order to generate $L_{\text{right}}$. Then, for all $L_{\text{right}}$ that is generated, we filter them based on whether $L_{\text{right}}$ is likely to be commonsense and on whether $L_{\text{right}}$ is relevant to our given context by setting a threshold $\tau$ (we test $\tau \in \{0.3, 0.5, 0.8\}$). Hence, our algorithm is described as follows:
+Due to structural differences in the ExplainEthics dataset compared to the original ARGOS benchmarks, modifications to the base algorithm's rule generation are necessary. Specifically, the ExplainEthics dataset encodes premises using propositional logic rather than first-order logic. This necessitates a shift from building rules by choosing literals that share explicit entities, to a more exhaustive approach. Adjustments are clearly made in lines 14--17 of Algorithm~\ref{alg:argos} to adapt to the current dataset; rather than relying on entity-based intersections, the procedure calls the adapted \texttt{find\_new\_commonsense} subroutine to dynamically extract and merge propositional constraints. The adaptation for the ExplainEthics dataset specifically alters how these new commonsense rules are discovered, as detailed in Algorithm~\ref{alg:find_new_commonsense}. The procedure iterates over all pairs of variables ($L_1$ and $L_2$) currently active in the SAT solver's backbone $\mathcal{B}$. For each pair, the language model generates a candidate conclusion $L_{\text{right}}$. 
 
+To ensure quality, the generated $L_{\text{right}}$ candidate must pass two independent neural filtering gates: a commonsense validity check ($\texttt{llm\_commonsense\_score}$) and a context-specific relevance check ($\texttt{llm\_relevance\_score}$). Only rules that score strictly above the threshold $\tau$ on both metrics are retained. This filtering process is governed by evaluating $\tau \in \{0.3, 0.5, 0.8\}$. The complete adaptation is detailed in Algorithm~\ref{alg:find_new_commonsense}.
+
+\begin{algorithm}[H]
+\caption{\text{find\_new\_commonsense}}\label{alg:find_new_commonsense}
+\textbf{Require:} premises $\mathcal{P}$, commonsense $\mathcal{C}$, backbone $\mathcal{B} = \text{backbone}(\mathcal{P} \land \mathcal{C})$, scoring threshold $\tau \in (0, 1]$
+\begin{algorithmic}[1]
+\State $valid\_rules \leftarrow []$
+\For{$L_1 \in \mathcal{B}$}
+    \For{$L_2 \in \mathcal{B}$}
+        \For{$L_{\text{right}} \in \text{llm\_generate}_{\mathcal{P} \land \mathcal{C}}(L_1 \land L_2 \rightarrow \text{?})$}
+            \State commonsense\_score $\leftarrow \text{llm\_commonsense\_score}(L_1 \land L_2 \rightarrow L_{\text{right}})$
+            \State relevance\_score $\leftarrow \text{llm\_relevance\_score}_{\mathcal{P} \land \mathcal{C}}(L_1 \land L_2 \rightarrow L_{\text{right}})$
+            \If{commonsense\_score $> \tau$ \textbf{and} relevance\_score $> \tau$}
+                \State \textit{// We found a new relevant commonsense clause}
+                \State $valid\_rules\text{.append}(L_1 \land L_2 \rightarrow L_{\text{right}})$
+            \EndIf
+        \EndFor
+    \EndFor
+\EndFor
+\State \textbf{return} $valid\_rules$
+\end{algorithmic}
+\end{algorithm}
+
+The functions $\texttt{llm\_commonsense\_score}$ and $\texttt{llm\_relevance\_score}$ are computed by prompting the LLM to evaluate whether a newly generated rule is a universally valid commonsense principle and whether it is contextually relevant to the specific scenario. Instead of relying on a deterministic boolean output, we evaluate the full probability of the model generating an affirmative versus a negative response. We record the logits of the tokens ``Yes'' and ``No'' following the text, and calculate $P(\text{Yes}) = \exp(\text{logit}_{\text{Yes}})/(\exp(\text{logit}_{\text{Yes}}) + \exp(\text{logit}_{\text{No}}))$ as relevance score. Similiarly, we also calculate $P(\text{Yes}) = \exp(\text{logit}_{\text{Yes}})/(\exp(\text{logit}_{\text{Yes}}) + \exp(\text{logit}_{\text{No}}))$ as commonsense score. Furthermore, we adapt the original ARGOS scoring prompt structure to handle the domain shift from deductive kinship graphs (CLUTRR) to subjective moral scenarios (ExplainEthics). First, for the $\texttt{llm\_commonsense\_score}$, the original pipeline utilizes few-shot examples based on familial relations to determine if a rule ``seems true.'' We adapt this by replacing the kinship examples with ethical scenarios and prompting the language model to evaluate if the rule ``seems morally true.'' Second, for the $\texttt{llm\_relevance\_score}$, while the original ARGOS prepends only the base scenario context to the prompt, our adaptation injects an additional \texttt{explanation} field provided by the ExplainEthics dataset. This explanation acts as supplementary information, providing deeper context to ensure the relevance check is strictly grounded in the specific moral dilemma.
+
+Specifically, the $\texttt{llm\_commonsense\_score}$ utilizes a few-shot prompt to determine if the generated rule is logically and morally plausible:
+\begin{verbatim}
+Does the following rule seem morally true?
+Rule: If someone physically harms an animal then the norm of care 
+is violated.
+Answer: \box{ Yes } this seems morally true.
+Does the following rule seem morally true?
+Rule: If someone performs kindness then it violates the norm of loyalty.
+Answer: \box{ No } this does not seem morally true.
+Does the following rule seem morally true?
+Rule: [candidate_rule]
+Answer: \box{ 
+\end{verbatim}
+
+The $\texttt{llm\_relevance\_score}$ utilizes a zero-shot prompt grounded in the provided scenario and its ethical explanation:
+\begin{verbatim}
+Here are some facts:
+[context_string]
+Explanation: [explanation_string]
+Does the following rule seem contextually relevant?
+Rule: [candidate_rule]
+Answer "Yes" or "No": 
+\end{verbatim}
 
 %-----------------------------------------------------------------------------%
 \section{Evaluation Metrics}
 \label{sec:evaluationMetrics}
 %-----------------------------------------------------------------------------%
-% Define metrics used in Chapter~\ref{bab:4}:
-%   - Overall accuracy: correct / (total - missed).
-%   - Micro-averaged precision, recall, F1 over 6 norm classes.
+To evaluate the performance of our adapted neurosymbolic pipeline against the ExplainEthics dataset, we utilize several quantitative metrics. For a given moral norm class, we define the following prediction outcomes:
+\begin{itemize}
+    \item \textbf{True Positives ($TP$)}: The model predicts the norm is violated, and the ground truth indicates the norm is violated.
+    \item \textbf{True Negatives ($TN$)}: The model predicts the norm is not violated, and the ground truth indicates the norm is not violated.
+    \item \textbf{False Positives ($FP$)}: The model predicts the norm is violated, and the ground truth indicates the norm is not violated.
+    \item \textbf{False Negatives ($FN$)}: The model predicts the norm is not violated, and the ground truth indicates the norm is violated.
+\end{itemize}
+The formulas for the primary metrics are defined as follows:
 
-%   - SAT utilization rate: fraction resolved by SAT vs CoT vs missed.
-%   - Bootstrap 95% CI and Wilcoxon signed-rank test vs baseline.
+\begin{enumerate}
+    \item \textbf{Accuracy}: Calculated as the ratio of correctly predicted moral norms to the total number of successfully processed queries. Queries that the language model failed to parse into valid formats are explicitly excluded from the denominator.
+    \begin{equation}\label{equ:accuracy}
+        \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+    \end{equation}
+    \addequtotoc{equ:accuracy}{Accuracy metric calculation}
+    
+    \item \textbf{Precision}: Measures the proportion of positive identifications that were actually correct.
+    \begin{equation}\label{equ:precision}
+        \text{Precision} = \frac{TP}{TP + FP}
+    \end{equation}
+    \addequtotoc{equ:precision}{Precision metric calculation}
+    
+    \item \textbf{Recall}: Measures the proportion of actual positives that were correctly identified.
+    \begin{equation}\label{equ:recall}
+        \text{Recall} = \frac{TP}{TP + FN}
+    \end{equation}
+    \addequtotoc{equ:recall}{Recall metric calculation}
+    
+    \item \textbf{Macro F1 Score}: We compute the F1 Score independently for each moral norm class and calculate the unweighted mean. As established in the ExplainEthics baseline evaluation \citep{quan2024enhancing}, we utilize Macro F1 to ensure the model's performance is evaluated evenly across all moral foundations, despite the heavy class imbalance present in the dataset.
+    \begin{equation}\label{equ:macrof1}
+        \text{Macro F1} = \frac{1}{N} \sum_{i=1}^{N} \left( 2 \times \frac{\text{Precision}_i \times \text{Recall}_i}{\text{Precision}_i + \text{Recall}_i} \right)
+    \end{equation}
+    \addequtotoc{equ:macrof1}{Macro F1 Score metric calculation}
+
+    \item \textbf{Per-Norm Accuracy}: We disaggregate the overall accuracy across the distinct moral foundations defined by the dataset (e.g., Care, Fairness, Loyalty) using the \texttt{gold\_foundation} label. This allows us to identify whether the pipeline's abductive capabilities perform better on specific types of ethical dilemmas.
+    
+    \item \textbf{Resolution Utilization Rate}: We track the fraction of queries conclusively resolved by the SAT solver (using formal entailment over the backbone) versus those that trigger the Chain-of-Thought (CoT) neural fallback mechanism. This metric directly measures the success rate of the symbolic component in handling the inherent ambiguity of moral reasoning.
+\end{enumerate}

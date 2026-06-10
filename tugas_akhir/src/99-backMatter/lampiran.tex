@@ -1,121 +1,81 @@
 %-----------------------------------------------------------------------------%
-\addappendix{CHANGELOG}
+\addappendix{Source Code Repository}
 \begin{flushright}
-	Lampiran 1: CHANGELOG
+	Appendix 1: Source Code Repository
 \end{flushright}
-\label{appendix:changelog}
+\label{appendix:source_code}
 %-----------------------------------------------------------------------------%
-\todo{Silakan hapus lampiran ini ketika Anda mulai menggunakan \f{template}.}
 
-\f{Template} versi terbaru bisa didapatkan di \url{https://gitlab.com/ichlaffterlalu/latex-skripsi-ui-2017}.
-Daftar perubahan pada \f{template} hingga versi ini:
-\begin{itemize}
-	\item versi 1.0.3 (3 Desember 2010):
-		\begin{itemize}
-			\item \f{Template} Skripsi/Tesis sesuai ketentuan \f{formatting} tahun 2008.
-			\item Bisa diakses di \url{https://github.com/edom/uistyle}.
-		\end{itemize}
-	\item versi 2.0.0 (29 Januari 2020):
-		\begin{itemize}
-			\item \f{Template} Skripsi/Tesis sesuai ketentuan \f{formatting} tahun 2017.
-			\item Menggunakan BibTeX untuk sitasi, dengan format \f{default} sitasi IEEE.
-			\item \f{Template} kini bisa ditambahkan kode sumber dengan \f{code highlighting} untuk bahasa pemrograman populer seperti Java atau Python.
-		\end{itemize}
-	\item versi 2.0.1 (8 Mei 2020):
-		\begin{itemize}
-			\item Menambahkan dan menyesuaikan tutorial dari versi 1.0.3, beserta cara kontribusi ke template.
-		\end{itemize}
-	\item versi 2.0.2 (14 September 2020):
-		\begin{itemize}
-			\item Versi ini merupakan hasil \f{feedback} dari peserta skripsi di lab \f{Reliable Software Engineering} (RSE) Fasilkom UI, semester genap 2019/2020.
-			\item BibTeX kini menggunakan format sitasi APA secara \f{default}.
-			\item Penambahan tutorial untuk \code{longtable}, agar tabel bisa lebih dari 1 halaman dan header muncul di setiap halaman.
-			\item Menambahkan tutorial terkait penggunaan BibTeX dan konfigurasi \f{header}/\f{footer} untuk pencetakan bolak-balik.
-			\item Label "Universitas Indonesia" kini berhasil muncul di halaman pertama tiap bab dan di bagian abstrak - daftar kode program.
-			\item \f{Hyphenation} kini menggunakan \code{babel} Bahasa Indonesia. Aktivasi dilakukan di \code{hype-indonesia.tex}.
-			\item Minor adjustment untuk konsistensi \f{license} dari template.
-		\end{itemize}
-	\item versi 2.0.3 (15 September 2020):
-		\begin{itemize}
-			\item Menambahkan kemampuan orientasi \f{landscape} beserta tutorialnya.
-			\item \code{\bslash{}captionsource} telah diperbaiki agar bisa dipakai untuk \code{longtable}.
-			\item Daftar lampiran kini telah tersedia, lampiran sudah tidak masuk daftar isi lagi.
-			\item Nomor halaman pada lampiran dilanjutkan dari halaman terakhir konten (daftar referensi).
-			\item Kini sudah bisa menambahkan daftar isi baru untuk jenis objek tertentu (custom), seperti: "Daftar Aturan Transformasi".
-			Sudah termasuk mekanisme \f{captioning} dan tutorialnya.
-			\item Perbaikan minor pada tutorial.
-		\end{itemize}
-	\item versi 2.1.0 (8 September 2021):
-		\begin{itemize}
-			\item Versi ini merupakan hasil \f{feedback} dari peserta skripsi dan tesis di lab \f{Reliable Software Engineering} (RSE) Fasilkom UI, semester genap 2020/2021.
-			\item Minor edit: "Lembar Pengesahan", dsb. di daftar isi menjadi all caps.
-			\item Experimental multi-language support (Chinese, Japanese, Korean).
-			\item \f{Support} untuk justifikasi dan word-wrapping pada tabel.
-			\item Penggunaan suffix "(sambungan)" untuk tabel lintas halaman. Tambahan support suffix untuk \code{\bslash{}captionsource}.
-		\end{itemize}
-	\item versi 2.1.1 (7 Februari 2022):
-		\begin{itemize}
-			\item Update struktur mengikuti fork template versi 1.0.3 di \url{https://github.com/rkkautsar/edom/ui-thesis-template}.
-			\item \f{Support} untuk simbol matematis \code{amsfonts}.
-			\item Kontribusi komunitas terkait improvement GitLab CI, atribusi, dan format sitasi APA bahasa Indonesia.
-			\item Perbaikan tutorial berdasarkan perubahan terbaru pada versi 2.1.0 dan 2.1.1.
-		\end{itemize}
-	\item versi 2.1.2 (13 Agustus 2022):
-		\begin{itemize}
-			\item Modifikasi penamaan beberapa berkas.
-			\item Perbaikan beberapa halaman depan (halaman persetujuan, halaman orisinalitas, dsb.).
-			\item \f{Support} untuk lembar pengesahan yang berbeda dengan format standar, seperti Laporan Kerja Praktik dan Disertasi.
-			\item Kontribusi komunitas terkait kesesuaian dengan format Tugas Akhir UI, kelengkapan dokumen, perbaikan format sitasi, dan \f{quality-of-life}.
-			\item Perbaikan tutorial.
-		\end{itemize}
-	\item versi 2.1.3 (22 Februari 2023):
-		\begin{itemize}
-			\item Dukungan untuk format Tugas Akhir Kelompok di Fasilkom UI.
-			\item Dukungan untuk format laporan Kampus Merdeka Mandiri di Fasilkom UI.
-			\item Minor \f{bugfix}: Perbaikan kapitalisasi variabel.
-			\item Quality-of-Life: Pengaturan kembali \code{config/settings.tex}.
-			\item Tutorial untuk beberapa \f{use case}.
-		\end{itemize}
-	\item versi 2.2.0 (28 Agustus 2024):
-		\begin{itemize}
-			\item Perbaikan format agar sesuai dengan format Tugas Akhir terbaru. Hal ini mencakup halaman judul, halaman pernyataan orisinalitas, header/footer, dan lampiran.
-		\end{itemize}
-	\item versi 2.2.1 (16 Desember 2024):
-		\begin{itemize}
-			\item \f{Bugfix}: isu \f{header} dan \f{footer} untuk halaman bolak-balik.
-			\item \f{Bugfix}: isu \f{auto-wrapping} pada kode yang tidak bisa berjalan sejak v2.2.0.
-			\item \f{Bugfix}: isu penomoran objek kustom yang tidak sesuai konvensi \code{[bab]}.\code{[objek]}.
-			\item \f{Bugfix}: penomoran bab di Daftar Isi yang belum sesuai konvensi Tugas Akhir UI.
-			\item \f{Bugfix}: hal-hal lain pada \f{formatting} sesuai dengan permintaan dari Perpustakaan Fasilkom UI.
-			\item Perbaikan \f{formatting} untuk \code{landscape} dengan \f{library} \code{pdflscape}.
-			\item Perbaikan cara memasukkan sebuah persamaan ke dalam daftar persamaan.
-			\item Perbaikan penggunaan "saya" menjadi "kami" untuk dokumen-dokumen awal pada Tugas Akhir Kelompok.
-			\item Fitur baru: \f{Support} untuk \f{code highlighting} pada berbagai bahasa pemrograman yang tidak di-\f{support} secara \f{default} oleh \f{library} \code{listings}.
-			\item Fitur baru: \f{Support} untuk \f{glossary} (daftar istilah).
-			\item Perbaikan \f{major} pada tutorial, termasuk menampilkan contoh kode ke dalam PDF tutorial, dan pengaturan ulang subbab.
-		\end{itemize}
-	\item versi 2.2.2 (8 Mei 2026):
-		\begin{itemize}
-			\item Perbaikan minor tutorial.
-			\item Penambahan dukungan untuk simbol-simbol matematis lanjutan dengan \code{amssymb}.
-			\item Fitur baru: \f{Support} untuk \code{subfigure}.
-			\item \f{Bugfix}: isu pembuatan \f{glossary} secara otomatis dengan \code{makeglossaries}.
-		\end{itemize}
-\end{itemize}
-\clearpage
+The source code, datasets, and complete logs for the experiments conducted in this thesis are available in the repository associated with this project. 
+The repository contains the adapted ARGOS neurosymbolic pipeline, along with the ExplainEthics dataset and instructions for reproducing the experiments described in Chapter~\ref{bab:4}.
 
 %-----------------------------------------------------------------------------%
-\addappendix{Judul Lampiran 2}
+\addappendix{Prompt Templates}
 \begin{flushright}
-	Lampiran 2: Judul Lampiran 2
+	Appendix 2: Prompt Templates
 \end{flushright}
-\label{appendix:sample}
+\label{appendix:prompts}
 %-----------------------------------------------------------------------------%
-Lampiran hadir untuk menampung hal-hal yang dapat menunjang pemahaman terkait tugas akhir, namun akan mengganggu \f{flow} bacaan sekiranya dimasukkan ke dalam bacaan.
-Lampiran bisa saja berisi data-data tambahan, analisis tambahan, penjelasan istilah, tahapan-tahapan antara yang bukan menjadi fokus utama, atau pranala menuju halaman luar yang penting.
 
-%-----------------------------------------------------------------------------%
-\section*{Subbab dari Lampiran 2}
-\label{appendix:sampleSubchap}
-%-----------------------------------------------------------------------------%
-\todo{Isi subbab ini sesuai keperluan Anda. Anda bisa membuat lebih dari satu judul lampiran, dan tentunya lebih dari satu subbab.}
+The prompt templates used for the Chain-of-Thought (CoT) baseline and the neurosymbolic fallback mechanisms have been adapted to the ExplainEthics domain. The exact textual prompts, including the few-shot examples for moral reasoning, are detailed below.
+
+\section*{1. Multi-class Norm Selection (CoT Fallback)}
+This prompt is used by the neural fallback mechanism to select the most violated norm from the set of moral foundations.
+
+\begin{lstlisting}[breaklines=true, basicstyle=\footnotesize\ttfamily]
+The possible moral norm violations are: [List of Norms].
+Context: I crush the frog. Question: Of these norm violations, which one does this action most violate? Answer: Let's think step by step. 1. Frogs are animals. 2. Crushing causes physical harm to an animal. 3. Causing harm to a living being violates the norm of care. Therefore the answer is violate_care.
+Context: I won my match by moving my ball when the other player wasn't looking. Question: Of these norm violations, which one does this action most violate? Answer: Let's think step by step. 1. Moving the ball secretly is cheating. 2. Cheating involves deception. 3. Deception in a match breaks the principles of fairness. Therefore the answer is violate_fairness.
+Context: I gave my coworker a birthday present. Question: Of these norm violations, which one does this action most violate? Answer: Let's think step by step. 1. Giving a present is a kind, caring action. 2. No harm is caused to any norm. Therefore the answer is none.
+Context: I ignored my boss's direct order. Question: Of these norm violations, which one does this action most violate? Answer: Let's think step by step. 1. Ignoring a boss's order is disobedience. 2. Bosses are traditional authority figures. 3. Disobeying authority violates the norm of authority. Therefore the answer is violate_authority.
+Context: [Input Context]
+Explanation: [Input Explanation]
+Known facts: [Backbone Facts]. Inferred rules: [Abducted Rules].
+Question: Of these norm violations, which one does this action most violate? Answer: Let's think step by step.
+\end{lstlisting}
+
+\section*{2. Rule Plausibility Check}
+This prompt is used by the \texttt{rule\_check} gate to ensure that a generated implication rule is ethically self-consistent.
+
+\begin{lstlisting}[breaklines=true, basicstyle=\footnotesize\ttfamily]
+Does the following rule seem morally true?
+Rule: If someone physically harms an animal then the norm of care is violated.
+Answer: \box{ Yes } this seems morally true.
+Does the following rule seem morally true?
+Rule: If someone performs kindness then it violates the norm of loyalty.
+Answer: \box{ No } this does not seem morally true.
+Does the following rule seem morally true?
+Rule: [Generated Rule]
+Answer: \box{
+\end{lstlisting}
+
+\section*{3. Rule Context Relevance Check}
+This prompt is used by the \texttt{rule\_check} gate to ensure the generated rule is relevant to the story's context.
+
+\begin{lstlisting}[breaklines=true, basicstyle=\footnotesize\ttfamily]
+Here are some facts:
+[Input Context]
+Explanation: [Input Explanation]
+Does the following rule seem contextually relevant?
+Rule: [Generated Rule]
+Answer "Yes" or "No": 
+\end{lstlisting}
+
+\section*{4. Fill-in-the-Blank Commonsense Generation}
+This prompt guides the language model to abduct a new intermediate premise linking two backbone facts.
+
+\begin{lstlisting}[breaklines=true, basicstyle=\footnotesize\ttfamily]
+Fill in the blank: If someone is hitting_someone and someone is causing_pain then the action involves ___. Answer: \box{ physical_harm }
+Fill in the blank: If someone is cutting_in_line and someone is taking_more_than_share then the action involves ___. Answer: \box{ unfair_advantage }
+Fill in the blank: If someone is sharing_company_secrets and someone is helping_competitor then the action involves ___. Answer: \box{ betrayal }
+Fill in the blank: If someone is ignoring_boss_order and someone is breaking_rules then the action involves ___. Answer: \box{ insubordination }
+Fill in the blank: If someone is spitting_on_grave and someone is defiling_monument then the action involves ___. Answer: \box{ disrespect }
+Fill in the blank: If someone is forcing_someone_to_work and someone is restricting_freedom then the action involves ___. Answer: \box{ oppression }
+Fill in the blank: If someone is causing_physical_harm and someone is harming_others then the action involves ___. Answer: \box{ violate_care }
+Fill in the blank: If someone is taking_unfair_advantage and someone is cheating then the action involves ___. Answer: \box{ violate_fairness }
+Fill in the blank: If someone is committing_betrayal and someone is breaking_trust then the action involves ___. Answer: \box{ violate_loyalty }
+Fill in the blank: If someone is demonstrating_insubordination and someone is rebelling then the action involves ___. Answer: \box{ violate_authority }
+Fill in the blank: If someone is showing_disrespect and someone is defiling_sacred_things then the action involves ___. Answer: \box{ violate_sanctity }
+Fill in the blank: If someone is committing_oppression and someone is violating_rights then the action involves ___. Answer: \box{ violate_liberty }
+Fill in the blank: If someone is [Fact 1] and someone is [Fact 2] then the action involves ___. Answer: \box{
+\end{lstlisting}

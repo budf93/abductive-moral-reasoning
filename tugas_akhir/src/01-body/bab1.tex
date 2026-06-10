@@ -8,41 +8,42 @@ In this chapter, we will introduce the background that we will discuss in this t
 \section{Background}
 \label{sec:latarBelakang}
 %-----------------------------------------------------------------------------%
-A language model is a type of model that predicts sequences in natural language. We call a language model that is trained on a vast amount of data a large language model. Large language models (LLM) are useful for tasks such as natural language generation or machine translation. Currently, LLMs are widely used in day-to-day applications such as coding and solving mathematics problems.
+A language model is a type of machine learning model that predicts sequences in natural language. A language model trained on a vast corpus of data with billions of parameters is called a large language model (LLM). Today, LLMs are widely utilized for tasks ranging from simple task such as translation to code writing and mathematics. 
 
-In recent years, large language models have gained popularity due to their effectiveness in solving complex reasoning problems. This is due to the emergence of "Chain-of-Thought" (CoT) prompting, which allows models to decompose multi-step problems into intermediate logical segments. By scaling parameters and training data, these models have developed "emergent abilities" that enable them to simulate deductive paths, mimicking human-like deliberation rather than simply mapping inputs to direct outputs.
+In recent years, large language models have gained popularity due to their surprising effectiveness in solving complex reasoning problems. This capability was largely enabled by the emergence of "Chain-of-Thought" (CoT) prompting \citep{DBLP:conf/nips/Wei0SBIXCLZ22}, which explicitly encourages models to decompose multi-step problems into intermediate logical segments. By scaling parameters and training data, these models have developed abilities that allow them to simulate deductive paths, mimicking human-like deliberation rather than simply mapping inputs directly to outputs.
 
-However, despite its effectiveness in solving reasoning problems, large language models often hallucinate in their reasoning. This is due to the probabilistic nature of their architecture. LLMs predict the "most likely" next token based on statistical patterns rather than a grounded understanding of formal logic or objective truth. Consequently, a single minor error in an early reasoning step can propagate through the sequence---a phenomenon known as "cascading failure"---leading the model to confidently assert logically impossible or factually incorrect conclusions.
+However, despite these advances in reasoning, large language models remain prone to hallucinations. Because they are fundamentally probabilistic autoregressive systems, LLMs predict the "most likely" next token based on surface-level statistical patterns rather than a grounded understanding of formal logic. Consequently, an error in an earlier reasoning steps can lead the rest of the reasoning steps astray, leading the model to confidently assert logically impossible or factually incorrect conclusions when tasked with complex proof planning.
 
-In order to solve this problem, researchers came up with the idea of Neurosymbolic AI that integrates the flexibility of LLMs with the preciseness of symbolic solvers by incorporating LLMs with a logic solver to improve its reasoning abilities. This was done by translating problems in natural language into symbolic language. One of the papers that popularized this approach was LINC.
+To address these ungrounded hallucinations, researchers proposed Neurosymbolic AI \citep{Wan2024TowardsCA}, an approach that integrates the linguistic flexibility of LLMs with the absolute precision of symbolic logic solvers. One framework that popularizes this approach is LINC (Logical Inference via Neurosymbolic Computation) \citep{olausson-etal-2023-linc}. LINC reformulates reasoning tasks as a neurosymbolic process. Instead of relying on the LLM to perform the deductive reasoning itself, LINC uses the LLM solely as a semantic parser to translate natural language premises into strict First-Order Logic (FOL) expressions. These expressions are then offloaded to an external, deterministic theorem prover (such as Prover9) that calculates the final truth value. While highly effective at eliminating deductive errors, LINC is strictly deductive; it assumes that every necessary fact is explicitly stated in the problem. When human contexts leave out "obvious" commonsense information, the prover inevitably fails because the logic formulation is incomplete.
 
-One of the promising areas that neurosymbolic AI might be able to help with is moral reasoning. This is because in a given moral situation, we need to be able to trace back the reasoning of a given decision since a moral decision is highly dependent on a given context.
+Recognizing this limitation, a newer approach named ARGOS (Abductive Reasoning with Generalization Over Symbolics) \citep{cotnareanu2026balanced} was developed. ARGOS tackles the problem of missing commonsense information by striking a balance between neural and symbolic components. Rather than relying entirely on a static translation, ARGOS dynamically searches for missing premises (abductive reasoning). It uses the logical backbone provided by a SAT solver \citep{VanHarmelen2008-VANHOK} to guide the LLM in generating new, relevant commonsense rules. These new rules are then scored and injected back into the logical solver in an iterative loop until the problem can be formally resolved, or it falls back to a neural baseline.
+
+One of the most promising applications for this neurosymbolic approach is moral reasoning. Moral judgments are inherently subjective and depend heavily on cultural contexts and prevailing commonsense norms; thus, a single ethical dilemma may elicit entirely different conclusions across various demographics \citep{Bentahila2021}. Given this variability, it is critical that AI systems not only reach a moral decision but also transparently explain the underlying rationale. Therefore, evaluating a framework like ARGOS on complex moral dilemmas provides a rigorous testbed for its ability to navigate highly contextual, human-centric reasoning.
 
 %-----------------------------------------------------------------------------%
 \section{Problem Statement}
 \label{sec:masalah}
 %-----------------------------------------------------------------------------%
-Although neurosymbolic AI has shown promise in deductive and relational reasoning tasks (e.g., CLUTRR, ProntoQA), applying these rigid symbolic solvers to the nuanced and open-textured domain of moral reasoning introduces new challenges. LLMs can generate commonsense premises, but it is not clear whether these abducted premises are structurally sufficient to achieve formal entailment in a SAT solver. 
+Although neurosymbolic AI has shown promise in deductive and relational reasoning tasks (e.g., CLUTRR \citep{sinha-etal-2019-clutrr}, ProntoQA \citep{PrOntoQA}), applying these rigid symbolic solvers to the nuanced and open-textured domain of moral reasoning introduces new challenges. Traditional datasets for neurosymbolic evaluation rely on strict, quantifiable First-Order Logic where missing commonsense rules can be systematically generated by linking explicit entities. In contrast, moral reasoning, specifically within the ExplainEthics dataset \citep{quan-etal-2024-enhancing}, requires evaluating highly subjective human norms that are difficult to logically quantify, as the scenarios lack explicit entities or variables (e.g., $x$ and $y$ in a relation $P(x,y)$). While these nuanced scenarios do not necessarily require us to use a specific logical formalism, we choose to represent them using Propositional Logic for the sake of simplicity. It remains unclear how a neurosymbolic framework like ARGOS must be adapted to function within moral reasoning tasks, and whether this adaptation provides a meaningful performance improvement over purely neural baseline methods when evaluating moral norm violations.
 
 %-----------------------------------------------------------------------------%
 \subsection{Research Questions}
 \label{sec:definisiMasalah}
 %-----------------------------------------------------------------------------%
-In this thesis, we would like to answer these three questions:
+In this thesis, we would like to answer these two questions:
 \begin{enumerate}
-	\item RQ1: How do the logical structures required for moral reasoning differ from those in deductive relational tasks, and why do these differences inherently resist formal SAT-based entailment?
-	\item RQ2: What specific bottlenecks during LLM-driven premise abduction and rule validation prevent generated clauses from successfully narrowing the backbone to reach SAT-based entailment?
-	\item RQ3: In the absence of formal SAT entailment, what specific mechanisms within the backbone-grounded Chain-of-Thought fallback account for the observed improvements in moral classification accuracy?
+	\item RQ1: How is ARGOS implemented and adapted to moral reasoning tasks?
+	\item RQ2: How does the adapted ARGOS pipeline perform compared to baseline Chain-of-Thought (CoT) method on the ExplainEthics dataset?
 \end{enumerate}
 
 %-----------------------------------------------------------------------------%
 \subsection{Scope and Limitations}
 \label{sec:batasanMasalah}
 %-----------------------------------------------------------------------------%
-This research is bounded by the following assumptions and limitations:
+Due to time and resource constraints, we bound this research by the following assumptions and limitations:
 \begin{enumerate}
-	\item The experiment is conducted exclusively on the ExplainEthics dataset.
-	\item The LLMs used for premise generation and the CoT fallback are limited to specific sizes (e.g., Llama-3.1-8B-Instruct) due to computational constraints.
+	\item The experiment is conducted exclusively on the ExplainEthics dataset \citep{quan-etal-2024-enhancing}.
+	\item The LLMs used for premise generation and the CoT fallback are limited to specific sizes across different model families (specifically Llama-3.1-8B-Instruct, Qwen/Qwen2.5-7B-Instruct, Qwen2.5-Coder-7B-Instruct, and Mistral-7B-Instruct) due to computational constraints.
 \end{enumerate}
 
 %-----------------------------------------------------------------------------%
@@ -51,9 +52,8 @@ This research is bounded by the following assumptions and limitations:
 %-----------------------------------------------------------------------------%
 The primary objectives of this research are:
 \begin{enumerate}
-	\item To empirically evaluate the efficacy of the ARGOS neurosymbolic pipeline on the ExplainEthics dataset.
-	\item To identify the domain gaps and pipeline bottlenecks that prevent formal SAT entailment in moral reasoning tasks.
-	\item To understand how partial symbolic grounding (backbone facts) influences the success of the neural Chain-of-Thought fallback.
+	\item To adapt and implement the ARGOS neurosymbolic framework to operate within the highly subjective domain of moral reasoning.
+	\item To empirically evaluate the performance and identify the fundamental bottlenecks of the adapted ARGOS pipeline compared to a baseline Chain-of-Thought (CoT) method on the ExplainEthics dataset.
 \end{enumerate}
 
 %-----------------------------------------------------------------------------%
@@ -71,7 +71,7 @@ The organization of this thesis is as follows:
 	\item Chapter 4 \babEmpat \\
 	    This chapter presents the experimental setup and the quantitative results obtained from running the pipeline.
 	\item Chapter 5 \babLima \\
-	    This chapter provides an in-depth analysis and discussion of the results with respect to the three research questions.
+	    This chapter provides an analysis and discussion of the results with respect to the three research questions.
 	\item Chapter 6 \kesimpulan \\
-	    This chapter concludes the thesis and offers suggestions for future research.
+	    This chapter concludes the results of this thesis and offers suggestions for future research.
 \end{itemize}

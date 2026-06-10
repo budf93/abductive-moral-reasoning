@@ -3,44 +3,48 @@
 \label{bab:6}
 %---------------------------------------------------------------
 
-In this chapter, we present the conclusions drawn from our research and recommendations for future work.
-
+After experimenting with our pipeline and analyzing the results, we now conclude this thesis by directly answering our initial research questions and proposing promising directions for future research.
 
 %---------------------------------------------------------------
-\section{Conclusion}
-\label{sec:kesimpulan}
+\section{RQ1: Implementation and Adaptation}
+\label{sec:conclusionRq1}
 %---------------------------------------------------------------
-% Summarize answers to the three research questions:
+% TODO: Answer Research Question 1 here.
+% RQ1: How is ARGOS implemented and adapated to moral reasoning tasks?
 
-% RQ1 (Domain Gap):
-% Moral reasoning CNFs are structurally underconstrained compared to CLUTRR/ProntoQA:
-% few variables, abstract predicate semantics, and the open-textured nature of moral
-% norms prevent the backbone from narrowing sufficiently for formal entailment.
+\textit{RQ1: How is ARGOS implemented and adapated to moral reasoning tasks?}
 
-% RQ2 (Pipeline Bottleneck):
-% LLM-generated clauses fail to achieve SAT-based entailment due to three bottlenecks:
-% (1) prompt bias toward known norm strings rather than bridging concepts,
-% (2) generated predicates that do not map to existing SAT variables, and
-% (3) the CoT confidence threshold firing before rule injection has a meaningful effect.
+The implementation of ARGOS remains largely the same as the original design, but with two major adaptations. The primary difference lies in the translation of natural language into logical premises. As analyzed in Section \ref{sec:differencesInStructure}, unlike the original datasets for which ARGOS was designed (CLUTRR and ProntoQA),     which contain quantifiable entities and therefore utilize first-order logic, the ExplainEthics dataset lacks explicit quantifiers, necessitating the use of propositional logic. 
 
-% RQ3 (CoT Compensation):
-% Despite SAT failure, backbone-grounded CoT still outperforms the vanilla baseline.
-% The backbone facts and the dataset's explanation field provide sufficient grounding
-% for the LLM to improve moral norm classification accuracy.
+This domain shift to propositional logic required a complete revamp of the commonsense clause generation procedure. Because the system can no longer constrain the search space by selecting two premises that share the most entities with a given literal, the adapted pipeline instead generates potential commonsense clauses by iterating through every combination of existing literals $L_1$ and $L_2$. For each pair, it generates a new conclusion, $L_{right}$, by completing a fill-in-the-blank prompt. 
 
+All generated $L_{right}$ candidates are subsequently evaluated based on their relevance and commonsense plausibility. Furthermore, we adapted the mechanism for calculating these scores: to evaluate contextual relevance, the language model is explicitly provided with the original problem context and explanation as a grounding background, rather than relying solely on the structural backbone, ensuring the newly proposed rule is logically sensible given the specific scenario.
+
+%---------------------------------------------------------------
+\section{RQ2: Pipeline Performance and Bottlenecks}
+\label{sec:conclusionRq2}
+%---------------------------------------------------------------
+\textit{RQ2: How does the adapted ARGOS pipeline perform compared to baseline Chain-of-Thought (CoT) methods on the ExplainEthics dataset?}
+
+% TODO: Answer Research Question 2 here.
+% RQ2: How does the adapted ARGOS pipeline perform compared to baseline Chain-of-Thought (CoT) method on the ExplainEthics dataset?
+
+As established in Section \ref{sec:overallAccuracy}, the adapted ARGOS pipeline demonstrates improved accuracy in predicting norm violations compared to the baseline Chain-of-Thought (CoT) method. This improvement is driven by the neuro-symbolic architecture's ability to iteratively generate explicit commonsense clauses, which provide additional structured information for the logical reasoner. In contrast, while the CoT baseline is provided with the exact same context and explanation, it lacks the ability to iteratively add commonsense clauses which results in inferior deductive performance.
+
+However, as detailed in Section \ref{sec:rq2Analysis}, applying the ARGOS framework to the ExplainEthics dataset introduced several fundamental bottlenecks. The primary challenge stems from the use of propositional logic, which drastically inflates the search space during clause generation. Unlike deductive datasets such as CLUTRR, where the search space is tightly constrained by selecting premises that share the most entity occurrences, the abstract, propositional nature of moral reasoning forces the pipeline to evaluate every combination of literals. This vast search space makes it exceedingly difficult to reliably generate a new conclusion ($L_{right}$) that converges directly toward the target query ($Q$).
+
+Furthermore, this unconstrained generative step increases the risk of the LLM producing an $L_{right}$ that drifts away from $Q$. As explored in Section \ref{sec:subjectiveBeliefs}, these divergent paths often emerge from the subjective commonsense assumptions the LLM developed during its pre-training, which may misalign with the specific logical trajectory required by the scenario. 
+
+In essence, a clause generation process that consistently produces premises disconnected from the target query significantly increases the likelihood of a pipeline failure. It is important to emphasize that the SAT solver itself is never the bottleneck; its rigorous symbolic logic is the foundational strength of neuro-symbolic AI. The true limitation lies exclusively in the upstream generation process, which frequently leads the logical backbone astray rather than strategically directing it toward the target query $Q$.
 
 %---------------------------------------------------------------
 \section{Future Work}
 \label{sec:saran}
 %---------------------------------------------------------------
-% Suggestions for future research:
-% 1. Richer CNF encodings: include more fine-grained moral predicates to give
-%    the backbone more room to narrow toward entailment.
-% 2. Structured abduction: instead of fill-in-the-blank, use a dedicated
-%    retrieval step to find known moral rules from a curated knowledge base.
-% 3. Larger and more capable LLMs: test whether a larger model reduces
-%    the prompt bias and variable grounding failure rates.
-% 4. Extending to other moral datasets: e.g., ETHICS, MoralStories, or Delphi,
-%    to test generalizability of the domain gap finding.
-% 5. Dynamic CoT threshold scheduling: explore adaptive γ annealing strategies
-%    that give rule injection more iterations before falling back to CoT.
+While this study provides valuable insights into neurosymbolic moral reasoning, its scope is primarily limited to the ExplainEthics dataset. To address the current limitations of the ARGOS framework, particularly the SAT solver's inability to unify semantically similar premises, several promising directions for future research emerge:
+\begin{itemize}
+    \item The framework should be evaluated against a broader spectrum of moral reasoning datasets to validate the generalizability of our findings.
+    \item Future iterations could integrate similarity-based, differentiable unification methods (such as those employed in soft logic solvers) to allow the symbolic reasoner to gracefully unify syntactically distinct but semantically and contextually equivalent premises.
+    \item Since we know that representing the problems in our dataset in propositional logic causes problems, future research could attempt to experiment with other representations such as probabilistic logic.
+    \item Another promising direction is to experiment with other models for translation to natural language or to clause generation in order to see how different kinds of models fare when it comes to translating or generating new commonsense clauses.
+\end{itemize}

@@ -39,7 +39,7 @@ import matplotlib.patches as mpatches
 
 plt.rcParams['font.size'] = 12
 
-# ── Paths ──────────────────────────────────────────────────────────────────────
+# ── Paths & Logging ──────────────────────────────────────────────────────────────
 BASE_PATH    = '/mnt/c/Tugas_Akhir/ARGOS_public_anon'
 DATASET_PATH = BASE_PATH + '/SAT-LM/data/clutrr_test.json'
 DIMACS_DIR   = BASE_PATH + '/main/dimacs'
@@ -47,6 +47,21 @@ CSV_PATH     = BASE_PATH + '/main/dimacs_csvs/solver_finished.csv'
 LABELS_CSV   = BASE_PATH + '/main/clutrr_labels.csv'
 # Optional: directory of CoT baseline iter files (FewShotCOTCLUTRR_iter0 … iter19)
 COT_ITER_PREFIX = BASE_PATH + '/preds/FewShotCOTCLUTRR_iter'
+
+import sys
+class Logger(object):
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = open(filename, 'w', encoding='utf-8')
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+    def flush(self):
+        self.terminal.flush(); self.log.flush()
+
+ANALYSIS_OUT_DIR = BASE_PATH + '/main/analysis/analysis_outputs'
+os.makedirs(ANALYSIS_OUT_DIR, exist_ok=True)
+sys.stdout = Logger(ANALYSIS_OUT_DIR + '/clutrr_analysis_report.txt')
 
 # ── Step 1: Find pkl files ─────────────────────────────────────────────────────
 pkl_files = sorted(glob.glob(BASE_PATH + '/all_outs_cot_met_clutrr*.pkl'))
@@ -105,10 +120,12 @@ if os.path.exists(LABELS_CSV):
 name_idx = {name: i for i, name in enumerate(names)}
 
 # ── Step 5: Build preds ────────────────────────────────────────────────────────
-preds      = {}
-cot_count  = 0
-sat_count  = 0
-miss_count = 0
+preds                   = {}
+cot_count               = 0
+presolve_count          = 0
+sat_added_premise_count = 0
+miss_count              = 0
+_PRESOLVE_SENTINEL      = 'dummy'
 
 for name, value in outs.items():
     vv, solout, bbout, missed_flag, rule_scores, cot_flag, scs, prompts = value
@@ -118,15 +135,30 @@ for name, value in outs.items():
         cot_count += 1
         preds[name] = ('true' if scs[-1].argmax() == 0 else 'false') if scs else 'missed'
     else:
-        sat_count += 1
-        if   len(solout['neg']) == 0: preds[name] = 'false'
-        elif len(solout['pos']) == 0: preds[name] = 'true'
-        else:                         preds[name] = 'missed'
+        is_presolve = (
+            solout is not None
+            and solout.get('pos') == [_PRESOLVE_SENTINEL]
+            and solout.get('neg') == []
+            and bbout is None
+            and not scs
+        )
+        if is_presolve:
+            presolve_count += 1
+        else:
+            sat_added_premise_count += 1
+
+        if   len(solout.get('neg', [])) == 0: preds[name] = 'false'
+        elif len(solout.get('pos', [])) == 0: preds[name] = 'true'
+        else:                                  preds[name] = 'missed'
+
+sat_count = presolve_count + sat_added_premise_count
 
 print(f'\nTotal preds: {len(preds)}')
-print(f'  SAT backbone: {sat_count}')
-print(f'  CoT fallback: {cot_count}')
-print(f'  Missed:       {miss_count}')
+print(f'  Pre-solved by SAT (initial UNSAT, no LLM needed) : {presolve_count}')
+print(f'  SAT backbone with added premise (backbone loop)  : {sat_added_premise_count}')
+print(f'  CoT fallback                                     : {cot_count}')
+print(f'  Missed                                           : {miss_count}')
+print(f'  [Total SAT-resolved = {sat_count}]')
 
 # ── Step 6: Accuracy + confusion matrix ───────────────────────────────────────
 acc            = 0
@@ -343,7 +375,7 @@ if scs_all:
     patches = [mpatches.Patch(color=cs[i], label=f'{plot_labels[i]} (n={fc})')
                for i, fc in zip(flag_counts[0], flag_counts[1])]
     ax1.legend(handles=patches)
-    fig1.savefig(BASE_PATH + '/main/analysis/clutrr_trajectories.pdf', bbox_inches='tight')
+    fig1.savefig(ANALYSIS_OUT_DIR + '/clutrr_trajectories.pdf', bbox_inches='tight')
     plt.show()
 
 # ── Step 13: First-flip histograms ────────────────────────────────────────────
@@ -352,13 +384,13 @@ if first_good_flip or first_bad_flip:
     ax3.hist(first_good_flip, label='First Good Flip Iteration')
     ax3.set_title('Iteration of Good Flip')
     ax3.set_xlabel('Iteration')
-    fig3.savefig(BASE_PATH + '/main/analysis/clutrr_good_flips.pdf', bbox_inches='tight')
+    fig3.savefig(ANALYSIS_OUT_DIR + '/clutrr_good_flips.pdf', bbox_inches='tight')
 
     fig4, ax4 = plt.subplots()
     ax4.hist(first_bad_flip, label='First Bad Flip Iteration')
     ax4.set_title('Iteration of Bad Flip')
     ax4.set_xlabel('Iteration')
-    fig4.savefig(BASE_PATH + '/main/analysis/clutrr_bad_flips.pdf', bbox_inches='tight')
+    fig4.savefig(ANALYSIS_OUT_DIR + '/clutrr_bad_flips.pdf', bbox_inches='tight')
     plt.show()
 
 # ── Step 14: Normalised stacked histogram (outcome proportion per iter count) ──
@@ -404,7 +436,7 @@ if scs_all:
     patches = [mpatches.Patch(color=cs[i], label=f'{plot_labels[i]} (n={fc})')
                for i, fc in zip(flag_counts[0], flag_counts[1])]
     ax_top.legend(handles=patches, bbox_to_anchor=(0.3, 0.5))
-    fig5.savefig(BASE_PATH + '/main/analysis/clutrr_lenhist.pdf', bbox_inches='tight')
+    fig5.savefig(ANALYSIS_OUT_DIR + '/clutrr_lenhist.pdf', bbox_inches='tight')
     plt.show()
 
 # ── Step 15: 2D histogram (iteration × confidence) ────────────────────────────
@@ -446,7 +478,7 @@ if scs_all:
     ax6.set_ylim(0, 101)
     patches = [mpatches.Patch(color=cs[i], label=plot_labels[i]) for i in range(4)]
     ax6.legend(handles=patches, bbox_to_anchor=(1.3, 1))
-    fig6.savefig(BASE_PATH + '/main/analysis/clutrr_threedhist.pdf', bbox_inches='tight')
+    fig6.savefig(ANALYSIS_OUT_DIR + '/clutrr_threedhist.pdf', bbox_inches='tight')
     plt.show()
 
 # ── Step 16: Summary bar chart ────────────────────────────────────────────────
@@ -462,7 +494,24 @@ for bar, val in zip(bars, values):
 ax7.set_title('CLUTRR Pipeline Results')
 ax7.set_ylabel('Count')
 fig7.tight_layout()
-fig7.savefig(BASE_PATH + '/main/analysis/clutrr_results.png', dpi=150)
+fig7.savefig(ANALYSIS_OUT_DIR + '/clutrr_results.png', dpi=150)
 plt.show()
+
+# ── Step 17: Resolution pathway pie chart ─────────────────────────────────────
+pie_labels = ['Pre-solved by SAT', 'SAT backbone (loop)', 'CoT fallback', 'Missed']
+pie_values = [presolve_count, sat_added_premise_count, cot_count, miss_count]
+pie_colors = ['#3498db', '#2980b9', '#e67e22', '#95a5a6']
+pie_values_nonzero = [(v, l, c) for v, l, c in zip(pie_values, pie_labels, pie_colors) if v > 0]
+if pie_values_nonzero:
+    pv, pl, pc = zip(*pie_values_nonzero)
+    fig8, ax8 = plt.subplots(figsize=(7, 5))
+    wedges, texts, autotexts = ax8.pie(
+        pv, labels=pl, colors=pc, autopct='%1.1f%%',
+        startangle=140, pctdistance=0.8
+    )
+    for t in autotexts: t.set_fontsize(9)
+    ax8.set_title('Resolution Pathway Distribution (CLUTRR)')
+    fig8.savefig(ANALYSIS_OUT_DIR + '/clutrr_resolution_pie.png', dpi=150, bbox_inches='tight')
+    plt.show()
 
 print('\n[Done] Available: preds, labels, outs, data, names, scs_all, flag_all, bs_outs_acc, bs_sc_acc')

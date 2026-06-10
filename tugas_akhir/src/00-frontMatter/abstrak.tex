@@ -34,11 +34,11 @@
 
 \vspace*{0.5cm}
 
-\noindent Isi abstrak. \\
+\noindent Dewasa ini, \textit{large language model} (LLM) mengalami kemajuan pesat dalam hal kemampuan bernalar dan memahami bahasa. Namun, LLM memiliki keterbatasan dalam menjelaskan proses penalarannya secara transparan. Hal ini menjadi permasalahan pada \textit{domain} yang memerlukan kejelasan penalaran seperti penalaran moral. Salah satu pendekatan untuk mengatasi permasalahan ini adalah \textit{neurosymbolic AI}, khususnya \textit{abductive inference} sebagaimana yang disajikan oleh \textit{Abductive Reasoning with Generalization Over Symbolics} (ARGOS) yang secara iteratif menghasilkan premis \textit{commonsense} baru melalui LLM dan menambahkan ke dalam SAT \textit{solver} untuk membuktikan suatu kesimpulan secara formal. Skripsi ini menyelidiki dua pertanyaan penelitian: (1) bagaimana ARGOS diadaptasi untuk penalaran moral, dan (2) bagaimana kinerjanya apabila dibandingkan dengan metode \textit{baseline Chain-of-Thought} (CoT) pada dataset ExplainEthics. Terdapat dua adaptasi utama: translasi bahasa alami diubah dari \textit{first-order logic} menjadi \textit{propositional logic} karena dataset ExplainEthics tidak memiliki kuantifikasi eksplisit, dan prosedur \textit{commonsense clause generation} diubah menjadi memasangkan setiap kombinasi literal karena tidak ada entitas untuk membatasi ruang pencarian. Hasil eksperimen menunjukkan bahwa ARGOS mencapai akurasi 65,2\% pada 138 \textit{query}, jauh melampaui \textit{baseline} CoT yang hanya mencapai 27,8\%. Kendati demikian, penggunaan \textit{propositional logic} memperluas ruang pencarian secara drastis sehingga LLM kesulitan menghasilkan \textit{clause} yang mengarah ke \textit{query} target yang menyebabkan SAT solver tidak mampu mengambil kesimpulan apakah \textit{query} target benar atau tidak. Selain itu, LLM juga memiliki pemahaman \textit{commonsense} yang berbeda yang dapat menghasilkan klausa yang berbeda walaupun informasi yang diberikan sama sehingga juga menyebabkan kesulitan dalam menghasilkan kesimpulan yang mengarah ke \textit{query} target.
 
 \vspace*{0.2cm}
 
-\noindent Kata kunci: \\ \f{Keyword} satu, kata kunci dua \\
+\noindent Kata kunci: \\ penalaran moral, \textit{abductive inference}, \textit{neurosymbolic AI}, \textit{large language model}, SAT \textit{solver}, \textit{propositional logic} \\
 
 \setstretch{1.4}
 \newpage

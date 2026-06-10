@@ -1,0 +1,791 @@
+this is example rules by llama 8b:
+**************************************************
+ORIGINAL BACKBONE (Before any inference)
+**************************************************
+ORIGINAL BACKBONE (Positive):
+  + covering_face_with_mask
+  + violate_authority
+  + disobeying_authority
+  + potential_violation_of_law
+ORIGINAL BACKBONE (Negative):
+  - covering_face_with_mask
+  - violate_authority
+  - disobeying_authority
+  - potential_violation_of_law
+**************************************************
+
+running cadiback for explain_ethics backbone extraction
+[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+running cadiback for explain_ethics backbone extraction
+[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+
+========================================
+ITERATION 1 STATE
+========================================
+OVERALL BACKBONE (Positive):
+  + covering_face_with_mask
+  + violate_authority
+  + disobeying_authority
+  + potential_violation_of_law
+OVERALL BACKBONE (Negative):
+  - covering_face_with_mask
+  - violate_authority
+  - disobeying_authority
+  - potential_violation_of_law
+
+ADDED COMMONSENSE RULES SO FAR:
+========================================
+
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+[get_sol] exit line: c exit 10
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+[get_sol] exit line: c exit 20
+[get_sol] UNSATISFIABLE (exit 20)
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+[get_sol] exit line: c exit 10
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+[get_sol] exit line: c exit 20
+[get_sol] UNSATISFIABLE (exit 20)
+[next_var] get_sol result: pos=1 sols, neg=1 sols
+label: violate_authority
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[cot] norm not found, nli fallback: tensor([0.8789, 0.1191], dtype=torch.bfloat16)
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[cot] norm not found, nli fallback: tensor([0.8789, 0.1191], dtype=torch.bfloat16)
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[cot] norm not found, nli fallback: tensor([0.8789, 0.1191], dtype=torch.bfloat16)
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[cot] norm not found, nli fallback: tensor([0.8789, 0.1191], dtype=torch.bfloat16)
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[cot] norm not found, nli fallback: tensor([0.8789, 0.1191], dtype=torch.bfloat16)
+[next_var] ps after CoT evaluation: tensor([4.3945, 0.5957])
+[next_var] CoT annealed threshold: 1.30 (rule #0)
+[next_var] fill-in-blank: covering_face_with_mask AND disobeying_authority → ?
+[next_var] fill-in-blank result: covering_face_with_mask AND disobeying_authority → disobedience
+[next_var] fill-in-blank: covering_face_with_mask AND potential_violation_of_law → ?
+[next_var] fill-in-blank result: covering_face_with_mask AND potential_violation_of_law → illegal_activity
+[next_var] fill-in-blank: disobeying_authority AND potential_violation_of_law → ?
+[next_var] fill-in-blank result: disobeying_authority AND potential_violation_of_law → disobedience
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[next_var] rel "disobedience" added as variable 5
+
+++++++++++++++++++++++++++++++++++++++++
+NEW ADDED VARIABLE IN ITERATION 1
+++++++++++++++++++++++++++++++++++++++++
+  + If [covering_face_with_mask and disobeying_authority] then [disobedience] (ethics: implies(covering_face_with_mask and disobeying_authority, disobedience))
+  + disobedience is implied (ID: 5)
+++++++++++++++++++++++++++++++++++++++++
+
+[next_var] rel "illegal_activity" added as variable 6
+
+++++++++++++++++++++++++++++++++++++++++
+NEW ADDED VARIABLE IN ITERATION 1
+++++++++++++++++++++++++++++++++++++++++
+  + If [covering_face_with_mask and potential_violation_of_law] then [illegal_activity] (ethics: implies(covering_face_with_mask and potential_violation_of_law, illegal_activity))
+  + illegal_activity is implied (ID: 6)
+++++++++++++++++++++++++++++++++++++++++
+
+[next_var] rel "disobedience" added as variable 7
+
+++++++++++++++++++++++++++++++++++++++++
+NEW ADDED VARIABLE IN ITERATION 1
+++++++++++++++++++++++++++++++++++++++++
+  + If [disobeying_authority and potential_violation_of_law] then [disobedience] (ethics: implies(disobeying_authority and potential_violation_of_law, disobedience))
+  + disobedience is implied (ID: 7)
+++++++++++++++++++++++++++++++++++++++++
+
+running cadiback for explain_ethics backbone extraction
+[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+running cadiback for explain_ethics backbone extraction
+[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+
+========================================
+ITERATION 2 STATE
+========================================
+OVERALL BACKBONE (Positive):
+  + covering_face_with_mask
+  + violate_authority
+  + disobeying_authority
+  + potential_violation_of_law
+  + disobedience
+  + illegal_activity
+  + disobedience
+OVERALL BACKBONE (Negative):
+  - covering_face_with_mask
+  - violate_authority
+  - disobeying_authority
+  - potential_violation_of_law
+  - disobedience
+  - illegal_activity
+  - disobedience
+
+ADDED COMMONSENSE RULES SO FAR:
+  * disobedience is implied
+  * illegal_activity is implied
+  * disobedience is implied
+========================================
+
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+[get_sol] exit line: c exit 10
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+[get_sol] exit line: c exit 20
+[get_sol] UNSATISFIABLE (exit 20)
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+[get_sol] exit line: c exit 10
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+[get_sol] exit line: c exit 20
+[get_sol] UNSATISFIABLE (exit 20)
+[next_var] get_sol result: pos=1 sols, neg=1 sols
+label: violate_authority
+[cot] predicted violate_authority → MATCH (true)
+[cot] predicted violate_authority → MATCH (true)
+[cot] predicted violate_authority → MATCH (true)
+[cot] predicted violate_authority → MATCH (true)
+[cot] predicted violate_authority → MATCH (true)
+[cot] majority norm vote: violate_authority (counts={'violate_care': 0.0, 'violate_fairness': 0.0, 'violate_loyalty': 0.0, 'violate_authority': 5.0, 'violate_sanctity': 0.0, 'violate_liberty': 0.0})
+[next_var] ps after CoT evaluation: tensor([9.3945, 0.5957])
+[next_var] CoT annealed threshold: 1.10 (rule #3)
+[next_var] fill-in-blank: covering_face_with_mask AND disobeying_authority → ?
+[next_var] fill-in-blank result: covering_face_with_mask AND disobeying_authority → disobedience
+[next_var] fill-in-blank: covering_face_with_mask AND potential_violation_of_law → ?
+[next_var] fill-in-blank result: covering_face_with_mask AND potential_violation_of_law → illegal_activity
+[next_var] fill-in-blank: covering_face_with_mask AND disobedience → ?
+[next_var] fill-in-blank result: covering_face_with_mask AND disobedience → disobedience
+[next_var] fill-in-blank: covering_face_with_mask AND illegal_activity → ?
+[next_var] fill-in-blank result: covering_face_with_mask AND illegal_activity → concealment
+[next_var] fill-in-blank: covering_face_with_mask AND disobedience → ?
+[next_var] fill-in-blank result: covering_face_with_mask AND disobedience → disobedience
+[next_var] fill-in-blank: disobeying_authority AND potential_violation_of_law → ?
+[next_var] fill-in-blank result: disobeying_authority AND potential_violation_of_law → disobedience
+[next_var] fill-in-blank: disobeying_authority AND disobedience → ?
+[next_var] fill-in-blank result: disobeying_authority AND disobedience → disobedience
+[next_var] fill-in-blank: disobeying_authority AND illegal_activity → ?
+[next_var] fill-in-blank result: disobeying_authority AND illegal_activity → disobedience
+[next_var] fill-in-blank: disobeying_authority AND disobedience → ?
+[next_var] fill-in-blank result: disobeying_authority AND disobedience → disobedience
+[next_var] fill-in-blank: potential_violation_of_law AND disobedience → ?
+[next_var] fill-in-blank result: potential_violation_of_law AND disobedience → disobedience
+[next_var] fill-in-blank: potential_violation_of_law AND illegal_activity → ?
+[next_var] fill-in-blank result: potential_violation_of_law AND illegal_activity → criminal_activity
+[next_var] fill-in-blank: potential_violation_of_law AND disobedience → ?
+[next_var] fill-in-blank result: potential_violation_of_law AND disobedience → disobedience
+[next_var] fill-in-blank: disobedience AND illegal_activity → ?
+[next_var] fill-in-blank result: disobedience AND illegal_activity → disobedience
+[next_var] fill-in-blank: disobedience AND disobedience → ?
+[next_var] fill-in-blank result: disobedience AND disobedience → disobedience
+[next_var] fill-in-blank: illegal_activity AND disobedience → ?
+[next_var] fill-in-blank result: illegal_activity AND disobedience → disobedience
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[next_var] rel "concealment" added as variable 8
+
+++++++++++++++++++++++++++++++++++++++++
+NEW ADDED VARIABLE IN ITERATION 2
+++++++++++++++++++++++++++++++++++++++++
+  + If [covering_face_with_mask and illegal_activity] then [concealment] (ethics: implies(covering_face_with_mask and illegal_activity, concealment))
+  + concealment is implied (ID: 8)
+++++++++++++++++++++++++++++++++++++++++
+
+[next_var] rel "criminal_activity" added as variable 9
+
+++++++++++++++++++++++++++++++++++++++++
+NEW ADDED VARIABLE IN ITERATION 2
+++++++++++++++++++++++++++++++++++++++++
+  + If [potential_violation_of_law and illegal_activity] then [criminal_activity] (ethics: implies(potential_violation_of_law and illegal_activity, criminal_activity))
+  + criminal_activity is implied (ID: 9)
+++++++++++++++++++++++++++++++++++++++++
+
+running cadiback for explain_ethics backbone extraction
+[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+running cadiback for explain_ethics backbone extraction
+[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+
+========================================
+ITERATION 3 STATE
+========================================
+OVERALL BACKBONE (Positive):
+  + covering_face_with_mask
+  + violate_authority
+  + disobeying_authority
+  + potential_violation_of_law
+  + disobedience
+  + illegal_activity
+  + disobedience
+  + concealment
+  + criminal_activity
+OVERALL BACKBONE (Negative):
+  - covering_face_with_mask
+  - violate_authority
+  - disobeying_authority
+  - potential_violation_of_law
+  - disobedience
+  - illegal_activity
+  - disobedience
+  - concealment
+  - criminal_activity
+
+ADDED COMMONSENSE RULES SO FAR:
+  * disobedience is implied
+  * illegal_activity is implied
+  * disobedience is implied
+  * concealment is implied
+  * criminal_activity is implied
+========================================
+
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+[get_sol] exit line: c exit 10
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+[get_sol] exit line: c exit 20
+[get_sol] UNSATISFIABLE (exit 20)
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+[get_sol] exit line: c exit 10
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+[get_sol] exit line: c exit 20
+[get_sol] UNSATISFIABLE (exit 20)
+[next_var] get_sol result: pos=1 sols, neg=1 sols
+label: violate_authority
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[cot] norm not found, nli fallback: tensor([0.8789, 0.1191], dtype=torch.bfloat16)
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[cot] norm not found, nli fallback: tensor([0.8789, 0.1191], dtype=torch.bfloat16)
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[cot] norm not found, nli fallback: tensor([0.8789, 0.1191], dtype=torch.bfloat16)
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[cot] norm not found, nli fallback: tensor([0.8789, 0.1191], dtype=torch.bfloat16)
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[cot] norm not found, nli fallback: tensor([0.8789, 0.1191], dtype=torch.bfloat16)
+[next_var] ps after CoT evaluation: tensor([13.7891,  1.1914])
+[next_var] CoT annealed threshold: 0.90 (rule #5)
+[next_var] CoT confident enough (max=13.8 >= 0.90×sum=15.0), stopping
+
+========================================
+FINAL PREMISES (Backbone upon violation determination):
+Positive:
+  + covering_face_with_mask
+  + violate_authority
+  + disobeying_authority
+  + potential_violation_of_law
+  + disobedience
+  + illegal_activity
+  + disobedience
+  + concealment
+  + criminal_activity
+Negative:
+  - covering_face_with_mask
+  - violate_authority
+  - disobeying_authority
+  - potential_violation_of_law
+  - disobedience
+  - illegal_activity
+  - disobedience
+  - concealment
+  - criminal_activity
+ADDED COMMONSENSE RULES:
+  * disobedience is implied
+  * illegal_activity is implied
+  * disobedience is implied
+  * concealment is implied
+  * criminal_activity is implied
+========================================
+
+gold_foundation: true
+pred norm:       violate_authority
+
+this is example rules generated by qwen7B:
+========================================
+ITERATION 1 STATE
+========================================
+OVERALL BACKBONE (Positive):
+  + covering_face_with_mask
+  + violate_authority
+  + disobeying_authority
+  + potential_violation_of_law
+OVERALL BACKBONE (Negative):
+  - covering_face_with_mask
+  - violate_authority
+  - disobeying_authority
+  - potential_violation_of_law
+
+ADDED COMMONSENSE RULES SO FAR:
+========================================
+
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+[get_sol] exit line: c exit 10
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+[get_sol] exit line: c exit 20
+[get_sol] UNSATISFIABLE (exit 20)
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+[get_sol] exit line: c exit 10
+[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+[get_sol] exit line: c exit 20
+[get_sol] UNSATISFIABLE (exit 20)
+[next_var] get_sol result: pos=1 sols, neg=1 sols
+label: violate_authority
+[cot] predicted violate_authority → MATCH (true)
+[cot] predicted violate_authority → MATCH (true)
+[cot] predicted violate_authority → MATCH (true)
+[cot] predicted violate_authority → MATCH (true)
+[cot] predicted violate_authority → MATCH (true)
+[cot] majority norm vote: violate_authority (counts={'violate_care': 0.0, 'violate_fairness': 0.0, 'violate_loyalty': 0.0, 'violate_authority': 5.0, 'violate_sanctity': 0.0, 'violate_liberty': 0.0})
+[next_var] ps after CoT evaluation: tensor([5., 0.])
+[next_var] CoT annealed threshold: 1.30 (rule #0)
+[next_var] fill-in-blank: covering_face_with_mask AND disobeying_authority → ?
+[next_var] fill-in-blank result: covering_face_with_mask AND disobeying_authority → violate_respect
+[next_var] fill-in-blank: covering_face_with_mask AND potential_violation_of_law → ?
+[next_var] fill-in-blank result: covering_face_with_mask AND potential_violation_of_law → violate_respect
+[next_var] fill-in-blank: disobeying_authority AND potential_violation_of_law → ?
+[next_var] fill-in-blank result: disobeying_authority AND potential_violation_of_law → violate_respect
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[KV-cache] DISABLED — slow path
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[rule_check] rejected by context: If [covering_face_with_mask] and [disobeying_authority] then [violate_respect] score=tensor([0.1191], dtype=torch.bfloat16)
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[rule_check] rejected by plausibility: If [covering_face_with_mask] and [potential_violation_of_law] then [violate_respect] score=tensor([6.1393e-06], dtype=torch.bfloat16)
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+[rule_check] rejected by plausibility: If [disobeying_authority] and [potential_violation_of_law] then [violate_respect] score=tensor([4.5300e-05], dtype=torch.bfloat16)
+[next_var] No valid rules found to inject! Falling back to best CoT guess.
+gold_foundation: true
+pred norm:       violate_authority
+stepcount : 1
+  6%|██▌                                         | 1/17 [01:21<21:36, 81.04s/it]explain_ethics rulethresh=0.3, cot_thresh=1.3 (annealing 0.1/rule), dynamic=True, qwen7B, backbone-grounded_CoT
+Acc: 0.000, COT: 0/1:   6%|█▎                    | 1/17 [01:21<21:36, 81.04s/it]explainethics10.cnf
+running cadiback for explain_ethics backbone extraction
+[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_explainethics10.bbone
+running cadiback for explain_ethics backbone extraction
+[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_explainethics10.bbone
+running cadiback for explain_ethics backbone extraction
+[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+running cadiback for explain_ethics backbone extraction
+[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+nb [1, 2, -3, 4, 5, 6]
+pb [1, 2, 3, 4, 5, 6]
+jb [1, 2, 4, 5, 6]
+ab [np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(5), np.int64(6)]
+
+
+this is example rules generated by mistral:
+
+1211.2s	4564	**************************************************
+1211.2s	4565	ORIGINAL BACKBONE (Before any inference)
+1211.2s	4566	**************************************************
+1211.2s	4567	ORIGINAL BACKBONE (Positive):
+1211.2s	4568	  + covering_face_with_mask
+1211.2s	4569	  + violate_authority
+1211.2s	4570	  + disobeying_authority
+1211.2s	4571	  + potential_violation_of_law
+1211.2s	4572	ORIGINAL BACKBONE (Negative):
+1211.2s	4573	  - covering_face_with_mask
+1211.2s	4574	  - violate_authority
+1211.2s	4575	  - disobeying_authority
+1211.2s	4576	  - potential_violation_of_law
+1211.2s	4577	**************************************************
+1211.2s	4578	
+1211.2s	4579	running cadiback for explain_ethics backbone extraction
+1211.2s	4580	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+1211.2s	4581	running cadiback for explain_ethics backbone extraction
+1211.2s	4582	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+1211.2s	4583	
+1211.2s	4584	========================================
+1211.2s	4585	ITERATION 1 STATE
+1211.2s	4586	========================================
+1211.2s	4587	OVERALL BACKBONE (Positive):
+1211.2s	4588	  + covering_face_with_mask
+1211.2s	4589	  + violate_authority
+1211.2s	4590	  + disobeying_authority
+1211.2s	4591	  + potential_violation_of_law
+1211.2s	4592	OVERALL BACKBONE (Negative):
+1211.2s	4593	  - covering_face_with_mask
+1211.2s	4594	  - violate_authority
+1211.2s	4595	  - disobeying_authority
+1211.2s	4596	  - potential_violation_of_law
+1211.2s	4597	
+1211.2s	4598	ADDED COMMONSENSE RULES SO FAR:
+1211.2s	4599	========================================
+1211.2s	4600	
+1211.2s	4601	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1211.2s	4602	[get_sol] exit line: c exit 10
+1211.2s	4603	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1211.2s	4604	[get_sol] exit line: c exit 20
+1211.2s	4605	[get_sol] UNSATISFIABLE (exit 20)
+1211.2s	4606	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1211.2s	4607	[get_sol] exit line: c exit 10
+1211.2s	4608	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1211.2s	4609	[get_sol] exit line: c exit 20
+1211.2s	4610	[get_sol] UNSATISFIABLE (exit 20)
+1211.2s	4611	[next_var] get_sol result: pos=1 sols, neg=1 sols
+1211.2s	4612	label: violate_authority
+1240.9s	4613	[cot] predicted violate_authority → MATCH (true)
+1270.6s	4614	[cot] predicted violate_authority → MATCH (true)
+1300.4s	4615	[cot] predicted violate_authority → MATCH (true)
+1330.2s	4616	[cot] predicted violate_authority → MATCH (true)
+1360.1s	4617	[cot] predicted violate_authority → MATCH (true)
+1360.1s	4618	[cot] majority norm vote: violate_authority (counts={'violate_care': 0.0, 'violate_fairness': 0.0, 'violate_loyalty': 0.0, 'violate_authority': 5.0, 'violate_sanctity': 0.0, 'violate_liberty': 0.0})
+1360.1s	4619	[next_var] ps after CoT evaluation: tensor([5., 0.])
+1360.1s	4620	[next_var] CoT annealed threshold: 1.30 (rule #0)
+1360.1s	4621	[next_var] fill-in-blank: covering_face_with_mask AND disobeying_authority → ?
+1364.4s	4622	[next_var] fill-in-blank result: covering_face_with_mask AND disobeying_authority → violate_fairness
+1364.4s	4623	[next_var] fill-in-blank: covering_face_with_mask AND potential_violation_of_law → ?
+1368.7s	4624	[next_var] fill-in-blank result: covering_face_with_mask AND potential_violation_of_law → violate_fairness
+1368.7s	4625	[next_var] fill-in-blank: disobeying_authority AND potential_violation_of_law → ?
+1373.1s	4626	[next_var] fill-in-blank result: disobeying_authority AND potential_violation_of_law → violate_fairness
+1374.0s	4627	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1374.0s	4628	[KV-cache] DISABLED — slow path
+1377.9s	4629	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1381.7s	4630	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1385.7s	4631	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1389.5s	4632	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1393.5s	4633	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1396.4s	4634	[next_var] rel "violate_fairness" added as variable 5
+1396.4s	4635	
+1396.4s	4636	++++++++++++++++++++++++++++++++++++++++
+1396.4s	4637	NEW ADDED VARIABLE IN ITERATION 1
+1396.4s	4638	++++++++++++++++++++++++++++++++++++++++
+1396.4s	4639	  + If [covering_face_with_mask and disobeying_authority] then [violate_fairness] (ethics: implies(covering_face_with_mask and disobeying_authority, violate_fairness))
+1396.4s	4640	  + violate_fairness is implied (ID: 5)
+1396.4s	4641	++++++++++++++++++++++++++++++++++++++++
+1396.4s	4642	
+1396.4s	4643	[next_var] rel "violate_fairness" added as variable 6
+1396.4s	4644	
+1396.4s	4645	++++++++++++++++++++++++++++++++++++++++
+1396.4s	4646	NEW ADDED VARIABLE IN ITERATION 1
+1396.4s	4647	++++++++++++++++++++++++++++++++++++++++
+1396.4s	4648	  + If [covering_face_with_mask and potential_violation_of_law] then [violate_fairness] (ethics: implies(covering_face_with_mask and potential_violation_of_law, violate_fairness))
+1396.4s	4649	  + violate_fairness is implied (ID: 6)
+1396.4s	4650	++++++++++++++++++++++++++++++++++++++++
+1396.4s	4651	
+1396.4s	4652	[next_var] rel "violate_fairness" added as variable 7
+1396.4s	4653	
+1396.4s	4654	++++++++++++++++++++++++++++++++++++++++
+1396.4s	4655	NEW ADDED VARIABLE IN ITERATION 1
+1396.4s	4656	++++++++++++++++++++++++++++++++++++++++
+1396.4s	4657	  + If [disobeying_authority and potential_violation_of_law] then [violate_fairness] (ethics: implies(disobeying_authority and potential_violation_of_law, violate_fairness))
+1396.4s	4658	  + violate_fairness is implied (ID: 7)
+1396.4s	4659	++++++++++++++++++++++++++++++++++++++++
+1396.4s	4660	
+1396.4s	4661	running cadiback for explain_ethics backbone extraction
+1396.4s	4662	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+1396.4s	4663	running cadiback for explain_ethics backbone extraction
+1396.4s	4664	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+1396.5s	4665	
+1396.5s	4666	========================================
+1396.5s	4667	ITERATION 2 STATE
+1396.5s	4668	========================================
+1396.5s	4669	OVERALL BACKBONE (Positive):
+1396.5s	4670	  + covering_face_with_mask
+1396.5s	4671	  + violate_authority
+1396.5s	4672	  + disobeying_authority
+1396.5s	4673	  + potential_violation_of_law
+1396.5s	4674	  + violate_fairness
+1396.5s	4675	  + violate_fairness
+1396.5s	4676	  + violate_fairness
+1396.5s	4677	OVERALL BACKBONE (Negative):
+1396.5s	4678	  - covering_face_with_mask
+1396.5s	4679	  - violate_authority
+1396.5s	4680	  - disobeying_authority
+1396.5s	4681	  - potential_violation_of_law
+1396.5s	4682	  - violate_fairness
+1396.5s	4683	  - violate_fairness
+1396.5s	4684	  - violate_fairness
+1396.5s	4685	
+1396.5s	4686	ADDED COMMONSENSE RULES SO FAR:
+1396.5s	4687	  * violate_fairness is implied
+1396.5s	4688	  * violate_fairness is implied
+1396.5s	4689	  * violate_fairness is implied
+1396.5s	4690	========================================
+1396.5s	4691	
+1396.5s	4692	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1396.5s	4693	[get_sol] exit line: c exit 10
+1396.5s	4694	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1396.5s	4695	[get_sol] exit line: c exit 20
+1396.5s	4696	[get_sol] UNSATISFIABLE (exit 20)
+1396.5s	4697	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1396.5s	4698	[get_sol] exit line: c exit 10
+1396.5s	4699	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1396.5s	4700	[get_sol] exit line: c exit 20
+1396.5s	4701	[get_sol] UNSATISFIABLE (exit 20)
+1396.5s	4702	[next_var] get_sol result: pos=1 sols, neg=1 sols
+1396.5s	4703	label: violate_authority
+1408.4s	4704	[cot] predicted violate_fairness vs gold violate_authority → MISMATCH (false)
+1420.3s	4705	[cot] predicted violate_fairness vs gold violate_authority → MISMATCH (false)
+1432.2s	4706	[cot] predicted violate_fairness vs gold violate_authority → MISMATCH (false)
+1444.1s	4707	[cot] predicted violate_fairness vs gold violate_authority → MISMATCH (false)
+1456.0s	4708	[cot] predicted violate_fairness vs gold violate_authority → MISMATCH (false)
+1456.0s	4709	[cot] majority norm vote: violate_fairness (counts={'violate_care': 0.0, 'violate_fairness': 5.0, 'violate_loyalty': 0.0, 'violate_authority': 0.0, 'violate_sanctity': 0.0, 'violate_liberty': 0.0})
+1456.0s	4710	[next_var] ps after CoT evaluation: tensor([5., 5.])
+1456.0s	4711	[next_var] CoT annealed threshold: 1.10 (rule #3)
+1456.0s	4712	[next_var] fill-in-blank: covering_face_with_mask AND disobeying_authority → ?
+1460.3s	4713	[next_var] fill-in-blank result: covering_face_with_mask AND disobeying_authority → violate_fairness
+1460.3s	4714	[next_var] fill-in-blank: covering_face_with_mask AND potential_violation_of_law → ?
+1464.7s	4715	[next_var] fill-in-blank result: covering_face_with_mask AND potential_violation_of_law → violate_fairness
+1464.7s	4716	[next_var] fill-in-blank: disobeying_authority AND potential_violation_of_law → ?
+1469.0s	4717	[next_var] fill-in-blank result: disobeying_authority AND potential_violation_of_law → violate_fairness
+1469.0s	4718	[next_var] No valid rules found to inject! Falling back to best CoT guess.
+1469.0s	4719	gold_foundation: true
+1469.0s	4720	pred norm:       violate_fairness
+1469.0s	4721	stepcount : 2
+1469.0s	4722	
+Acc: 0.000, COT: 0/1:  12%|██▏                | 2/17 [07:53<1:00:04, 240.29s/it]explain_ethics rulethresh=0.3, cot_thresh=1.3 (annealing 0.1/rule), dynamic=True, mistral7B, backbone-grounded_CoT
+1469.0s	4723	
+Acc: 0.000, COT: 0/2:  12%|██▏                | 2/17 [07:53<1:00:04, 240.29s/it]explainethics11.cnf
+1469.0s	4724	running cadiback for explain_ethics backbone extraction
+1469.0s	4725	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_explainethics11.bbone
+1469.0s	4726	running cadiback for explain_ethics backbone extraction
+1469.0s	4727	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_explainethics11.bbone
+1469.0s	4728	running cadiback for explain_ethics backbone extraction
+1469.0s	4729	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+1469.0s	4730	running cadiback for explain_ethics backbone extraction
+1469.0s	4731	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+1469.0s	4732	nb [1, 2, -3, 6, 7]
+1469.0s	4733	pb [1, 2, 3, 6, 7]
+1469.0s	4734	jb [1, 2, 6, 7]
+1469.0s	4735	ab [np.int64(1), np.int64(2), np.int64(3), np.int64(6), np.int64(7)]
+1469.0s	4736	
+1469.0s	4737	**************************************************
+1469.0s	4738	ORIGINAL BACKBONE (Before any inference)
+1469.0s	4739	**************************************************
+1469.0s	4740	ORIGINAL BACKBONE (Positive):
+1469.0s	4741	  + feeding_bird
+1469.0s	4742	  + throwing_loaf_of_bread_directly_at_bird
+1469.0s	4743	  + violate_care
+1469.0s	4744	  + harm_to_animals
+1469.0s	4745	  + potential_physical_harm
+1469.0s	4746	ORIGINAL BACKBONE (Negative):
+1469.0s	4747	  - feeding_bird
+1469.0s	4748	  - throwing_loaf_of_bread_directly_at_bird
+1469.0s	4749	  - violate_care
+1469.0s	4750	  - harm_to_animals
+1469.0s	4751	  - potential_physical_harm
+1469.0s	4752	**************************************************
+1469.0s	4753	
+1469.0s	4754	running cadiback for explain_ethics backbone extraction
+1469.0s	4755	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+1469.0s	4756	running cadiback for explain_ethics backbone extraction
+1469.0s	4757	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+1469.1s	4758	
+1469.1s	4759	========================================
+1469.1s	4760	ITERATION 1 STATE
+1469.1s	4761	========================================
+1469.1s	4762	OVERALL BACKBONE (Positive):
+1469.1s	4763	  + feeding_bird
+1469.1s	4764	  + throwing_loaf_of_bread_directly_at_bird
+1469.1s	4765	  + violate_care
+1469.1s	4766	  + harm_to_animals
+1469.1s	4767	  + potential_physical_harm
+1469.1s	4768	OVERALL BACKBONE (Negative):
+1469.1s	4769	  - feeding_bird
+1469.1s	4770	  - throwing_loaf_of_bread_directly_at_bird
+1469.1s	4771	  - violate_care
+1469.1s	4772	  - harm_to_animals
+1469.1s	4773	  - potential_physical_harm
+1469.1s	4774	
+1469.1s	4775	ADDED COMMONSENSE RULES SO FAR:
+1469.1s	4776	========================================
+1469.1s	4777	
+1469.1s	4778	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1469.1s	4779	[get_sol] exit line: c exit 10
+1469.1s	4780	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1469.1s	4781	[get_sol] exit line: c exit 10
+1469.1s	4782	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1469.1s	4783	[get_sol] exit line: c exit 10
+1469.1s	4784	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1469.1s	4785	[get_sol] exit line: c exit 20
+1469.1s	4786	[get_sol] UNSATISFIABLE (exit 20)
+1469.1s	4787	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1469.1s	4788	[get_sol] exit line: c exit 10
+1469.1s	4789	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1469.1s	4790	[get_sol] exit line: c exit 10
+1469.1s	4791	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1469.1s	4792	[get_sol] exit line: c exit 10
+1469.1s	4793	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1469.1s	4794	[get_sol] exit line: c exit 20
+1469.1s	4795	[get_sol] UNSATISFIABLE (exit 20)
+1469.1s	4796	[next_var] get_sol result: pos=3 sols, neg=3 sols
+1469.1s	4797	label: violate_care
+1499.0s	4798	[cot] predicted violate_care → MATCH (true)
+1528.9s	4799	[cot] predicted violate_care → MATCH (true)
+1558.9s	4800	[cot] predicted violate_care → MATCH (true)
+1588.7s	4801	[cot] predicted violate_care → MATCH (true)
+1618.8s	4802	[cot] predicted violate_care → MATCH (true)
+1618.8s	4803	[cot] majority norm vote: violate_care (counts={'violate_care': 5.0, 'violate_fairness': 0.0, 'violate_loyalty': 0.0, 'violate_authority': 0.0, 'violate_sanctity': 0.0, 'violate_liberty': 0.0})
+1618.8s	4804	[next_var] ps after CoT evaluation: tensor([5., 0.])
+1618.8s	4805	[next_var] CoT annealed threshold: 1.30 (rule #0)
+1618.8s	4806	[next_var] fill-in-blank: feeding_bird AND throwing_loaf_of_bread_directly_at_bird → ?
+1623.2s	4807	[next_var] fill-in-blank result: feeding_bird AND throwing_loaf_of_bread_directly_at_bird → violate_fairness
+1623.2s	4808	[next_var] fill-in-blank: feeding_bird AND harm_to_animals → ?
+1627.5s	4809	[next_var] fill-in-blank result: feeding_bird AND harm_to_animals → violate_fairness
+1627.5s	4810	[next_var] fill-in-blank: feeding_bird AND potential_physical_harm → ?
+1631.9s	4811	[next_var] fill-in-blank result: feeding_bird AND potential_physical_harm → violate_fairness
+1631.9s	4812	[next_var] fill-in-blank: throwing_loaf_of_bread_directly_at_bird AND harm_to_animals → ?
+1636.3s	4813	[next_var] fill-in-blank result: throwing_loaf_of_bread_directly_at_bird AND harm_to_animals → violate_fairness
+1636.3s	4814	[next_var] fill-in-blank: throwing_loaf_of_bread_directly_at_bird AND potential_physical_harm → ?
+1640.6s	4815	[next_var] fill-in-blank result: throwing_loaf_of_bread_directly_at_bird AND potential_physical_harm → violate_fairness
+1640.6s	4816	[next_var] fill-in-blank: harm_to_animals AND potential_physical_harm → ?
+1645.0s	4817	[next_var] fill-in-blank result: harm_to_animals AND potential_physical_harm → violate_fairness
+1645.8s	4818	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1649.8s	4819	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1653.6s	4820	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1657.2s	4821	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1659.6s	4822	[rule_check] rejected by plausibility: If [feeding_bird] and [harm_to_animals] then [violate_fairness] score=tensor([0.1191], dtype=torch.bfloat16)
+1660.5s	4823	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1664.1s	4824	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1667.4s	4825	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1671.3s	4826	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1675.1s	4827	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1679.1s	4828	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1682.9s	4829	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1686.5s	4830	KV-cache expansion failed: 'DynamicCache' object has no attribute 'key_cache'
+1688.9s	4831	[next_var] rel "violate_fairness" added as variable 8
+1688.9s	4832	
+1688.9s	4833	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4834	NEW ADDED VARIABLE IN ITERATION 1
+1688.9s	4835	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4836	  + If [feeding_bird and throwing_loaf_of_bread_directly_at_bird] then [violate_fairness] (ethics: implies(feeding_bird and throwing_loaf_of_bread_directly_at_bird, violate_fairness))
+1688.9s	4837	  + violate_fairness is implied (ID: 8)
+1688.9s	4838	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4839	
+1688.9s	4840	[next_var] rel "violate_fairness" added as variable 9
+1688.9s	4841	
+1688.9s	4842	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4843	NEW ADDED VARIABLE IN ITERATION 1
+1688.9s	4844	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4845	  + If [feeding_bird and potential_physical_harm] then [violate_fairness] (ethics: implies(feeding_bird and potential_physical_harm, violate_fairness))
+1688.9s	4846	  + violate_fairness is implied (ID: 9)
+1688.9s	4847	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4848	
+1688.9s	4849	[next_var] rel "violate_fairness" added as variable 10
+1688.9s	4850	
+1688.9s	4851	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4852	NEW ADDED VARIABLE IN ITERATION 1
+1688.9s	4853	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4854	  + If [throwing_loaf_of_bread_directly_at_bird and harm_to_animals] then [violate_fairness] (ethics: implies(throwing_loaf_of_bread_directly_at_bird and harm_to_animals, violate_fairness))
+1688.9s	4855	  + violate_fairness is implied (ID: 10)
+1688.9s	4856	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4857	
+1688.9s	4858	[next_var] rel "violate_fairness" added as variable 11
+1688.9s	4859	
+1688.9s	4860	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4861	NEW ADDED VARIABLE IN ITERATION 1
+1688.9s	4862	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4863	  + If [throwing_loaf_of_bread_directly_at_bird and potential_physical_harm] then [violate_fairness] (ethics: implies(throwing_loaf_of_bread_directly_at_bird and potential_physical_harm, violate_fairness))
+1688.9s	4864	  + violate_fairness is implied (ID: 11)
+1688.9s	4865	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4866	
+1688.9s	4867	[next_var] rel "violate_fairness" added as variable 12
+1688.9s	4868	
+1688.9s	4869	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4870	NEW ADDED VARIABLE IN ITERATION 1
+1688.9s	4871	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4872	  + If [harm_to_animals and potential_physical_harm] then [violate_fairness] (ethics: implies(harm_to_animals and potential_physical_harm, violate_fairness))
+1688.9s	4873	  + violate_fairness is implied (ID: 12)
+1688.9s	4874	++++++++++++++++++++++++++++++++++++++++
+1688.9s	4875	
+1688.9s	4876	running cadiback for explain_ethics backbone extraction
+1688.9s	4877	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+1688.9s	4878	running cadiback for explain_ethics backbone extraction
+1688.9s	4879	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+1688.9s	4880	
+1688.9s	4881	========================================
+1688.9s	4882	ITERATION 2 STATE
+1688.9s	4883	========================================
+1688.9s	4884	OVERALL BACKBONE (Positive):
+1688.9s	4885	  + feeding_bird
+1688.9s	4886	  + throwing_loaf_of_bread_directly_at_bird
+1688.9s	4887	  + violate_care
+1688.9s	4888	  + harm_to_animals
+1688.9s	4889	  + potential_physical_harm
+1688.9s	4890	  + violate_fairness
+1688.9s	4891	  + violate_fairness
+1688.9s	4892	  + violate_fairness
+1688.9s	4893	  + violate_fairness
+1688.9s	4894	  + violate_fairness
+1688.9s	4895	OVERALL BACKBONE (Negative):
+1688.9s	4896	  - feeding_bird
+1688.9s	4897	  - throwing_loaf_of_bread_directly_at_bird
+1688.9s	4898	  - violate_care
+1688.9s	4899	  - harm_to_animals
+1688.9s	4900	  - potential_physical_harm
+1688.9s	4901	  - violate_fairness
+1688.9s	4902	  - violate_fairness
+1688.9s	4903	  - violate_fairness
+1688.9s	4904	  - violate_fairness
+1688.9s	4905	  - violate_fairness
+1688.9s	4906	
+1688.9s	4907	ADDED COMMONSENSE RULES SO FAR:
+1688.9s	4908	  * violate_fairness is implied
+1688.9s	4909	  * violate_fairness is implied
+1688.9s	4910	  * violate_fairness is implied
+1688.9s	4911	  * violate_fairness is implied
+1688.9s	4912	  * violate_fairness is implied
+1688.9s	4913	========================================
+1688.9s	4914	
+1688.9s	4915	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1688.9s	4916	[get_sol] exit line: c exit 10
+1688.9s	4917	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1689.0s	4918	[get_sol] exit line: c exit 10
+1689.0s	4919	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1689.0s	4920	[get_sol] exit line: c exit 10
+1689.0s	4921	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.log
+1689.0s	4922	[get_sol] exit line: c exit 20
+1689.0s	4923	[get_sol] UNSATISFIABLE (exit 20)
+1689.0s	4924	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1689.0s	4925	[get_sol] exit line: c exit 10
+1689.0s	4926	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1689.0s	4927	[get_sol] exit line: c exit 10
+1689.0s	4928	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1689.0s	4929	[get_sol] exit line: c exit 10
+1689.0s	4930	[get_sol] Running CaDiCaL, log: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.log
+1689.0s	4931	[get_sol] exit line: c exit 20
+1689.0s	4932	[get_sol] UNSATISFIABLE (exit 20)
+1689.0s	4933	[next_var] get_sol result: pos=3 sols, neg=3 sols
+1689.0s	4934	label: violate_care
+1719.6s	4935	[cot] predicted violate_fairness vs gold violate_care → MISMATCH (false)
+1750.3s	4936	[cot] predicted violate_fairness vs gold violate_care → MISMATCH (false)
+1780.9s	4937	[cot] predicted violate_fairness vs gold violate_care → MISMATCH (false)
+1811.6s	4938	[cot] predicted violate_fairness vs gold violate_care → MISMATCH (false)
+1842.1s	4939	[cot] predicted violate_fairness vs gold violate_care → MISMATCH (false)
+1842.1s	4940	[cot] majority norm vote: violate_fairness (counts={'violate_care': 0.0, 'violate_fairness': 5.0, 'violate_loyalty': 0.0, 'violate_authority': 0.0, 'violate_sanctity': 0.0, 'violate_liberty': 0.0})
+1842.1s	4941	[next_var] ps after CoT evaluation: tensor([5., 5.])
+1842.1s	4942	[next_var] CoT annealed threshold: 0.90 (rule #5)
+1842.1s	4943	[next_var] fill-in-blank: feeding_bird AND throwing_loaf_of_bread_directly_at_bird → ?
+1846.4s	4944	[next_var] fill-in-blank result: feeding_bird AND throwing_loaf_of_bread_directly_at_bird → violate_fairness
+1846.4s	4945	[next_var] fill-in-blank: feeding_bird AND harm_to_animals → ?
+1850.7s	4946	[next_var] fill-in-blank result: feeding_bird AND harm_to_animals → violate_fairness
+1850.7s	4947	[next_var] fill-in-blank: feeding_bird AND potential_physical_harm → ?
+1855.1s	4948	[next_var] fill-in-blank result: feeding_bird AND potential_physical_harm → violate_fairness
+1855.1s	4949	[next_var] fill-in-blank: throwing_loaf_of_bread_directly_at_bird AND harm_to_animals → ?
+1859.4s	4950	[next_var] fill-in-blank result: throwing_loaf_of_bread_directly_at_bird AND harm_to_animals → violate_fairness
+1859.4s	4951	[next_var] fill-in-blank: throwing_loaf_of_bread_directly_at_bird AND potential_physical_harm → ?
+1863.7s	4952	[next_var] fill-in-blank result: throwing_loaf_of_bread_directly_at_bird AND potential_physical_harm → violate_fairness
+1863.7s	4953	[next_var] fill-in-blank: harm_to_animals AND potential_physical_harm → ?
+1868.1s	4954	[next_var] fill-in-blank result: harm_to_animals AND potential_physical_harm → violate_fairness
+1868.1s	4955	[next_var] No valid rules found to inject! Falling back to best CoT guess.
+1868.1s	4956	gold_foundation: true
+1868.1s	4957	pred norm:       violate_fairness
+1868.1s	4958	stepcount : 3
+1868.1s	4959	
+Acc: 0.000, COT: 0/2:  18%|███▎               | 3/17 [14:32<1:12:59, 312.80s/it]explain_ethics rulethresh=0.3, cot_thresh=1.3 (annealing 0.1/rule), dynamic=True, mistral7B, backbone-grounded_CoT
+1868.1s	4960	
+Acc: 0.000, COT: 0/3:  18%|███▎               | 3/17 [14:32<1:12:59, 312.80s/it]explainethics4.cnf
+1868.1s	4961	running cadiback for explain_ethics backbone extraction
+1868.1s	4962	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_explainethics4.bbone
+1868.1s	4963	running cadiback for explain_ethics backbone extraction
+1868.1s	4964	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_explainethics4.bbone
+1868.1s	4965	running cadiback for explain_ethics backbone extraction
+1868.1s	4966	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/pos_tmp.bbone
+1868.1s	4967	running cadiback for explain_ethics backbone extraction
+1868.1s	4968	[get_bb] Writing backbone to: /kaggle/working/argos-kaggle/main/tempfilesexplain_ethics_1/neg_tmp.bbone
+1868.1s	4969	nb [1, -2, 3, 4]
+1868.1s	4970	pb [1, 2, 3, 4]
+1868.1s	4971	jb [1, 3, 4]
+1868.1s	4972	ab [np.int64(1), np.int64(2), np.int64(3), np.int64(4)]
+
+use this example in subjective commonsense beliefs

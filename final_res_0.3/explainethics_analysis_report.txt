@@ -17,11 +17,11 @@ Correct via SAT  : 0
 Correct via CoT  : 84
 Missed/skipped   : 0
 
-Micro-averaged standard metrics (over 6 norm classes):
+Macro-averaged standard metrics (over 6 norm classes):
   Accuracy : 0.6087
   Precision: 1.0000
-  Recall   : 0.6087
-  F1 Score : 0.7568
+  Recall   : 0.6857
+  F1 Score : 0.8031
 
 Name                           Pred norm                 Gold norm                 Shown label               OK?
 -------------------------------------------------------------------------------------------------------------------
@@ -192,17 +192,17 @@ CoT iter 3: acc=38
 Metric    | ARGOS     | CoT SC
 -----------------------------------
 Accuracy  | 0.6087    | 0.2754
-Precision | 1.0000    | 0.2754
-Recall    | 0.6087    | 0.2754
-F1 Score  | 0.7568    | 0.2754
+Precision | 1.0000    | 0.1159
+Recall    | 0.6857    | 0.1202
+F1 Score  | 0.8031    | 0.1112
 -----------------------------------
 Mean single CoT acc: 0.275
 
-Bootstrap ARGOS mean acc : 0.6071
-Bootstrap SC mean acc    : 0.2766
+Bootstrap ARGOS mean acc : 0.6083
+Bootstrap SC mean acc    : 0.2765
 
 Wilcoxon signed-rank (ARGOS > SC): stat=9591.0000  p=0.0000   SIGNIFICANT (α=0.05)
-95% CI on ARGOS accuracy: (0.5990, 0.6152)
+95% CI on ARGOS accuracy: (0.6006, 0.6160)
 
 Trajectory flags:
   unflipped-wrong: 34

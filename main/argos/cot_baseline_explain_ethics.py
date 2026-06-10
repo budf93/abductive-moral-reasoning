@@ -77,7 +77,11 @@ def no_ssl_verification():
             except: pass
 
 # ── LLM loader ─────────────────────────────────────────────────────────────────
-def load_llm(engine='meta-llama/Llama-3.1-8B-Instruct'):
+def load_llm(
+        engine='Qwen/Qwen2.5-7B-Instruct',
+        # engine='meta-llama/Llama-3.1-8B-Instruct'
+        # engine='mistralai/Mistral-7B-Instruct-v0.3',
+        ):
     quant_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type='nf4',
@@ -215,7 +219,9 @@ def main():
     parser.add_argument('--end_iter', type=int, default=0,
                         help='Ending iteration index (inclusive) - to run 20 SC passes, use --start_iter 0 --end_iter 19')
     parser.add_argument('--engine', type=str,
-                        default='meta-llama/Llama-3.1-8B-Instruct',
+                        # default='meta-llama/Llama-3.1-8B-Instruct',
+                        default='Qwen/Qwen2.5-7B-Instruct',
+                        # engine='mistralai/Mistral-7B-Instruct-v0.3',
                         help='HuggingFace model ID')
     parser.add_argument('--first_k', type=int, default=None,
                         help='Only process the first K examples (for testing)')

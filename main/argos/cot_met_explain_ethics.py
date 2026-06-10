@@ -481,7 +481,7 @@ def rule_check(rule, contra_thresh=0, context_thresh=0, prob='', llm=None):
     b = llm.yn([context_prompt])[0]  # P("Yes, relevant")
 
     if a < contra_thresh:
-        print(f'[rule_check] REJECTED by contradiction: {rule!r}  (score={a:.3f})')
+        print(f'[rule_check] REJECTED by contradiction: {rule!r}  ( {a:.3f})')
         return False, [a, b]
     if b < context_thresh:
         print(f'[rule_check] REJECTED by context:       {rule!r}  (score={b:.3f})')
@@ -1146,8 +1146,13 @@ def next_var(
                 completion = llm.complete(few_shot + question, max_new=25)[0]
 
                 try:
+                    # Use the last \box{...} occurrence so parsing works regardless of
+                    # whether the model echoes the few-shot prefix in its output.
+                    # Models like Llama echo all n_fs examples; instruction-tuned models
+                    # like Qwen/Mistral do not, so indexing by [1 + n_fs] would raise
+                    # an IndexError for those models. Taking [-1] is always correct.
                     rel = '_'.join(
-                        completion.split('box{')[1 + n_fs].split('}')[0]
+                        completion.split('box{')[-1].split('}')[0]
                         .lower().strip(' .\n').split()
                     )
                 except Exception:
@@ -1428,8 +1433,9 @@ if __name__ == '__main__':
     args = Struct(
         # engine='meta-llama/Llama-3.2-3B-Instruct',
         # engine='Qwen/Qwen2.5-3B-Instruct',
-        # engine='Qwen/Qwen2.5-7B-Instruct',
-        engine='meta-llama/Llama-3.1-8B-Instruct',
+        engine='Qwen/Qwen2.5-7B-Instruct',
+        # engine='mistralai/Mistral-7B-Instruct-v0.3',
+        # engine='meta-llama/Llama-3.1-8B-Instruct',
         max_length=300,
         temperature=1,
     )
@@ -1486,6 +1492,7 @@ if __name__ == '__main__':
         prep_time = time.time() - start_time
 
         # Run the backbone-driven inference loop
+        # ganti ke 0 pengen ngecek rule yg digenerate aja
         vv, solout, bbout, missed_flag, rule_scores, cot_flag, scs, prompts = next_var(
             bb, p, llm=llm, task=task, missed=missed, prob=prob, seedrun=seedrun, rulethresh=0.3, cot_thresh=1.3
         )

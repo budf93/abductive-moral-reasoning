@@ -10,68 +10,110 @@ To understand the issues being addressed in this thesis, we must first establish
 \section{Propositional Logic}
 \label{sec:propositionalLogic}
 %-----------------------------------------------------------------------------%
-Propositional logic is an area of logic that deals with propositions, which are statements that can be evaluated as either true or false. In this formal system, facts are expressed as atomic propositions (variables) that are combined using logical connectives such as negation ($\neg$), conjunction ($\land$), disjunction ($\lor$), and implication ($\rightarrow$). 
+Propositional logic is an area of logic that deals with propositions, which are statements that can be evaluated as either true or false \citep{rosen2012discrete}. In this formal system, facts are expressed as atomic propositions (variables) that are combined using logical connectives such as negation ($\neg$), conjunction ($\land$), disjunction ($\lor$), and implication ($\rightarrow$). Semantically, we can think of an interpretation in propositional logic as simply being a mapping, $I$, from the propositional symbols to either 0 (false) or 1 (true).
 
 A fundamental concept in propositional logic is Conjunctive Normal Form (CNF). A formula is in CNF if it is a conjunction of clauses, where each clause is a disjunction of literals (a variable or its negation). The Boolean Satisfiability Problem (SAT) is the computational problem of determining whether there exists a truth assignment for the variables in a propositional formula that makes the entire formula true. In the context of this research, propositional logic serves as the formal language in which moral norms and scenarios are encoded.
+
+For example, let $P$ represent the proposition ``It is raining'' and $Q$ represent ``The ground is wet''. The implication $P \rightarrow Q$ states that if it is raining, then the ground is wet. In Conjunctive Normal Form, this implication is logically equivalent to $\neg P \lor Q$. A SAT solver evaluating the formula $(\neg P \lor Q) \land P$ would deduce that $Q$ must be true to satisfy the entire formula.
 
 %-----------------------------------------------------------------------------%
 \section{First-Order Logic and Abductive Reasoning}
 \label{sec:firstOrderLogic}
 %-----------------------------------------------------------------------------%
-First-Order Logic (FOL) extends propositional logic by introducing predicates, functions, and quantifiers, namely the universal quantifier ($\forall$) and the existential quantifier ($\exists$). This allows for expressing statements about objects and their relationships across a domain of discourse, making it significantly more expressive than propositional logic.
+First-Order Logic (FOL) extends propositional logic by introducing predicates, functions, and quantifiers, namely the universal quantifier ($\forall$) and the existential quantifier ($\exists$) \citep{brachman2004knowledge}. This allows for expressing statements about objects and their relationships across a domain of discourse, making it significantly more expressive than propositional logic.
 
-Logical reasoning can be broadly categorized into deduction, induction, and abduction. While deductive reasoning derives specific, guaranteed conclusions from general premises ($P \rightarrow Q$ and $P$ entails $Q$), abductive reasoning operates in reverse. Abduction is defined as inference to the best explanation. Given an observation $O$ and background knowledge $K$, abduction seeks to find a plausible hypothesis $H$ such that $K \land H \vdash O$. In neurosymbolic systems, abductive reasoning forms the logical basis for generating new premises or rules to bridge reasoning gaps in a knowledge base.
+To be precise about meaning in FOL, we define an interpretation $\Im$ as a pair $\langle D, I \rangle$. Here, $D$ is any nonempty set of objects called the domain of the interpretation, and $I$ is the interpretation mapping for the nonlogical symbols over $D$. The domain $D$ can be any set, including people, numbers, or abstract concepts like fairness or situations. 
+
+The interpretation mapping $I$ assigns meaning to predicate and function symbols. For a predicate symbol $P$ of arity $n$, $I[P]$ is an $n$-ary relation over $D$ (i.e., $I[P] \subseteq D \times \dots \times D$). Alternatively, we can view $I[P]$ in terms of its characteristic function, mapping an $n$-ary tuple to $\{0, 1\}$. For a function symbol $f$ of arity $n$, $I[f]$ is an $n$-ary function mapping $D^n \rightarrow D$. In the propositional subset of FOL, where predicates have an arity of 0, the domain $D$ can be ignored, and the interpretation simplifies to a mapping from propositional symbols to $\{0, 1\}$.
+
+Given an interpretation $\Im = \langle D, I \rangle$, we can specify which sentences of FOL are true or false. When a sentence $\alpha$ is true in the interpretation $\Im$, we write $\Im \models \alpha$, and we say that $\Im$ is a logical model of $\alpha$. This leads to the crucial concept of \textit{logical consequence} (or entailment). A sentence $\alpha$ is a logical consequence of a set of sentences $S$ (written as $S \models \alpha$) if and only if every interpretation $\Im$ that is a model of $S$ is also a model of $\alpha$. In other words, there is no interpretation where $S \cup \{\neg \alpha\}$ is satisfiable.
+
+Logical reasoning can be broadly categorized into deduction, induction, and abduction. While deductive reasoning derives specific, guaranteed conclusions from general premises, abductive reasoning operates in reverse. Abduction is defined as finding missing explanations for a given phenomenon. Given an observation $O$ and background knowledge $K$, abduction seeks a plausible explanation $E$ such that $K \land E \vdash O$. In computational systems, computing these explanations is often achieved through ''propositionalization''. This process involves instantiating First-Order Logic sentences into propositional logic by substituting variables with specific elements from the domain of discourse. In neurosymbolic systems, this propositionalized abductive reasoning forms the logical basis for generating new premises or rules to bridge reasoning gaps in a knowledge base.
+
+For example, in First-Order Logic, the rule ''all humans are mortal'' can be expressed using a universal quantifier as $\forall x (\text{Human}(x) \rightarrow \text{Mortal}(x))$. If we know the premise $\text{Human}(\text{Socrates})$, deductive reasoning allows us to logically conclude $\text{Mortal}(\text{Socrates})$. Conversely, abductive reasoning works backwards from an observation. Suppose our background knowledge $K$ includes the rule $\forall x (\text{RainingOn}(x) \rightarrow \text{Wet}(x))$, and we observe that a specific lawn is wet ($O = \text{Wet}(\text{Lawn})$). Because this observation cannot be logically deduced from $K$ alone ($K \not\vdash O$), we can compute an explanation by first propositionalizing the rule over the domain element ``Lawn'', yielding the propositional clause $\text{RainingOn}(\text{Lawn}) \rightarrow \text{Wet}(\text{Lawn})$. Using this propositionalized form, abductive reasoning hypothesizes the missing premise $E = \text{RainingOn}(\text{Lawn})$, satisfying the entailment $K \land E \vdash O$.
 
 
 %-----------------------------------------------------------------------------%
 \section{Large Language Models}
 \label{sec:largeLanguageModels}
 %-----------------------------------------------------------------------------%
-Large Language Models (LLMs) are deep neural networks, predominantly based on the Transformer architecture, trained on vast corpora of text data to predict the likelihood of a sequence of tokens. Modern LLMs are highly proficient at in-context learning, where the model can adapt to a specific task by recognizing patterns from a few examples provided directly in its input prompt, known as few-shot prompting.
+Large Language Models (LLMs) are deep neural networks, predominantly based on the Transformer architecture \citep{vaswani2017attention}, trained on vast corpora of text data to predict the likelihood of a sequence of tokens. Modern LLMs are highly proficient at in-context learning \citep{dong-etal-2024-survey}, where the model can adapt to a specific task by recognizing patterns from a few examples provided directly in its input prompt, known as few-shot prompting \citep{DBLP:journals/corr/abs-2005-14165}.
 
-To improve the performance of LLMs on complex reasoning tasks, researchers developed Chain-of-Thought (CoT) prompting. CoT explicitly prompts the model to generate a sequence of intermediate reasoning steps before outputting the final answer. This technique is often combined with self-consistency sampling, wherein multiple CoT reasoning paths are sampled independently, and the most frequent final conclusion is selected via majority vote. These neural components drive the premise generation and fallback classification in modern neurosymbolic pipelines.
+Formally, an LLM defines a probability distribution over sequences of tokens. Given an $n$-token context $p_1, p_2, \ldots, p_n$, the model generates $T$ subsequent tokens $w_1, w_2, \ldots, w_T$ by maximizing the joint conditional probability, decomposed left-to-right as:
+
+\begin{equation}\label{equ:jointprob}
+    P(w_1, \ldots, w_T \mid p_1, \ldots, p_n;\, \boldsymbol{\theta}) = \prod_{t=1}^{T} P(w_t \mid p_{1:n},\, w_{1:t-1};\, \boldsymbol{\theta})
+\end{equation}
+\addequtotoc{equ:jointprob}{Joint conditional probability of token generation}
+
+where $\boldsymbol{\theta}$ denotes the model parameters, and $w_t$ can be any token from the vocabulary $\mathcal{V}$. At each step $t$, the model computes a raw score (logit) $z_v$ for every token $v \in \mathcal{V}$, which is converted into a probability distribution using the softmax function:
+
+\begin{equation}\label{equ:softmax}
+    P(w_t = v \mid p_{1:n}, w_{1:t-1};\, \boldsymbol{\theta}) = \frac{e^{z_v}}{\sum_{u \in \mathcal{V}} e^{z_u}}
+\end{equation}
+\addequtotoc{equ:softmax}{Softmax function for token probability}
+
+Different strategies, known as \textit{decoding algorithms}, are then used to select the next token from this distribution. \textbf{Greedy search} selects the single most probable token at each step deterministically, $w_t = \arg\max_{v} P(w_t = v)$, which is fast and reproducible but may miss globally better sequences. \textbf{Beam search} \citep{sutskever2014sequence} improves on this by maintaining $B$ candidate sequences in parallel, retaining the $B$ highest-scoring continuations at each step; it remains deterministic for a fixed beam width $B$. \textbf{Temperature sampling} \citep{holtzman2020curious} instead draws tokens stochastically by scaling the logits with a temperature $\tau > 0$ before the softmax:
+
+\begin{equation}\label{equ:temperature}
+    P_\tau(w_t = v \mid p_{1:n}, w_{1:t-1};\, \boldsymbol{\theta}) = \frac{e^{z_v / \tau}}{\sum_{u \in \mathcal{V}} e^{z_u / \tau}}
+\end{equation}
+\addequtotoc{equ:temperature}{Temperature sampling probability distribution}
+
+As $\tau \to 0$, the distribution collapses to a point mass equivalent to greedy search. At $\tau = 1$, the model samples from its native distribution. At $\tau > 1$, the distribution flattens, yielding more diverse but less coherent outputs. In practice, temperature sampling is combined with a top-$k$ constraint, which restricts sampling to only the $k$ most probable tokens, preventing very low-probability tokens from being selected.
+
+To improve the performance of LLMs on complex reasoning tasks, researchers developed Chain-of-Thought (CoT) prompting \citep{DBLP:conf/nips/Wei0SBIXCLZ22}. CoT explicitly prompts the model to generate a sequence of intermediate reasoning steps before outputting the final answer. This technique is often combined with $k$-shot self-consistency sampling \citep{wang2022selfconsistency}. Under a $k$-shot self-consistency framework, the model samples $k$ distinct reasoning paths independently using temperature sampling, and the final conclusion is selected by a majority vote over the outcomes of these $k$ paths. This stands in contrast to greedy decoding, where the same prompt always produces the same output and no diversity across runs is possible.
+
+Furthermore, LLMs can be utilized to parse natural language descriptions into formal logical representations. A notable approach is Declarative Prompting \citep{ye2023satlm}, which prompts an LLM to translate natural language problem statements into declarative logic programs (such as Python code utilizing the Z3 solver syntax). These intermediate programmatic representations can then be deterministically formalized into the standard DIMACS CNF format, which serves as the direct input for state-of-the-art SAT solvers. This methodology bridges the gap between ambiguous natural language texts and the rigid symbolic logic required for formal entailment checks.
+
+Both the ARGOS pipeline (\texttt{cot\_met\_explain\_ethics.py}) and the standalone CoT baseline (\texttt{cot\_baseline\_explain\_ethics.py}) invoke the LLM's \texttt{generate} function with \texttt{do\_sample=False}, which corresponds to greedy decoding ($\tau \to 0$). Specifically, the pipeline's \texttt{complete()} method enables sampling only when both a positive temperature and a positive top-$k$ value are provided; since the default arguments are \texttt{temp=1, topk=0}, the top-$k$ condition evaluates to false and greedy decoding is used. As a consequence, every call to the LLM with the same prompt is fully deterministic and will always produce the same output.
+
 
 
 %-----------------------------------------------------------------------------%
 \section{SAT Solvers}
 \label{sec:satSolvers}
 %-----------------------------------------------------------------------------%
-A SAT solver is an algorithmic tool designed to solve the Boolean Satisfiability Problem, typically operating on CNF formulas. Modern state-of-the-art SAT solvers, such as CaDiCaL, utilize Conflict-Driven Clause Learning (CDCL), an algorithm that improves upon traditional backtracking by learning from conflicts to prune the search space efficiently. 
+A SAT solver is an algorithmic tool designed to solve the Boolean Satisfiability Problem, typically operating on CNF formulas. Modern state-of-the-art SAT solvers, such as CaDiCaL \citep{biere2024cadical}, utilize Conflict-Driven Clause Learning (CDCL), an algorithm that improves upon traditional backtracking by learning from conflicts to prune the search space efficiently. 
 
-In formal verification, SAT solvers are often used to prove entailment via refutation. To prove that a set of premises $P$ entails a query $Q$ ($P \vdash Q$), the solver checks the satisfiability of the negated query combined with the premises ($P \land \neg Q$). If the solver determines the formula is unsatisfiable (UNSAT), the entailment is formally proven. Furthermore, SAT solvers can extract the \textit{backbone} of a formula, which is defined as the set of literals that evaluate to true in every possible satisfying assignment of the formula.
+In formal verification, SAT solvers are often used to prove entailment via refutation. To prove that a set of premises $P$ entails a query $Q$ ($P \models Q$), the solver checks the satisfiability of the negated query combined with the premises ($P \land \neg Q$). If the solver determines the formula is unsatisfiable (UNSAT), the entailment is formally proven. Furthermore, SAT solvers can extract the \textit{backbone} of a formula, which is defined as the set of literals that evaluate to true in every possible satisfying assignment of the formula.
+
+For example, consider a SAT solver tasked with evaluating the CNF formula $(A \lor B) \land (\neg A \lor C) \land (\neg C)$. Through Boolean unit propagation, the solver first deduces that $C$ must be false to satisfy the third clause. Substituting this into the second clause leaves $\neg A$, meaning $A$ must be false. Finally, substituting $A$ as false into the first clause forces $B$ to be true. Thus, the solver determines the formula is satisfiable with the assignment $\{A=\text{False}, B=\text{True}, C=\text{False}\}$. In this scenario, because $B$ evaluates to true in every possible satisfying assignment, $B$ is a part of the formula's backbone.
 
 
 %-----------------------------------------------------------------------------%
 \section{Moral Reasoning and the ExplainEthics Dataset}
 \label{sec:moralReasoning}
 %-----------------------------------------------------------------------------%
-Moral reasoning in artificial intelligence often relies on Moral Foundations Theory (MFT). MFT proposes that human moral judgments are built upon several innate psychological foundations, typically categorized as Care/Harm, Fairness/Cheating, Loyalty/Betrayal, Authority/Subversion, Sanctity/Degradation, and Liberty/Oppression. 
+Moral reasoning capabilities and biases in language models are often measured using Moral Foundations Theory (MFT) \citep{abdulhai-etal-2024-moral, Ji2025MoralBench}. MFT proposes that human moral judgments are built upon several innate psychological foundations, typically categorized as Care/Harm, Fairness/Cheating, Loyalty/Betrayal, Authority/Subversion, Sanctity/Degradation, and Liberty/Oppression. 
 
-To evaluate an AI's ability to navigate these concepts, the ExplainEthics dataset was developed. ExplainEthics provides complex textual scenarios involving moral dilemmas. Each instance contains a context, a \textit{gold foundation} (the true underlying norm that was violated), and explanation fields detailing the reasoning behind the violation. This dataset is designed to test a model's ability to perform deep moral reasoning across varied and nuanced situations.
-
+To evaluate an AI's ability to navigate these concepts, the ExplainEthics dataset was developed \citep{quan2024enhancing}. ExplainEthics provides complex textual scenarios involving moral dilemmas. Each instance contains a context, a \textit{gold foundation} (the true underlying norm that was violated), and explanation fields detailing the reasoning behind the violation. This dataset is designed to test a model's ability to perform deep moral reasoning across varied and nuanced situations. An example of a single datapoint from this dataset can be seen in Section~\ref{sec:dataset-experiment}.
 
 %-----------------------------------------------------------------------------%
 \section{Abductive Reasoning with Generalization Over Symbolics (ARGOS)}
 \label{sec:argos}
 %-----------------------------------------------------------------------------%
-% Cover Algorithm 1 from the paper:
-%   1. Encode problem as SAT (pos/neg CNF polarity).
-%   2. Extract backbone (get_bb) → contested literals.
-%   3. Run get_sol (UNSAT check) → if conclusive, exit.
-%   4. Run CoT (self-consistency) → if confident, exit.
-%   5. Abduct new commonsense clause → inject into CNF → repeat.
-% Describe CLUTRR and ProntoQA as the original task domains.
-% Briefly contrast with the ExplainEthics adaptation studied in this thesis.
+Abductive Reasoning with Generalization Over Symbolics (ARGOS) \citep{cotnareanu2026balanced} is a balanced neurosymbolic framework designed to solve logic problems where essential commonsense information is missing. The ARGOS methodology operates in an iterative loop that dynamically integrates symbolic exactness with neural flexibility. Figure~\ref{fig:argos_pipeline} illustrates this overall pipeline.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{assets/pics/argos_pipeline.png}
+    \caption{The iterative neurosymbolic pipeline of the ARGOS framework.}
+    \label{fig:argos_pipeline}
+\end{figure}
+
+The pipeline begins by attempting to solve the problem deductively using a SAT solver. The problem's premises and the target query are encoded as a CNF formula. The SAT solver checks if the premises either entail the query ($P \vdash Q$) or its negation ($P \vdash \neg Q$). If this check is conclusive, the process terminates. If the problem is underdetermined, the SAT solver extracts the "backbone" of the formula---the set of literals implied by the current premises. 
+
+Next, ARGOS attempts to resolve the problem using the LLM via self-consistency sampling (k-shot CoT). The model evaluates the query based on the premises and any commonsense discovered so far. If the majority vote exceeds a certain confidence threshold, the process terminates with the LLM's conclusion. 
+
+If neither the SAT solver nor the LLM self-consistency check provides a conclusive, confident answer, ARGOS proceeds to the abduction phase. Guided by the extracted backbone literals, the LLM generates a new candidate commonsense clause (e.g., $L_1 \land L_2 \rightarrow L_{\text{right}}$). This proposed clause is then scored by the LLM twice: once for general commonsense validity (independent of the problem context) and once for specific contextual relevance. If both scores pass a defined threshold, the new clause is added to the premise pool, and the entire cycle repeats. Otherwise, we return the previous best guess generated by the LLM.
+
+Originally, ARGOS was evaluated on structured relational and logic datasets such as CLUTRR \citep{sinha-etal-2019-clutrr}, ProntoQA \citep{PrOntoQA}, and FOLIO \citep{han-etal-2024-folio}. These domains, while requiring abduction, are characterized by relatively clean, unambiguous entity-predicate relationships. For instance, CLUTRR involves deducing deterministic family relationships. In contrast, evaluating ARGOS on the ExplainEthics dataset \citep{quan-etal-2024-enhancing} introduces significant ambiguity. Moral violations often lack strict logical entailment structures, shifting the burden heavily onto the system's ability to abstract complex, culturally embedded narratives into rigid CNF clauses.
 
 %-----------------------------------------------------------------------------%
-\section{Theory Linkage}
-\label{sec:keterkaitan}
+\section{Summary}
+\label{sec:summary}
 %-----------------------------------------------------------------------------%
-% Connect all theories above back to the three research questions:
-% RQ1 (Domain Gap): propositional logic + moral reasoning theory explains
-%   why ExplainEthics CNFs are structurally different from CLUTRR.
-% RQ2 (Pipeline Bottleneck): abductive reasoning + LLM theory explains
-%   where the fill-in-the-blank generation fails.
-% RQ3 (CoT Compensation): LLM self-consistency + backbone grounding
-%   explains why accuracy still improves despite SAT failure.
+The theoretical foundations discussed in this chapter serve as the basis for understanding the subsequent chapters of this thesis. Specifically, this research evaluates the ARGOS abductive reasoning framework \citep{cotnareanu2026balanced} against the ExplainEthics dataset \citep{quan2024enhancing} to assess its capability in the domain of moral reasoning. Within the adapted ARGOS pipeline, natural language moral scenarios and explanations are first translated into propositional logic using Large Language Models (LLMs). We then utilize SAT solvers to formally determine whether the provided premises entail a specific moral norm violation. If the symbolic entailment fails or is inconclusive, the system falls back to the LLM to generate a neural prediction via self-consistency sampling. Furthermore, if this neural fallback fails to reach a predefined confidence threshold, the framework leverages the LLM abductively to hypothesize new, relevant commonsense premises, iterating the cycle until a conclusive moral judgment is reached. 
+
+The main difference between this research and the research done by the authors of ARGOS \citep{cotnareanu2026balanced} is that this research focuses on how the ARGOS framework can be implemented in the context of moral reasoning, particularly using the ExplainEthics dataset \citep{quan-etal-2024-enhancing}. Furthermore, this research also differs from the research done by the original authors of ExplainEthics. Initially, the authors of the ExplainEthics dataset used that dataset to assess how LLMs can help a backward-chaining solver automatically verify the logical correctness of ethical explanations, reduce redundancy, and generate missing premises via iterative symbolic refinement \citep{quan-etal-2024-enhancing}. In this research, we instead used LLMs to generate new commonsense clauses and used SAT solvers together with an LLM self-consistency solver to deduce whether a given norm is violated.

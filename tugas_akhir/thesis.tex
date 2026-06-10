@@ -106,6 +106,10 @@
 	% Lembar Pengesahan dari PDF lain (misal: generated oleh SISIDANG [Fasilkom])
 	%\putpdf{assets/pdfs/pengesahanSidang.pdf}
 	\ifodd\thechapterpagecount\forceclearchapter\thispagestyle{onlypage}\fi
+
+	\addChapter{Halaman Pernyataan Penggunaan Kecerdasan Artifisial}
+	\include{src/00-frontMatter/penggunaanKecerdasanArtifisial}
+	\ifodd\thechapterpagecount\forceclearchapter\thispagestyle{onlypage}\fi
 }}
 
 
@@ -155,7 +159,7 @@
 % Daftar Kode Program
 % Jika tidak digunakan, commment kode ini.
 %
-\addCustomListPage{\listoflistings}{\lstlistlistingname}
+% \addCustomListPage{\listoflistings}{\lstlistlistingname}
 
 
 %
@@ -247,4 +251,7 @@
 	\include{src/99-backMatter/lampiran}
 \end{appendix}
 
+\makeatletter
+\def\protected@file@percent{}
+\makeatother
 \end{document}

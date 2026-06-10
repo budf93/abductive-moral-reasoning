@@ -1,0 +1,235 @@
+\documentclass{beamer}
+\usepackage[ui,en]{collegeBeamer}
+\usepackage{booktabs}
+
+\definecolor{hrefcol}{RGB}{0, 0, 255} % Example: blue color
+
+% meta-data
+\title{On the Challenges of Neurosymbolic Abductive Inference
+for Moral Reasoning}
+\subtitle{Undergraduate Thesis}
+\author{\href{mailto:fikri.budianto@ui.ac.id}{Author: Fikri Budianto \\
+Supervisor: Ari Saptawijaya, S.Kom., M.Sc., Ph.D}}
+\date{Created 9 June 2026}
+
+% document body
+\begin{document}
+
+    \maketitle
+
+    % \begin{frame}
+    %     This template is a secondary creation of \bhref{https://www.overleaf.com/latex/templates/sintef-presentation/jhbhdffczpnx}{SINTEF Presentation} template from \bhref{mailto:federico.zenith@sintef.no}{Federico Zenith} \vspace{\baselineskip}
+
+    %     Following is a brief introduction written by \bhref{mailto:federico.zenith@sintef.no}{Federico Zenith} about how to use \LaTeX\ and beamer to prepare slides. All rights reserved by him\vspace{\baselineskip}
+
+    %     This template is released under \bhref{https://creativecommons.org/licenses/by-nc/4.0/legalcode}{Creative Commons CC BY 4.0} license
+    % \end{frame}
+
+    \section{Introduction}
+
+    \begin{frame}{The Rise and Limitations of LLMs}
+        \begin{itemize}
+            \item Large Language Models (LLMs) have demonstrated dramatic improvements in reasoning and language understanding, becoming highly prevalent across diverse domains.
+            \item \textbf{The Black-Box Problem:} Despite their impressive capabilities, LLMs struggle to formally and reliably explain their own internal reasoning.
+            \item When an LLM generates an erroneous, biased, or illogical decision, this lack of transparency prevents developers from understanding the precise logical failures that led to the mistake.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Neurosymbolic AI and Abductive Reasoning}
+        \begin{itemize}
+            \item \textbf{Neurosymbolic AI:} An emerging paradigm that tackles the black-box problem by integrating the linguistic flexibility of LLMs with the rigorous, mathematical precision of symbolic logic solvers (e.g., SAT solvers).
+            \item \textbf{The Deductive Bottleneck:} Most existing neurosymbolic frameworks are strictly deductive. They cannot infer missing, implicit commonsense facts that are necessary to complete a logical proof.
+            \item \textbf{ARGOS} (\textit{Abductive Reasoning with Generalization Over Symbolics}) was recently developed to overcome this by dynamically abducing (inferring) missing facts to bridge the gap between explicit premises and the target conclusion.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Applying ARGOS to Moral Reasoning}
+        \begin{itemize}
+            \item While ARGOS excels in structured, objective logical environments (e.g., family trees, block puzzles), its effectiveness in \textbf{moral reasoning} remains untested.
+            \item Unlike standard deductive logic, moral reasoning is subjective, culturally nuanced, and difficult to translate into rigid first-order logic.
+            \item \textbf{Objective:} To investigate how neurosymbolic approaches (in this case, ARGOS) fare against moral reasoning tasks.
+            \item We selected the \textbf{ExplainEthics} dataset because it provides built-in explanations for each moral dilemma, which serves as a rich contextual foundation for ARGOS to abduce the missing logical facts.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Research Questions}
+        To evaluate how ARGOS fares in the domain of moral reasoning, this research aims to answer the following questions:
+        \vspace{0.5cm}
+        \begin{block}{RQ1: Adaptation}
+            How is the ARGOS neurosymbolic pipeline implemented and adapted to handle subjective moral reasoning tasks?
+        \end{block}
+        \begin{block}{RQ2: Performance Comparison}
+            How does the adapted ARGOS pipeline perform compared to standard baseline Chain-of-Thought (CoT) methods on the ExplainEthics dataset?
+        \end{block}
+    \end{frame}
+
+    \section{Experiment}
+
+    \begin{frame}{Experiment Overview}
+        In this research, we conducted five primary experiments to thoroughly evaluate the ARGOS pipeline:
+        \vspace{0.25cm}
+        \begin{enumerate}
+            \item \textbf{Overall Accuracy:} Comparing ARGOS against standard baseline CoT prompting.
+            \item \textbf{Per-Norm Accuracy:} Breaking down performance across six distinct moral norms.
+            \item \textbf{Resolution Pathways:} Analyzing how and where the pipeline successfully resolves queries.
+            \item \textbf{Ablation Study:} Disabling the early CoT exit ($\gamma=1.3$) to force abductive generation.
+            \item \textbf{Language Model Impact:} Comparing performance across Llama-3, Mistral, and Qwen models.
+        \end{enumerate}
+    \end{frame}
+
+    \begin{frame}{1. Overall Accuracy Results}
+        We compared the ARGOS pipeline against a 3-shot Self-Consistency Chain-of-Thought (CoT) baseline using \texttt{meta-llama/Llama-3.1-8B-Instruct}.
+        \vspace{0.5cm}
+        \begin{table}
+            \centering
+            \begin{tabular}{lcc}
+                \toprule
+                \textbf{Model Configuration} & \textbf{Accuracy} & \textbf{F1 Score} \\
+                \midrule
+                Baseline CoT & 0.275 & 0.111 \\
+                \textbf{ARGOS ($\tau=0.3$)} & \textbf{0.609} & \textbf{0.803} \\
+                \bottomrule
+            \end{tabular}
+        \end{table}
+        \vspace{0.3cm}
+        \begin{itemize}
+            \item The neurosymbolic integration effectively doubled the performance compared to relying purely on neural reasoning.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{2. Per-Norm Accuracy Breakdown}
+        Moral reasoning is highly context-dependent. The table below details how ARGOS handles distinct moral norms.
+        \vspace{0.2cm}
+        \begin{table}
+            \centering
+            \begin{tabular}{lc}
+                \toprule
+                \textbf{Moral Norm} & \textbf{Accuracy} \\
+                \midrule
+                Violate Liberty & 1.000 \\
+                Violate Fairness & 0.722 \\
+                Violate Sanctity & 0.684 \\
+                Violate Authority & 0.680 \\
+                Violate Care & 0.528 \\
+                Violate Loyalty & 0.500 \\
+                \bottomrule
+            \end{tabular}
+        \end{table}
+    \end{frame}
+
+    \begin{frame}{3. Resolution Pathways}
+        Out of 145 total queries, \textbf{7 queries} failed entirely due to natural language translation errors. The remaining \textbf{138 queries} were resolved as follows:
+        \vspace{0.3cm}
+        \begin{table}
+            \centering
+            \begin{tabular}{lrr}
+                \toprule
+                \textbf{Resolution Pathway} & \textbf{Count} & \textbf{Accuracy} \\
+                \midrule
+                Pre-solved by SAT & 10 & 100.0\% \\
+                Resolved by Backbone & 0 & N/A \\
+                Resolved by Neural Fallback & 128 & 65.6\% \\
+                \bottomrule
+            \end{tabular}
+        \end{table}
+    \end{frame}
+
+    \begin{frame}{4. Ablation Study: Disabling Early Exit}
+        We set $\gamma=1.3$ (disabling early CoT exit) on an 18-query subset to force abductive generation.
+        \vspace{0.5cm}
+        \begin{table}
+            \centering
+            \begin{tabular}{lc}
+                \toprule
+                \textbf{Model Configuration} & \textbf{Accuracy} \\
+                \midrule
+                Baseline CoT & 33.3\% \\
+                \textbf{ARGOS ($\gamma=1.3$)} & \textbf{50.0\%} \\
+                \bottomrule
+            \end{tabular}
+        \end{table}
+        \vspace{0.3cm}
+        \begin{itemize}
+            \item Even when forced into the symbolic fallback loop, ARGOS successfully guides the model to outperform the baseline.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{5. Impact of Language Model}
+        We tested different open-weights models on the 18-query ablation subset to ensure results are not architecture-specific.
+        \vspace{0.2cm}
+        \begin{table}
+            \centering
+            \begin{tabular}{lc}
+                \toprule
+                \textbf{Language Model} & \textbf{Accuracy} \\
+                \midrule
+                \textbf{Qwen/Qwen2.5-Coder-7B} & \textbf{61.1\%} \\
+                Llama-3.1-8B-Instruct & 50.0\% \\
+                Mistral-7B-Instruct & 44.4\% \\
+                \midrule
+                \textit{Baseline CoT (Self-Consistency)} & \textit{33.3\%} \\
+                \bottomrule
+            \end{tabular}
+        \end{table}
+    \end{frame}
+
+    \section{Discussion}
+
+    \begin{frame}{Discussion: The Domain Gap}
+        Based on the experiment results, we observed that formal entailment often failed due to the differences between logical reasoning datasets (e.g. CLUTRR, ProntoQA) and moral reasoning datasets (e.g ExplainEthics). This stems from two main causes:
+        \vspace{0.25cm}
+        \begin{block}{1. Differences in Logical Structure}
+            Unlike standard datasets that use explicit entities in first-order logic to restrict search spaces, moral reasoning, specifically ExplainEthics, relies on unquantifiable \textbf{propositional logic}. This drastically inflates the search space, causing the LLM to generate aimless intermediate rules.
+        \end{block}
+        \begin{block}{2. Subjective Commonsense Beliefs}
+            "Commonsense" is subjective. Different LLMs interpret the exact same factual scenario through entirely different conceptual lenses---ranging from nuanced logical steps to immediate, rigid moral categorizations.
+        \end{block}
+    \end{frame}
+
+    \begin{frame}{Discussion: Pipeline Bottlenecks}
+        Because formal entailment struggles with this domain gap, the burden of solving the task falls heavily on the neural fallback mechanism, which introduces a critical bottleneck:
+        \vspace{0.25cm}
+        \begin{itemize}
+            \item \textbf{Early CoT Exit via False Overconfidence:} 
+            The self-consistency evaluation in the fallback relies on stochastic divergence. However, our generation setup (\texttt{temperature=1}, \texttt{top\_k=0}) forced deterministic greedy decoding.
+            \item This caused all generated reasoning paths to converge identically, artificially inflating the confidence score to its maximum value. 
+            \item This unanimous vote reliably triggered the early exit condition, prematurely terminating the abductive generation loop and starving the symbolic engine.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Discussion: CoT Fallback Performance}
+        Despite failing to formally resolve queries via the SAT solver, the neurosymbolic loop is not strictly a failure:
+        \vspace{0.5cm}
+        \begin{itemize}
+            \item \textbf{Contextual Enrichment:} The newly abducted premises, even when failing to trigger a formal proof, provide enriched contextual information for the neural fallback.
+            \item \textbf{Improved Accuracy:} Compared to a vanilla Chain-of-Thought approach, this additional information significantly enhances the reasoning capabilities of the language model.
+            \item \textbf{Takeaway:} ARGOS effectively acts as a powerful context-generation engine that improves overall predictive accuracy, independent of formal SAT resolution.
+        \end{itemize}
+    \end{frame}
+
+    \section{Conclusion}
+
+    \begin{frame}{Conclusion}   
+        Based on our investigation into the ARGOS neurosymbolic pipeline for moral reasoning, we conclude our research by answering our research question:
+        \\
+        RQ1: How is ARGOS implemented and adapated to moral reasoning tasks? 
+        \begin{itemize}
+            \item The implementation of ARGOS remains largely the same as the original design, but with two major adaptations.
+            \item Unlike the original datasets for which ARGOS was designed, the ExplainEthics dataset lacks explicit quantifiers, hence we choose propositional logic for logical representation
+            \item Since we are using propositional logic, we iterate over all pairs of clauses to generate a new commonsense clause 
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Conclusion}   
+        RQ2: How does the adapted ARGOS pipeline perform compared to baseline Chain-of-Thought (CoT) methods on the ExplainEthics dataset?
+        \begin{itemize}
+            \item The adapted ARGOS pipeline demonstrates improved performance in predicting norm violations compared to the baseline Chain-of-Thought (CoT) method.
+            \item This improvement is driven by the neuro-symbolic architecture’s ability to iteratively generate explicit commonsense clauses, which provide additional structured information for the logical reasoner.
+            \item However, since we're using propositional logic, the search space for generating new clauses becomes very large which makes it difficult to reliably generate a new clause that converges directly toward the target query
+            \item Also, since LLMs subjective commonsense assumptions, this also makes it difficult to generate clauses that directs toward the target query.
+        \end{itemize}
+    \end{frame}
+
+    \QApage
+
+\end{document}

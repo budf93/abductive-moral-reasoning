@@ -3,62 +3,117 @@
 \label{bab:5}
 %-----------------------------------------------------------------------------%
 
-In this chapter, we analyze and discuss the experimental results presented in Chapter~\ref{bab:4}, organized around the three research questions defined in Chapter~\ref{bab:1}.
+In this chapter, we analyze and discuss the experimental results presented in Chapter~\ref{bab:4}.
 
 
 %-----------------------------------------------------------------------------%
-\section{RQ1 Analysis: The Domain Gap}
+\section{The Domain Gap}
 \label{sec:rq1Analysis}
 %-----------------------------------------------------------------------------%
-% Why moral CNFs have too few variables for meaningful backbone narrowing
-% Open-textured norms vs closed-world relational facts
-Based on the experimental results, ARGOS was unable to abduct new premises $C$ that would enable the SAT solver to formally determine whether $P \land C \vdash Q$ or $P \land C \nvdash Q$. We attribute this limitation to two primary factors: the inherent differences between the ExplainEthics dataset and deductive datasets such as CLUTRR or ProntoQA, and the subjective nature of commonsense beliefs. These variations in commonsense reasoning yield differing moral understandings, which in turn generate defensible but ultimately incompatible premises and conclusions.  
+Based on the experimental results, ARGOS was unable to abduct new premises $C$ that would enable the SAT solver to formally determine whether $P \land C \vdash Q$ or $P \land C \nvdash Q$. We attribute this limitation to two primary factors: the inherent differences between the ExplainEthics dataset and deductive datasets such as CLUTRR \citep{sinha-etal-2019-clutrr} or ProntoQA \citep{PrOntoQA}, and the subjective nature of commonsense beliefs. These variations in commonsense reasoning yield differing moral understandings, which in turn generate justifiable but ultimately incompatible premises and conclusions.  
 
 \subsection{Differences in Logical Structure}
 \label{sec:differencesInStructure}
 
-In CLUTRR and ProntoQA, premises are expressed using first-order logic. The quantifiable nature of these premises simplifies the generation of new rules by allowing the search space to be restricted. Specifically, the system can select literals $L_1$ and $L_2$ that share the most entities with other literals in the backbone. While a newly generated rule may introduce an entirely new relation, it is highly unlikely to introduce completely new entities.
+In CLUTRR \citep{sinha-etal-2019-clutrr} and ProntoQA \citep{PrOntoQA}, premises are expressed using first-order logic. The quantifiable nature of these premises simplifies the generation of new rules by allowing the search space to be restricted. Specifically, the system can select literals $L_1$ and $L_2$ that share the most entities with other literals in the backbone. While a newly generated rule may introduce an entirely new relation, it is highly unlikely to introduce completely new entities.
 
-In contrast, the ExplainEthics dataset encodes premises primarily using propositional logic. The unquantifiable nature of propositional logic makes it significantly more difficult to find a valid rule $L_{right}$ such that $P \land L_{right} \vdash Q$ or $P \land L_{right} \nvdash Q$. Without explicit entities to restrict the universe of discourse, the language model is prone to generating new premises that stray too far from the original norm violation query. Consequently, the inability of the language model to abduct a premise that allows the SAT solver to formally evaluate $P \land L_{right} \vdash Q$ or $P \land L_{right} \nvdash Q$ forces the pipeline to default to the \texttt{llm\_solve} fallback.
+In contrast, the ExplainEthics dataset encodes premises primarily using propositional logic. The unquantifiable nature of propositional logic makes it significantly more difficult to find a valid commonsense clause $C$ such that $P \land C \vdash Q$ or $P \land C \nvdash Q$. Without explicit entities to restrict the universe of discourse, the language model is prone to generating new premises that stray too far from the original norm violation query. Furthermore, as highlighted by the limitations discussed in Logic-LM \citep{pan2023logic}, not all complex problems can be easily or naturally encoded into first-order logic.
+
+This fundamental domain shift leads directly to the inability of the LLM to generate clauses that direct towards the query. Because propositional logic inflates the search space dramatically, the LLM frequently generates highly logical, semantically sound intermediate rules based on the facts that nonetheless wander aimlessly. This phenomenon is illustrated in the following commonsense clause generation based on the scenario below:
+
+\begin{quote}
+\textbf{Context:} \textit{I was bored and dug a hole to create a cellar in city park.} \\
+\textbf{Explanation:} \textit{Digging a hole in a city park to create a cellar is not a permitted activity. The city government is an institution of authority. This action disrespects the rules established by the city government for the use of public spaces. There is a disobedience towards an institution or symbol of authority.} \\
+\textbf{Query:} \textit{Does this violate authority?}
+\end{quote}
+
+\begin{verbatim}
++ If [digging_hole_in_city_park and disobedience_towards_authority] 
+  then [disorderliness] 
++ If [digging_hole_in_city_park and disrespect_rules] 
+  then [violate_rules] 
++ If [disobedience_towards_authority and disrespect_rules] 
+  then [disregard_authority] 
+\end{verbatim}
+
+To a human reader, clauses such as \texttt{disregard\_authority} or \texttt{violate\_rules} are clearly synonymous with, or strongly entail, the target norm \texttt{violate\_authority}. However, because these generated clauses do not perfectly match the exact mathematical representation of the target variable in the DIMACS formula, the SAT solver mints them as entirely new, isolated variables (e.g., assigning \texttt{disorderliness} to ID 8, \texttt{violate\_rules} to ID 9, and so on). 
+
+It is crucial to emphasize that the fault here is not the inability of the SAT solver to detect similar words, as performing strict symbolic matching is the core nature of a SAT solver. Rather, the fault lies exclusively in the use of propositional logic itself, which causes the search space to be far too large. Without explicit variables or entities to constrain the logic, the language model is unable to strategically navigate this vast space to selectively generate a clause that intersects with the query. Ultimately, this inability of the LLM to converge toward the target query forces the pipeline to default to the \texttt{llm\_solve} fallback.
 
 \subsection{Subjective Commonsense Beliefs}
 \label{sec:subjectiveBeliefs}
 
-jangan lupa uji pake llm lain
+There could be multiple $C$ premises that are justifiable and could be considered valid commonsense arguments by different people. However, this divergence often leads the pipeline to a conclusion that conflicts with the rigid ground truth label defined in the ExplainEthics dataset. Consequently, an abducted premise that is logically sound and comprehensible to a human may still cause the SAT solver to fail in proving the specific ground truth expected by the dataset's authors. 
 
-Unlike the CLUTRR and ProntoQA datasets, which are strictly logical reasoning problems where the definition of commonsense is relatively unambiguous, ExplainEthics focuses on moral reasoning. This means that what is considered "commonsense" is highly subjective and depends heavily on the context and background knowledge of the evaluator. 
+To illustrate this subjectivity empirically, we examine how three different language models behave when tasked with generating commonsense rules for the exact same initial backbone. Consider the following scenario from the $\gamma=1.3$ ablation subset:
 
-For example, in a CLUTRR scenario, if $L_1$ is \texttt{relation(Alan, Annie) = (father, daughter)} and $L_2$ is \texttt{relation(Alan, James) = (brother, brother)}, the only valid commonsense conclusion is that $L_{right}$ must be \texttt{relation(James, Annie) = (uncle, niece)}. There is no ambiguity in this deductive step. 
+\begin{quote}
+\textbf{Context:} \textit{When I went to the bank, I covered my face with a mask to prevent getting caught by the authorities.} \\
+\textbf{Explanation:} \textit{Covering your face with a mask to avoid getting caught by the authorities indicates a potential violation of a law or regulation. This act disrespects and disobeys the institution of authority, in this case, the bank and the legal authorities.} \\
+\textbf{Query:} \textit{Does this violate authority?}
+\end{quote}
 
-In contrast, consider an ExplainEthics scenario involving a helpless animal, where $L_1$ is \texttt{could\_not\_drink\_on\_own} and $L_2$ is \texttt{feeding\_kitten\_to\_dog}. To determine whether this violates the Care norm, a language model must generate an intermediate commonsense premise $L_{right}$. Based on subjective moral frameworks, $\text{LLM}_1$ could conclude that $L_{right} = \texttt{action\_caused\_unnecessary\_cruelty}$, which directly leads to a \texttt{violate\_care} conclusion. Meanwhile, under a different utilitarian or pragmatic lens, $\text{LLM}_2$ could conclude that $L_{right} = \texttt{action\_prevented\_prolonged\_starvation}$, leading to a defensible argument that the Care norm was not maliciously violated. 
+Through declarative prompting, this natural language scenario is translated into the initial logical backbone of the SAT solver and then we extract the relevant facts, yielding the variables \texttt{covering\_face\_with\_mask}, \texttt{disobeying\_authority}, and \texttt{potential\_violation\_of\_law}, alongside the target query \texttt{violate\_authority}.
 
-Both generated $L_{right}$ premises are defensible and could be considered valid commonsense arguments by different people. However, this divergence often leads the pipeline to a conclusion that conflicts with the rigid ground truth label defined in the ExplainEthics dataset. Consequently, an abducted premise that is logically sound and comprehensible to a human may still cause the SAT solver to fail in proving the specific ground truth expected by the dataset's authors. 
+The Llama-3.1-8B-Instruct model constructs a nuanced, multi-step logical chain. It infers that disobeying authority while covering one's face implies \texttt{disobedience}, and that doing so while potentially violating the law implies an \texttt{illegal\_activity}. In the subsequent commonsense clause generation iteration, it connects these new premises to infer \texttt{concealment} and \texttt{criminal\_activity}:
+
+\begin{verbatim}
+ITERATION 1 (Llama-3.1-8B)
++ If [covering_face_with_mask and disobeying_authority] 
+  then [disobedience]
++ If [covering_face_with_mask and potential_violation_of_law] 
+  then [illegal_activity]
+
+ITERATION 2 (Llama-3.1-8B)
++ If [covering_face_with_mask and illegal_activity] 
+  then [concealment]
++ If [potential_violation_of_law and illegal_activity] 
+  then [criminal_activity]
+\end{verbatim}
+
+In contrast, Mistral-7B-Instruct demonstrates a strong bias toward immediate, broad moral judgments rather than stepping through intermediate logical states. Regardless of which two premises are combined, it uniformly concludes that the action implies \texttt{violate\_fairness}:
+
+\begin{verbatim}
+ITERATION 1 (Mistral-7B)
++ If [covering_face_with_mask and disobeying_authority] 
+  then [violate_fairness]
++ If [covering_face_with_mask and potential_violation_of_law] 
+  then [violate_fairness]
++ If [disobeying_authority and potential_violation_of_law] 
+  then [violate_fairness]
+\end{verbatim}
+
+Meanwhile, Qwen-7B attempts to jump to the abstract concept of \texttt{violate\_respect}, but these generated rules are deemed implausible by the pipeline's internal \texttt{rule\_check} mechanism and are rejected entirely, resulting in no new valid variables being injected into the SAT formula:
+
+\begin{verbatim}
+ITERATION 1 (Qwen-7B)
+[next_var] fill-in-blank result: covering_face_with_mask AND 
+           disobeying_authority -> violate_respect
+[rule_check] rejected by context ... score=0.1191
+
+[next_var] fill-in-blank result: covering_face_with_mask AND 
+           potential_violation_of_law -> violate_respect
+[rule_check] rejected by plausibility ... score=6.1393e-06
+\end{verbatim}
+
+These execution traces demonstrate that "commonsense" is highly subjective across different language models. They interpret the exact same factual scenario through entirely different conceptual lenses---ranging from nuanced logical steps to immediate, rigid moral categorizations. This inherent subjectivity explains the high variance in the pipeline's overall abductive performance when utilizing different underlying models. These findings are consistent with recent research by \citet{aksoy2024morality}, which demonstrates that the composition of a language model's training data heavily impacts its generated moral judgments and commonsense priors. Furthermore, this aligns with the observations of \citet{cotnareanu2026abductive}, who highlight that neurosymbolic frameworks often incorrectly assume universal agreement on missing commonsense assumptions, whereas in reality, commonsense beliefs vary significantly across individuals and, by extension, language models.
 %-----------------------------------------------------------------------------%
-\section{RQ2 Analysis: Pipeline Bottlenecks}
+%-----------------------------------------------------------------------------%
+\section{Pipeline Bottlenecks}
 \label{sec:rq2Analysis}
 %-----------------------------------------------------------------------------%
-The bottlenecks encountered in the adapted ARGOS pipeline are two-fold. First, the inherent rigidity of the SAT solver prevents it from recognizing semantic similarities between generated premises, treating synonymous concepts as entirely separate boolean variables. This prevents the solver from concluding whether $P \land L_{right} \vdash Q$ or $P \land L_{right} \nvdash Q$. Second, the neural fallback mechanism, \texttt{llm\_solve}, frequently returns highly confident scores early in the execution loop, which prematurely terminates the pipeline and prevents \texttt{find\_new\_commonsense} from generating new rules.
+As established in the previous section, the primary failure of formal entailment stems from the language model's inability to navigate the vast propositional search space. Consequently, the burden of solving the moral reasoning tasks frequently falls on the neural fallback mechanism. However, the execution of this fallback introduces a significant pipeline bottleneck of its own.
+
+
+
+The second bottleneck preventing SAT resolution is overconfidence of the LLM in inferring a norm violation. In the ARGOS pipeline, before abducting a new premise via \texttt{find\_new\_commonsense}, the system evaluates the current confidence of the neural fallback, \texttt{llm\_solve}.
+
+In the ExplainEthics dataset, \texttt{llm\_solve} often returns highly confident probabilities (e.g., $p > 0.90$) for a specific moral violation immediately at the start of the loop. If the confidence score exceeds the threshold $\gamma$ (e.g., 0.8), the algorithm triggers an early exit. While this mechanism is efficient and saves computational resources, it inadvertently starves the symbolic engine because the LLM is artificially overconfident in its neural reasoning. 
+
+This overconfidence stems from a breakdown in the self-consistency sampling mechanism. The underlying assumption of self-consistency is that divergent reasoning paths which converge to the same answer indicate a high probability of correctness, as it is unlikely for divergent stochastic thinking to converge identically unless the answer is right \citep{wang2022selfconsistency}. However, as detailed in Section~\ref{sec:modelsAndBaselines}, our generation configuration explicitly prevented this stochastic divergence. Setting \texttt{temperature=1} maintains the model's natural probability distribution, which, given the rich explanation premises in the prompt, is already heavily skewed toward high-probability events. This skew makes the model inherently overconfident in any single vote. Furthermore, because we set \texttt{top\_k=0}, the system disables sampling entirely and forces deterministic greedy decoding. Instead of drawing the next token $w_t$ from the conditional probability distribution $P(w_t \mid p_{1:n}, w_{1:t-1}; \theta)$, the model strictly selects the token with the highest predicted probability at every step. While the probability skew makes the model overconfident in a single vote, the use of greedy search ensures that we are always overconfident across all votes, as every generated path invariably yields the exact same sequence of tokens. Consequently, all reasoning paths converge identically, resulting in a unanimous majority vote that artificially inflates the confidence score to its maximum value. This false overconfidence reliably triggers the early CoT exit condition, thereby prematurely terminating the process and preventing the iterative abductive generation loop from functioning.
 
 %-----------------------------------------------------------------------------%
-\subsection{Variable Grounding Failure}
-\label{sec:variableGrounding}
-%-----------------------------------------------------------------------------%
-The first major bottleneck is variable grounding failure caused by the strict syntactic matching of the SAT solver. Unlike language models that can process semantic equivalence, SAT solvers operate on rigid symbolic representations. 
-
-For example, if the initial problem context establishes a literal $v_1 = \texttt{caused\_pain}$ as true in the backbone, the language model might attempt to abduct a new rule such as $\texttt{inflicted\_suffering} \rightarrow \texttt{violate\_care}$. While a human or an LLM understands that \texttt{caused\_pain} and \texttt{inflicted\_suffering} are semantically identical, the SAT solver registers \texttt{inflicted\_suffering} as an entirely new, unassigned boolean variable $v_2$. Because $v_1$ and $v_2$ do not syntactically match, the newly injected rule does not interact with the existing backbone facts. Consequently, the SAT solver cannot narrow the backbone or deduce a formal proof, rendering the abducted premise useless for formal entailment.
-
-%-----------------------------------------------------------------------------%
-\subsection{Early CoT Exit}
-\label{sec:earlyCotExit}
-%-----------------------------------------------------------------------------%
-The second bottleneck preventing SAT resolution is the threshold mechanism designed to balance symbolic and neural reasoning. In the ARGOS pipeline, before abducting a new premise via \texttt{find\_new\_commonsense}, the system evaluates the current confidence of the neural fallback, \texttt{llm\_solve}.
-
-In the ExplainEthics dataset, \texttt{llm\_solve} often returns highly confident probabilities (e.g., $p > 0.90$) for a specific moral violation immediately at the start of the loop. If the confidence score exceeds the threshold $\tau_{cot}$ (e.g., 0.8), the algorithm triggers an early exit. While this mechanism is efficient and saves computational resources, it inadvertently starves the symbolic engine. Because the LLM is overwhelmingly confident in its neural reasoning, the pipeline simply bypasses the abductive generation loop entirely, explaining why the SAT solver resolves so few queries.
-
-
-
-%-----------------------------------------------------------------------------%
-\section{RQ3 Analysis: Why CoT Still Wins}
+\section{CoT Fallback Performance}
 \label{sec:rq3Analysis}
 %-----------------------------------------------------------------------------%
-Even though the SAT solver is unable to formally deduce the satisfiability of the query, the ARGOS pipeline still yields an increased accuracy in inferring norm violations. This improvement is primarily due to the backbone-grounded nature of the neural fallback mechanism. The newly abducted premises, even when failing to trigger a formal proof, provide enriched contextual information for \texttt{llm\_solve}. Compared to a vanilla Chain-of-Thought approach, this additional grounded information enhances the reasoning capabilities of the language model, thereby improving the overall predictive accuracy of the pipeline independent of SAT resolution.
+As discussed in Section~\ref{sec:backboneConvergence}, 10 queries were resolved by the SAT solver strictly due to a translation artifact that pre-solved the query. As stated in Section~\ref{sec:argosVsBaselines}, this artifact occurs when the natural language translation of the premises inadvertently contains the target query, leading to a trivial entailment $(P_1 \land P_2 \land \dots \land P_n \land Q) \vdash Q$. Because this bypasses the abductive reasoning process entirely, evaluating the neurosymbolic loop requires isolating the remaining 128 queries. For these remaining queries, even though the SAT solver is unable to formally deduce the satisfiability of the query, the ARGOS pipeline still yields an increased accuracy in inferring norm violations. The newly abducted premises, even when failing to trigger a formal proof, provide enriched contextual information for \texttt{llm\_solve}. Compared to a vanilla Chain-of-Thought approach, this additional information enhances the reasoning capabilities of the language model, thereby improving the overall predictive accuracy of the pipeline independent of SAT resolution.
